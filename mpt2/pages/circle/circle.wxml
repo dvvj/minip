@@ -1,0 +1,4 @@
+<!--pages/circle/circle.wxml-->
+<view class="container">
+  <text>text: {{time}}</text>
+</view>

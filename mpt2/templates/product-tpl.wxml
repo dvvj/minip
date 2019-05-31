@@ -1,0 +1,8 @@
+<template name="productTmpl">
+  <view class="imgbox" bindtap="onTap" data-item="{{id}}">
+    <image class="product_img" src="/images/product1.png" />
+    <view class="product_desc">
+      <text>{{name}}</text>
+    </view>
+  </view>
+</template>

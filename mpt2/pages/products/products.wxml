@@ -1,0 +1,9 @@
+<!--pages/products/products.wxml-->
+<import src="../../templates/product-tpl.wxml"/>
+<view class="imgbox_container">
+  <block wx:for="{{products}}" wx:key="id">
+    <view bindtap='onTap'>
+      <template is="productTmpl" data="{{...item}}" />
+    </view>
+  </block>
+</view>

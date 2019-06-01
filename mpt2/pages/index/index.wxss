@@ -5,6 +5,15 @@
   align-items: center;
 }
 
+.shortbutton {
+  width: 10%;
+  display: inline-flex;
+}
+.shortslider {
+  width: 70%;
+  display: inline-block;
+}
+
 .userinfo-avatar {
   width: 128rpx;
   height: 128rpx;

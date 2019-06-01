@@ -10,6 +10,15 @@ Page({
   onBuy: function(e) {
     console.log('onBuy: ', e)
   },
+  onAdd: function () {
+    var newVal = this.data.sliderValue + 1
+    this.setData({ sliderValue: newVal })
+  },
+  onMinus: function () {
+    var newVal = this.data.sliderValue - 1
+    this.setData({ sliderValue: newVal })
+  },
+
   /**
    * Lifecycle function--Called when page load
    */

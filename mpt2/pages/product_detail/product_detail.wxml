@@ -1,8 +1,14 @@
 <!--pages/product_detail/product_detail.wxml-->
-<view>
-  <image src="../../images/product1.png" />
+<view class="imgbox_detailed">
+  <image class="product_img_detailed" src="../../images/product1.png" />
   <text>{{productName}}</text>
   <text>{{productPrice}}</text>
+</view>
+<view>
+        <button class='shortbutton' bindtap='onMinus'>-</button>
+  <slider class='shortslider' bindchange='sliderChange' min="{{min}}" max="{{max}}" value='{{sliderValue}}' show-value />
+        <button class='shortbutton' bindtap='onAdd'>+</button>
+</view>
+<view>
   <button bindtap='onBuy'>buy</button>
 </view>
-

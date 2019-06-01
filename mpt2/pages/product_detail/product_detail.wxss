@@ -1,1 +1,25 @@
 /* pages/product_detail/product_detail.wxss */
+
+.product_img_detailed {
+  width: 720rpx;
+  height: 720rpx;
+  border: 1px solid rgb(250, 250, 250);
+}
+
+.imgbox_detailed {
+  width: 740rpx;
+  height: 740rpx;
+  display: inline-block;
+  padding: 15rpx 15rpx;
+  background-color: rgb(255, 255, 255); //todo
+}
+
+
+.shortbutton {
+  width: 10%;
+  display: inline-flex;
+}
+.shortslider {
+  width: 70%;
+  display: inline-block;
+}

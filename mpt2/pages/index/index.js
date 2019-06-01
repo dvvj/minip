@@ -14,7 +14,18 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     time: (new Date()).toString(),
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    min: 1,
+    max: 100,
+    sliderValue: 2
+  },
+  onAdd: function () {
+    var newVal = this.data.sliderValue + 1
+    this.setData({ sliderValue: newVal })
+  },
+  onMinus: function () {
+    var newVal = this.data.sliderValue - 1
+    this.setData({ sliderValue: newVal })
   },
   //事件处理函数
   bindViewTap: function() {

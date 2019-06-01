@@ -1,2 +1,8 @@
 <!--pages/product_detail/product_detail.wxml-->
-<text>pages/product_detail/product_detail.wxml</text>
+<view>
+  <image src="../../images/product1.png" />
+  <text>{{productName}}</text>
+  <text>{{productPrice}}</text>
+  <button bindtap='onBuy'>buy</button>
+</view>
+

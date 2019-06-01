@@ -7,7 +7,9 @@ Page({
   data: {
 
   },
-
+  onBuy: function(e) {
+    console.log('onBuy: ', e)
+  },
   /**
    * Lifecycle function--Called when page load
    */
@@ -16,6 +18,10 @@ Page({
     var selectedProduct = wx.getStorageSync(selectedProductKey)
     wx.removeStorageSync(selectedProductKey)
     console.log(selectedProductKey, selectedProduct)
+    this.setData({
+      productName: selectedProduct.name,
+      productPrice: selectedProduct.price0
+    })
   },
 
   /**

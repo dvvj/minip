@@ -5,10 +5,10 @@
   <text>{{productPrice}}</text>
 </view>
 <view>
-        <button class='shortbutton' bindtap='onMinus'>-</button>
+        <button class='shortbutton' bindtap='onMinus'>减 1</button>
   <slider class='shortslider' bindchange='sliderChange' min="{{min}}" max="{{max}}" value='{{sliderValue}}' show-value />
-        <button class='shortbutton' bindtap='onAdd'>+</button>
+        <button class='shortbutton' bindtap='onAdd'>加 1</button>
 </view>
 <view>
-  <button bindtap='onBuy'>buy</button>
+  <button bindtap='onBuy'>下单</button>
 </view>

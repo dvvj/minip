@@ -10,6 +10,7 @@ Page({
       { id: 3, unique: 'unique_3' },
       { id: 0, unique: 'unique_0' },
     ],
+    years:[2001, 2002, 2003, 2004],
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
@@ -18,6 +19,12 @@ Page({
     min: 1,
     max: 100,
     sliderValue: 2
+  },
+  selectYear: function(e) {
+    console.log('in selectYear: ', e)
+    const selected = e.detail.value
+
+    this.setData({year: this.data.years[selected[0]]})
   },
   onAdd: function () {
     var newVal = this.data.sliderValue + 1

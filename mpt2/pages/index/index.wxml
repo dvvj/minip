@@ -8,9 +8,13 @@
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
   </view>
-        <button class='shortbutton' bindtap='onMinus'>-</button>
-  <slider class='shortslider' bindchange='sliderChange' min="{{min}}" max="{{max}}" value='{{sliderValue}}' show-value />
-        <button class='shortbutton' bindtap='onAdd'>+</button>
+
+  <view>{{year}}年</view>
+  <picker-view indicator_style="height: 50px;" style="width: 100%; height: 300px;" value="{{value}}" bindchange="selectYear">
+    <picker-view-column>
+      <view wx:for="{{years}}">{{item}}</view>
+    </picker-view-column>
+  </picker-view>
   <switch wx:for="{{objectArray}}" wx:key="unique" > {{item.id}} </switch>
   <button bindtap="doSwitch"> Switch </button>
 </view>

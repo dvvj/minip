@@ -1,39 +1,36 @@
-// pages/product_detail/product_detail.js
+// pages/promisetest/promisetest.js
+const promisify = orig => {
+  return function (opt) {
+    return new Promise((resolve, reject) => {
+      opt = Object.assign({
+        success: resolve,
+        fail: reject
+      }, opt)
+      orig(opt)
+    })
+  }
+}
+
 Page({
 
   /**
    * Page initial data
    */
   data: {
-    sliderValue: 1,
-    min: 1,
-    max: 100
-  },
-  onBuy: function(e) {
-    console.log('onBuy: ', e)
-  },
-  onAdd: function () {
-    var newVal = this.data.sliderValue + 1
-    if (newVal > 100) { newVal = 100 }
-    this.setData({ sliderValue: newVal })
-  },
-  onMinus: function () {
-    var newVal = this.data.sliderValue - 1
-    if (newVal < 1) { newVal = 1 }
-    this.setData({ sliderValue: newVal })
+
   },
 
   /**
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
-    var selectedProductKey = 'selectedProduct'
-    var selectedProduct = wx.getStorageSync(selectedProductKey)
-    wx.removeStorageSync(selectedProductKey)
-    console.log(selectedProductKey, selectedProduct)
-    this.setData({
-      productName: selectedProduct.name,
-      productPrice: selectedProduct.price0
+    promisify(wx.setStorage)({key: 'key', data: 111}).then(val => {
+      console.log("val: ", val)
+      promisify(wx.getStorage)({key: 'key'}).then(v => {
+        console.log("v: ", v)
+      })
+    }).catch(reason => {
+      console.log("failed: ", reason)
     })
   },
 

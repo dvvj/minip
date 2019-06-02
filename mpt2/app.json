@@ -1,11 +1,12 @@
 {
   "pages": [
+    "pages/promisetest/promisetest",
+    "pages/products/products",
     "pages/index/index",
     "pages/logs/logs",
     "pages/circle/circle",
     "pages/index2/index2",
     "pages/array/array",
-    "pages/products/products",
     "pages/webappTest/webapp",
     "pages/product_detail/product_detail"
   ],

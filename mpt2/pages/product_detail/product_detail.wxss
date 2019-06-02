@@ -16,10 +16,11 @@
 
 
 .shortbutton {
-  width: 10%;
+  width: 20%;
   display: inline-flex;
+  text-align: center;
 }
 .shortslider {
-  width: 70%;
+  width: 50%;
   display: inline-block;
 }

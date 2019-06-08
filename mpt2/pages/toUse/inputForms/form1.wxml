@@ -1,0 +1,24 @@
+
+<form bindsubmit='onSubmitForm' bindreset='onResetForm'>
+  <view class='section section_gap'>
+    <view class='section_title'>Switch</view>
+    <switch name='switch' />
+  </view>
+
+  <view class='section section_gap'>
+    <view class='section_title'>Slider</view>
+    <slider name='slider' show-value />
+  </view>
+
+  <view class='section section_gap'>
+    <view class='section_title'>Input</view>
+    <input type='input' name='input' value='place holder' />
+  </view>
+
+  <view class='button_area'>
+    <button formType='submit'>提交</button>
+    <button formType='reset'>清空重填</button>
+  </view>
+</form>
+
+

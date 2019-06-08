@@ -1,0 +1,5 @@
+<scroll-view scroll-y='true' style='width: 100%;height: 400px;' upper-threshold='20' bindscrolltoupper='scroll2Top'>
+  <view id='red' style='background-color: red;width: 100%;height: 400px;'>1</view>
+  <view id='yellow' style='background-color: yellow;width: 100%;height: 400px;'>2</view>
+  <view id='green' style='background-color: green;width: 100%;height: 400px;'>3</view>
+</scroll-view>

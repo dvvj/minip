@@ -1,0 +1,25 @@
+<view>aligh-items:stretch</view>
+<view class='flex-test' style='flex-direction:row;justify-content:center;align-items:stretch;'>
+  <view class='align-view1'>1</view>
+  <view class='align-view2'>2</view>
+  <view class='align-view3'>3</view>
+</view>
+<view>aligh-items:flex-start</view>
+<view class='flex-test' style='flex-direction:row;justify-content:center;align-items:flex-start;'>
+  <view class='align-view1'>1</view>
+  <view class='align-view2'>2</view>
+  <view class='align-view3'>3</view>
+</view>
+<view>aligh-items:flex-end</view>
+<view class='flex-test' style='flex-direction:row;justify-content:center;align-items:flex-end;'>
+  <view class='align-view1'>1</view>
+  <view class='align-view2'>2</view>
+  <view class='align-view3'>3</view>
+</view>
+<view>align-content:flex-start</view>
+<view class='align-content-test' style='align-content:flex-start;'>
+  <view style='background-color: red; width: 100%; height: 30%;order:4'>1</view>
+  <view style='background-color: green; width: 10%; height: 20%;order:3'>2</view>
+  <view style='background-color: blue; width: 10%; height: 20%;order:1'>3</view>
+  <view style='background-color: yellow; width: 10%; height: 20%;order:2'>4</view>
+</view>

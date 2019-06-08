@@ -1,0 +1,8 @@
+<!--pages/swiper/swiper1.wxml-->
+<swiper indicator-dots='true' autoplay='true' interval='3000' duration='1000' circular='false'>
+  <block wx:for="{{imgurls}}">
+    <swiper-item>
+      <image mode='aspectFill' src="{{item}}" class/>
+    </swiper-item>
+  </block>
+</swiper>

@@ -1,0 +1,30 @@
+.flex-row {
+  width: 100px;
+  height: 100px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-row2 {
+  width: 100px;
+  height: 100px;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+}
+
+
+.flex-row3 {
+  width: 100px;
+  height: 100px;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+
+.flex-view-item {
+  height: 50px;
+  background-color: #ff5400;
+}

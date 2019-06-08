@@ -1,0 +1,19 @@
+<view>'display: block' in 'scroll-view'</view>
+<scroll-view scroll-x='true' style='display:flex;height:100px;width=100%;white-space:nowrap;'>
+  <view id='red' style='background: red; width: 200px; height: 100px;display: block'>1</view>
+  <view id='green' style='background: green; width: 200px; height: 100px;display: block'>2</view>
+  <view id='yellow' style='background: yellow; width: 200px; height: 100px;display: block'>3</view>
+</scroll-view>
+<view>'display: inline-block' in 'scroll-view'</view>
+<scroll-view scroll-x='true' style='display:flex;height:120px;width=100%;white-space:nowrap;'>
+  <view id='red' style='background: red; width: 200px; height: 100px;display: inline-block'>1</view>
+  <view id='green' style='background: green; width: 200px; height: 100px;display: inline-block'>2</view>
+  <view id='yellow' style='background: yellow; width: 200px; height: 100px;display: inline-block'>3</view>
+</scroll-view>
+<view>'display: inline' in 'scroll-view'</view>
+<scroll-view scroll-x='true' style='display:flex;height:100px;width=100%;white-space:nowrap;'>
+  <view id='red' style='background: red; width: 200px; height: 100px;display: inline'>1</view>
+  <view id='green' style='background: green; width: 200px; height: 100px;display: inline'>2</view>
+  <view id='yellow' style='background: yellow; width: 200px; height: 100px;display: inline'>3</view>
+</scroll-view>
+

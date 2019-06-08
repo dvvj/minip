@@ -1,0 +1,36 @@
+.align-content-test {
+  background-color: #888888;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  display: flex;
+  align-items: flex-end;
+  height: 100px;
+}
+
+.flex-test {
+  height: 100px;
+  display: flex;
+  background-color: #dddddd;
+}
+
+.align-view1 {
+  background-color: red;
+  width: 60px;
+  text-align: center;
+  font-size: 60px;
+}
+
+.align-view2 {
+  background-color: green;
+  width: 60px;
+  text-align: center;
+  font-size: 30px;
+}
+
+.align-view3 {
+  background-color: blue;
+  width: 60px;
+  text-align: center;
+  font-size: 30px;
+}

@@ -1,0 +1,9 @@
+<!--pages/progress/progress1.wxml-->
+<view>
+  <progress percent='20' show-info />
+  <progress percent='40' stroke-width='12'></progress>
+  <progress percent='60' color='pink'></progress>
+  <progress percent='80' show-info active></progress>
+  <progress percent='{{percent}}' show-info></progress>
+  <button bindtap='addProgress'>+20</button>
+</view>

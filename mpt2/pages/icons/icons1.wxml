@@ -1,0 +1,6 @@
+<!--pages/icons/icons1.wxml-->
+<view>
+  <block wx:for="{{iconSizeColor}}">
+    <icon class="flex-row" type="success" size="{{item.size}}" color="{{item.color}}" />
+  </block>
+</view>

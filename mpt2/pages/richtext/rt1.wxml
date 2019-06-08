@@ -1,0 +1,2 @@
+<!--pages/richtext/rt1.wxml-->
+<rich-text nodes="{{html}}" data-data="{{html}}" bindtap="tap"></rich-text>

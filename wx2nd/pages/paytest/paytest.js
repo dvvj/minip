@@ -41,6 +41,7 @@ Page({
                 url: 'https://app.wonder4.life/webapi/wxPay/payReqMP',
                 data: {
                   userId: 'todo',
+                  openid: r.data.openid,
                   prodId: 'prod001',
                   amount: 1,
                   info: 'todo-info'
@@ -63,10 +64,10 @@ Page({
                       //goApply(event, that)
                     },
                     fail: function (e3) {
-                      console.info(e3)
+                      console.info("e3: ", e3)
                     },
                     complete: function (c3) {
-                      console.info(c3)
+                      console.info("c3: ", c3)
                     }
                   })
                 }

@@ -1,0 +1,16 @@
+/* pages/toUse/inputForms/newCustomer.wxss */
+.oneliner {
+  display: inline-flex;
+  width: 95%;
+  margin-top: 10rpx;
+  margin-left: 10rpx;
+}
+
+.precursor {
+  width: 30%;
+  display: inline-flex;
+}
+
+.text_input {
+  background-color: #e0e0e0;
+}

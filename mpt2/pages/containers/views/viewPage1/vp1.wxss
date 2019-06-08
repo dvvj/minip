@@ -1,0 +1,30 @@
+/* pages/containers/views/viewPage1/vp1.wxss */
+.flex-item {
+  width: 100%;
+  height: 100px;
+  box-sizing: border-box;
+}
+
+.class_red {
+  background-color: #ff7256;
+}
+
+.class_green {
+  background-color: #7ccd7c;
+}
+
+.class_blue {
+  background-color: #6495ed;
+}
+
+.g_hover {
+  border: 6px solid #cd8500;
+}
+
+.r_hover {
+  border: 6px solid #cd8500;
+}
+
+.b_hover {
+  border: 6px solid #cd8500;
+}

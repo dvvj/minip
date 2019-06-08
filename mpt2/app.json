@@ -1,14 +1,27 @@
 {
   "pages": [
-    "pages/promisetest/promisetest",
     "pages/products/products",
+    "pages/toUse/login/loginProcess",
+    "pages/toUse/inputForms/newCustomer",
+    "pages/progress/progress1",
+    "pages/richtext/rt1",
+    "pages/icons/icons1",
+    "pages/swiper/swiper1",
+    "pages/containers/views/scrollView2/sv2",
+    "pages/containers/views/scrollView1/sv1",
+    "pages/containers/views/viewPage4/vp4",
+    "pages/containers/views/viewPage1/vp1",
+    "pages/promisetest/promisetest",
     "pages/index/index",
     "pages/logs/logs",
     "pages/circle/circle",
     "pages/index2/index2",
     "pages/array/array",
     "pages/webappTest/webapp",
-    "pages/product_detail/product_detail"
+    "pages/product_detail/product_detail",
+    "pages/containers/views/viewPage2/vp2",
+    "pages/containers/views/viewPage3/vp3",
+    "pages/toUse/inputForms/form1"
   ],
   "window": {
     "backgroundTextStyle": "light",

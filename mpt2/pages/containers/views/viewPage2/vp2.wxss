@@ -1,0 +1,34 @@
+/* pages/containers/views/viewPage2/vp2.wxss */
+
+.flex-wrap {
+  background-color: #6495ed;
+}
+
+.bc_binding {
+  background-color: #cd3278;
+  width: 100%;
+  height: 100px;
+}
+
+.bc_red {
+  background-color: #ff7256;
+  width: 80%;
+}
+
+.bc_green {
+  background-color: #7ccd7c;
+  width: 80%;
+}
+
+.flex-row {
+  width: 100px;
+  height: 150px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-view-item {
+  height: 50px;
+  background-color: #ff5400;
+}

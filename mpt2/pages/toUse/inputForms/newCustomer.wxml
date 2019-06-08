@@ -1,0 +1,30 @@
+<!--pages/toUse/inputForms/newCustomer.wxml-->
+<form bindsubmit='onSubmitForm' bindreset='onResetForm'>
+  <view class='oneliner'>
+    <view class='precursor'>姓名</view>
+    <input class='text_input' type='input' name='customerName' value='姓名' />
+  </view>
+
+  <view class='oneliner'>
+    <view class='precursor'>身份证号</view>
+    <input class='text_input' type='input' name='customerIdCardNo' value='' />
+  </view>
+
+  <view class='oneliner'>
+    <view class='precursor'>手机号</view>
+    <input class='text_input' type='input' name='customerMobile' value='' />
+  </view>
+
+  <view class='oneliner'>
+    <view class='precursor'>邮寄地址</view>
+    <input class='text_input' type='input' name='customerAddr' value='' />
+  </view>
+
+
+  <view class='button_area'>
+    <button formType='submit'>提交</button>
+    <button formType='reset'>清空重填</button>
+  </view>
+</form>
+
+

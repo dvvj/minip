@@ -1,0 +1,16 @@
+<!--pages/containers/views/viewPage2/vp2.wxml-->
+<view class="bc_binding" bindtap="viewLog">查看日志</view>
+
+<!-- display:block -->
+<view class="flex-row" style="display: block;">
+  <view class="flex-view-item">1</view>
+  <view class="flex-view-item">2</view>
+  <view class="flex-view-item">3</view>
+</view>
+
+<!-- display:block -->
+<view class="flex-row" style="display: flex;">
+  <view class="flex-view-item">1</view>
+  <view class="flex-view-item">2</view>
+  <view class="flex-view-item">3</view>
+</view>

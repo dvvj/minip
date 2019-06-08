@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/paytest/paytest",
     "pages/index/index",
     "pages/logs/logs",
-    "pages/paytest/paytest",
     "pages/single/single"
   ],
   "window": {

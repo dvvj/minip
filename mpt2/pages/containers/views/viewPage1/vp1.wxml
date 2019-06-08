@@ -1,0 +1,12 @@
+<!--pages/containers/views/viewPage1/vp1.wxml-->
+<view class="container">
+  <view class="flex-item class_red" hover="true" hover-class="r_hover" hover-start-time='1000'>
+    按下 1 秒才出现点击效果
+  </view>
+  <view class="flex-item class_green" hover="true" hover-class="g_hover" hover-start-time='3000'>
+    按下 3 秒才出现点击效果
+  </view>
+  <view class="flex-item class_blue">
+    无点击效果
+  </view>
+</view>

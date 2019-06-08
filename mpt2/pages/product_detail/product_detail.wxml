@@ -1,8 +1,9 @@
 <!--pages/product_detail/product_detail.wxml-->
 <view class="imgbox_detailed">
   <image class="product_img_detailed" src="../../images/product1.png" />
-  <text>{{productName}}</text>
-  <text>{{productPrice}}</text>
+  <text style='display:block'>{{productName}}</text>
+  <text wx:if='{{discount > 0}}'>{{productActualPrice}}(原价{{productPrice}}，省{{discount}}%)</text>
+  <text wx:else>{{productActualPrice}}</text>
 </view>
 <view>
         <button class='shortbutton' bindtap='onMinus'>减 1</button>

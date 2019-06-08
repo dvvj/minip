@@ -1,4 +1,10 @@
 // pages/product_detail/product_detail.js
+
+let roundPrice = function(price) {
+  var p100 = Math.round(price*100)
+  return p100 / 100.0;
+}
+
 Page({
 
   /**
@@ -31,9 +37,13 @@ Page({
     var selectedProduct = wx.getStorageSync(selectedProductKey)
     wx.removeStorageSync(selectedProductKey)
     console.log(selectedProductKey, selectedProduct)
+    var actualPrice = roundPrice(selectedProduct.actualPrice)
+    var discount = Math.round((selectedProduct.price0 - selectedProduct.actualPrice)*100 / selectedProduct.price0);
     this.setData({
       productName: selectedProduct.name,
-      productPrice: selectedProduct.price0
+      productPrice: selectedProduct.price0,
+      productActualPrice: actualPrice,
+      discount: discount
     })
   },
 

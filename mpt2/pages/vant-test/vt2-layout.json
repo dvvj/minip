@@ -1,0 +1,11 @@
+{
+  "usingComponents": {
+    "van-dialog": "../../vant-lib/dialog/index",
+    "van-button": "../../vant-lib/button/index",
+    "van-row": "../../vant-lib/row/index",
+    "van-col": "../../vant-lib/col/index",
+    "van-popup": "../../vant-lib/popup/index",
+     "van-loading": "../../vant-lib/loading/index",
+     "van-notify": "../../vant-lib/notify/index"
+  }
+}

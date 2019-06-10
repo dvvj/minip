@@ -52,6 +52,15 @@ Page({
                 },
                 success: function (r2) {
                   console.log('r2: ', r2)
+                  // var strTmp = `appid=wxcce411c146c16195`
+                  // strTmp += `&nonceStr=${r2.data.nonceStr}`
+                  // strTmp += `&package=${r2.data.package_}`
+                  // strTmp += `&signType=MD5`
+                  // strTmp += `&timeStamp=${r2.data.timeStamp}`
+                  // strTmp += `&key=xx`
+                  // console.log('strTmp: ', strTmp)
+                  // var sign = md5(strTmp).toUpperCase()
+                  // console.log('sign: ', sign)
                   wx.requestPayment({
                     'timeStamp': r2.data.timeStamp,
                     'nonceStr': r2.data.nonceStr,

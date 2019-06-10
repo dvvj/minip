@@ -1,0 +1,38 @@
+<van-row>
+  <van-col span="8">span: 8</van-col>
+  <van-col span="8">span: 8</van-col>
+  <van-col span="8">span: 8</van-col>
+</van-row>
+
+<van-row>
+  <van-col span="4">span: 4</van-col>
+  <van-col span="10" offset="4">offset: 4, span: 10</van-col>
+</van-row>
+
+<van-row>
+  <van-col offset="12" span="12">offset: 12, span: 12</van-col>
+</van-row>
+
+<van-row gutter="20">
+  <van-col span="8">span: 8</van-col>
+  <van-col span="8">span: 8</van-col>
+  <van-col span="8">span: 8</van-col>
+</van-row>
+
+<van-popup show="{{ show }}"
+position="top"
+overlay="{{true}}"
+ bind:close="onClose">内容</van-popup>
+<van-button bind:click='onClick' type="primary">show popup</van-button>
+<van-button bind:click='onDialog' type="primary">show dialog</van-button>
+<van-button bind:click='onNotify' type="primary">show notification</van-button>
+
+<van-dialog id="van-dialog" />
+
+<van-loading />
+<van-loading color="#eee" />
+
+<van-loading type="spinner" />
+<van-loading type="spinner" color="#fff" />
+
+<van-notify id="van-notify" />

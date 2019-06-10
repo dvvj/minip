@@ -6,9 +6,12 @@
   <text wx:else>{{productActualPrice}}</text>
 </view>
 <view>
+<!-->
         <button class='shortbutton' bindtap='onMinus'>减 1</button>
   <slider class='shortslider' bindchange='sliderChange' min="{{min}}" max="{{max}}" value='{{sliderValue}}' show-value />
         <button class='shortbutton' bindtap='onAdd'>加 1</button>
+        -->
+        <van-stepper value="{{ 3 }}" />
 </view>
 <view>
   <button bindtap='onBuy'>下单</button>

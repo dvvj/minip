@@ -1,0 +1,3 @@
+<!--pages/vant-test/vt3.wxml-->
+<van-picker columns="{{ columns }}" bind:change="onChange" />
+<van-toast id="van-toast" />

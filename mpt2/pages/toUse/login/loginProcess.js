@@ -1,4 +1,6 @@
 // pages/toUse/login/loginProcess.js
+
+
 const promisify = original => {
   return function (opt) {
     return new Promise((resolve, reject) => {
@@ -9,8 +11,13 @@ const promisify = original => {
       original(opt)
     })
   }
-}
+};
 
+const webappBase = 'https://webapp.wonder4.life:8443';
+const xAuthHeader = 'X-Auth-Token'
+const customerProductUrl = webappBase + '/customerProductView'
+const loginUrl = webappBase + '/wxlogin';
+const sessionTestUrl = webappBase + '/sessionTest';
 Page({
 
   /**
@@ -36,7 +43,6 @@ Page({
     promisify(wx.login)()
       .then(({ code }) => {
         console.log(`code: ${code}`)
-        var loginUrl = 'https://webapp.wonder4.life:443/wxlogin'
         wx.request({
           url: loginUrl,
           method: 'POST',
@@ -47,6 +53,33 @@ Page({
           },
           success: function (e) {
             console.log('success', e)
+            const tokens = { xauth: e.header[xAuthHeader], accessToken: e.data.access_token };
+            console.log('X-Auth-Token', tokens.xauth)
+            console.log('token', tokens.accessToken)
+
+            // wx.request({
+            //   url: sessionTestUrl,
+            //   method: 'GET',
+            //   header: {
+            //     'Authorization': 'Bearer ' + tokens.accessToken,
+            //     'X-Auth-Token': tokens.xauth
+            //   },
+            //   success: function (r) {
+            //     console.log('r:', r)
+            //   }
+            // })
+            
+            wx.request({
+              url: customerProductUrl,
+              method: 'GET',
+              header: {
+                'Authorization': 'Bearer ' + tokens.accessToken,
+                'X-Auth-Token': tokens.xauth
+              },
+              success: function (r1) {
+                console.log('r1:', r1)
+              }
+            })
           }
         })
       })

@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "van-picker": "../../vant-lib/picker/index",
+    "van-toast": "../../vant-lib/toast/index"
+  }
+}

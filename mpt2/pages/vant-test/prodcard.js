@@ -13,6 +13,34 @@ Page({
   data: {
 
   },
+  onBuy: function (e) {
+    let prodId = e.target.dataset.id
+    let prod = this.data.productDict[prodId]
+    console.log('prod: ', prod)
+  },
+
+  updateProd: function(prodId, delta) {
+    let prod = this.data.productDict[prodId]
+    let productDict = this.data.productDict
+    prod.count += delta
+    prod.totalPrice = roundPrice(prod.actualPrice * prod.count)
+    // console.log('prod: ', prodDict[prodId])
+    let products = this.data.products
+    products.forEach(function (item) { if (item === prodId) item.totalPrice = roundPrice(prod.count * item.actualPrice) })
+    this.setData({ productDict, products })
+  },
+
+  onPlus: function (e) {
+    console.log(e)
+    let prodId = e.target.dataset.id
+    this.updateProd(prodId, 1)
+  },
+
+  onMinus: function (e) {
+    console.log(e)
+    let prodId = e.target.dataset.id
+    this.updateProd(prodId, -1)
+  },
 
   /**
    * Lifecycle function--Called when page load
@@ -74,17 +102,31 @@ Page({
     ]
 
     var resData = resDataRaw.map(item => {
+      let actualPrice = roundPrice(item.actualPrice);
+      let price0 = roundPrice(item.product.price0)
+      var hasDiscount = actualPrice < price0;
       var resDataItem = {
         id: item.product.id,
         name: item.product.name,
-        price0: item.product.price0,
-        actualPrice: roundPrice(item.actualPrice),
-        referingProfName: item.referingProfName
+        price0: price0,
+        actualPrice: actualPrice,
+        hasDiscount: hasDiscount,
+        referingProfName: item.referingProfName,
+        count: 1,
+        totalPrice: actualPrice
       }
       return resDataItem;
     })
 
-    this.setData({ products: resData })
+    let productDict = {}
+    console.log('resData.length: ', resData.length)
+    for (var idx = 0; idx < resData.length; idx++) {
+      //console.log('resData[idx]', resData[idx])
+      let item = resData[idx]
+      productDict[item.id] = item
+    }
+
+    this.setData({ products: resData, productDict: productDict })
   },
 
   /**

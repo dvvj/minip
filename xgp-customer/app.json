@@ -2,7 +2,8 @@
   "pages": [
     "pages/login/login-test",
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/product/product-list"
   ],
   "window": {
     "backgroundTextStyle": "light",

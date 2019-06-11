@@ -14,15 +14,13 @@ Page({
     let password = this.data.password;
     console.log(`username: ${username}, password: ${password}`);
     wx.navigateTo({
-      url: '',
+      url: '../product/product-list',
     })
   },
   onInputUsername: function(e) {
-    //console.log(e);
     this.setData({username: e.detail})
   },
   onInputPassword: function (e) {
-    //console.log(e);
     this.setData({ password: e.detail })
   },
   /**

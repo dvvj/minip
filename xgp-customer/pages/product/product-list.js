@@ -4,6 +4,12 @@ let roundPrice = function (price) {
   return p100 / 100.0;
 };
 
+const webappBase = 'https://webapp.wonder4.life:8443';
+const xAuthHeader = 'X-Auth-Token'
+const customerProductUrl = webappBase + '/customerProductView'
+const loginUrl = webappBase + '/wxlogin';
+const sessionTestUrl = webappBase + '/sessionTest';
+
 Page({
 
   /**
@@ -42,10 +48,68 @@ Page({
     this.updateProd(prodId, -1)
   },
 
+  loadProds: function () {
+
+  },
+  onLoad: function (options) {
+    let that = this
+    wx.getStorage({
+      key: 'tokens',
+      success: function(res) {
+        //console.log('got tokens: ', res)
+        let tokens = res.data
+        console.log('got tokens: ', tokens)
+
+        wx.request({
+          url: customerProductUrl,
+          method: 'GET',
+          header: {
+            'Authorization': 'Bearer ' + tokens.accessToken,
+            'X-Auth-Token': tokens.xauth
+          },
+          success: function (r1) {
+            console.log('r1:', r1)
+            let resDataRaw = r1.data
+            var resData = resDataRaw.map(item => {
+              let actualPrice = roundPrice(item.actualPrice);
+              let price0 = roundPrice(item.product.price0)
+              var hasDiscount = actualPrice < price0;
+              var resDataItem = {
+                id: item.product.id,
+                name: item.product.name,
+                price0: price0,
+                actualPrice: actualPrice,
+                hasDiscount: hasDiscount,
+                referingProfName: item.referingProfName,
+                count: 1,
+                totalPrice: actualPrice
+              }
+              return resDataItem;
+            })
+
+            let productDict = {}
+            console.log('resData.length: ', resData.length)
+            for (var idx = 0; idx < resData.length; idx++) {
+              //console.log('resData[idx]', resData[idx])
+              let item = resData[idx]
+              productDict[item.id] = item
+            }
+
+            that.setData({ products: resData, productDict: productDict })
+          }
+        })
+
+      },
+      fail: function(err) {
+        console.log('failed: ', err)
+      }
+    })
+
+  },
   /**
    * Lifecycle function--Called when page load
    */
-  onLoad: function (options) {
+  onLoad1: function (options) {
     var resDataRaw = [
       {
         "customerId": "c＿o1a1p1_customer1",

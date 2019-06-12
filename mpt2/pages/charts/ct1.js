@@ -39,28 +39,20 @@ Page({
     });
 
     new wxCharts({
-      canvasId: 'lineCanvas',
-      type: 'line',
-      categories: ['2012', '2013', '2014', '2015', '2016', '2017', '2018'],
+      canvasId: 'columnCanvas',
+      type: 'column',
+      categories: ['2012', '2013', '2014', '2015', '2016', '2017'],
       series: [{
         name: '成交量1',
-        data: [0.15, 0.2, 0.45, 0.37, 0.4, 0.8, 0.7],
-        format: function (val) {
-          return val.toFixed(2) + '万';
-        }
+        data: [15, 20, 45, 37, 4, 80]
       }, {
         name: '成交量2',
-        data: [0.30, 0.37, 0.65, 0.78, 0.69, 0.94, 0.6],
-        format: function (val) {
-          return val.toFixed(2) + '万';
-        }
+        data: [70, 40, 65, 100, 34, 18]
       }],
       yAxis: {
-        title: '成交金额 (万元)',
         format: function (val) {
-          return val.toFixed(2);
-        },
-        min: 0
+          return val + '万';
+        }
       },
       width: 320,
       height: 200

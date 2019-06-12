@@ -1,8 +1,8 @@
 {
   "pages": [
     "pages/toUse/medprof/reffed-customers",
-    "pages/vant-test/vt3",
     "pages/charts/ct1",
+    "pages/vant-test/vt3",
     "pages/vant-test/prodcard",
     "pages/toUse/login/loginProcess",
     "pages/vant-test/vt2-layout",
@@ -27,7 +27,8 @@
     "pages/product_detail/product_detail",
     "pages/containers/views/viewPage2/vp2",
     "pages/containers/views/viewPage3/vp3",
-    "pages/toUse/inputForms/form1"
+    "pages/toUse/inputForms/form1",
+    "pages/toUse/medprof/reffed-orders-chart"
   ],
   "window": {
     "backgroundTextStyle": "light",

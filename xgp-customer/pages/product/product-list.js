@@ -1,14 +1,39 @@
 // pages/product/product-list.js
+const util = require('../../utils/util.js')
+
 let roundPrice = function (price) {
   var p100 = Math.round(price * 100)
   return p100 / 100.0;
 };
 
-const webappBase = 'https://webapp.wonder4.life:8443';
 const xAuthHeader = 'X-Auth-Token'
-const customerProductUrl = webappBase + '/customerProductView'
-const loginUrl = webappBase + '/wxlogin';
-const sessionTestUrl = webappBase + '/sessionTest';
+const customerProductUrl = util.webappBase + '/customerProductView'
+const wxPayUrl = util.webappBase + '/wx/payReq';
+const sessionTestUrl = util.webappBase + '/sessionTest';
+const promisify = original => {
+  return function (opt) {
+    return new Promise((resolve, reject) => {
+      opt = Object.assign({
+        success: resolve,
+        fail: reject
+      }, opt)
+      original(opt)
+    })
+  }
+};
+
+let saveTokens = function(xAuthToken, accessToken) {
+  wx.setStorage({
+    key: "tokens",
+    data: { xauth: xAuthToken, accessToken },
+    success: function (res) {
+      console.log("tokens saved: ", res)
+    },
+    fail: function (err) {
+      console.log("failed to save tokens: ", err)
+    }
+  })
+}
 
 Page({
 
@@ -23,6 +48,49 @@ Page({
     let prodId = e.target.dataset.id
     let prod = this.data.productDict[prodId]
     console.log('prod: ', prod)
+    promisify(wx.getStorage)({ key: "tokens" })
+      .then(res => {
+        let tokens = res.data
+        console.log('got tokens: ', tokens)
+        wx.request({
+          url: wxPayUrl,
+          data: {
+            productId: prodId,
+            info: prod.name,
+            totalAmount: 1
+          },
+          method: "POST",
+          header: {
+            'content-type': 'application/json',
+            'Authorization': 'Bearer ' + tokens.accessToken,
+            'X-Auth-Token': tokens.xauth
+          },
+          success: function (r2) {
+            console.log('r2: ', r2)
+            wx.requestPayment({
+              'timeStamp': r2.data.timeStamp,
+              'nonceStr': r2.data.nonceStr,
+              'package': r2.data.package_,
+              'signType': 'MD5',
+              'paySign': r2.data.paySign,
+              success: function (r3) {
+                console.info('r3: ', r3)
+                //报名
+                //goApply(event, that)
+              },
+              fail: function (e3) {
+                console.info("e3: ", e3)
+              },
+              complete: function (c3) {
+                console.info("c3: ", c3)
+              }
+            })
+          },
+          fail: function (e2) {
+            console.info("e2: ", e2)
+          }
+        })
+      })
   },
 
   updateProd: function (prodId, delta) {
@@ -53,10 +121,8 @@ Page({
   },
   onLoad: function (options) {
     let that = this
-    wx.getStorage({
-      key: 'tokens',
-      success: function(res) {
-        //console.log('got tokens: ', res)
+    promisify(wx.getStorage)({ key: "tokens"})
+      .then(res => {
         let tokens = res.data
         console.log('got tokens: ', tokens)
 
@@ -68,7 +134,9 @@ Page({
             'X-Auth-Token': tokens.xauth
           },
           success: function (r1) {
-            console.log('r1:', r1)
+            console.log('r1:', r1);
+            saveTokens(r1.header[xAuthHeader], tokens.accessToken);
+
             let resDataRaw = r1.data
             var resData = resDataRaw.map(item => {
               let actualPrice = roundPrice(item.actualPrice);
@@ -98,12 +166,9 @@ Page({
             that.setData({ products: resData, productDict: productDict })
           }
         })
-
-      },
-      fail: function(err) {
-        console.log('failed: ', err)
-      }
-    })
+      }).catch(function(reason) {
+        console.log('failed:', reason);
+      })
 
   },
   /**

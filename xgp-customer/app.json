@@ -1,9 +1,11 @@
 {
   "pages": [
+    "pages/login/login-medprof",
     "pages/login/login-test",
     "pages/index/index",
     "pages/logs/logs",
-    "pages/product/product-list"
+    "pages/product/product-list",
+    "pages/customer/reffed-customers"
   ],
   "window": {
     "backgroundTextStyle": "light",

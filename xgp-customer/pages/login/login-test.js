@@ -1,20 +1,8 @@
 // pages/login/login-test.js
+const util = require('../../utils/util.js')
 
-const promisify = original => {
-  return function (opt) {
-    return new Promise((resolve, reject) => {
-      opt = Object.assign({
-        success: resolve,
-        fail: reject
-      }, opt)
-      original(opt)
-    })
-  }
-};
-const webappBase = 'https://webapp.wonder4.life:8443';
 const xAuthHeader = 'X-Auth-Token'
-const loginUrl = webappBase + '/wxlogin';
-const sessionTestUrl = webappBase + '/sessionTest';
+const sessionTestUrl = util.webappBase + '/sessionTest';
 
 Page({
 
@@ -31,11 +19,11 @@ Page({
     let password = this.data.password;
     console.log(`username: ${username}, password: ${password}`);
     
-    promisify(wx.login)()
+    util.promisify(wx.login)()
       .then(({ code }) => {
         console.log(`code: ${code}`)
         wx.request({
-          url: loginUrl,
+          url: util.loginUrl,
           method: 'POST',
           data: {
             wxCode: code,

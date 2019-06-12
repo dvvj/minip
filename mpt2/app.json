@@ -1,8 +1,9 @@
 {
   "pages": [
+    "pages/vant-test/vt3",
+    "pages/charts/ct1",
     "pages/vant-test/prodcard",
     "pages/toUse/login/loginProcess",
-    "pages/vant-test/vt3",
     "pages/vant-test/vt2-layout",
     "pages/products/products",
     "pages/vant-test/vt1",

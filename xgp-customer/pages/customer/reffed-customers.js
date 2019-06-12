@@ -1,19 +1,13 @@
-// pages/vant-test/vt3.js
-import Toast from '../../vant-lib/toast/toast';
+// pages/customer/reffed-customers.js
 Page({
 
   /**
    * Page initial data
    */
   data: {
-    columns: ['杭州', '宁波', '温州', '嘉兴', '湖州'],
-    activeNames: ['2']
+
   },
-  onChange(event) {
-    console.log(event)
-    const { picker, value, index } = event.detail;
-    //Toast(`当前值：${value}, 当前索引：${index}`);
-  },
+
   /**
    * Lifecycle function--Called when page load
    */

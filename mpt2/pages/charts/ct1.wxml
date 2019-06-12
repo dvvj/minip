@@ -1,0 +1,3 @@
+<!--pages/charts/ct1.wxml-->
+
+<canvas style="width: 800rpx; height: 600rpx;" canvas-id="lineCanvas"></canvas>

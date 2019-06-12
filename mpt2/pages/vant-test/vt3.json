@@ -1,6 +1,13 @@
 {
   "usingComponents": {
     "van-picker": "../../vant-lib/picker/index",
-    "van-toast": "../../vant-lib/toast/index"
+    "van-toast": "../../vant-lib/toast/index",
+    "van-collapse": "../../vant-lib/collapse/index",
+    "van-collapse-item": "../../vant-lib/collapse-item/index",
+    "van-row": "../../vant-lib/row/index",
+    "van-col": "../../vant-lib/col/index",
+    "van-cell": "../../vant-lib/cell/index",
+    "van-cell-group": "../../vant-lib/cell-group/index",
+    "van-tag": "../../vant-lib/tag/index"
   }
 }

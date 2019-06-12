@@ -10,12 +10,21 @@
           <text>{{item.customerName}}</text>
           <text></text>
         </view>
-        <block wx:for="{{item.healthTags}}">
-          <van-tag type="danger">{{item}}</van-tag>
-        </block>
-        <block wx:for="{{item.medicineTags}}">
-          <van-tag round type="primary">{{item}}</van-tag>
-        </block>
+        <view>
+          <block wx:for="{{item.productShortNames}}">
+            <van-tag round type="success">{{item}}</van-tag>
+          </block>
+        </view>
+        <view>
+          <block wx:for="{{item.healthTags}}">
+            <van-tag plain type="danger">{{item}}</van-tag>
+          </block>
+        </view>
+        <view>
+          <block wx:for="{{item.medicineTags}}">
+            <van-tag round type="primary">{{item}}</van-tag>
+          </block>
+        </view>
       </view>
     </van-cell>
   </van-cell-group>

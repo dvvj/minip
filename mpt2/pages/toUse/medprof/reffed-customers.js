@@ -17,9 +17,9 @@ Page({
         "profileId": 1,
         "customerName": "张晓东",
         "customerId": "c＿o1a1p1_customer1",
-        "productNames": [
+        "productShortNames": [
           "Astaxin虾青素",
-          "瑞典ACO Gravid孕妇产妇复合维生素"
+          "ACO产妇维生素"
         ],
         "pricePlanInfo": "{\"globalRate\":0.9}",
         "healthTags": [
@@ -34,9 +34,9 @@ Page({
         "profileId": 2,
         "customerName": "张晓",
         "customerId": "c＿o1a1p1_customer2",
-        "productNames": [
+        "productShortNames": [
           "Astaxin虾青素",
-          "瑞典ACO Gravid孕妇产妇复合维生素"
+          "ACO产妇维生素"
         ],
         "pricePlanInfo": "{\"globalRate\":0.9}",
         "healthTags": [
@@ -50,7 +50,7 @@ Page({
         "profileId": 3,
         "customerName": "张丽",
         "customerId": "c＿o1a1p1_customer4",
-        "productNames": [
+        "productShortNames": [
           "Astaxin虾青素"
         ],
         "pricePlanInfo": "{\"globalRate\":0.9}",

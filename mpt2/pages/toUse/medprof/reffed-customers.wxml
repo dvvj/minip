@@ -1,0 +1,22 @@
+<!--pages/toUse/medprof/reffed-customers.wxml-->
+<block wx:for="{{customerInfos}}" wx:key="profileId">
+  <van-cell-group>
+    <van-cell is-link url="../../charts/ct1">
+      <view>
+        <view class="van-cell-text">详情</view>
+      </view>
+      <view slot="title">
+        <view class="van-cell-text">
+          <text>{{item.customerName}}</text>
+          <text></text>
+        </view>
+        <block wx:for="{{item.healthTags}}">
+          <van-tag type="danger">{{item}}</van-tag>
+        </block>
+        <block wx:for="{{item.medicineTags}}">
+          <van-tag round type="primary">{{item}}</van-tag>
+        </block>
+      </view>
+    </van-cell>
+  </van-cell-group>
+</block>

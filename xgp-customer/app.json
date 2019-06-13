@@ -1,16 +1,19 @@
 {
   "pages": [
-    "pages/login/login-medprof",
     "pages/login/login-test",
+    "pages/login/login-medprof",
+    "pages/login/login-medprof-local",
     "pages/index/index",
     "pages/logs/logs",
     "pages/product/product-list",
-    "pages/customer/reffed-customers"
+    "pages/customer/reffed-customers",
+    "pages/customer/reffed-order-stats"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black"
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

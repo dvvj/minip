@@ -8,6 +8,7 @@
     "van-col": "../../vant-lib/col/index",
     "van-cell": "../../vant-lib/cell/index",
     "van-cell-group": "../../vant-lib/cell-group/index",
-    "van-tag": "../../vant-lib/tag/index"
+    "van-tag": "../../vant-lib/tag/index",
+    "van-area": "../../vant-lib/area/index"
   }
 }

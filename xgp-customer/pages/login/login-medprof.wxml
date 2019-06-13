@@ -1,14 +1,14 @@
 <!--pages/login/login-medprof.wxml-->
 <van-cell-group>
   <van-field
-    value="{{ username }}"
+    value="{{ medprofid }}"
     required
     clearable
-    label="用户名"
+    label="营养师ID"
     icon="question-o"
-    placeholder="请输入用户名"
+    placeholder="请输入营养师ID"
     bind:click-icon="onClickIcon"
-    bind:input="onInputUsername"
+    bind:input="onInputMedProfId"
   />
 
   <van-field

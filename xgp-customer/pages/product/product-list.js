@@ -6,34 +6,9 @@ let roundPrice = function (price) {
   return p100 / 100.0;
 };
 
-const xAuthHeader = 'X-Auth-Token'
 const customerProductUrl = util.webappBase + '/customerProductView'
 const wxPayUrl = util.webappBase + '/wx/payReq';
 const sessionTestUrl = util.webappBase + '/sessionTest';
-const promisify = original => {
-  return function (opt) {
-    return new Promise((resolve, reject) => {
-      opt = Object.assign({
-        success: resolve,
-        fail: reject
-      }, opt)
-      original(opt)
-    })
-  }
-};
-
-let saveTokens = function(xAuthToken, accessToken) {
-  wx.setStorage({
-    key: "tokens",
-    data: { xauth: xAuthToken, accessToken },
-    success: function (res) {
-      console.log("tokens saved: ", res)
-    },
-    fail: function (err) {
-      console.log("failed to save tokens: ", err)
-    }
-  })
-}
 
 Page({
 
@@ -48,7 +23,7 @@ Page({
     let prodId = e.target.dataset.id
     let prod = this.data.productDict[prodId]
     console.log('prod: ', prod)
-    promisify(wx.getStorage)({ key: "tokens" })
+    util.promisify(wx.getStorage)({ key: "tokens" })
       .then(res => {
         let tokens = res.data
         console.log('got tokens: ', tokens)
@@ -67,6 +42,7 @@ Page({
           },
           success: function (r2) {
             console.log('r2: ', r2)
+            util.saveTokens(r2.header[util.xAuthHeader], tokens.accessToken);
             wx.requestPayment({
               'timeStamp': r2.data.timeStamp,
               'nonceStr': r2.data.nonceStr,
@@ -121,7 +97,7 @@ Page({
   },
   onLoad: function (options) {
     let that = this
-    promisify(wx.getStorage)({ key: "tokens"})
+    util.promisify(wx.getStorage)({ key: "tokens"})
       .then(res => {
         let tokens = res.data
         console.log('got tokens: ', tokens)
@@ -135,7 +111,7 @@ Page({
           },
           success: function (r1) {
             console.log('r1:', r1);
-            saveTokens(r1.header[xAuthHeader], tokens.accessToken);
+            util.saveTokens(r1.header[util.xAuthHeader], tokens.accessToken);
 
             let resDataRaw = r1.data
             var resData = resDataRaw.map(item => {
@@ -144,6 +120,7 @@ Page({
               var hasDiscount = actualPrice < price0;
               var resDataItem = {
                 id: item.product.id,
+                imgUrl: `${util.imgBaseUrl}/${item.product.id}/${item.productAssets[0].url}`,
                 name: item.product.name,
                 price0: price0,
                 actualPrice: actualPrice,
@@ -186,6 +163,33 @@ Page({
           "keywords": "抗氧化剂,美白",
           "categories": "8002000,2000000"
         },
+        "productAssets": [
+          {
+            "url": "1.jpg",
+            "typ": "img",
+            "cat": "cat1"
+          },
+          {
+            "url": "2.png",
+            "typ": "img",
+            "cat": "cat1"
+          },
+          {
+            "url": "3.png",
+            "typ": "img",
+            "cat": "cat2"
+          },
+          {
+            "url": "1.pdf",
+            "typ": "doc",
+            "cat": "cat3"
+          },
+          {
+            "url": "2.pdf",
+            "typ": "doc",
+            "cat": "cat1"
+          }
+        ],
         "referingProfName": "朱卫东",
         "actualPrice": 1349.991
       },
@@ -236,6 +240,7 @@ Page({
       var hasDiscount = actualPrice < price0;
       var resDataItem = {
         id: item.product.id,
+        imgUrl: item.productAssets[0].url,
         name: item.product.name,
         price0: price0,
         actualPrice: actualPrice,

@@ -26,12 +26,30 @@ const promisify = original => {
   }
 };
 
+let saveTokens = function (xAuthToken, accessToken) {
+  wx.setStorage({
+    key: "tokens",
+    data: { xauth: xAuthToken, accessToken },
+    success: function (res) {
+      console.log("tokens saved: ", res)
+    },
+    fail: function (err) {
+      console.log("failed to save tokens: ", err)
+    }
+  })
+}
+
 const webappBase = 'https://webapp.wonder4.life:8443';
 const loginUrl = webappBase + '/wxlogin';
+const imgBaseUrl = webappBase + '/product';
+const xAuthHeader = 'X-Auth-Token';
 
 module.exports = {
   formatTime: formatTime,
   promisify: promisify,
   webappBase: webappBase,
-  loginUrl: loginUrl
+  loginUrl: loginUrl,
+  imgBaseUrl: imgBaseUrl,
+  saveTokens: saveTokens,
+  xAuthHeader: xAuthHeader
 }

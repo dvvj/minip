@@ -1,6 +1,5 @@
-// pages/vant-test/vt3.js
-import Toast from '../../vant-lib/toast/toast';
-const areaList = require('../../utils/area.js')
+// pages/toUse/inputForms/new-customer.js
+const areaData = require('../../../utils/area.js')
 
 Page({
 
@@ -8,28 +7,39 @@ Page({
    * Page initial data
    */
   data: {
-    columns: ['杭州', '宁波', '温州', '嘉兴', '湖州'],
-    activeNames: ['2'],
-    title: '请选择省市区',
-    areaList: areaList.default
-  },
-  onChange(event) {
-    console.log(event)
-    const { picker, value, index } = event.detail;
-
-    //Toast(`当前值：${value}, 当前索引：${index}`);
+    userid: 'newcustomer01',
+    password: '123',
+    password2: '123',
+    userName: '张某',
+    idCardNo: '310112197003113821',
+    mobile: '13700011100',
+    postAddr: '某省某市某区某路xx号 邮编102011',
+    areaList: areaData.default
   },
 
-  onConfirm: function(e) {
-    console.log('confirmed: ', e);
-    let selected = e.detail.values.map(v => v.name).join('-');
-    this.setData({ title: selected});
-  },
   /**
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
-    console.log(this.data.areaList)
+
+  },
+  onInputUserId: function (e) {
+    this.setData({ userid: e.detail })
+  },
+  onInputPassword: function (e) {
+    this.setData({ password: e.detail })
+  },
+  onInputPassword2: function (e) {
+    this.setData({ password2: e.detail })
+  },
+  onInputUserName: function (e) {
+    this.setData({ userName: e.detail })
+  },
+  onInputIdCardNo: function (e) {
+    this.setData({ idCardNo: e.detail })
+  },
+  onInputMobile: function (e) {
+    this.setData({ mobile: e.detail })
   },
 
   /**

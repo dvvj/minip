@@ -1,15 +1,13 @@
-<!--pages/login/login-test.wxml-->
-
 <van-cell-group>
   <van-field
-    value="{{ userid }}"
+    value="{{ medprofid }}"
     required
     clearable
-    label="用户ID"
+    label="用户名"
     icon="question-o"
-    placeholder="请输入用户ID"
+    placeholder="请输入用户名"
     bind:click-icon="onClickIcon"
-    bind:input="onInputUserId"
+    bind:input="onInputUsername"
   />
 
   <van-field
@@ -24,3 +22,4 @@
 
   <van-button type="primary" size="large" bind:click="onLogin">登录</van-button>
 </van-cell-group>
+

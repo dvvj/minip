@@ -1,43 +1,4 @@
 <!--pages/vant-test/vt3.wxml-->
-<van-picker columns="{{ columns }}" />
 <van-toast id="van-toast" />
 
-<van-cell-group>
-  <van-cell title="单元格" value="内容" />
-  <van-cell title="单元格">
-    <van-icon slot="right-icon" name="search" class="custom-icon" />
-  </van-cell>
-  <van-cell value="内容" icon="shop-o" is-link>
-    <view slot="title">
-      <view class="van-cell-text">单元格</view>
-      <van-tag type="danger">标签</van-tag>
-    </view>
-  </van-cell>
-  <van-cell is-link url="../logs/logs">
-    <view>
-      <view class="van-cell-text">详情</view>
-      <van-tag type="danger">标签</van-tag>
-    </view>
-    <view slot="title">
-      <view class="van-cell-text">
-        <text>病人1</text>
-        <text></text>
-      </view>
-      <van-tag type="danger">糖尿病</van-tag>
-      <van-tag round type="primary">辅酶</van-tag>
-    </view>
-  </van-cell>
-  <van-cell is-link url="../charts/ct1">
-    <view>
-      <view class="van-cell-text">详情</view>
-    </view>
-    <view slot="title">
-      <view class="van-cell-text">
-        <text>病人2</text>
-        <text></text>
-      </view>
-      <van-tag type="danger">贫血</van-tag>
-      <van-tag round type="primary">维生素</van-tag>
-    </view>
-  </van-cell>
-</van-cell-group>
+<van-area area-list="{{ areaList }}" title="{{title}}" bind:confirm="onConfirm" />

@@ -1,14 +1,15 @@
 {
   "pages": [
+    "pages/toUse/inputForms/new-customer",
+    "pages/vant-test/vt3",
+    "pages/toUse/inputForms/newCustomer",
     "pages/charts/ct1",
     "pages/toUse/medprof/reffed-customers",
-    "pages/vant-test/vt3",
     "pages/vant-test/prodcard",
     "pages/toUse/login/loginProcess",
     "pages/vant-test/vt2-layout",
     "pages/products/products",
     "pages/vant-test/vt1",
-    "pages/toUse/inputForms/newCustomer",
     "pages/progress/progress1",
     "pages/richtext/rt1",
     "pages/icons/icons1",
@@ -61,5 +62,6 @@
         "text": "我"
       }
     ]
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

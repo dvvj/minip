@@ -10,14 +10,14 @@ Page({
    * Page initial data
    */
   data: {
-    username: 'o1a1p1_customer1',
+    userid: 'o1a1p1_customer1',
     password: '123'
   },
   onLogin: function(e) {
     console.log(e);
-    let username = this.data.username;
+    let userid = this.data.userid;
     let password = this.data.password;
-    console.log(`username: ${username}, password: ${password}`);
+    console.log(`username: ${userid}, password: ${password}`);
     
     util.promisify(wx.login)()
       .then(({ code }) => {
@@ -27,7 +27,7 @@ Page({
           method: 'POST',
           data: {
             wxCode: code,
-            userTypeName: 'Customer:' + username,
+            userTypeName: 'Customer:' + userid,
             userPass: password
           },
           success: function (e) {
@@ -53,8 +53,8 @@ Page({
         console.log('failed, reason: ', reason)
       })
   },
-  onInputUsername: function(e) {
-    this.setData({username: e.detail})
+  onInputUserId: function(e) {
+    this.setData({ userid: e.detail})
   },
   onInputPassword: function (e) {
     this.setData({ password: e.detail })

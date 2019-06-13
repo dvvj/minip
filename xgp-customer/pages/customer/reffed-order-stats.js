@@ -1,13 +1,13 @@
-// pages/charts/ct1.js
+// pages/customer/reffed-order-stats.js
 let wxCharts = require('../../utils/wxcharts-min.js');
 let roundPrice = function (price) {
   var p100 = Math.round(price * 100)
   return p100 / 100.0;
 };
 
-let roundPriceArr = function(arr) {
+let roundPriceArr = function (arr) {
   return arr.map(i => roundPrice(i))
-}
+};
 
 Page({
 
@@ -15,37 +15,13 @@ Page({
    * Page initial data
    */
   data: {
-    medprofData: []
+
   },
 
   /**
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
-    new wxCharts({
-      canvasId: 'pieCanvas',
-      type: 'pie',
-      series: [{
-        name: 'cat1',
-        data: 50,
-      }, {
-        name: 'cat2',
-        data: 30,
-      }, {
-        name: 'cat3',
-        data: 1,
-      }, {
-        name: 'cat4',
-        data: 1,
-      }, {
-        name: 'cat5',
-        data: 46,
-      }],
-      width: 360,
-      height: 300,
-      dataLabel: true
-    });
-
     let rawData = {
       "yearMonths": [
         "2018-11",
@@ -72,6 +48,7 @@ Page({
         0
       ]
     }
+
     new wxCharts({
       canvasId: 'columnCanvas',
       type: 'column',
@@ -81,11 +58,11 @@ Page({
         data: roundPriceArr(rawData.sales)
       }, {
         name: 'rewards',
-          data: roundPriceArr(rawData.rewards)
+        data: roundPriceArr(rawData.rewards)
       }],
       yAxis: {
         format: function (val) {
-          return val + '万';
+          return val + '元';
         }
       },
       width: 320,

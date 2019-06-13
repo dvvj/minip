@@ -5,7 +5,7 @@
     price="{{item.actualPrice}}"
     origin-price="{{item.price0}}"
     title="{{item.name}}"
-    thumb="../../images/product1.png"
+    thumb="{{item.imgUrl}}"
   >
     <view slot="footer">
       <van-stepper value="{{item.count}}" bind:plus="onPlus" bind:minus="onMinus" data-id="{{item.id}}" />
@@ -18,7 +18,7 @@
     tag="{{item.referingProfName}}"
     price="{{item.actualPrice}}"
     title="{{item.name}}"
-    thumb="../../images/product1.png"
+    thumb="{{item.imgUrl}}"
   >
     <view slot="footer">
       <van-stepper value="{{item.count}}" bind:plus="onPlus" bind:minus="onMinus" data-id="{{item.id}}" />

@@ -1,3 +1,7 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "van-cell": "../../vant-lib/cell/index",
+    "van-cell-group": "../../vant-lib/cell-group/index",
+    "van-tag": "../../vant-lib/tag/index"
+  }
 }

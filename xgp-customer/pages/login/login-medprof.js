@@ -1,13 +1,15 @@
 // pages/login/login-medprof.js
 const util = require('../../utils/util.js')
 
+const xAuthHeader = 'X-Auth-Token'
+
 Page({
 
   /**
    * Page initial data
    */
   data: {
-    username: 'o1a1_prof1',
+    medprofid: 'o1a1_prof1',
     password: '123'
   },
 
@@ -17,49 +19,51 @@ Page({
   onLoad: function (options) {
 
   },
-
   onLogin: function (e) {
     console.log(e);
-    let username = this.data.username;
+    let medprofid = this.data.medprofid;
     let password = this.data.password;
-    console.log(`username: ${username}, password: ${password}`);
+    console.log(`medprofid: ${medprofid}, password: ${password}`);
 
-    wx.navigateTo({
-      url: '../customer/reffed-customers',
-    })
-    // util.promisify(wx.login)()
-    //   .then(({ code }) => {
-    //     console.log(`code: ${code}`)
-    //     wx.request({
-    //       url: util.loginUrl,
-    //       method: 'POST',
-    //       data: {
-    //         wxCode: code,
-    //         userTypeName: 'MedProf:' + username,
-    //         userPass: password
-    //       },
-    //       success: function (e) {
-    //         console.log('success', e)
-    //         const tokens = { xauth: e.header[xAuthHeader], accessToken: e.data.access_token };
-    //         wx.setStorage({
-    //           key: "tokens",
-    //           data: tokens,
-    //           success: function (res) {
-    //             console.log("tokens saved: ", res)
-    //           },
-    //           fail: function (err) {
-    //             console.log("failed to save tokens: ", err)
-    //           }
-    //         })
-    //         wx.navigateTo({
-    //           url: '../customer/reffed-customers',
-    //         })
-    //       }
-    //     })
-    //   })
-    //   .catch(function (reason) {
-    //     console.log('failed, reason: ', reason)
-    //   })
+    util.promisify(wx.login)()
+      .then(({ code }) => {
+        console.log(`code: ${code}`)
+        wx.request({
+          url: util.loginUrl,
+          method: 'POST',
+          data: {
+            wxCode: code,
+            userTypeName: 'MedProf:' + medprofid,
+            userPass: password
+          },
+          success: function (e) {
+            console.log('success', e)
+            const tokens = { xauth: e.header[xAuthHeader], accessToken: e.data.access_token };
+            wx.setStorage({
+              key: "tokens",
+              data: tokens,
+              success: function (res) {
+                console.log("tokens saved: ", res)
+              },
+              fail: function (err) {
+                console.log("failed to save tokens: ", err)
+              }
+            })
+            wx.navigateTo({
+              url: '../customer/reffed-customers',
+            })
+          }
+        })
+      })
+      .catch(function (reason) {
+        console.log('failed, reason: ', reason)
+      })
+  },
+  onInputMedProfId: function (e) {
+    this.setData({ medprofid: e.detail })
+  },
+  onInputPassword: function (e) {
+    this.setData({ password: e.detail })
   },
 
   /**

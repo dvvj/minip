@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/toUse/medprof/reffed-customers",
     "pages/charts/ct1",
+    "pages/toUse/medprof/reffed-customers",
     "pages/vant-test/vt3",
     "pages/vant-test/prodcard",
     "pages/toUse/login/loginProcess",

@@ -7,7 +7,7 @@ Page({
    * Page initial data
    */
   data: {
-
+    medprofData: []
   },
 
   /**
@@ -38,16 +38,42 @@ Page({
       dataLabel: true
     });
 
+    let rawData = {
+      "yearMonths": [
+        "2018-11",
+        "2018-12",
+        "2019-01",
+        "2019-02",
+        "2019-03",
+        "2019-04"
+      ],
+      "sales": [
+        299.99,
+        299.99,
+        0,
+        0,
+        0,
+        0
+      ],
+      "rewards": [
+        29.999000000000002,
+        29.999000000000002,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
     new wxCharts({
       canvasId: 'columnCanvas',
       type: 'column',
-      categories: ['2012', '2013', '2014', '2015', '2016', '2017'],
+      categories: rawData.yearMonths, //['2012', '2013', '2014', '2015', '2016', '2017'],
       series: [{
-        name: '成交量1',
-        data: [15, 20, 45, 37, 4, 80]
+        name: 'sales',
+        data: rawData.sales
       }, {
-        name: '成交量2',
-        data: [70, 40, 65, 100, 34, 18]
+        name: 'rewards',
+        data: rawData.rewards
       }],
       yAxis: {
         format: function (val) {

@@ -1,38 +1,20 @@
-// pages/toUse/inputForms/new-customer.js
-const areaData = require('../../../utils/area.js')
-
+// pages/toUse/inputForms/existing-customer-new-profile.js
 Page({
 
   /**
    * Page initial data
    */
   data: {
-    userid: 'newcustomer01',
-    password: '123',
-    password2: '123',
+    userid: '', //'newcustomer01',
     userName: '张某',
-    idCardNo: '310112197003113821',
-    mobile: '13700011100',
-    postAddr: '某省某市某区某路xx号 邮编102011',
+    idCardNo: '', //'310112197003113821',
+    mobile: '', // '13700011100',
     healthTags: '高血压，糖尿病',
-    medicineTags: '降压药',
-    areaList: areaData.default
+    medicineTags: '降压药'
   },
 
-  /**
-   * Lifecycle function--Called when page load
-   */
-  onLoad: function (options) {
-
-  },
   onInputUserId: function (e) {
     this.setData({ userid: e.detail })
-  },
-  onInputPassword: function (e) {
-    this.setData({ password: e.detail })
-  },
-  onInputPassword2: function (e) {
-    this.setData({ password2: e.detail })
   },
   onInputUserName: function (e) {
     this.setData({ userName: e.detail })
@@ -51,6 +33,22 @@ Page({
   },
   onInputMedicineTags: function (e) {
     this.setData({ medicineTags: e.detail })
+  },
+  onFindCustomer: function (e) {
+    console.log('todo: search customer', e);
+    let that = this;
+    that.setData( {
+      userid: 'ne*01',
+      userName: '张**',
+      idCardNo: '310***816', //'310112197003113821',
+      mobile: '137***139', // '13700011100',
+    })
+  },
+  /**
+   * Lifecycle function--Called when page load
+   */
+  onLoad: function (options) {
+
   },
 
   /**

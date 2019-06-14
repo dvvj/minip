@@ -1,0 +1,74 @@
+<!--pages/toUse/inputForms/existing-customer-new-profile.wxml-->
+<van-cell-group>
+  <van-field
+    value="{{ userid }}"
+    required
+    clearable
+    label="用户ID"
+    icon="question-o"
+    placeholder="输入用户ID查找"
+    bind:click-icon="onClickIcon"
+    bind:input="onInputUserId"
+  />
+
+  <van-field
+    value="{{ userName }}"
+    required
+    clearable
+    label="姓名"
+    icon="question-o"
+    placeholder="输入姓名查找"
+    bind:click-icon="onClickIcon"
+    bind:input="onInputUserName"
+  />
+
+  <van-field
+    value="{{ idCardNo }}"
+    required
+    clearable
+    label="身份证号"
+    icon="question-o"
+    placeholder="身份证号查找"
+    bind:click-icon="onClickIcon"
+    bind:input="onInputIdCardNo"
+  />
+
+  <van-field
+    value="{{ mobile }}"
+    required
+    clearable
+    label="手机号"
+    icon="question-o"
+    placeholder="手机号查找"
+    bind:click-icon="onClickIcon"
+    bind:input="onInputMobile"
+  />
+
+  <van-button type="primary" size="large" bind:click="onFindCustomer">查找</van-button>
+
+  <van-field
+    value="{{ healthTags }}"
+    required
+    clearable
+    label="身体状况"
+    icon="question-o"
+    placeholder="请填写当前患有疾病，逗号分隔"
+    bind:click-icon="onClickIcon"
+    bind:input="onInputHealthTags"
+  />
+  <van-field
+    value="{{ medicineTags }}"
+    required
+    clearable
+    label="服用药物"
+    icon="question-o"
+    placeholder="请填写当前服用药物，逗号分隔"
+    bind:click-icon="onClickIcon"
+    bind:input="onInputMedicineTags"
+  />
+  <!-- <van-area area-list="{{ areaList }}" title="标题" /> -->
+
+  <van-button type="primary" size="large" bind:click="onNewCustomerProfile">添加用户档案</van-button>
+
+</van-cell-group>
+

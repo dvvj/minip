@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/toUse/inputForms/existing-customer-new-profile",
     "pages/toUse/inputForms/new-customer",
     "pages/vant-test/vt3",
     "pages/toUse/inputForms/newCustomer",

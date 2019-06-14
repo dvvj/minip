@@ -64,7 +64,17 @@
     bind:input="onInputMobile"
   />
 
-  <van-area area-list="{{ areaList }}" title="标题" />
-  
+  <van-field
+    value="{{ postAddr }}"
+    required
+    clearable
+    label="邮寄地址"
+    icon="question-o"
+    placeholder="有效的收货地址"
+    bind:click-icon="onClickIcon"
+    bind:input="onInputPostAddr"
+  />
+  <!-- <van-area area-list="{{ areaList }}" title="标题" /> -->
+
   <van-button type="primary" size="large" bind:click="onNewCustomer">添加</van-button>
 </van-cell-group>

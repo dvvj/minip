@@ -41,6 +41,9 @@ Page({
   onInputMobile: function (e) {
     this.setData({ mobile: e.detail })
   },
+  onInputPostAddr: function (e) {
+    this.setData({ postAddr: e.detail })
+  },
 
   /**
    * Lifecycle function--Called when page is initially rendered

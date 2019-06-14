@@ -14,6 +14,8 @@ Page({
     idCardNo: '310112197003113821',
     mobile: '13700011100',
     postAddr: '某省某市某区某路xx号 邮编102011',
+    healthTags: '高血压',
+    medicineTags: '降压药',
     areaList: areaData.default
   },
 
@@ -43,6 +45,12 @@ Page({
   },
   onInputPostAddr: function (e) {
     this.setData({ postAddr: e.detail })
+  },
+  onInputHealthTags: function (e) {
+    this.setData({ healthTags: e.detail })
+  },
+  onInputMedicineTags: function (e) {
+    this.setData({ medicineTags: e.detail })
   },
 
   /**

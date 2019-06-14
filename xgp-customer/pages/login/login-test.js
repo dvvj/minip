@@ -1,7 +1,6 @@
 // pages/login/login-test.js
 const util = require('../../utils/util.js')
 
-const xAuthHeader = 'X-Auth-Token'
 const sessionTestUrl = util.webappBase + '/sessionTest';
 
 Page({
@@ -32,17 +31,8 @@ Page({
           },
           success: function (e) {
             console.log('success', e)
-            const tokens = { xauth: e.header[xAuthHeader], accessToken: e.data.access_token };
-            wx.setStorage({
-              key: "tokens",
-              data: tokens,
-              success: function (res) {
-                console.log("tokens saved: ", res)
-              },
-              fail: function (err) {
-                console.log("failed to save tokens: ", err)
-              }
-            })
+            // const tokens = { xauth: e.header[xAuthHeader], accessToken: e.data.access_token };
+            util.saveTokens(e.header[util.xAuthHeader], e.data.access_token);
             wx.navigateTo({
               url: '../product/product-list',
             })

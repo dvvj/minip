@@ -74,6 +74,26 @@
     bind:click-icon="onClickIcon"
     bind:input="onInputPostAddr"
   />
+  <van-field
+    value="{{ healthTags }}"
+    required
+    clearable
+    label="身体状况"
+    icon="question-o"
+    placeholder="请填写当前患有疾病，逗号分隔"
+    bind:click-icon="onClickIcon"
+    bind:input="onInputHealthTags"
+  />
+  <van-field
+    value="{{ medicineTags }}"
+    required
+    clearable
+    label="服用药物"
+    icon="question-o"
+    placeholder="请填写当前服用药物，逗号分隔"
+    bind:click-icon="onClickIcon"
+    bind:input="onInputMedicineTags"
+  />
   <!-- <van-area area-list="{{ areaList }}" title="标题" /> -->
 
   <van-button type="primary" size="large" bind:click="onNewCustomer">添加</van-button>

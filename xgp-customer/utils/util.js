@@ -27,16 +27,22 @@ const promisify = original => {
 };
 
 let saveTokens = function (xAuthToken, accessToken) {
-  wx.setStorage({
-    key: "tokens",
-    data: { xauth: xAuthToken, accessToken },
-    success: function (res) {
-      console.log("tokens saved: ", res)
-    },
-    fail: function (err) {
-      console.log("failed to save tokens: ", err)
-    }
-  })
+  if (typeof xAuthToken === 'undefined') {
+    console.log('X-Auth-Token not updated, skip saving...')
+  }
+  else {
+    wx.setStorage({
+      key: "tokens",
+      data: { xauth: xAuthToken, accessToken },
+      success: function (res) {
+        console.log("tokens saved: ", res)
+      },
+      fail: function (err) {
+        console.log("failed to save tokens: ", err)
+      }
+    })
+    console.log('tokens saved:', xAuthToken, accessToken)
+  }
 }
 
 const webappBase = 'https://webapp.wonder4.life:8443';

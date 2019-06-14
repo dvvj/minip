@@ -9,6 +9,9 @@ let roundPriceArr = function (arr) {
   return arr.map(i => roundPrice(i))
 };
 
+const util = require('../../utils/util.js')
+const reffedOrderStatsUrl = util.webappBase + '/medprof/reffedOrderStats4Wx'
+
 Page({
 
   /**
@@ -22,6 +25,59 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
+    let that = this;
+
+    util.promisify(wx.getStorage)({ key: "tokens" })
+      .then(res => {
+        let tokens = res.data
+        console.log('got tokens: ', tokens)
+
+        wx.request({
+          url: reffedOrderStatsUrl,
+          method: 'POST',
+          data: {
+            customerId: "c＿o1a1p1_customer1",
+            startDate: "2018-11-01",
+            endDate: "2019-04-01"
+          },
+          header: {
+            'Authorization': 'Bearer ' + tokens.accessToken,
+            'X-Auth-Token': tokens.xauth
+          },
+          success: function (r1) {
+            console.log('r1:', r1);
+            util.saveTokens(r1.header[util.xAuthHeader], tokens.accessToken);
+
+            let rawData = r1.data
+            that.setData({ customerInfos: rawData })
+
+            new wxCharts({
+              canvasId: 'columnCanvas',
+              type: 'column',
+              categories: rawData.yearMonths, //['2012', '2013', '2014', '2015', '2016', '2017'],
+              series: [{
+                name: 'sales',
+                data: roundPriceArr(rawData.sales)
+              }, {
+                name: 'rewards',
+                data: roundPriceArr(rawData.rewards)
+              }],
+              yAxis: {
+                format: function (val) {
+                  return val + '元';
+                }
+              },
+              width: 320,
+              height: 200
+            });
+          }
+        })
+      }).catch(function (reason) {
+        console.log('failed:', reason);
+      })
+  },
+
+  onLoad00: function (options) {
     let rawData = {
       "yearMonths": [
         "2018-11",

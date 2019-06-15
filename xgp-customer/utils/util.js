@@ -45,7 +45,8 @@ let saveTokens = function (xAuthToken, accessToken) {
   }
 }
 
-const webappBase = 'https://webapp.wonder4.life:8443';
+//const webappBase = 'https://webapp.wonder4.life:8443';
+const webappBase = 'https://47.98.232.21:8443';
 const loginUrl = webappBase + '/wxlogin';
 const imgBaseUrl = webappBase + '/product';
 const xAuthHeader = 'X-Auth-Token';

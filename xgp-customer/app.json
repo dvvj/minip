@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/login/login-medprof",
+    "pages/proforg/order-stats",
     "pages/login/login-test",
+    "pages/login/login-medprof",
     "pages/login/login-medprof-local",
     "pages/index/index",
     "pages/logs/logs",

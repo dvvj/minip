@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "van-datetime-picker": "../../vant-lib/datetime-picker/index"
+  }
+}

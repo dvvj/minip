@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/customer/reffed-order-stats",
     "pages/proforg/order-stats",
     "pages/login/login-test",
     "pages/login/login-medprof",
@@ -7,8 +8,7 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/product/product-list",
-    "pages/customer/reffed-customers",
-    "pages/customer/reffed-order-stats"
+    "pages/customer/reffed-customers"
   ],
   "window": {
     "backgroundTextStyle": "light",

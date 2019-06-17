@@ -1,0 +1,9 @@
+<!--pages/vant-test/vt4.wxml-->
+<van-datetime-picker
+  type="year-month"
+  value="{{ currentDate }}"
+  min-date="{{ minDate }}"
+  max-date="{{ maxDate }}"
+  formatter="{{ formatter }}"
+  bind:input="onInput"
+/>

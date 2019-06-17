@@ -24,7 +24,7 @@ Page({
   /**
    * Lifecycle function--Called when page load
    */
-  onLoad: function (options) {
+  onLoad00: function (options) {
     let that = this;
 
     util.promisify(wx.getStorage)({ key: "tokens" })
@@ -77,7 +77,7 @@ Page({
       })
   },
 
-  onLoad00: function (options) {
+  onLoad: function (options) {
     let rawData = {
       "yearMonths": [
         "2018-11",

@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/toUse/shared/year-month",
+    "pages/vant-test/slider-test",
     "pages/vant-test/vt4",
     "pages/vant-test/vt3",
     "pages/toUse/inputForms/existing-customer-new-profile",

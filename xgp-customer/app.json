@@ -1,8 +1,8 @@
 {
   "pages": [
-    "pages/customer/reffed-order-stats",
     "pages/proforg/order-stats",
     "pages/login/login-test",
+    "pages/customer/reffed-order-stats",
     "pages/login/login-medprof",
     "pages/login/login-medprof-local",
     "pages/index/index",

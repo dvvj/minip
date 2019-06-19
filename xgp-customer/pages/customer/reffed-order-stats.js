@@ -1,13 +1,5 @@
 // pages/customer/reffed-order-stats.js
 let wxCharts = require('../../utils/wxcharts-min.js');
-let roundPrice = function (price) {
-  var p100 = Math.round(price * 100)
-  return p100 / 100.0;
-};
-
-let roundPriceArr = function (arr) {
-  return arr.map(i => roundPrice(i))
-};
 
 const util = require('../../utils/util.js')
 const reffedOrderStatsUrl = util.webappBase + '/medprof/reffedOrderStats4Wx'

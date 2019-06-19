@@ -45,8 +45,18 @@ let saveTokens = function (xAuthToken, accessToken) {
   }
 }
 
+let roundPrice = function (price) {
+  var p100 = Math.round(price * 100)
+  return p100 / 100.0;
+};
+
+let roundPriceArr = function (arr) {
+  return arr.map(i => roundPrice(i))
+};
+
 //const webappBase = 'https://webapp.wonder4.life:8443';
-const webappBase = 'https://47.98.232.21:8443';
+//const webappBase = 'https://47.98.232.21:8443';
+const webappBase = 'https://webapp.ajkhealth.com';
 const loginUrl = webappBase + '/wxlogin';
 const imgBaseUrl = webappBase + '/product';
 const xAuthHeader = 'X-Auth-Token';
@@ -58,5 +68,7 @@ module.exports = {
   loginUrl: loginUrl,
   imgBaseUrl: imgBaseUrl,
   saveTokens: saveTokens,
-  xAuthHeader: xAuthHeader
+  xAuthHeader: xAuthHeader,
+  roundPrice: roundPrice,
+  roundPriceArr: roundPriceArr
 }

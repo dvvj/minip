@@ -1,2 +1,40 @@
 <!--pages/mock/proforg/proforg_main.wxml-->
-<text>pages/mock/proforg/proforg_main.wxml</text>
+<van-tabbar active="{{activeTabIndex}}" bind:change="onTabbarChange">
+  <van-tabbar-item icon="home-o">数据统计</van-tabbar-item>
+  <van-tabbar-item icon="setting-o" dot>设置</van-tabbar-item>
+</van-tabbar>
+
+<swiper current="{{activeTabIndex}}" class="main_height" duration="300" bindchange='onSwiperChange'>
+  <swiper-item>
+    <scroll-view scroll-y class="main_height">
+      <van-cell-group>
+        <van-cell>
+          <view>
+            <van-tag plain size="medium" type="danger">终止：{{endYearMonth}}</van-tag>
+            <van-button size="mini" type="primary" bind:click='onSetEndYearMonth'>设置</van-button>
+          </view>
+          <view slot="title">
+            <view>
+              <van-tag plain size="medium" type="danger">起始：{{startYearMonth}}</van-tag>
+              <van-button size="mini" type="primary" bind:click='onSetStartYearMonth'>设置</van-button>
+            </view>
+          </view>
+        </van-cell>
+      </van-cell-group>
+
+      <van-dialog id="van-dialog"
+        use-slot>
+        <van-datetime-picker
+          type="year-month"
+          value="{{ currentDate }}"
+          min-date="{{ minDate }}"
+          max-date="{{ maxDate }}"
+          formatter="{{ formatter }}"
+          bind:confirm="onYearMonthPickerConfirm"
+        />
+      </van-dialog>
+      <canvas style="width: 800rpx; height: 900rpx;" canvas-id="columnCanvas"></canvas>
+    </scroll-view>
+  </swiper-item>
+  <swiper-item>todo</swiper-item>
+</swiper>

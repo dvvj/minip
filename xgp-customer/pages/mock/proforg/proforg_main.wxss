@@ -1,1 +1,4 @@
 /* pages/mock/proforg/proforg_main.wxss */
+.main_height {
+  height:1080rpx
+}

@@ -1,4 +1,4 @@
-// pages/mock/login.js
+// pages/prod/login.js
 const util = require('../../utils/util.js')
 
 const sessionTestUrl = util.webappBase + '/sessionTest';
@@ -9,7 +9,7 @@ Page({
    * Page initial data
    */
   data: {
-    userid: 'c_o1a1p1c1',
+    userid: 'p_o1a1p1',
     password: '123'
   },
   onLogin: function (e) {
@@ -18,11 +18,32 @@ Page({
     let password = this.data.password;
     console.log(`username: ${userid}, password: ${password}`);
 
-    wx.navigateTo({
-      //url: './customer/customer_main',
-      //url: './proforg/proforg_main',
-      url: './medprof/medprof_main',
-    })
+    util.promisify(wx.login)()
+      .then(({ code }) => {
+        console.log(`code: ${code}`)
+        wx.request({
+          url: util.loginUrl,
+          method: 'POST',
+          data: {
+            wxCode: code,
+            userId: userid,
+            userPass: password
+          },
+          success: function (e) {
+            console.log('login success', e)
+            // const tokens = { xauth: e.header[xAuthHeader], accessToken: e.data.access_token };
+            util.saveTokens(e);
+            let mainPage = util.getMainPage(e.data.userType);
+            console.log(`main page: ${e.data.userType}: ${mainPage}`);
+            wx.navigateTo({
+              url: mainPage //'../product/product-list',
+            })
+          }
+        })
+      })
+      .catch(function (reason) {
+        console.log('failed, reason: ', reason)
+      })
   },
   onInputUserId: function (e) {
     this.setData({ userid: e.detail })

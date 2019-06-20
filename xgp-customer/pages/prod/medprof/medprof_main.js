@@ -1,5 +1,5 @@
-// pages/customer/reffed-customers.js
-const util = require('../../utils/util.js')
+// pages/prod/medprof/medprof_main.js
+const util = require('../../../utils/util.js')
 const reffedCustomersUrl = util.webappBase + '/medprof/reffedCustomerInfos'
 
 Page({
@@ -8,16 +8,33 @@ Page({
    * Page initial data
    */
   data: {
+    activeTabIndex: 0,
     customerInfos: []
+  },
+
+  updateActiveTab: function (tabIndex) {
+    this.setData({ activeTabIndex: tabIndex })
+  },
+  onTabbarChange: function (e) {
+    console.log(e)
+    wx.showToast({
+      title: `切换到标签 ${e.detail}`,
+      icon: 'none'
+    });
+    this.updateActiveTab(e.detail)
+  },
+  onSwiperChange: function (e) {
+    console.log(e.detail.current)
+    this.updateActiveTab(e.detail.current)
   },
 
   /**
    * Lifecycle function--Called when page load
    */
-  onLoad: function (options) {
+  onLoad00: function (options) {
     let that = this;
 
-    util.promisify(wx.getStorage)({ key: util.userTokenKey })
+    util.promisify(wx.getStorage)({ key: "tokens" })
       .then(res => {
         let tokens = res.data
         console.log('got tokens: ', tokens)
@@ -31,7 +48,7 @@ Page({
           },
           success: function (r1) {
             console.log('r1:', r1);
-            //util.saveTokens(r1.header[util.xAuthHeader], tokens.accessToken);
+            util.saveTokens(r1.header[util.xAuthHeader], tokens.accessToken);
 
             let rawData = r1.data
             that.setData({ customerInfos: rawData })
@@ -41,7 +58,7 @@ Page({
         console.log('failed:', reason);
       })
   },
-  onLoad00: function (options) {
+  onLoad: function (options) {
     let rawData = [
       {
         "profileId": 1,

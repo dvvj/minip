@@ -1,0 +1,4 @@
+/* pages/mock/medprof/medprof_main.wxss */
+.main_height {
+  height:1080rpx
+}

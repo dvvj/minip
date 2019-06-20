@@ -49,10 +49,10 @@ Page({
               categories: rawData.yearMonths, //['2012', '2013', '2014', '2015', '2016', '2017'],
               series: [{
                 name: 'sales',
-                data: roundPriceArr(rawData.sales)
+                data: util.roundPriceArr(rawData.sales)
               }, {
                 name: 'rewards',
-                data: roundPriceArr(rawData.rewards)
+                data: util.roundPriceArr(rawData.rewards)
               }],
               yAxis: {
                 format: function (val) {
@@ -103,10 +103,10 @@ Page({
       categories: rawData.yearMonths, //['2012', '2013', '2014', '2015', '2016', '2017'],
       series: [{
         name: 'sales',
-        data: roundPriceArr(rawData.sales)
+        data: util.roundPriceArr(rawData.sales)
       }, {
         name: 'rewards',
-        data: roundPriceArr(rawData.rewards)
+        data: util.roundPriceArr(rawData.rewards)
       }],
       yAxis: {
         format: function (val) {

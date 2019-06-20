@@ -26,14 +26,25 @@ const promisify = original => {
   }
 };
 
-let saveTokens = function (xAuthToken, accessToken) {
+const userTokenKey = "userTokens"
+
+let saveTokens = function (evt) {
+
+  let xAuthToken = evt.header[xAuthHeader];
+  let accessToken = evt.data.oauth2.access_token;
+  let userType = evt.data.userType;
+
+  _saveTokens(xAuthToken, accessToken, userType);
+}
+
+let _saveTokens = function (xAuthToken, accessToken, userType) {
   if (typeof xAuthToken === 'undefined') {
     console.log('X-Auth-Token not updated, skip saving...')
   }
   else {
     wx.setStorage({
-      key: "tokens",
-      data: { xauth: xAuthToken, accessToken },
+      key: userTokenKey,
+      data: { xauth: xAuthToken, accessToken, userType },
       success: function (res) {
         console.log("tokens saved: ", res)
       },
@@ -43,6 +54,11 @@ let saveTokens = function (xAuthToken, accessToken) {
     })
     console.log('tokens saved:', xAuthToken, accessToken)
   }
+}
+
+let updateXAuth = function(xauth) {
+  let tmp = wx.getStorageSync(userTokenKey)
+  _saveTokens(xauth, tmp.accessToken, tmp.userType);
 }
 
 let roundPrice = function (price) {
@@ -61,6 +77,16 @@ const loginUrl = webappBase + '/wxlogin';
 const imgBaseUrl = webappBase + '/product';
 const xAuthHeader = 'X-Auth-Token';
 
+const prodPagesBase = '/pages/prod';
+const userType2MainPage = {
+  Customer: prodPagesBase + '/customer/customer_main',
+  MedProf: prodPagesBase + '/medprof/medprof_main'
+};
+
+const getMainPage = function(userType) {
+  return userType2MainPage[userType];
+}
+
 module.exports = {
   formatTime: formatTime,
   promisify: promisify,
@@ -70,5 +96,8 @@ module.exports = {
   saveTokens: saveTokens,
   xAuthHeader: xAuthHeader,
   roundPrice: roundPrice,
-  roundPriceArr: roundPriceArr
+  roundPriceArr: roundPriceArr,
+  userTokenKey: userTokenKey,
+  updateXAuth: updateXAuth,
+  getMainPage: getMainPage
 }

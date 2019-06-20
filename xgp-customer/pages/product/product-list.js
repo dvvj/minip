@@ -23,7 +23,7 @@ Page({
     let prodId = e.target.dataset.id
     let prod = this.data.productDict[prodId]
     console.log('prod: ', prod)
-    util.promisify(wx.getStorage)({ key: "tokens" })
+    util.promisify(wx.getStorage)({ key: util.userTokenKey })
       .then(res => {
         let tokens = res.data
         console.log('got tokens: ', tokens)
@@ -42,7 +42,7 @@ Page({
           },
           success: function (r2) {
             console.log('r2: ', r2)
-            util.saveTokens(r2.header[util.xAuthHeader], tokens.accessToken);
+            //util.saveTokens(r2.header[util.xAuthHeader], tokens.accessToken);
             wx.requestPayment({
               'timeStamp': r2.data.timeStamp,
               'nonceStr': r2.data.nonceStr,
@@ -97,7 +97,7 @@ Page({
   },
   onLoad: function (options) {
     let that = this
-    util.promisify(wx.getStorage)({ key: "tokens"})
+    util.promisify(wx.getStorage)({ key: util.userTokenKey})
       .then(res => {
         let tokens = res.data
         console.log('got tokens: ', tokens)
@@ -110,8 +110,8 @@ Page({
             'X-Auth-Token': tokens.xauth
           },
           success: function (r1) {
-            console.log('r1:', r1);
-            util.saveTokens(r1.header[util.xAuthHeader], tokens.accessToken);
+            console.log('Customer product list:', r1);
+            util.updateXAuth(r1.header[util.xAuthHeader]);
 
             let resDataRaw = r1.data
             var resData = resDataRaw.map(item => {

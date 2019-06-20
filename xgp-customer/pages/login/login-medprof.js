@@ -7,7 +7,7 @@ Page({
    * Page initial data
    */
   data: {
-    medprofid: 'o1a1_prof1',
+    medprofid: 'p_o1a1p1',
     password: '123'
   },
 
@@ -31,13 +31,13 @@ Page({
           method: 'POST',
           data: {
             wxCode: code,
-            userTypeName: 'MedProf:' + medprofid,
+            userId: medprofid,
             userPass: password
           },
           success: function (e) {
             console.log('success', e)
             // const tokens = { xauth: e.header[util.xAuthHeader], accessToken: e.data.access_token };
-            util.saveTokens(e.header[util.xAuthHeader], e.data.access_token);
+            util.saveTokens(e);
             wx.navigateTo({
               url: '../customer/reffed-customers',
             })

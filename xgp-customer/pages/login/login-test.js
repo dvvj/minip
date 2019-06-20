@@ -9,7 +9,7 @@ Page({
    * Page initial data
    */
   data: {
-    userid: 'o1a1p1_customer1',
+    userid: 'c_o1a1p1c1',
     password: '123'
   },
   onLogin: function(e) {
@@ -26,13 +26,13 @@ Page({
           method: 'POST',
           data: {
             wxCode: code,
-            userTypeName: 'Customer:' + userid,
+            userId: userid,
             userPass: password
           },
           success: function (e) {
-            console.log('success', e)
+            console.log('login success', e)
             // const tokens = { xauth: e.header[xAuthHeader], accessToken: e.data.access_token };
-            util.saveTokens(e.header[util.xAuthHeader], e.data.access_token);
+            util.saveTokens(e);
             wx.navigateTo({
               url: '../product/product-list',
             })

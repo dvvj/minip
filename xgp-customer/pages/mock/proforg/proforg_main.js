@@ -139,7 +139,7 @@ Page({
         }
       },
       width: 360,
-      height: 500
+      height: 360
     });
   },
 

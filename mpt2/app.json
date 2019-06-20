@@ -1,6 +1,8 @@
 {
   "pages": [
     "pages/toUse/shared/year-month",
+    "pages/vant-test/tab-test",
+    "pages/products/products",
     "pages/vant-test/slider-test",
     "pages/vant-test/vt4",
     "pages/vant-test/vt3",
@@ -12,7 +14,6 @@
     "pages/vant-test/prodcard",
     "pages/toUse/login/loginProcess",
     "pages/vant-test/vt2-layout",
-    "pages/products/products",
     "pages/vant-test/vt1",
     "pages/progress/progress1",
     "pages/richtext/rt1",
@@ -51,7 +52,7 @@
         "pagePath": "pages/index/index",
         "iconPath": "images/footer-icon-01-category.png",
         "selectedIconPath": "images/footer-icon-01-category-active.png",
-        "text": "分类"
+        "text": "操作"
       },
       {
         "pagePath": "pages/products/products",
@@ -63,7 +64,7 @@
         "pagePath": "pages/circle/circle",
         "iconPath": "images/footer-icon-03-me.png",
         "selectedIconPath": "images/footer-icon-03-me-active.png",
-        "text": "我"
+        "text": "设置"
       }
     ]
   },

@@ -1,14 +1,17 @@
 {
   "pages": [
-    "pages/proforg/order-stats",
+    "pages/mock/login",
     "pages/login/login-test",
+    "pages/proforg/order-stats",
     "pages/customer/reffed-order-stats",
     "pages/login/login-medprof",
     "pages/login/login-medprof-local",
     "pages/index/index",
     "pages/logs/logs",
     "pages/product/product-list",
-    "pages/customer/reffed-customers"
+    "pages/customer/reffed-customers",
+    "pages/mock/customer/customer_main",
+    "pages/mock/proforg/proforg_main"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,9 +1,9 @@
 {
   "pages": [
+    "pages/mock/login",
     "pages/prod/login",
     "pages/login/login-test",
     "pages/login/login-medprof",
-    "pages/mock/login",
     "pages/proforg/order-stats",
     "pages/customer/reffed-order-stats",
     "pages/login/login-medprof-local",

@@ -20,7 +20,58 @@ Page({
       postAddr: '某省某市某区某路xx号 邮编102011',
       healthTags: '高血压，糖尿病',
       medicineTags: '降压药'
+    },
+    existingCustomer: {
+      userid: 'existingcustomer01',
+      password: '123',
+      password2: '123',
+      userName: '张某',
+      idCardNo: '310112197003113821',
+      mobile: '13700011100',
+      postAddr: '某省某市某区某路xx号 邮编102011',
+      healthTags: '高血压，糖尿病',
+      medicineTags: '降压药'
     }
+  },
+
+  // for existing-customer
+  updateExistingCustomer: function (field, e) {
+    var t = this.data.existingCustomer;
+    t[field] = e.detail;
+    this.setData({ existingCustomer: t });
+  },
+  onInputUserId_Existing: function (e) {
+    this.updateExistingCustomer("userid", e)
+  },
+  onInputUserName_Existing: function (e) {
+    this.updateExistingCustomer("userName", e)
+  },
+  onInputIdCardNo_Existing: function (e) {
+    this.updateExistingCustomer("idCardNo", e)
+  },
+  onInputMobile_Existing: function (e) {
+    this.updateExistingCustomer("mobile", e)
+  },
+  // onInputPostAddr: function (e) {
+  //   this.setData({ postAddr: e.detail })
+  // },
+  // onInputHealthTags: function (e) {
+  //   this.setData({ healthTags: e.detail })
+  // },
+  // onInputMedicineTags: function (e) {
+  //   this.setData({ medicineTags: e.detail })
+  // },
+  onFindCustomer: function (e) {
+    console.log('todo: search customer', e);
+    let that = this;
+    that.setData({
+      existingCustomer: {
+        userid: 'ne*01',
+        userName: '张**',
+        idCardNo: '310***816', //'310112197003113821',
+        mobile: '137***139', // '13700011100',
+      }
+    })
   },
 
   // for new-customer

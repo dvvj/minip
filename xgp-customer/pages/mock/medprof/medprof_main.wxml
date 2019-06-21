@@ -48,6 +48,8 @@
   <swiper-item>
     <include src="page-parts/new-customer.wxml"/>
   </swiper-item>
-  <swiper-item>todo</swiper-item>
+  <swiper-item>
+    <include src="page-parts/existing-customer.wxml"/>
+  </swiper-item>
   <swiper-item>todo</swiper-item>
 </swiper>

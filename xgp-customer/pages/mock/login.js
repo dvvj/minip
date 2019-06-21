@@ -9,7 +9,7 @@ Page({
    * Page initial data
    */
   data: {
-    userid: 'p_o1a1p1',
+    userid: 'o_o1',
     password: '123'
   },
   onLogin: function (e) {
@@ -20,8 +20,8 @@ Page({
 
     wx.navigateTo({
       //url: './customer/customer_main',
-      //url: './proforg/proforg_main',
-      url: './medprof/medprof_main',
+      url: './proforg/proforg_main',
+      //url: './medprof/medprof_main',
     })
   },
   onInputUserId: function (e) {

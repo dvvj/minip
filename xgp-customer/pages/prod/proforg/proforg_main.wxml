@@ -1,4 +1,4 @@
-<!--pages/mock/proforg/proforg_main.wxml-->
+<!--pages/prod/proforg/proforg_main.wxml-->
 <van-tabbar active="{{activeTabIndex}}" bind:change="onTabbarChange">
   <van-tabbar-item icon="gold-coin">收益统计</van-tabbar-item>
   <van-tabbar-item icon="setting" dot>设置</van-tabbar-item>
@@ -40,3 +40,4 @@
     bind:confirm="onYearMonthPickerConfirm"
   />
 </van-dialog>
+

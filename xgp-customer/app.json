@@ -15,7 +15,8 @@
     "pages/mock/proforg/proforg_main",
     "pages/mock/medprof/medprof_main",
     "pages/prod/customer/customer_main",
-    "pages/prod/medprof/medprof_main"
+    "pages/prod/medprof/medprof_main",
+    "pages/prod/proforg/proforg_main"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -80,7 +80,8 @@ const xAuthHeader = 'X-Auth-Token';
 const prodPagesBase = '/pages/prod';
 const userType2MainPage = {
   Customer: prodPagesBase + '/customer/customer_main',
-  MedProf: prodPagesBase + '/medprof/medprof_main'
+  MedProf: prodPagesBase + '/medprof/medprof_main',
+  ProfOrg: prodPagesBase + '/proforg/proforg_main',
 };
 
 const getMainPage = function(userType) {

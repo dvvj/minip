@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/toUse/inputForms/new-customer",
     "pages/toUse/shared/year-month",
     "pages/vant-test/tab-test",
     "pages/products/products",
@@ -7,7 +8,6 @@
     "pages/vant-test/vt4",
     "pages/vant-test/vt3",
     "pages/toUse/inputForms/existing-customer-new-profile",
-    "pages/toUse/inputForms/new-customer",
     "pages/toUse/inputForms/newCustomer",
     "pages/charts/ct1",
     "pages/toUse/medprof/reffed-customers",

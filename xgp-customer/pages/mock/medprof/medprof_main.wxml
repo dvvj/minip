@@ -1,9 +1,10 @@
 <!--pages/mock/medprof/medprof_main.wxml-->
+
 <van-tabbar active="{{activeTabIndex}}" bind:change="onTabbarChange">
   <van-tabbar-item icon="friends">客户列表</van-tabbar-item>
-  <van-tabbar-item icon="gold-coin" dot>总收益</van-tabbar-item>
-  <van-tabbar-item icon="add-square" dot>添加客户</van-tabbar-item>
-  <van-tabbar-item icon="add" dot>连接客户</van-tabbar-item>
+  <van-tabbar-item icon="gold-coin">总收益</van-tabbar-item>
+  <van-tabbar-item icon="add-square">添加客户</van-tabbar-item>
+  <van-tabbar-item icon="add">连接客户</van-tabbar-item>
   <van-tabbar-item icon="setting" dot>设置</van-tabbar-item>
 </van-tabbar>
 
@@ -14,7 +15,7 @@
         <van-cell-group>
           <van-cell is-link url="../../customer/reffed-order-stats">
             <view>
-              <block wx:for="{{item.productShortNames}}">
+              <block wx:for="{{item.productShortNames}}" wx:key="*this">
                 <van-tag round type="success">{{item}}</van-tag>
               </block>
               <view class="van-cell-text">
@@ -27,12 +28,12 @@
                 <text></text>
               </view>
               <view>
-                <block wx:for="{{item.healthTags}}">
+                <block wx:for="{{item.healthTags}}" wx:key="*this">
                   <van-tag plain type="danger">{{item}}</van-tag>
                 </block>
               </view>
               <view>
-                <block wx:for="{{item.medicineTags}}">
+                <block wx:for="{{item.medicineTags}}" wx:key="*this">
                   <van-tag round type="primary">{{item}}</van-tag>
                 </block>
               </view>
@@ -42,8 +43,11 @@
       </block>
     </scroll-view>
   </swiper-item>
-  <swiper-item>todo</swiper-item>
-  <swiper-item>todo</swiper-item>
+  <swiper-item>todo
+  </swiper-item>
+  <swiper-item>
+    <include src="page-parts/new-customer.wxml"/>
+  </swiper-item>
   <swiper-item>todo</swiper-item>
   <swiper-item>todo</swiper-item>
 </swiper>

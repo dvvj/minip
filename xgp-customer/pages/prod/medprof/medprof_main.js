@@ -63,7 +63,7 @@ Page({
       {
         "profileId": 1,
         "customerName": "张晓东",
-        "customerId": "c＿o1a1p1_customer1",
+        "customerId": "c_o1a1p1c1",
         "productShortNames": [
           "Astaxin虾青素",
           "ACO产妇维生素"
@@ -80,7 +80,7 @@ Page({
       {
         "profileId": 2,
         "customerName": "张晓",
-        "customerId": "c＿o1a1p1_customer2",
+        "customerId": "c_o1a1p1c2",
         "productShortNames": [
           "Astaxin虾青素",
           "ACO产妇维生素"
@@ -96,7 +96,7 @@ Page({
       {
         "profileId": 3,
         "customerName": "张丽",
-        "customerId": "c＿o1a1p1_customer4",
+        "customerId": "c_o1a1p1c4",
         "productShortNames": [
           "Astaxin虾青素"
         ],

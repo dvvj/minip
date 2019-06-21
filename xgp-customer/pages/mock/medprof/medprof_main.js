@@ -9,7 +9,55 @@ Page({
    */
   data: {
     activeTabIndex: 0,
-    customerInfos: []
+    customerInfos: [],
+    newCustomer: {
+      userid: 'newcustomer01',
+      password: '123',
+      password2: '123',
+      userName: '张某',
+      idCardNo: '310112197003113821',
+      mobile: '13700011100',
+      postAddr: '某省某市某区某路xx号 邮编102011',
+      healthTags: '高血压，糖尿病',
+      medicineTags: '降压药'
+    }
+  },
+
+  // for new-customer
+  updateNewCustomer: function(field, e) {
+    var t = this.data.newCustomer;
+    t[field] = e.detail;
+    this.setData({newCustomer: t});
+  },
+  onInputUserId: function(e) {
+    this.updateNewCustomer("userid", e)
+  },
+  onInputPassword: function (e) {
+    this.updateNewCustomer("password", e)
+  },
+  onInputPassword2: function (e) {
+    this.updateNewCustomer("password2", e)
+  },
+  onInputUserName: function (e) {
+    this.updateNewCustomer("userName", e)
+  },
+  onInputIdCardNo: function (e) {
+    this.updateNewCustomer("userName", e)
+  },
+  onInputMobile: function (e) {
+    this.updateNewCustomer("mobile", e)
+  },
+  onInputPostAddr: function (e) {
+    this.updateNewCustomer("postAddr", e)
+  },
+  onInputHealthTags: function (e) {
+    this.updateNewCustomer("healthTags", e)
+  },
+  onInputMedicineTags: function (e) {
+    this.updateNewCustomer("medicineTags", e)
+  },
+  onNewCustomer: function(e) {
+    console.log('in onNewCustomer: ', this.data.newCustomer)
   },
 
   updateActiveTab: function (tabIndex) {

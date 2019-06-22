@@ -11,9 +11,10 @@ Page({
    */
   data: {
     activeTabIndex: 0,
-
-    startYearMonth: '2018-10',
-    endYearMonth: '2019-03',
+    profitStats: {
+      startYearMonth: '2018-11',
+      endYearMonth: '2019-03'
+    },
     minHour: 10,
     maxHour: 20,
     minDate: new Date().getTime(),

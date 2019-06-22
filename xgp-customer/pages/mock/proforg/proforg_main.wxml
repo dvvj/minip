@@ -6,25 +6,7 @@
 
 <swiper current="{{activeTabIndex}}" class="main_height" duration="300" bindchange='onSwiperChange'>
   <swiper-item>
-    <scroll-view scroll-y class="main_height">
-      <van-cell-group>
-        <van-cell>
-          <view>
-            <van-tag plain size="medium" type="danger">终止：{{endYearMonth}}</van-tag>
-            <van-button size="mini" type="primary" bind:click='onSetEndYearMonth'>设置</van-button>
-          </view>
-          <view slot="title">
-            <view>
-              <van-tag plain size="medium" type="danger">起始：{{startYearMonth}}</van-tag>
-              <van-button size="mini" type="primary" bind:click='onSetStartYearMonth'>设置</van-button>
-            </view>
-          </view>
-        </van-cell>
-      </van-cell-group>
-      <view class="canvas_container">
-        <canvas class="main_canvas" canvas-id="columnCanvas"></canvas>
-      </view>
-    </scroll-view>
+    <include src="../shared/page-parts/profit-stats.wxml"/>
   </swiper-item>
   <swiper-item>todo</swiper-item>
 </swiper>

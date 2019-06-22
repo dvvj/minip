@@ -1,6 +1,7 @@
 // pages/mock/medprof/medprof_main.js
 const util = require('../../../utils/util.js')
 const reffedCustomersUrl = util.webappBase + '/medprof/reffedCustomerInfos'
+const wxCharts = require('../../../utils/wxcharts-min.js');
 
 import Toast from '../../../vant-lib//toast/toast';
 
@@ -11,6 +12,10 @@ Page({
    */
   data: {
     activeTabIndex: 0,
+    profitStats: {
+      startYearMonth: '2018-11',
+      endYearMonth: '2019-03'
+    },
     customerInfos: [],
     newCustomer: {
       disabled: false,
@@ -267,6 +272,46 @@ Page({
 
     this.setData({ customerInfos: rawData })
 
+    let rawProfitData = {
+      "yearMonths": [
+        "2019-01",
+        "2019-02",
+        "2019-03",
+        "2019-04"
+      ],
+      "sales": [
+        9049.939999999999,
+        9049.939999999999,
+        9349.919999999998,
+        0
+      ],
+      "rewards": [
+        2714.982,
+        2714.982,
+        2804.9759999999997,
+        0
+      ]
+    }
+
+    new wxCharts({
+      canvasId: 'columnCanvas',
+      type: 'column',
+      categories: rawProfitData.yearMonths,
+      series: [{
+        name: '销售额',
+        data: util.roundPriceArr(rawProfitData.sales)
+      }, {
+        name: '佣金',
+        data: util.roundPriceArr(rawProfitData.rewards)
+      }],
+      yAxis: {
+        format: function (val) {
+          return val + '元';
+        }
+      },
+      width: 360,
+      height: 360
+    });
   },
 
   /**

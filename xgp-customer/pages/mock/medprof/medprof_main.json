@@ -6,6 +6,7 @@
     "van-tabbar": "../../../vant-lib/tabbar/index",
     "van-tabbar-item": "../../../vant-lib/tabbar-item/index",
     "van-button": "../../../vant-lib/button/index",
-    "van-field": "../../../vant-lib/field/index"
+    "van-field": "../../../vant-lib/field/index",
+    "van-toast": "../../../vant-lib/toast/index"
   }
 }

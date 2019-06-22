@@ -20,8 +20,8 @@ Page({
 
     wx.navigateTo({
       //url: './customer/customer_main',
-      url: './proforg/proforg_main',
-      //url: './medprof/medprof_main',
+      //url: './proforg/proforg_main',
+      url: './medprof/medprof_main',
     })
   },
   onInputUserId: function (e) {

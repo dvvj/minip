@@ -2,6 +2,8 @@
 const util = require('../../../utils/util.js')
 const reffedCustomersUrl = util.webappBase + '/medprof/reffedCustomerInfos'
 
+import Toast from '../../../vant-lib//toast/toast';
+
 Page({
 
   /**
@@ -11,6 +13,8 @@ Page({
     activeTabIndex: 0,
     customerInfos: [],
     newCustomer: {
+      disabled: false,
+      loadingText: '',
       userid: 'newcustomer01',
       password: '123',
       password2: '123',
@@ -107,7 +111,36 @@ Page({
   onInputMedicineTags: function (e) {
     this.updateNewCustomer("medicineTags", e)
   },
+  setInProgress: function(isInProgress) {
+    this.updateNewCustomer("disabled", { detail: isInProgress });
+    let loadingText = isInProgress ? '添加客户中...' : '';
+    this.updateNewCustomer("loadingText", { detail: loadingText });
+  },
   onNewCustomer: function(e) {
+    let that = this;
+    setTimeout(
+      function() {
+        that.setInProgress(false);
+        // wx.showToast({
+        //   title: `用户添加成功`,
+        //   icon: 'success'
+        // });
+        // Toast.loading({
+        //   duration: 1000,       // 持续展示 toast
+        //   forbidClick: true, // 禁用背景点击
+        //   message: '用户添加成功',
+        //   type: 'success'
+        // });
+        Toast.loading({
+          duration: 1000,       // 持续展示 toast
+          forbidClick: true, // 禁用背景点击
+          message: '用户添加失败',
+          type: 'fail'
+        });
+      },
+      1000
+    )
+    this.setInProgress(true)
     console.log('in onNewCustomer: ', this.data.newCustomer)
   },
 

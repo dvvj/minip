@@ -8,6 +8,8 @@
   <van-tabbar-item icon="setting" dot>设置</van-tabbar-item>
 </van-tabbar>
 
+<van-toast id="van-toast" />
+
 <swiper current="{{activeTabIndex}}" class="main_height" duration="300" bindchange='onSwiperChange'>
   <swiper-item>
     <scroll-view scroll-y class="main_height">

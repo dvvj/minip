@@ -1,5 +1,6 @@
 <van-cell-group>
   <van-field
+    disabled="{{ newCustomer.disabled }}"
     value="{{ newCustomer.userid }}"
     required
     clearable
@@ -11,6 +12,7 @@
   />
 
   <van-field
+    disabled="{{ newCustomer.disabled }}"
     value="{{ newCustomer.password }}"
     type="password"
     label="密码"
@@ -21,6 +23,7 @@
   />
 
   <van-field
+    disabled="{{ newCustomer.disabled }}"
     value="{{ newCustomer.password2 }}"
     type="password"
     label="重复密码"
@@ -31,6 +34,7 @@
   />
 
   <van-field
+    disabled="{{ newCustomer.disabled }}"
     value="{{ newCustomer.userName }}"
     required
     clearable
@@ -42,6 +46,7 @@
   />
 
   <van-field
+    disabled="{{ newCustomer.disabled }}"
     value="{{ newCustomer.idCardNo }}"
     required
     clearable
@@ -53,6 +58,7 @@
   />
 
   <van-field
+    disabled="{{ newCustomer.disabled }}"
     value="{{ newCustomer.mobile }}"
     required
     clearable
@@ -64,6 +70,7 @@
   />
 
   <van-field
+    disabled="{{ newCustomer.disabled }}"
     value="{{ newCustomer.postAddr }}"
     required
     clearable
@@ -74,6 +81,7 @@
     bind:input="onInputPostAddr"
   />
   <van-field
+    disabled="{{ newCustomer.disabled }}"
     value="{{ newCustomer.healthTags }}"
     required
     clearable
@@ -84,6 +92,7 @@
     bind:input="onInputHealthTags"
   />
   <van-field
+    disabled="{{ newCustomer.disabled }}"
     value="{{ newCustomer.medicineTags }}"
     required
     clearable
@@ -95,5 +104,7 @@
   />
   <!-- <van-area area-list="{{ areaList }}" title="标题" /> -->
 
-  <van-button type="primary" size="large" bind:click="onNewCustomer">添加</van-button>
+  <van-button type="primary" size="large" bind:click="onNewCustomer"
+    loading="{{ newCustomer.loadingText != '' }}"
+    loading-text='{{ newCustomer.loadingText}}'>添加</van-button>
 </van-cell-group>

@@ -39,6 +39,8 @@
       </block>
     </scroll-view>
   </swiper-item>
-  <swiper-item>todo</swiper-item>
+  <swiper-item>
+    <include src="../shared/page-parts/order-list.wxml"/>
+  </swiper-item>
   <swiper-item>todo</swiper-item>
 </swiper>

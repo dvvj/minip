@@ -16,7 +16,11 @@ Page({
    * Page initial data
    */
   data: {
-    activeTabIndex: 0
+    activeTabIndex: 0,
+    orderList: {
+      startYearMonth: '2018-11',
+      endYearMonth: '2019-03'
+    },
   },
   updateActiveTab: function(tabIndex) {
     this.setData({ activeTabIndex: tabIndex })

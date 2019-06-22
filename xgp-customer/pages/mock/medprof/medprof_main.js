@@ -2,6 +2,8 @@
 const util = require('../../../utils/util.js')
 const reffedCustomersUrl = util.webappBase + '/medprof/reffedCustomerInfos'
 const wxCharts = require('../../../utils/wxcharts-min.js');
+const profitStatsTabIndex = 1;
+const productListTabIndex = 0;
 
 import Toast from '../../../vant-lib//toast/toast';
 
@@ -175,19 +177,77 @@ Page({
   },
 
   updateActiveTab: function (tabIndex) {
-    this.setData({ activeTabIndex: tabIndex })
+    this.updateTabContent(tabIndex);
+    this.setData({ activeTabIndex: tabIndex });
   },
   onTabbarChange: function (e) {
     console.log(e)
+    let tabIndex = e.detail
     wx.showToast({
-      title: `切换到标签 ${e.detail}`,
+      title: `切换到标签 ${tabIndex}`,
       icon: 'none'
     });
-    this.updateActiveTab(e.detail)
+    this.updateActiveTab(tabIndex)
   },
   onSwiperChange: function (e) {
-    console.log(e.detail.current)
-    this.updateActiveTab(e.detail.current)
+    let tabIndex = e.detail.current
+    console.log(tabIndex)
+    this.updateActiveTab(tabIndex)
+  },
+
+  updateTabContent: function(tabIndex) {
+
+    if (tabIndex == profitStatsTabIndex) {
+      // todo: cache data
+      this.updateProfitTab();
+    }
+    else if (tabIndex == productListTabIndex) {
+      this.updateProductTab();
+    }
+  },
+
+  updateProfitTab: function () {
+    let rawProfitData = {
+      "yearMonths": [
+        "2019-01",
+        "2019-02",
+        "2019-03",
+        "2019-04"
+      ],
+      "sales": [
+        9049.939999999999,
+        9049.939999999999,
+        9349.919999999998,
+        0
+      ],
+      "rewards": [
+        2714.982,
+        2714.982,
+        2804.9759999999997,
+        0
+      ]
+    }
+
+    new wxCharts({
+      canvasId: 'columnCanvas',
+      type: 'column',
+      categories: rawProfitData.yearMonths,
+      series: [{
+        name: '销售额',
+        data: util.roundPriceArr(rawProfitData.sales)
+      }, {
+        name: '佣金',
+        data: util.roundPriceArr(rawProfitData.rewards)
+      }],
+      yAxis: {
+        format: function (val) {
+          return val + '元';
+        }
+      },
+      width: 360,
+      height: 360
+    });
+
   },
 
   /**
@@ -220,7 +280,8 @@ Page({
         console.log('failed:', reason);
       })
   },
-  onLoad: function (options) {
+
+  updateProductTab: function(that) {
     let rawData = [
       {
         "profileId": 1,
@@ -271,47 +332,9 @@ Page({
     ]
 
     this.setData({ customerInfos: rawData })
-
-    let rawProfitData = {
-      "yearMonths": [
-        "2019-01",
-        "2019-02",
-        "2019-03",
-        "2019-04"
-      ],
-      "sales": [
-        9049.939999999999,
-        9049.939999999999,
-        9349.919999999998,
-        0
-      ],
-      "rewards": [
-        2714.982,
-        2714.982,
-        2804.9759999999997,
-        0
-      ]
-    }
-
-    new wxCharts({
-      canvasId: 'columnCanvas',
-      type: 'column',
-      categories: rawProfitData.yearMonths,
-      series: [{
-        name: '销售额',
-        data: util.roundPriceArr(rawProfitData.sales)
-      }, {
-        name: '佣金',
-        data: util.roundPriceArr(rawProfitData.rewards)
-      }],
-      yAxis: {
-        format: function (val) {
-          return val + '元';
-        }
-      },
-      width: 360,
-      height: 360
-    });
+  },
+  onLoad: function (options) {
+    this.updateTabContent(this.data.activeTabIndex);
   },
 
   /**

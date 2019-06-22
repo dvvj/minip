@@ -1,6 +1,7 @@
 <!--pages/mock/customer/product-list.wxml-->
 <van-tabbar active="{{activeTabIndex}}" bind:change="onTabbarChange">
   <van-tabbar-item icon="shopping-cart">产品列表</van-tabbar-item>
+  <van-tabbar-item icon="balance-list">历史订单</van-tabbar-item>
   <van-tabbar-item icon="setting" dot>设置</van-tabbar-item>
 </van-tabbar>
 
@@ -38,5 +39,6 @@
       </block>
     </scroll-view>
   </swiper-item>
+  <swiper-item>todo</swiper-item>
   <swiper-item>todo</swiper-item>
 </swiper>

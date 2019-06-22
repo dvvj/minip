@@ -6,7 +6,7 @@
     label="用户ID"
     icon="question-o"
     placeholder="输入用户ID查找"
-    bind:click-icon="onClickIcon"
+    bind:click-icon="onClickIcon_InputUserId_Existing"
     bind:input="onInputUserId_Existing"
   />
 
@@ -43,7 +43,10 @@
     bind:input="onInputMobile_Existing"
   />
 
-  <van-button type="primary" size="large" bind:click="onFindCustomer">查找</van-button>
+  <!-- <van-button type="primary" size="large" bind:click="onFindCustomer">查找</van-button> -->
+  <van-button type="primary" size="large" bind:click="onFindCustomer"
+    loading="{{ existingCustomer.loadingText != '' }}"
+    loading-text='{{ existingCustomer.loadingText}}'>查找</van-button>
 
   <van-field
     value="{{ existingCustomer.healthTags }}"

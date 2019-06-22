@@ -26,13 +26,12 @@ Page({
       medicineTags: '降压药'
     },
     existingCustomer: {
+      disabled: false,
+      loadingText: '',
       userid: 'existingcustomer01',
-      password: '123',
-      password2: '123',
       userName: '张某',
       idCardNo: '310112197003113821',
       mobile: '13700011100',
-      postAddr: '某省某市某区某路xx号 邮编102011',
       healthTags: '高血压，糖尿病',
       medicineTags: '降压药'
     }
@@ -65,17 +64,43 @@ Page({
   // onInputMedicineTags: function (e) {
   //   this.setData({ medicineTags: e.detail })
   // },
+  onClickIcon_InputUserId_Existing: function(e) {
+    Toast('请输入用户唯一标识ID');
+  },
+  setInProgress_Find: function (isInProgress) {
+    this.updateExistingCustomer("disabled", { detail: isInProgress });
+    let loadingText = isInProgress ? '查找客户中...' : '';
+    this.updateExistingCustomer("loadingText", { detail: loadingText });
+  },
   onFindCustomer: function (e) {
     console.log('todo: search customer', e);
     let that = this;
-    that.setData({
-      existingCustomer: {
-        userid: 'ne*01',
-        userName: '张**',
-        idCardNo: '310***816', //'310112197003113821',
-        mobile: '137***139', // '13700011100',
-      }
-    })
+
+    setTimeout(
+      function () {
+        that.setInProgress_Find(false);
+        let tmp = {
+          ...that.data.existingCustomer,
+          userid: 'ne*01',
+          userName: '张**',
+          idCardNo: '310***816', //'310112197003113821',
+          mobile: '137***139', // '13700011100',
+        }
+        that.setData({
+          existingCustomer: tmp
+        })
+        Toast.loading({
+          duration: 1000,       // 持续展示 toast
+          forbidClick: true, // 禁用背景点击
+          message: '用户查找失败',
+          type: 'fail'
+        });
+      },
+      1000
+    )
+    this.setInProgress_Find(true)
+    console.log('in onFindCustomer: ', this.data.existingCustomer)
+
   },
 
   // for new-customer

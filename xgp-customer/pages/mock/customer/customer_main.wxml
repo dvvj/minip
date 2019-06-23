@@ -41,6 +41,7 @@
   </swiper-item>
   <swiper-item>
     <include src="../shared/page-parts/order-list.wxml"/>
+    <include src="../shared/page-parts/month-range-picker.wxml"/>
   </swiper-item>
   <swiper-item>todo</swiper-item>
 </swiper>

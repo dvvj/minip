@@ -1,13 +1,10 @@
   <van-cell-group>
     <van-cell>
-      <view>
-        <van-tag plain size="medium" type="danger">终止：{{orderList.endYearMonth}}</van-tag>
-        <van-button size="mini" type="primary" bind:click='onSetEndYearMonth'>设置</van-button>
-      </view>
       <view slot="title">
         <view>
-          <van-tag plain size="medium" type="danger">起始：{{orderList.startYearMonth}}</van-tag>
-          <van-button size="mini" type="primary" bind:click='onSetStartYearMonth'>设置</van-button>
+          <van-button plain size="normal" type="danger" bind:click='onSetYearMonth'>
+            {{ orderList.start.year }}年{{ orderList.start.month }}月 到 {{ orderList.end.year }}年{{ orderList.end.month }}月
+          </van-button>
         </view>
       </view>
     </van-cell>

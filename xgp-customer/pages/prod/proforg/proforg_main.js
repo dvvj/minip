@@ -14,8 +14,6 @@ Page({
 
     startYearMonth: '2018-10',
     endYearMonth: '2019-03',
-    minHour: 10,
-    maxHour: 20,
     minDate: new Date().getTime(),
     maxDate: new Date(2019, 10, 1).getTime(),
     currentDate: new Date().getTime(),

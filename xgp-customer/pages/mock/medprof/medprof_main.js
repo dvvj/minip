@@ -42,7 +42,9 @@ Page({
       healthTags: '高血压，糖尿病',
       medicineTags: '降压药'
     }
+
   },
+
 
   // for existing-customer
   updateExistingCustomer: function (field, e) {

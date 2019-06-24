@@ -12,7 +12,7 @@
 
 <block wx:for="{{orderList.orders}}" wx:key="orderId">
   <van-cell-group>
-    <van-cell is-link url="../../customer/reffed-order-stats">
+    <van-cell is-link url="../../mock/customer/order-detail">
       <view>
         <text>{{item.actualCost}}</text>
         <view>

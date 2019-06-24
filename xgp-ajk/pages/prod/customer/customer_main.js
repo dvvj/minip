@@ -6,7 +6,7 @@ let roundPrice = function (price) {
   return p100 / 100.0;
 };
 
-const customerProductUrl = util.webappBase + '/customerProductView'
+const customerProductUrl = util.customerBaseUrl + '/customerProductView'
 const wxPayUrl = util.webappBase + '/wx/payReq';
 const sessionTestUrl = util.webappBase + '/sessionTest';
 

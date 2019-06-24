@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/mock/login",
     "pages/prod/login",
+    "pages/mock/login",
     "pages/login/login-test",
     "pages/login/login-medprof",
     "pages/proforg/order-stats",

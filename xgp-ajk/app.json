@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/mock/login",
     "pages/prod/login",
+    "pages/mock/login",
     "pages/login/login-test",
     "pages/login/login-medprof",
     "pages/proforg/order-stats",
@@ -16,7 +16,8 @@
     "pages/mock/medprof/medprof_main",
     "pages/prod/customer/customer_main",
     "pages/prod/medprof/medprof_main",
-    "pages/prod/proforg/proforg_main"
+    "pages/prod/proforg/proforg_main",
+    "pages/mock/customer/order-detail"
   ],
   "window": {
     "backgroundTextStyle": "light",

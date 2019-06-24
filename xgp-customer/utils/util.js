@@ -75,6 +75,7 @@ const webappBase = 'https://webapp.wonder4.life';
 //const webappBase = 'https://webapp.ajkhealth.com';
 const loginUrl = webappBase + '/wxlogin';
 const imgBaseUrl = webappBase + '/product';
+const customerBaseUrl = webappBase + '/customer';
 const xAuthHeader = 'X-Auth-Token';
 
 const prodPagesBase = '/pages/prod';
@@ -92,6 +93,7 @@ module.exports = {
   formatTime: formatTime,
   promisify: promisify,
   webappBase: webappBase,
+  customerBaseUrl: customerBaseUrl,
   loginUrl: loginUrl,
   imgBaseUrl: imgBaseUrl,
   saveTokens: saveTokens,

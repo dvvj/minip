@@ -20,7 +20,8 @@ Page({
     activeTabIndex: 0,
     orderList: {
       start: { year: 2018, month: 11 },
-      end: { year: 2019, month: 3 }
+      end: { year: 2019, month: 3 },
+      orders: []
     },
 
     yearMonthPicker: {
@@ -354,6 +355,120 @@ Page({
 
     this.setData({ products: resData, productDict: productDict })
 
+    let ordersRaw = [
+      {
+        "order": {
+          "id": 1000,
+          "customerId": "c_o1a2p1c1",
+          "profId": null,
+          "productId": 2,
+          "qty": 2,
+          "actualCost": 2299.99,
+          "creationTime": "2018-10-01T15:30:44+02:00",
+          "payTime": "2018-10-01T15:50:44+02:00",
+          "procTime1": null,
+          "procTime2": null,
+          "procTime3": null
+        },
+        "productShortName": "ACO产妇维生素"
+      },
+      {
+        "order": {
+          "id": 1001,
+          "customerId": "c_o1a2p1c1",
+          "profId": null,
+          "productId": 2,
+          "qty": 2,
+          "actualCost": 2299.99,
+          "creationTime": "2018-11-01T14:30:44+01:00",
+          "payTime": "2018-11-01T14:50:44+01:00",
+          "procTime1": null,
+          "procTime2": null,
+          "procTime3": null
+        },
+        "productShortName": "ACO产妇维生素"
+      },
+      {
+        "order": {
+          "id": 1002,
+          "customerId": "c_o1a2p1c1",
+          "profId": null,
+          "productId": 2,
+          "qty": 2,
+          "actualCost": 2299.99,
+          "creationTime": "2018-12-01T14:30:44+01:00",
+          "payTime": "2018-12-01T14:50:44+01:00",
+          "procTime1": null,
+          "procTime2": null,
+          "procTime3": null
+        },
+        "productShortName": "ACO产妇维生素"
+      },
+      {
+        "order": {
+          "id": 1003,
+          "customerId": "c_o1a2p1c1",
+          "profId": null,
+          "productId": 2,
+          "qty": 2,
+          "actualCost": 2299.99,
+          "creationTime": "2019-01-01T14:30:44+01:00",
+          "payTime": "2019-01-01T14:50:44+01:00",
+          "procTime1": null,
+          "procTime2": null,
+          "procTime3": null
+        },
+        "productShortName": "ACO产妇维生素"
+      },
+      {
+        "order": {
+          "id": 1004,
+          "customerId": "c_o1a2p1c1",
+          "profId": null,
+          "productId": 2,
+          "qty": 2,
+          "actualCost": 2299.99,
+          "creationTime": "2019-02-01T14:30:44+01:00",
+          "payTime": "2019-02-01T14:50:44+01:00",
+          "procTime1": null,
+          "procTime2": null,
+          "procTime3": null
+        },
+        "productShortName": "ACO产妇维生素"
+      },
+      {
+        "order": {
+          "id": 1005,
+          "customerId": "c_o1a2p1c1",
+          "profId": null,
+          "productId": 2,
+          "qty": 2,
+          "actualCost": 2299.99,
+          "creationTime": "2019-03-01T14:30:44+01:00",
+          "payTime": "2019-03-01T14:50:44+01:00",
+          "procTime1": null,
+          "procTime2": null,
+          "procTime3": null
+        },
+        "productShortName": "ACO产妇维生素"
+      }
+    ];
+    let orderData = {
+      ...this.data.orderList,
+      orders: this.trimOrderData(ordersRaw)
+    }
+    this.setData({ orderList: orderData})
+  },
+
+  trimOrderData: function(orders) {
+    return orders.map(order => {
+      let actualCost = order.order.actualCost;
+      let productShortName = order.productShortName;
+      let creationTime = order.order.creationTime
+        .substring(0, 16)
+        .replace('T', ' ');
+      return { actualCost, creationTime, productShortName};
+    })
   },
 
   /**

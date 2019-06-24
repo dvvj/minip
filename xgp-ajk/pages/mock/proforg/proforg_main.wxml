@@ -1,0 +1,24 @@
+<!--pages/mock/proforg/proforg_main.wxml-->
+<van-tabbar active="{{activeTabIndex}}" bind:change="onTabbarChange">
+  <van-tabbar-item icon="gold-coin">收益统计</van-tabbar-item>
+  <van-tabbar-item icon="setting" dot>设置</van-tabbar-item>
+</van-tabbar>
+
+<swiper current="{{activeTabIndex}}" class="main_height" duration="300" bindchange='onSwiperChange'>
+  <swiper-item>
+    <include src="../shared/page-parts/profit-stats.wxml"/>
+  </swiper-item>
+  <swiper-item>todo</swiper-item>
+</swiper>
+
+<van-dialog id="van-dialog"
+  use-slot>
+  <van-datetime-picker
+    type="year-month"
+    value="{{ currentDate }}"
+    min-date="{{ minDate }}"
+    max-date="{{ maxDate }}"
+    formatter="{{ formatter }}"
+    bind:confirm="onYearMonthPickerConfirm"
+  />
+</van-dialog>

@@ -1,0 +1,32 @@
+<!--pages/customer/reffed-customers.wxml-->
+<block wx:for="{{customerInfos}}" wx:key="profileId">
+  <van-cell-group>
+    <van-cell is-link url="reffed-order-stats">
+      <view>
+        <block wx:for="{{item.productShortNames}}">
+          <van-tag round type="success">{{item}}</van-tag>
+        </block>
+        <view class="van-cell-text">
+          <text>订单统计</text>
+        </view>
+      </view>
+      <view slot="title">
+        <view class="van-cell-text">
+          <text>{{item.customerName}}</text>
+          <text></text>
+        </view>
+        <view>
+          <block wx:for="{{item.healthTags}}">
+            <van-tag plain type="danger">{{item}}</van-tag>
+          </block>
+        </view>
+        <view>
+          <block wx:for="{{item.medicineTags}}">
+            <van-tag round type="primary">{{item}}</van-tag>
+          </block>
+        </view>
+      </view>
+    </van-cell>
+  </van-cell-group>
+</block>
+

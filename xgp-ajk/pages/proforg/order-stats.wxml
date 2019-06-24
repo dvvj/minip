@@ -1,0 +1,29 @@
+<!--pages/proforg/order-stats.wxml-->
+<van-cell-group>
+  <van-cell>
+    <view>
+      <van-tag plain size="medium" type="danger">终止：{{endYearMonth}}</van-tag>
+      <van-button size="mini" type="primary" bind:click='onSetEndYearMonth'>设置</van-button>
+    </view>
+    <view slot="title">
+      <view>
+        <van-tag plain size="medium" type="danger">起始：{{startYearMonth}}</van-tag>
+        <van-button size="mini" type="primary" bind:click='onSetStartYearMonth'>设置</van-button>
+      </view>
+    </view>
+  </van-cell>
+</van-cell-group>
+
+<van-dialog id="van-dialog"
+  use-slot>
+  <van-datetime-picker
+    type="year-month"
+    value="{{ currentDate }}"
+    min-date="{{ minDate }}"
+    max-date="{{ maxDate }}"
+    formatter="{{ formatter }}"
+    bind:confirm="onYearMonthPickerConfirm"
+  />
+</van-dialog>
+
+<canvas style="width: 800rpx; height: 1000rpx;" canvas-id="columnCanvas"></canvas>

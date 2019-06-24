@@ -1,0 +1,26 @@
+<!--pages/login/login-test.wxml-->
+
+<van-cell-group>
+  <van-field
+    value="{{ userid }}"
+    required
+    clearable
+    label="用户ID"
+    icon="question-o"
+    placeholder="请输入用户ID"
+    bind:click-icon="onClickIcon"
+    bind:input="onInputUserId"
+  />
+
+  <van-field
+    value="{{ password }}"
+    type="password"
+    label="密码"
+    placeholder="请输入密码"
+    required
+    border="{{ true }}"
+    bind:input="onInputPassword"
+  />
+
+  <van-button type="primary" size="large" bind:click="onLogin">登录</van-button>
+</van-cell-group>

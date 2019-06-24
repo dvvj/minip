@@ -20,7 +20,7 @@ Page({
   data: {
     activeTabIndex: 0,
     orderList: {
-      start: { year: 2018, month: 11 },
+      start: { year: 2018, month: 12 },
       end: { year: 2019, month: 3 },
       orders: []
     },
@@ -85,6 +85,8 @@ Page({
       end: this.data.yearMonthPicker.end
     };
     this.setData({ orderList: t })
+
+    this.updateOrderList();
   },
   showDialog: function (title, dlgType) {
     this.setData({ dlgType: dlgType });

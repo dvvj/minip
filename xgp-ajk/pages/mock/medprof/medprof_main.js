@@ -5,7 +5,7 @@ const wxCharts = require('../../../utils/wxcharts-min.js');
 const profitStatsTabIndex = 1;
 const productListTabIndex = 0;
 
-import Toast from '../../../vant-lib//toast/toast';
+import Toast from '../../../vant-lib/toast/toast';
 
 Page({
 

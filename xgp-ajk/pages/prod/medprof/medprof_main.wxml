@@ -1,9 +1,9 @@
 <!--pages/prod/medprof/medprof_main.wxml-->
 <van-tabbar active="{{activeTabIndex}}" bind:change="onTabbarChange">
   <van-tabbar-item icon="friends">客户列表</van-tabbar-item>
-  <van-tabbar-item icon="gold-coin" dot>总收益</van-tabbar-item>
-  <van-tabbar-item icon="add-square" dot>添加客户</van-tabbar-item>
-  <van-tabbar-item icon="add" dot>连接客户</van-tabbar-item>
+  <van-tabbar-item icon="gold-coin">收益统计</van-tabbar-item>
+  <van-tabbar-item icon="add-square">添加客户</van-tabbar-item>
+  <van-tabbar-item icon="add">连接客户</van-tabbar-item>
   <van-tabbar-item icon="setting" dot>设置</van-tabbar-item>
 </van-tabbar>
 
@@ -42,9 +42,15 @@
       </block>
     </scroll-view>
   </swiper-item>
-  <swiper-item>todo</swiper-item>
-  <swiper-item>todo</swiper-item>
-  <swiper-item>todo</swiper-item>
+  <swiper-item>
+    <include src="../shared/profit-stats.wxml"/>
+  </swiper-item>
+  <swiper-item>
+    <include src="page-parts/new-customer.wxml"/>
+  </swiper-item>
+  <swiper-item>
+    <include src="page-parts/existing-customer.wxml"/>
+  </swiper-item>
   <swiper-item>todo</swiper-item>
 </swiper>
 

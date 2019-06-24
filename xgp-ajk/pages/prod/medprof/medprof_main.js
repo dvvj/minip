@@ -9,7 +9,32 @@ Page({
    */
   data: {
     activeTabIndex: 0,
-    customerInfos: []
+    customerInfos: [],
+
+    newCustomer: {
+      disabled: false,
+      loadingText: '',
+      userid: 'newcustomer01',
+      password: '123',
+      password2: '123',
+      userName: '张某',
+      idCardNo: '310112197003113821',
+      mobile: '13700011100',
+      postAddr: '某省某市某区某路xx号 邮编102011',
+      healthTags: '高血压，糖尿病',
+      medicineTags: '降压药'
+    },
+    existingCustomer: {
+      disabled: false,
+      loadingText: '',
+      userid: 'existingcustomer01',
+      userName: '张某',
+      idCardNo: '310112197003113821',
+      mobile: '13700011100',
+      healthTags: '高血压，糖尿病',
+      medicineTags: '降压药'
+    }
+
   },
 
   updateActiveTab: function (tabIndex) {

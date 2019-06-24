@@ -14,6 +14,21 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+const postJsonReqHeader = (tokens) => {
+  let res = { }
+  res['content-type'] = 'application/json';
+  res['Authorization'] = 'Bearer ' + tokens.accessToken;
+  res['X-Auth-Token'] = tokens.xauth
+  return res;
+}
+
+const getJsonReqHeader = (tokens) => {
+  let res = {}
+  res['Authorization'] = 'Bearer ' + tokens.accessToken;
+  res['X-Auth-Token'] = tokens.xauth
+  return res;
+}
+
 const promisify = original => {
   return function (opt) {
     return new Promise((resolve, reject) => {
@@ -102,5 +117,7 @@ module.exports = {
   roundPriceArr: roundPriceArr,
   userTokenKey: userTokenKey,
   updateXAuth: updateXAuth,
-  getMainPage: getMainPage
+  getMainPage: getMainPage,
+  postJsonReqHeader: postJsonReqHeader,
+  getJsonReqHeader: getJsonReqHeader
 }

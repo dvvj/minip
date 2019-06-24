@@ -1,12 +1,14 @@
 // pages/prod/customer/customer_main.js
 const util = require('../../../utils/util.js')
+import Dialog from '../../../vant-lib/dialog/dialog';
 
 let roundPrice = function (price) {
   var p100 = Math.round(price * 100)
   return p100 / 100.0;
 };
 
-const customerProductUrl = util.customerBaseUrl + '/customerProductView'
+const customerProductUrl = util.customerBaseUrl + '/customerProductView';
+const orderListUrl = util.customerBaseUrl + '/ordersBtw';
 const wxPayUrl = util.webappBase + '/wx/payReq';
 const sessionTestUrl = util.webappBase + '/sessionTest';
 
@@ -16,10 +18,93 @@ Page({
    * Page initial data
    */
   data: {
-    activeTabIndex: 0
+    activeTabIndex: 0,
+    orderList: {
+      start: { year: 2018, month: 11 },
+      end: { year: 2019, month: 3 },
+      orders: []
+    },
+    yearMonthPicker: {
+      activeTabIndex: 0,
+      start: { year: 2018, month: 11 },
+      end: { year: 2019, month: 3 },
+      current: new Date().getTime()
+    },
+    formatter(type, value) {
+      if (type === 'year') {
+        return `${value}年`;
+      } else if (type === 'month') {
+        return `${value}月`;
+      }
+      return value;
+    }
   },
+
+  onMonthPickerChangeTab: function (e) {
+    let newIndex = e.detail.index;
+    let t = {
+      ...this.data.yearMonthPicker,
+      activeTabIndex: newIndex
+    };
+    this.setData({ yearMonthPicker: t })
+  },
+  onMonthPickerConfirm: function (e) {
+    console.log('onMonthPickerConfirm', e)
+    let date = new Date(e.detail)
+    let t = {
+      year: date.getFullYear(),
+      month: date.getMonth() + 1,
+      day: date.getDate()
+    }
+    let res = { year: t.year, month: t.month }
+
+    let t2 = {
+      ...this.data.yearMonthPicker,
+    };
+    if (this.data.yearMonthPicker.activeTabIndex == 0) {
+      let start = res;
+      t2['start'] = start;
+    }
+    else {
+      let end = res;
+      t2['end'] = res;
+    }
+    this.setData({ yearMonthPicker: t2 });
+  },
+  onMonthPickerCancel: function (e) {
+    Dialog.close();
+  },
+  onSetYearMonth: function (e) {
+    this.showDialog('设置起止年月', 'start')
+  },
+  onYMDlgConfirm: function (e) {
+    console.log('confirmed: ', this.data.yearMonthPicker);
+    let t = {
+      ...this.data.orderList,
+      start: this.data.yearMonthPicker.start,
+      end: this.data.yearMonthPicker.end
+    };
+    this.setData({ orderList: t })
+  },
+  showDialog: function (title, dlgType) {
+    this.setData({ dlgType: dlgType });
+    Dialog.alert({
+      title: title,
+      showConfirmButton: true,
+      showCancelButton: true
+    }).then(() => {
+      // on close
+    }).catch(reason => console.log('cancelled: ', reason));
+  },
+
   updateActiveTab: function (tabIndex) {
-    this.setData({ activeTabIndex: tabIndex })
+    this.updateContent(tabIndex);
+    this.setData({ activeTabIndex: tabIndex });
+  },
+  updateContent: function (tabIndex) {
+    if (tabIndex == 1) {
+      this.updateOrderList();
+    }
   },
   onTabbarChange: function (e) {
     console.log(e)
@@ -50,11 +135,7 @@ Page({
             totalAmount: 1
           },
           method: "POST",
-          header: {
-            'content-type': 'application/json',
-            'Authorization': 'Bearer ' + tokens.accessToken,
-            'X-Auth-Token': tokens.xauth
-          },
+          header: util.postJsonReqHeader(tokens),
           success: function (r2) {
             console.log('r2: ', r2)
             //util.saveTokens(r2.header[util.xAuthHeader], tokens.accessToken);
@@ -95,6 +176,44 @@ Page({
     this.setData({ productDict, products })
   },
 
+  updateOrderList: function() {
+    let startYearMonth = `${this.data.orderList.start.year}-${this.data.orderList.start.month}`;
+    let endYearMonth = `${this.data.orderList.end.year}-${this.data.orderList.end.month}`;
+    let that = this;
+    util.promisify(wx.getStorage)({ key: util.userTokenKey })
+      .then(res => {
+        let tokens = res.data
+        console.log('[updateOrderList] got tokens: ', tokens)
+        wx.request({
+          url: orderListUrl,
+          data: { startYearMonth, endYearMonth },
+          method: "POST",
+          header: util.postJsonReqHeader(tokens),
+          success: function (orderListReqRes) {
+            console.log('orderListReqRes: ', orderListReqRes)
+            let ordersRaw = orderListReqRes.data;
+            let orderData = {
+              ...that.data.orderList,
+              orders: that.trimOrderData(ordersRaw)
+            }
+            that.setData({ orderList: orderData })
+          },
+          fail: function (e2) {
+            console.info("e2: ", e2)
+          }
+        })
+      })
+  },
+  trimOrderData: function (orders) {
+    return orders.map(order => {
+      let actualCost = order.order.actualCost;
+      let productShortName = order.productShortName;
+      let creationTime = order.order.creationTime
+        .substring(0, 16)
+        .replace('T', ' ');
+      return { actualCost, creationTime, productShortName };
+    })
+  },
   onPlus: function (e) {
     console.log(e)
     let prodId = e.target.dataset.id
@@ -115,15 +234,12 @@ Page({
     util.promisify(wx.getStorage)({ key: util.userTokenKey })
       .then(res => {
         let tokens = res.data
-        console.log('got tokens: ', tokens)
+        console.log('[GetProducts] got tokens: ', tokens)
 
         wx.request({
           url: customerProductUrl,
           method: 'GET',
-          header: {
-            'Authorization': 'Bearer ' + tokens.accessToken,
-            'X-Auth-Token': tokens.xauth
-          },
+          header: util.getJsonReqHeader(tokens),
           success: function (r1) {
             console.log('Customer product list:', r1);
             util.updateXAuth(r1.header[util.xAuthHeader]);

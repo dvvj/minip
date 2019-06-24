@@ -1,11 +1,17 @@
 {
   "usingComponents": {
+    "van-cell": "../../../vant-lib/cell/index",
+    "van-cell-group": "../../../vant-lib/cell-group/index",
+    "van-tag": "../../../vant-lib/tag/index",
     "van-button": "../../../vant-lib/button/index",
     "van-stepper": "../../../vant-lib/stepper/index",
     "van-card": "../../../vant-lib/card/index",
-    "van-cell": "../../../vant-lib/cell/index",
     "van-submit-bar": "../../../vant-lib/submit-bar/index",
     "van-tabbar": "../../../vant-lib/tabbar/index",
-    "van-tabbar-item": "../../../vant-lib/tabbar-item/index"
+    "van-tabbar-item": "../../../vant-lib/tabbar-item/index",
+    "van-dialog": "../../../vant-lib/dialog/index",
+    "van-datetime-picker": "../../../vant-lib/datetime-picker/index",
+    "van-tab": "../../../vant-lib//tab/index",
+    "van-tabs": "../../../vant-lib/tabs/index"
   }
 }

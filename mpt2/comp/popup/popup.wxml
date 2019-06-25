@@ -1,0 +1,10 @@
+<!--comp/popup/popup.wxml-->
+<view class="wx-popup" hidden="{{flag}}">
+  <view class='popup-container'>
+    <view class="wx-popup-title">{{title}}</view>
+    <view class="wx-popup-con">{{content}}</view>
+    <view class="wx-popup-btn">
+      <text class="btn-ok" bindtap='_confirm'>ok</text>
+    </view>
+  </view>
+</view>

@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/tmp/year-month-range-test",
     "pages/prod/login",
     "pages/mock/login",
     "pages/login/login-test",

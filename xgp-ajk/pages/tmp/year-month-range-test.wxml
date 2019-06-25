@@ -1,0 +1,13 @@
+<!--pages/tmp/year-month-range-test.wxml-->
+<view class="container">
+  <view class="userinfo">
+    <button bindtap="showYearMonthPicker"> 点我 </button>
+  </view>
+  <van-dialog id="van-dialog"
+    bind:confirm="onDlgConfirm"
+    use-slot>
+    <year-month-range id='yearMonthRange'>
+
+    </year-month-range>
+  </van-dialog>
+</view>

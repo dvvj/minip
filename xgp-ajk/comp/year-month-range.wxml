@@ -1,0 +1,26 @@
+<!--comp/year-month-range.wxml-->
+
+<van-tabs active="{{ activeTabIndex }}" bind:change="onChangeTab">
+  <van-tab title="起始{{ start.year }}年{{ start.month }}月">
+    <van-datetime-picker
+      type="year-month"
+      cancel-button-text=""
+      confirm-button-text="确认起始年月"
+      value="{{ startDate }}"
+      formatter="{{ formatter }}"
+      bind:confirm="onConfirm"
+      bind:cancel="onCancel"
+    />
+  </van-tab>
+  <van-tab title="终止{{ end.year }}年{{ end.month }}月">
+    <van-datetime-picker
+      type="year-month"
+      cancel-button-text=""
+      confirm-button-text="确认终止年月"
+      value="{{ endDate }}"
+      formatter="{{ formatter }}"
+      bind:confirm="onConfirm"
+      bind:cancel="onCancel"
+    />
+  </van-tab>
+</van-tabs>

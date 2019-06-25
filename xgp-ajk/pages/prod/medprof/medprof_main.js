@@ -2,7 +2,13 @@
 const util = require('../../../utils/util.js')
 const reffedCustomersUrl = util.medprofBaseUrl + '/reffedCustomerInfos'
 const newCustomersUrl = util.medprofBaseUrl + '/newCustomerAndProfile'
+const existingCustomersUrl = util.medprofBaseUrl + '/existingCustomerNewProfile'
+const findCustomersUrl = util.medprofBaseUrl + '/findCustomers'
+const profitStatsUrl = util.medprofBaseUrl + '/profitStats4Wx'
+
 import Toast from '../../../vant-lib/toast/toast';
+import Dialog from '../../../vant-lib/dialog/dialog';
+const wxCharts = require('../../../utils/wxcharts-min.js');
 Page({
 
   /**
@@ -28,18 +34,150 @@ Page({
     existingCustomer: {
       disabled: false,
       loadingText: '',
-      userid: 'existingcustomer01',
-      userName: '张某',
-      idCardNo: '310112197003113821',
-      mobile: '13700011100',
+      userid: 'c_o1a1p1c3',
+      userName: '',
+      idCardNo: '',
+      mobile: '',
       healthTags: '高血压，糖尿病',
       medicineTags: '降压药'
+    },
+    profitStats: {
+      start: { year: 2018, month: 11 },
+      end: { year: 2019, month: 3 },
+      profit: []
+    },
+    yearMonthPicker: {
+      activeTabIndex: 0,
+      start: { year: 2018, month: 11 },
+      end: { year: 2019, month: 3 },
+      current: new Date().getTime()
+    },
+    formatter(type, value) {
+      if (type === 'year') {
+        return `${value}年`;
+      } else if (type === 'month') {
+        return `${value}月`;
+      }
+      return value;
     }
 
   },
 
+  onMonthPickerChangeTab: function (e) {
+    let newIndex = e.detail.index;
+    let t = {
+      ...this.data.yearMonthPicker,
+      activeTabIndex: newIndex
+    };
+    this.setData({ yearMonthPicker: t })
+  },
+  onMonthPickerConfirm: function (e) {
+    console.log('onMonthPickerConfirm', e)
+    let date = new Date(e.detail)
+    let t = {
+      year: date.getFullYear(),
+      month: date.getMonth() + 1,
+      day: date.getDate()
+    }
+    let res = { year: t.year, month: t.month }
+
+    let t2 = {
+      ...this.data.yearMonthPicker,
+    };
+    if (this.data.yearMonthPicker.activeTabIndex == 0) {
+      let start = res;
+      t2['start'] = start;
+    }
+    else {
+      let end = res;
+      t2['end'] = res;
+    }
+    this.setData({ yearMonthPicker: t2 });
+  },
+  onMonthPickerCancel: function (e) {
+    Dialog.close();
+  },
+  onSetYearMonth: function (e) {
+    this.showDialog('设置起止年月', 'start')
+  },
+  onYMDlgConfirm: function (e) {
+    console.log('confirmed: ', this.data.yearMonthPicker);
+    let t = {
+      ...this.data.profitStats,
+      start: this.data.yearMonthPicker.start,
+      end: this.data.yearMonthPicker.end
+    };
+    this.setData({ profitStats: t })
+
+    this.updateProfitStats();
+  },
+  updateProfitStats: function () {
+    let t = this.data.profitStats;
+    let startYearMonth = `${t.start.year}-${t.start.month}`;
+    let endYearMonth = `${t.end.year}-${t.end.month}`;
+    let that = this;
+    util.promisify(wx.getStorage)({ key: util.userTokenKey })
+      .then(res => {
+        let tokens = res.data
+        console.log('[updateProfitStats] got tokens: ', tokens)
+        wx.request({
+          url: profitStatsUrl,
+          data: { startYearMonth, endYearMonth },
+          method: "POST",
+          header: util.postJsonReqHeader(tokens),
+          success: function (reqRes) {
+            console.log('updateProfitStats res: ', reqRes)
+            let profitData = {
+              ...that.data.profitStats,
+              profit: reqRes.data
+            }
+            that.setData({ profitStats: profitData });
+            let rawData = reqRes.data;
+            new wxCharts({
+              canvasId: 'columnCanvas',
+              type: 'column',
+              categories: rawData.yearMonths,
+              series: [{
+                name: '销售额',
+                data: util.roundPriceArr(rawData.sales)
+              }, {
+                name: '佣金',
+                data: util.roundPriceArr(rawData.rewards)
+              }],
+              yAxis: {
+                format: function (val) {
+                  return val + '元';
+                }
+              },
+              width: 360,
+              height: 360
+            });
+          },
+          fail: function (e2) {
+            console.info("e2: ", e2)
+          }
+        })
+      })
+  },
+  showDialog: function (title, dlgType) {
+    this.setData({ dlgType: dlgType });
+    Dialog.alert({
+      title: title,
+      showConfirmButton: true,
+      showCancelButton: true
+    }).then(() => {
+      // on close
+    }).catch(reason => console.log('cancelled: ', reason));
+  },
+
   updateActiveTab: function (tabIndex) {
-    this.setData({ activeTabIndex: tabIndex })
+    this.setData({ activeTabIndex: tabIndex });
+    this.updateTabContent(tabIndex);
+  },
+  updateTabContent: function(tabIndex) {
+    if (tabIndex == 1) {
+      this.updateProfitStats();
+    }
   },
   onTabbarChange: function (e) {
     console.log(e)
@@ -94,28 +232,7 @@ Page({
   },
   onNewCustomer: function (e) {
     let that = this;
-    // setTimeout(
-    //   function () {
-    //     that.setInProgress(false);
-    //     // wx.showToast({
-    //     //   title: `用户添加成功`,
-    //     //   icon: 'success'
-    //     // });
-    //     // Toast.loading({
-    //     //   duration: 1000,       // 持续展示 toast
-    //     //   forbidClick: true, // 禁用背景点击
-    //     //   message: '用户添加成功',
-    //     //   type: 'success'
-    //     // });
-    //     Toast.loading({
-    //       duration: 1000,       // 持续展示 toast
-    //       forbidClick: true, // 禁用背景点击
-    //       message: '用户添加失败',
-    //       type: 'fail'
-    //     });
-    //   },
-    //   1000
-    // )
+
     console.log('in onNewCustomer: ', this.data.newCustomer)
     let c = this.data.newCustomer;
     let customer = {
@@ -174,6 +291,138 @@ Page({
     })
   },
 
+  // for existing-customer
+  updateExistingCustomer: function (field, e) {
+    var t = this.data.existingCustomer;
+    t[field] = e.detail;
+    this.setData({ existingCustomer: t });
+  },
+  onInputUserId_Existing: function (e) {
+    this.updateExistingCustomer("userid", e)
+  },
+  onInputUserName_Existing: function (e) {
+    this.updateExistingCustomer("userName", e)
+  },
+  onInputIdCardNo_Existing: function (e) {
+    this.updateExistingCustomer("idCardNo", e)
+  },
+  onInputMobile_Existing: function (e) {
+    this.updateExistingCustomer("mobile", e)
+  },
+  onClickIcon_InputUserId_Existing: function (e) {
+    Toast('请输入用户唯一标识ID');
+  },
+  setInProgress_Find: function (isInProgress) {
+    this.updateExistingCustomer("disabled", { detail: isInProgress });
+    let loadingText = isInProgress ? '查找客户中...' : '';
+    this.updateExistingCustomer("loadingText", { detail: loadingText });
+  },
+  onFindCustomer: function (e) {
+    console.log('Search customer', e);
+    let that = this;
+    let c = this.data.existingCustomer;
+    let findReq = {
+      customerId: c.userid,
+      mobile: c.mobile,
+      idCardNo: c.idCardNo,
+      name: c.userName
+    };
+
+    let tokens = wx.getStorageSync(util.userTokenKey);
+        this.setInProgress_Find(true)
+    console.log('in onFindCustomer: ', this.data.existingCustomer)
+    wx.request({
+      url: findCustomersUrl,
+      method: 'POST',
+      data: findReq,
+      header: util.postJsonReqHeader(tokens),
+      success: function (res) {
+        console.log('Find Customer:', res);
+        //util.saveTokens(r1.header[util.xAuthHeader], tokens.accessToken);
+        let code = res.statusCode;
+        var toastMsg = '';
+        var toastType = '';
+        if (code == 200 && res.data.length > 0) {
+          toastMsg = '用户查找成功';
+          toastType = 'success'
+        }
+        else {
+          toastMsg = '用户添加失败：' + res.data;
+          toastType = 'fail';
+        }
+        Toast.loading({
+          duration: 1500,       // 持续展示 toast
+          forbidClick: true, // 禁用背景点击
+          message: toastMsg,
+          type: toastType
+        });
+        that.setInProgress_Find(false);
+      },
+      fail: function (e1) {
+        Toast.loading({
+          duration: 1500,       // 持续展示 toast
+          forbidClick: true, // 禁用背景点击
+          message: '用户添加失败',
+          type: 'fail'
+        });
+        that.setInProgress_Find(false);
+      }
+    })
+  },
+  onNewCustomerProfile: function (e) {
+    let that = this;
+    let c = this.data.existingCustomer;
+    let profileReq = { // todo
+      productIds: [1, 2, 3],
+      pricePlanId: 'PrFixed-0.95',
+      healthTags: c.healthTags,
+      medicineTags: c.medicineTags
+    };
+    let req = {
+      customerId: c.userid,
+      profileReq
+    };
+    let tokens = wx.getStorageSync(util.userTokenKey);
+    this.setInProgress_Find(true)
+    console.log('in onNewCustomerProfile: ', this.data.existingCustomer)
+    wx.request({
+      url: existingCustomersUrl,
+      method: 'POST',
+      data: req,
+      header: util.postJsonReqHeader(tokens),
+      success: function (res) {
+        console.log('Existing Customer:', res);
+        //util.saveTokens(r1.header[util.xAuthHeader], tokens.accessToken);
+        let code = res.statusCode;
+        var toastMsg = '';
+        var toastType = '';
+        if (code == 200) {
+          toastMsg = '用户档案添加成功';
+          toastType = 'success'
+        }
+        else {
+          toastMsg = '用户档案添加失败：' + res.data;
+          toastType = 'fail';
+        }
+        Toast.loading({
+          duration: 1500,       // 持续展示 toast
+          forbidClick: true, // 禁用背景点击
+          message: toastMsg,
+          type: toastType
+        });
+        that.setInProgress_Find(false);
+      },
+      fail: function (e1) {
+        Toast.loading({
+          duration: 1500,       // 持续展示 toast
+          forbidClick: true, // 禁用背景点击
+          message: '用户添加失败',
+          type: 'fail'
+        });
+        that.setInProgress_Find(false);
+      }
+    })
+  },
   /**
    * Lifecycle function--Called when page load
    */

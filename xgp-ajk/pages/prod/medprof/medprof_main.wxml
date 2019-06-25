@@ -46,6 +46,7 @@
   </swiper-item>
   <swiper-item>
     <include src="../shared/profit-stats.wxml"/>
+    <include src="../shared/month-range-picker.wxml"/>
   </swiper-item>
   <swiper-item>
     <include src="page-parts/new-customer.wxml"/>

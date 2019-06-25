@@ -7,6 +7,10 @@
     "van-tabbar-item": "../../../vant-lib/tabbar-item/index",
     "van-button": "../../../vant-lib/button/index",
     "van-field": "../../../vant-lib/field/index",
-    "van-toast": "../../../vant-lib/toast/index"
+    "van-toast": "../../../vant-lib/toast/index",
+    "van-dialog": "../../../vant-lib/dialog/index",
+    "van-datetime-picker": "../../../vant-lib/datetime-picker/index",
+    "van-tab": "../../../vant-lib//tab/index",
+    "van-tabs": "../../../vant-lib/tabs/index"
   }
 }

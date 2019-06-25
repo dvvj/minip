@@ -19,77 +19,17 @@ Page({
   data: {
     activeTabIndex: 0,
     orderList: {
-      start: { year: 2018, month: 11 },
-      end: { year: 2019, month: 3 },
       orders: []
     },
 
-    yearMonthPicker: {
-      activeTabIndex: 0,
-      start: { year: 2018, month: 11 },
-      end: { year: 2019, month: 3 },
-      current: new Date().getTime()
-    },
-    formatter (type, value) {
-      if (type === 'year') {
-        return `${value}年`;
-      } else if (type === 'month') {
-        return `${value}月`;
-      }
-      return value;
-    }
   },
 
-  onMonthPickerChangeTab: function(e) {
-    let newIndex = e.detail.index;
-    let t = {
-      ...this.data.yearMonthPicker,
-      activeTabIndex: newIndex
-    };
-    this.setData({ yearMonthPicker: t})
+  onDlgConfirm: function (e) {
+    console.log('dlg confirm: ', this.yearMonth.getSelection())
   },
-  onMonthPickerConfirm: function (e) {
-    console.log('onMonthPickerConfirm', e)
-    let date = new Date(e.detail)
-    let t = {
-      year: date.getFullYear(),
-      month: date.getMonth()+1,
-      day: date.getDate()
-    }
-    let res = { year: t.year, month: t.month }
-
-    let t2 = {
-      ...this.data.yearMonthPicker,
-    };
-    if (this.data.yearMonthPicker.activeTabIndex == 0) {
-      let start = res;
-      t2['start'] = start;
-    }
-    else {
-      let end = res;
-      t2['end'] = res;
-    }
-    this.setData({ yearMonthPicker: t2 });
-  },
-  onMonthPickerCancel: function (e) {
-    Dialog.close();
-  },
-  onSetYearMonth: function (e) {
-    this.showDialog('设置起止年月', 'start')
-  },
-  onYMDlgConfirm: function(e) {
-    console.log('confirmed: ', this.data.yearMonthPicker);
-    let t = {
-      ...this.data.orderList,
-      start: this.data.yearMonthPicker.start,
-      end: this.data.yearMonthPicker.end
-    };
-    this.setData({orderList: t})
-  },
-  showDialog: function (title, dlgType) {
-    this.setData({ dlgType: dlgType });
+  showYearMonthPicker: function (e) {
     Dialog.alert({
-      title: title,
+      title: '设置起止年月',
       showConfirmButton: true,
       showCancelButton: true
     }).then(() => {
@@ -475,7 +415,7 @@ Page({
    * Lifecycle function--Called when page is initially rendered
    */
   onReady: function () {
-
+    this.yearMonth = this.selectComponent("#yearMonthRange");
   },
 
   /**

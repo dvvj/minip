@@ -41,7 +41,11 @@
   </swiper-item>
   <swiper-item>
     <include src="../shared/page-parts/order-list.wxml"/>
-    <include src="../shared/page-parts/month-range-picker.wxml"/>
+    <van-dialog id="van-dialog"
+      bind:confirm="onDlgConfirm"
+      use-slot>
+      <year-month-range id='yearMonthRange' />
+    </van-dialog>
   </swiper-item>
   <swiper-item>todo</swiper-item>
 </swiper>

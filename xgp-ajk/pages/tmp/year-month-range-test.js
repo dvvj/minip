@@ -7,7 +7,8 @@ Page({
    * Page initial data
    */
   data: {
-
+    // endDate: new Date(),
+    // startDate: new Date(2018, 11, 1)
   },
 
   onDlgConfirm: function(e) {

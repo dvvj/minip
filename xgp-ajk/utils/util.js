@@ -91,6 +91,7 @@ const webappBase = 'https://webapp.wonder4.life';
 const loginUrl = webappBase + '/wxlogin';
 const imgBaseUrl = webappBase + '/product';
 const customerBaseUrl = webappBase + '/customer';
+const medprofBaseUrl = webappBase + '/medprof';
 const xAuthHeader = 'X-Auth-Token';
 
 const prodPagesBase = '/pages/prod';
@@ -109,6 +110,7 @@ module.exports = {
   promisify: promisify,
   webappBase: webappBase,
   customerBaseUrl: customerBaseUrl,
+  medprofBaseUrl: medprofBaseUrl,
   loginUrl: loginUrl,
   imgBaseUrl: imgBaseUrl,
   saveTokens: saveTokens,

@@ -20,14 +20,13 @@ Page({
     activeTabIndex: 0,
     orderList: {
       orders: []
-    },
-
+    }
   },
 
   onDlgConfirm: function (e) {
     console.log('dlg confirm: ', this.yearMonth.getSelection())
   },
-  showYearMonthPicker: function (e) {
+  onSetYearMonth: function (e) {
     Dialog.alert({
       title: '设置起止年月',
       showConfirmButton: true,
@@ -184,7 +183,33 @@ Page({
   /**
    * Lifecycle function--Called when page load
    */
+  setYearMonthDefault: function() {
+    let endDate = new Date();
+    var startMonth = endDate.getMonth() - 5; // 6 months in total
+    var startYear = endDate.getFullYear();
+    if (startMonth <= 0) {
+      startYear -= 1;
+      startMonth += 12;
+    }
+    let startDate = new Date(startYear, startMonth, 1);
+    let _startYM = { year: startDate.getFullYear(), month: startDate.getMonth() + 1 };
+    let _endYM = { year: endDate.getFullYear(), month: endDate.getMonth() + 1 };
+    let yearMonthStart = `${_startYM.year}-${_startYM.month}`;
+    let yearMonthEnd = `${_endYM.year}-${_endYM.month}`;
+    console.log('yearMonthStart:', yearMonthStart);
+    this.setData({
+      orderListStart: _startYM,
+      orderListEnd: _endYM,
+      yearMonthStart: yearMonthStart,
+      yearMonthEnd
+    });
+  },
   onLoad: function (options) {
+    this.yearMonth = this.selectComponent("#yearMonthRange");
+    this.setYearMonthDefault();
+    this.yearMonth.setEnd(this.data.yearMonthEnd);
+    this.yearMonth.setStart(this.data.yearMonthStart);
+    
     var resDataRaw = [
       {
         "customerId": "c＿o1a1p1_customer1",
@@ -415,7 +440,7 @@ Page({
    * Lifecycle function--Called when page is initially rendered
    */
   onReady: function () {
-    this.yearMonth = this.selectComponent("#yearMonthRange");
+
   },
 
   /**

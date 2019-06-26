@@ -40,11 +40,27 @@
     </scroll-view>
   </swiper-item>
   <swiper-item>
+    <van-cell-group>
+      <van-cell>
+        <view slot="title">
+          <view>
+            <van-button plain size="normal" type="danger" bind:click='onSetYearMonth'>
+              {{ orderListStart.year }}年{{ orderListStart.month }}月 到 {{ orderListEnd.year }}年{{ orderListEnd.month }}月
+            </van-button>
+          </view>
+        </view>
+      </van-cell>
+    </van-cell-group>
+
     <include src="../shared/page-parts/order-list.wxml"/>
+    
     <van-dialog id="van-dialog"
       bind:confirm="onDlgConfirm"
       use-slot>
-      <year-month-range id='yearMonthRange' />
+      <year-month-range id='yearMonthRange'
+        start='{{yearMonthStart}}'
+        end='{{yearMonthEnd}}'
+      />
     </van-dialog>
   </swiper-item>
   <swiper-item>todo</swiper-item>

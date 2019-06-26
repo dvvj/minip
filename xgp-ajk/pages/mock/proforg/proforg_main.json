@@ -8,6 +8,9 @@
     "van-tag": "../../../vant-lib/tag/index",
     "van-slider": "../../../vant-lib/slider/index",
     "van-tabbar": "../../../vant-lib/tabbar/index",
-    "van-tabbar-item": "../../../vant-lib/tabbar-item/index"
+    "van-tabbar-item": "../../../vant-lib/tabbar-item/index",
+    "van-tab": "../../../vant-lib//tab/index",
+    "van-tabs": "../../../vant-lib/tabs/index",
+    "year-month-range": "../../../comp/year-month-range"
   }
 }

@@ -30,6 +30,34 @@ Page({
     }
 
   },
+
+  setYearMonthDefault: function () {
+
+    let { _startYM, _endYM } = util.getYearMonthDefault();
+    let yearMonthStart = `${_startYM.year}-${_startYM.month}`;
+    let yearMonthEnd = `${_endYM.year}-${_endYM.month}`;
+    console.log('yearMonthStart:', yearMonthStart);
+    this.setData({
+      profitStatsStart: _startYM,
+      profitStatsEnd: _endYM,
+      yearMonthStart,
+      yearMonthEnd
+    });
+  },
+
+  onDlgConfirm: function (e) {
+    console.log('dlg confirm: ', this.yearMonth.getSelection())
+  },
+  onSetYearMonth: function (e) {
+    Dialog.alert({
+      title: '设置起止年月',
+      showConfirmButton: true,
+      showCancelButton: true
+    }).then(() => {
+      // on close
+    }).catch(reason => console.log('cancelled: ', reason));
+  },
+
   updateActiveTab: function (tabIndex) {
     this.setData({ activeTabIndex: tabIndex })
   },
@@ -46,62 +74,15 @@ Page({
     this.updateActiveTab(e.detail.current)
   },
 
-  onYearMonthPickerConfirm(event) {
-    console.log('e: ', event)
-    let date = new Date(event.detail)
-    let t = {
-      year: date.getFullYear(),
-      month: date.getMonth(),
-      day: date.getDate()
-    }
-    console.log('t: ', t)
-    this.setData({
-      currentDate: event.detail //.value
-    });
-
-    if (this.data.dlgType == 'start')
-      this.updateStartYearMonth(date);
-    else
-      this.updateEndYearMonth(date);
-    Dialog.close();
-  },
-  fixMonth: function (monthIndex) {
-    let monthVal = monthIndex + 1
-    if (monthVal < 10)
-      return '0' + monthVal;
-    else
-      return '' + monthVal;
-  },
-  updateStartYearMonth: function (setDate) {
-    let yearMonth = `${setDate.getFullYear()}-${this.fixMonth(setDate.getMonth())}`;
-    console.log('new startYearMonth: ', yearMonth)
-    this.setData({ startYearMonth: yearMonth })
-  },
-  updateEndYearMonth: function (setDate) {
-    let yearMonth = `${setDate.getFullYear()}-${this.fixMonth(setDate.getMonth())}`;
-    console.log('new endYearMonth: ', yearMonth)
-    this.setData({ endYearMonth: yearMonth })
-  },
-  showDialog: function (title, dlgType) {
-    this.setData({ dlgType: dlgType });
-    Dialog.alert({
-      title: title,
-      showConfirmButton: false,
-      showCancelButton: false
-    }).then(() => {
-      // on close
-    }).catch(reason => console.log('cancelled: ', reason));
-  },
-  onSetStartYearMonth: function (e) {
-    this.showDialog('设置起始年月', 'start')
-  },
-  onSetEndYearMonth: function (e) {
-    this.showDialog('设置终止年月', 'end')
-  },
   /**
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
+    this.yearMonth = this.selectComponent("#yearMonthRange");
+    this.setYearMonthDefault();
+    this.yearMonth.setEnd(this.data.yearMonthEnd);
+    this.yearMonth.setStart(this.data.yearMonthStart);
+    
     let rawData = {
       "yearMonths": [
         "2019-01",

@@ -19,8 +19,8 @@ Page({
     console.log(`username: ${userid}, password: ${password}`);
 
     wx.navigateTo({
-      url: './customer/customer_main',
-      //url: './proforg/proforg_main',
+      //url: './customer/customer_main',
+      url: './proforg/proforg_main',
       //url: './medprof/medprof_main',
     })
   },

@@ -9,6 +9,20 @@ const formatTime = date => {
   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
 
+const getYearMonthDefault = function() {
+  let endDate = new Date();
+  var startMonth = endDate.getMonth() - 5; // 6 months in total
+  var startYear = endDate.getFullYear();
+  if (startMonth <= 0) {
+    startYear -= 1;
+    startMonth += 12;
+  }
+  let startDate = new Date(startYear, startMonth, 1);
+  let _startYM = { year: startDate.getFullYear(), month: startDate.getMonth() + 1 };
+  let _endYM = { year: endDate.getFullYear(), month: endDate.getMonth() + 1 };
+  return { _startYM, _endYM };
+};
+
 const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : '0' + n
@@ -121,5 +135,6 @@ module.exports = {
   updateXAuth: updateXAuth,
   getMainPage: getMainPage,
   postJsonReqHeader: postJsonReqHeader,
-  getJsonReqHeader: getJsonReqHeader
+  getJsonReqHeader: getJsonReqHeader,
+  getYearMonthDefault: getYearMonthDefault
 }

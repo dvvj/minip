@@ -1,8 +1,9 @@
 {
   "pages": [
+    "pages/tmp/ajk-paytest",
+    "pages/prod/login",
     "pages/mock/login",
     "pages/tmp/year-month-range-test",
-    "pages/prod/login",
     "pages/login/login-test",
     "pages/login/login-medprof",
     "pages/proforg/order-stats",

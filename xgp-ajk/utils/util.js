@@ -108,6 +108,11 @@ const customerBaseUrl = webappBase + '/customer';
 const medprofBaseUrl = webappBase + '/medprof';
 const xAuthHeader = 'X-Auth-Token';
 
+const wepayezReqTempl = "https://gateway.wepayez.com/pay/jsIntl?token_id=";
+const wepayezReqUrl = function(token_id) {
+  return wepayezReqTempl + token_id
+}
+
 const prodPagesBase = '/pages/prod';
 const userType2MainPage = {
   Customer: prodPagesBase + '/customer/customer_main',
@@ -136,5 +141,6 @@ module.exports = {
   getMainPage: getMainPage,
   postJsonReqHeader: postJsonReqHeader,
   getJsonReqHeader: getJsonReqHeader,
-  getYearMonthDefault: getYearMonthDefault
+  getYearMonthDefault: getYearMonthDefault,
+  wepayezReqUrl: wepayezReqUrl
 }

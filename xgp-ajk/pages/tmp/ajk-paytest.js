@@ -48,7 +48,25 @@ Page({
               method: "GET",
               header: util.getJsonReqHeader(tokens),
               success: function (r2) {
-                console.log('r2: ', r2)
+                console.log('WePayez token id: ', r2)
+
+                let payReqUrl = util.wepayezReqUrl(r2.data);
+                console.log('url: ', payReqUrl)
+                wx.setStorageSync('payReqUrl', payReqUrl)
+                wx.navigateTo({
+                  url: 'pay-webview',
+                })
+                // wx.request({
+                //   url: payReqUrl,
+                //   method: "GET",
+                //   //header: util.getJsonReqHeader(tokens),
+                //   success: function (r3) {
+                //     console.log('r3: ', r3)
+                //   },
+                //   fail: function (e2) {
+                //     console.info("e2: ", e2)
+                //   }
+                // })
               },
               fail: function (e2) {
                 console.info("e2: ", e2)

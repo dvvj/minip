@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/mock/login",
     "pages/tmp/ajk-paytest",
     "pages/prod/login",
-    "pages/mock/login",
     "pages/tmp/year-month-range-test",
     "pages/login/login-test",
     "pages/login/login-medprof",
@@ -19,7 +19,8 @@
     "pages/prod/customer/customer_main",
     "pages/prod/medprof/medprof_main",
     "pages/prod/proforg/proforg_main",
-    "pages/mock/customer/order-detail"
+    "pages/mock/customer/order-detail",
+    "pages/tmp/pay-webview"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "van-tab": "../vant-lib//tab/index",
+    "van-tabs": "../vant-lib/tabs/index",
+    "customer-profile": "customer-profile"
+  }
+}

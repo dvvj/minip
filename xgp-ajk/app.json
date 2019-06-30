@@ -1,5 +1,7 @@
 {
   "pages": [
+    "pages/tmp/new-customer-profile-test",
+    "pages/tmp/customer-profile-test",
     "pages/mock/login",
     "pages/tmp/ajk-paytest",
     "pages/prod/login",
@@ -21,6 +23,7 @@
     "pages/prod/proforg/proforg_main",
     "pages/mock/customer/order-detail",
     "pages/tmp/pay-webview"
+
   ],
   "window": {
     "backgroundTextStyle": "light",

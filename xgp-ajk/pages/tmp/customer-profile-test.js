@@ -1,35 +1,13 @@
-// pages/mock/login.js
-const util = require('../../utils/util.js')
-
-const sessionTestUrl = util.webappBase + '/sessionTest';
-
+// pages/tmp/customer-profile-test.js
 Page({
 
   /**
    * Page initial data
    */
   data: {
-    userid: 'o_o1',
-    password: '123'
-  },
-  onLogin: function (e) {
-    console.log(e);
-    let userid = this.data.userid;
-    let password = this.data.password;
-    console.log(`username: ${userid}, password: ${password}`);
 
-    wx.navigateTo({
-      //url: './customer/customer_main',
-      //url: './proforg/proforg_main',
-      url: './medprof/medprof_main',
-    })
   },
-  onInputUserId: function (e) {
-    this.setData({ userid: e.detail })
-  },
-  onInputPassword: function (e) {
-    this.setData({ password: e.detail })
-  },
+
   /**
    * Lifecycle function--Called when page load
    */

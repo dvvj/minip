@@ -1,4 +1,6 @@
 // comp/new-customer-profile.js
+import Toast from '../vant-lib/toast/toast';
+
 Component({
   /**
    * Component properties
@@ -13,7 +15,8 @@ Component({
   data: {
     newCustomer: {},
     profile: {},
-    products: []
+    products: [],
+    selected: []
   },
 
   /**

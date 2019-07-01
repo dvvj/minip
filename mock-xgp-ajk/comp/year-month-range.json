@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "van-datetime-picker": "../vant-lib/datetime-picker/index",
+    "van-tab": "../vant-lib//tab/index",
+    "van-tabs": "../vant-lib/tabs/index"
+  }
+}

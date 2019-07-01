@@ -1,0 +1,9 @@
+/* pages/mock/customer/product-list.wxss */
+.price-total {
+  color: red;
+  padding: 15rpx 15rpx;
+}
+
+.main_height {
+  height:1080rpx
+}

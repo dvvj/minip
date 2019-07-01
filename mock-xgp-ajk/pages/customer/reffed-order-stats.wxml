@@ -1,0 +1,2 @@
+<!--pages/customer/reffed-order-stats.wxml-->
+<canvas style="width: 800rpx; height: 600rpx;" canvas-id="columnCanvas"></canvas>

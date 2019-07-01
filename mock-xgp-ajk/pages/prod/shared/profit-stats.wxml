@@ -1,0 +1,16 @@
+<scroll-view scroll-y class="main_height">
+  <van-cell-group>
+    <van-cell>
+      <view slot="title">
+        <view>
+          <van-button plain size="normal" type="danger" bind:click='onSetYearMonth'>
+            {{ profitStats.start.year }}年{{ profitStats.start.month }}月 到 {{ profitStats.end.year }}年{{ profitStats.end.month }}月
+          </van-button>
+        </view>
+      </view>
+    </van-cell>
+  </van-cell-group>
+  <view class="canvas_container">
+    <canvas class="main_canvas" canvas-id="columnCanvas"></canvas>
+  </view>
+</scroll-view>

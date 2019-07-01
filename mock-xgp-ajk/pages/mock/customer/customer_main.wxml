@@ -1,0 +1,67 @@
+<!--pages/mock/customer/product-list.wxml-->
+<van-tabbar active="{{activeTabIndex}}" bind:change="onTabbarChange">
+  <van-tabbar-item icon="shopping-cart">产品列表</van-tabbar-item>
+  <van-tabbar-item icon="balance-list">历史订单</van-tabbar-item>
+  <van-tabbar-item icon="setting" dot>设置</van-tabbar-item>
+</van-tabbar>
+
+<swiper current="{{activeTabIndex}}" class="main_height" duration="300" bindchange='onSwiperChange'>
+  <swiper-item>
+    <scroll-view scroll-y class="main_height">
+      <block wx:for="{{products}}" wx:key="id">
+        <van-card wx:if="{{item.hasDiscount}}"
+          tag="{{item.referingProfName}}"
+          price="{{item.actualPrice}}"
+          origin-price="{{item.price0}}"
+          title="{{item.name}}"
+          thumb="{{item.imgUrl}}"
+        >
+          <view slot="footer">
+            <van-stepper value="{{item.count}}" bind:plus="onPlus" bind:minus="onMinus" data-id="{{item.id}}" />
+            <text>共计：</text><text class='price-total'>{{item.totalPrice}}</text>
+            <van-button size="small" type="primary" bind:click="onBuy" data-id="{{item.id}}">立即购买</van-button>
+            <van-button size="small" data-id="{{item.id}}">详情 {{'>>'}}</van-button>
+          </view>
+        </van-card>
+        <van-card wx:else
+          tag="{{item.referingProfName}}"
+          price="{{item.actualPrice}}"
+          title="{{item.name}}"
+          thumb="{{item.imgUrl}}"
+        >
+          <view slot="footer">
+            <van-stepper value="{{item.count}}" bind:plus="onPlus" bind:minus="onMinus" data-id="{{item.id}}" />
+            <text>共计：</text><text class='price-total'>{{item.totalPrice}}</text>
+            <van-button size="small" type="primary" bind:click="onBuy" data-id="{{item.id}}">立即购买</van-button>
+            <van-button size="small" data-id="{{item.id}}">详情 {{'>>'}}</van-button>
+          </view>
+        </van-card>
+      </block>
+    </scroll-view>
+  </swiper-item>
+  <swiper-item>
+    <van-cell-group>
+      <van-cell>
+        <view slot="title">
+          <view>
+            <van-button plain size="normal" type="danger" bind:click='onSetYearMonth'>
+              {{ orderListStart.year }}年{{ orderListStart.month }}月 到 {{ orderListEnd.year }}年{{ orderListEnd.month }}月
+            </van-button>
+          </view>
+        </view>
+      </van-cell>
+    </van-cell-group>
+
+    <include src="../shared/page-parts/order-list.wxml"/>
+    
+    <van-dialog id="van-dialog"
+      bind:confirm="onDlgConfirm"
+      use-slot>
+      <year-month-range id='yearMonthRange'
+        start='{{yearMonthStart}}'
+        end='{{yearMonthEnd}}'
+      />
+    </van-dialog>
+  </swiper-item>
+  <swiper-item>todo</swiper-item>
+</swiper>

@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "customer-profile": "../../comp/customer-profile"
+  }
+}

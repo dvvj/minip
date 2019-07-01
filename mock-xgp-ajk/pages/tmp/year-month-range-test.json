@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "van-dialog": "../../vant-lib/dialog/index",
+    "van-datetime-picker": "../../vant-lib/datetime-picker/index",
+    "van-tab": "../../vant-lib//tab/index",
+    "van-tabs": "../../vant-lib/tabs/index",
+    "year-month-range": "../../comp/year-month-range"
+  }
+}

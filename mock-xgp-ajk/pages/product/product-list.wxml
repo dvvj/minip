@@ -1,0 +1,31 @@
+<!--pages/product/product-list.wxml-->
+<block wx:for="{{products}}" wx:key="id">
+  <van-card wx:if="{{item.hasDiscount}}"
+    tag="{{item.referingProfName}}"
+    price="{{item.actualPrice}}"
+    origin-price="{{item.price0}}"
+    title="{{item.name}}"
+    thumb="{{item.imgUrl}}"
+  >
+    <view slot="footer">
+      <van-stepper value="{{item.count}}" bind:plus="onPlus" bind:minus="onMinus" data-id="{{item.id}}" />
+      <text>共计：</text><text class='price-total'>{{item.totalPrice}}</text>
+      <van-button size="small" type="primary" bind:click="onBuy" data-id="{{item.id}}">立即购买</van-button>
+      <van-button size="small" data-id="{{item.id}}">详情 {{'>>'}}</van-button>
+    </view>
+  </van-card>
+  <van-card wx:else
+    tag="{{item.referingProfName}}"
+    price="{{item.actualPrice}}"
+    title="{{item.name}}"
+    thumb="{{item.imgUrl}}"
+  >
+    <view slot="footer">
+      <van-stepper value="{{item.count}}" bind:plus="onPlus" bind:minus="onMinus" data-id="{{item.id}}" />
+      <text>共计：</text><text class='price-total'>{{item.totalPrice}}</text>
+      <van-button size="small" type="primary" bind:click="onBuy" data-id="{{item.id}}">立即购买</van-button>
+      <van-button size="small" data-id="{{item.id}}">详情 {{'>>'}}</van-button>
+    </view>
+  </van-card>
+</block>
+

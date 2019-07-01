@@ -1,0 +1,6 @@
+/* pages/product/product-list.wxss */
+
+.price-total {
+  color: red;
+  padding: 15rpx 15rpx;
+}

@@ -1,0 +1,59 @@
+<!--comp/customer-profile.wxml-->
+<van-cell-group>
+  <van-cell
+    title="todo: 用户信息：id，姓名，身份证号"
+    value-class="value-class"
+  />
+
+  <van-field
+    value="{{ profile.healthTags }}"
+    required
+    clearable
+    label="身体状况"
+    icon="question-o"
+    placeholder="请填写当前患有疾病，逗号分隔"
+    bind:click-icon="onClickIcon"
+    bind:input="onInputHealthTags"
+  />
+  <van-field
+    value="{{ profile.medicineTags }}"
+    required
+    clearable
+    label="服用药物"
+    icon="question-o"
+    placeholder="请填写当前服用药物，逗号分隔"
+    bind:click-icon="onClickIcon"
+    bind:input="onInputMedicineTags"
+  />
+
+  <!-- <van-checkbox-group value="{{ selected }}" bind:change="onChange">
+    <van-cell
+      wx:for="{{ products }}"
+      wx:key="id"
+      value-class="value-class"
+      clickable
+      data-index="{{ index }}"
+      bind:click="toggle"
+    >
+      <van-checkbox catch:tap="noop" class="checkboxes-{{ index }}">"药品 {{ item.name }}"</van-checkbox>
+    </van-cell>
+  </van-checkbox-group> -->
+
+  <van-cell
+    title="选择推荐保健品："
+  />
+
+  <van-checkbox-group value="{{ selected }}" data-key="selected" custom-class="checkbox-group" bind:change="onChange">
+    <van-checkbox
+      wx:for="{{ products }}"
+      wx:key="id"
+      name="{{ item.name }}"
+      custom-class="checkbox"
+    >
+      复选框 {{ item.name }}
+    </van-checkbox>
+  </van-checkbox-group>
+
+  <van-button type="primary" size="large" bind:click="onNewCustomerProfile">添加用户档案</van-button>
+
+</van-cell-group>

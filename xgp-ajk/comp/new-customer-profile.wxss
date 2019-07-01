@@ -1,1 +1,8 @@
 /* comp/new-customer-profile.wxss */
+.checkbox {
+  margin: 20rpx 0 20rpx 40rpx;
+}
+
+.value-class {
+  flex: none !important;
+}

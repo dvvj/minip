@@ -30,7 +30,7 @@ Page({
   },
 
   showPopup: function() {
-    this.popup.showPopup();
+    this.popup.show();
   },
 
   onConfirm: function(e) {

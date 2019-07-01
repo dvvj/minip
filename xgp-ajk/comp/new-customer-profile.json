@@ -3,6 +3,11 @@
   "usingComponents": {
     "van-tab": "../vant-lib//tab/index",
     "van-tabs": "../vant-lib/tabs/index",
-    "customer-profile": "customer-profile"
+    "van-cell": "../vant-lib/cell/index",
+    "van-cell-group": "../vant-lib/cell-group/index",
+    "van-button": "../vant-lib/button/index",
+    "van-field": "../vant-lib/field/index",
+    "van-checkbox": "../../../vant-lib/checkbox/index",
+    "van-checkbox-group": "../../../vant-lib/checkbox-group/index"
   }
 }

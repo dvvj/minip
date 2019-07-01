@@ -21,7 +21,7 @@ Component({
    * Component initial data
    */
   data: {
-    flat: true
+    flag: true
   },
 
   /**

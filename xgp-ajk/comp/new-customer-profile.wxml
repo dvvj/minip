@@ -84,9 +84,9 @@
         bind:input="onInputPostAddr"
       />
 
-      <van-button type="primary" size="large" bind:click="onNewCustomer"
+      <van-button type="primary" size="large" bind:click="onNextStep"
         loading="{{ newCustomer.loadingText != '' }}"
-        loading-text='{{ newCustomer.loadingText}}'>添加</van-button>
+        loading-text='{{ newCustomer.loadingText}}'>下一步 {{">>"}}</van-button>
     </van-cell-group>
   </van-tab>
   <van-tab title="用户档案">
@@ -97,6 +97,7 @@
       />
 
       <van-field
+        disabled="{{ newCustomer.disabled }}"
         value="{{ profile.healthTags }}"
         required
         clearable
@@ -107,6 +108,7 @@
         bind:input="onInputHealthTags"
       />
       <van-field
+        disabled="{{ newCustomer.disabled }}"
         value="{{ profile.medicineTags }}"
         required
         clearable
@@ -134,12 +136,13 @@
         title="选择推荐保健品："
       />
 
-      <van-checkbox-group value="{{ selected }}" data-key="selected" custom-class="checkbox-group" bind:change="onChange">
+      <van-checkbox-group
+        value="{{ selected }}" data-key="selected" custom-class="checkbox-group" bind:change="onChange">
         <van-checkbox
           wx:for="{{ products }}"
           wx:key="id"
           name="{{ item.name }}"
-          disabled="{{ !item.enabled }}"
+          disabled="{{ newCustomer.disabled || !item.enabled }}"
           value="{{ item.checked }}"
           custom-class="checkbox"
         >{{ item.name }}</van-checkbox>
@@ -150,8 +153,10 @@
         value-class="value-class"
       />
 
-      <van-button type="primary" size="large" bind:click="onNewCustomerProfile">添加用户档案</van-button>
-
+      <!-- <van-button type="primary" size="large" bind:click="onNewCustomerProfile">添加用户档案</van-button> -->
+      <van-button type="primary" size="large" bind:click="onNewCustomerProfile"
+        loading="{{ newCustomer.loadingText != '' }}"
+        loading-text='{{ newCustomer.loadingText}}'>添加用户档案</van-button>
     </van-cell-group>
   </van-tab>
 </van-tabs>

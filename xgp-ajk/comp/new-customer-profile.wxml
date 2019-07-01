@@ -92,7 +92,7 @@
   <van-tab title="用户档案">
     <van-cell-group>
       <van-cell
-        title="todo: 用户信息：id，姓名，身份证号"
+        title="用户信息：{{ newCustomer.userid }}，{{ newCustomer.userName }}，{{ newCustomer.idCardNo }}"
         value-class="value-class"
       />
 
@@ -139,11 +139,16 @@
           wx:for="{{ products }}"
           wx:key="id"
           name="{{ item.name }}"
+          disabled="{{ !item.enabled }}"
+          value="{{ item.checked }}"
           custom-class="checkbox"
-        >
-          复选框 {{ item.name }}
-        </van-checkbox>
+        >{{ item.name }}</van-checkbox>
       </van-checkbox-group>
+
+      <van-cell
+        title="优惠信息：如85折，待完成..."
+        value-class="value-class"
+      />
 
       <van-button type="primary" size="large" bind:click="onNewCustomerProfile">添加用户档案</van-button>
 

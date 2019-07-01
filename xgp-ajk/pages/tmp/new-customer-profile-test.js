@@ -23,11 +23,7 @@ Page({
     products: [
       { id: 1, name: 'Astaxin虾青素', enabled: true, checked: false },
       { id: 2, name: 'ACO复合维生素', enabled: true, checked: false },
-      { id: 3, name: 'name3', enabled: false, checked: true }
-    ],
-    selected: [
-      { id: 2, name: 'name2', enabled: true, checked: false },
-      { id: 3, name: 'name3', enabled: false, checked: true }
+      { id: 3, name: '辅酶Q10', enabled: false, checked: true }
     ]
   },
 

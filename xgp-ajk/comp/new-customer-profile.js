@@ -21,21 +21,29 @@ Component({
    */
   methods: {
     initData: function (customerAndProfile, products) {
-      console.log('customerAndProfile: ', customerAndProfile)
+      let selected = products.filter(p => p.checked).map(p => p.name);
       this.setData({
         newCustomer: customerAndProfile.newCustomer,
         profile: customerAndProfile.profile,
-        products
+        products,
+        selected
       });
     },
     getData: function () {
-      let { newCustomer, profile } = this.data;
-      return { newCustomer, profile };
+      let { newCustomer, profile, products, selected } = this.data;
+      let selectedProducts = products.filter(p => p.enabled && selected.includes(p.name));
+      return { newCustomer, profile, selectedProducts };
     },
     onChange(event) {
-      console.log(event)
-      const { key } = event.currentTarget.dataset;
-      this.setData({ [key]: event.detail });
+      console.log('event: ', event)
+
+      this.setData({
+        selected: event.detail
+      });
     },
+    onNewCustomerProfile: function(e) {
+      let result = this.getData();
+      console.log('[todo] onNewCustomerProfile: ', result)
+    }
   }
 })

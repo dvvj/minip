@@ -1,11 +1,10 @@
 {
   "pages": [
-    "pages/mock/login",
+    "pages/prod/login",
     "pages/tmp/existing-customer-profile-test",
     "pages/tmp/new-customer-profile-test",
     "pages/tmp/customer-profile-test",
     "pages/tmp/ajk-paytest",
-    "pages/prod/login",
     "pages/tmp/year-month-range-test",
     "pages/login/login-test",
     "pages/login/login-medprof",
@@ -16,13 +15,9 @@
     "pages/logs/logs",
     "pages/product/product-list",
     "pages/customer/reffed-customers",
-    "pages/mock/customer/customer_main",
-    "pages/mock/proforg/proforg_main",
-    "pages/mock/medprof/medprof_main",
     "pages/prod/customer/customer_main",
     "pages/prod/medprof/medprof_main",
     "pages/prod/proforg/proforg_main",
-    "pages/mock/customer/order-detail",
     "pages/tmp/pay-webview"
   ],
   "window": {

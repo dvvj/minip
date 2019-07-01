@@ -167,37 +167,6 @@ Page({
 
   },
 
-  /**
-   * Lifecycle function--Called when page load
-   */
-  onLoad00: function (options) {
-    let that = this;
-
-    util.promisify(wx.getStorage)({ key: "tokens" })
-      .then(res => {
-        let tokens = res.data
-        console.log('got tokens: ', tokens)
-
-        wx.request({
-          url: reffedCustomersUrl,
-          method: 'GET',
-          header: {
-            'Authorization': 'Bearer ' + tokens.accessToken,
-            'X-Auth-Token': tokens.xauth
-          },
-          success: function (r1) {
-            console.log('r1:', r1);
-            util.saveTokens(r1.header[util.xAuthHeader], tokens.accessToken);
-
-            let rawData = r1.data
-            that.setData({ customerInfos: rawData })
-          }
-        })
-      }).catch(function (reason) {
-        console.log('failed:', reason);
-      })
-  },
-
   updateProductTab: function(that) {
     let rawData = [
       {

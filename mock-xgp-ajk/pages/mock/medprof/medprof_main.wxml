@@ -3,8 +3,8 @@
 <van-tabbar active="{{activeTabIndex}}" bind:change="onTabbarChange">
   <van-tabbar-item icon="friends">客户列表</van-tabbar-item>
   <van-tabbar-item icon="gold-coin">收益统计</van-tabbar-item>
-  <van-tabbar-item icon="add-square">添加客户</van-tabbar-item>
-  <van-tabbar-item icon="add">连接客户</van-tabbar-item>
+  <van-tabbar-item icon="add-square">新客户</van-tabbar-item>
+  <van-tabbar-item icon="add">老客户</van-tabbar-item>
   <van-tabbar-item icon="setting" dot>设置</van-tabbar-item>
 </van-tabbar>
 

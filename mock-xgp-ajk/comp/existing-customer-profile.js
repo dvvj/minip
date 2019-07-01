@@ -1,5 +1,5 @@
 // comp/existing-customer-profile.js
-
+import Toast from '../vant-lib/toast/toast';
 Component({
   /**
    * Component properties
@@ -86,13 +86,13 @@ Component({
             existingCustomer: tmp
           })
 
-          console.log('onFindCustomerMock')
-          // Toast.loading({
-          //   duration: 1000,       // 持续展示 toast
-          //   forbidClick: true, // 禁用背景点击
-          //   message: '用户查找失败',
-          //   type: 'fail'
-          // });
+          //console.log('onFindCustomerMock')
+          Toast.loading({
+            duration: 1000,       // 持续展示 toast
+            forbidClick: true, // 禁用背景点击
+            message: '用户查找失败',
+            type: 'fail'
+          });
         },
         1000
       )

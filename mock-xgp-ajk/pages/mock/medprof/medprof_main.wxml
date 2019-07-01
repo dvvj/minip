@@ -53,7 +53,7 @@
     <new-customer-profile id="newCustomerProfile" />
   </swiper-item>
   <swiper-item>
-    <include src="page-parts/existing-customer.wxml"/>
+    <existing-customer-profile id="existingCustomerProfile" />
   </swiper-item>
   <swiper-item>todo</swiper-item>
 </swiper>

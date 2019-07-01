@@ -79,7 +79,7 @@ Component({
       this.updateNewCustomer("userName", e)
     },
     onInputIdCardNo: function (e) {
-      this.updateNewCustomer("userName", e)
+      this.updateNewCustomer("idCardNo", e)
     },
     onInputMobile: function (e) {
       this.updateNewCustomer("mobile", e)

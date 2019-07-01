@@ -3,6 +3,7 @@ const util = require('../../../utils/util.js')
 const reffedCustomersUrl = util.webappBase + '/medprof/reffedCustomerInfos'
 const wxCharts = require('../../../utils/wxcharts-min.js');
 const newCustomerProfileTabIndex = 2;
+const existingCustomerProfileTabIndex = 3;
 const profitStatsTabIndex = 1;
 const productListTabIndex = 0;
 
@@ -23,13 +24,21 @@ Page({
     existingCustomer: {
       disabled: false,
       loadingText: '',
-      userid: 'existingcustomer01',
-      userName: '张某',
-      idCardNo: '310112197003113821',
-      mobile: '13700011100',
-      healthTags: '高血压，糖尿病',
-      medicineTags: '降压药'
+      userid: 'newcustomer02',
+      userName: 'x某',
+      idCardNo: '310112197003113333',
+      mobile: '137000333333',
+      profile: {
+        healthTags: 'healthTags - existingCustomer',
+        medicineTags: 'medicineTags - existingCustomer'
+      },
+      products: [
+        { id: 1, name: 'Astaxin虾青素', enabled: true, checked: false },
+        { id: 2, name: 'ACO复合维生素', enabled: true, checked: false },
+        { id: 3, name: '辅酶Q10', enabled: false, checked: true }
+      ]
     },
+
 
     newCustomer: {
       disabled: false,
@@ -41,56 +50,22 @@ Page({
       idCardNo: '310112197003113333',
       mobile: '137000333333',
       postAddr: '某省某市某区某路xx号 邮编111111',
+      profile: {
+        healthTags: 'healthTags - newCustomer',
+        medicineTags: 'medicineTags - newCustomer'
+      },
+      products: [
+        { id: 1, name: 'Astaxin虾青素', enabled: true, checked: false },
+        { id: 2, name: 'ACO复合维生素', enabled: true, checked: false },
+        { id: 3, name: '辅酶Q10', enabled: false, checked: true }
+      ]
     },
-    profile: {
-      healthTags: 'healthTags',
-      medicineTags: 'medicineTags'
-    },
-    products: [
-      { id: 1, name: 'Astaxin虾青素', enabled: true, checked: false },
-      { id: 2, name: 'ACO复合维生素', enabled: true, checked: false },
-      { id: 3, name: '辅酶Q10', enabled: false, checked: true }
-    ]
+
   },
 
 
   onClickIcon_InputUserId_Existing: function(e) {
     Toast('请输入用户唯一标识ID');
-  },
-  setInProgress_Find: function (isInProgress) {
-    this.updateExistingCustomer("disabled", { detail: isInProgress });
-    let loadingText = isInProgress ? '查找客户中...' : '';
-    this.updateExistingCustomer("loadingText", { detail: loadingText });
-  },
-  onFindCustomer: function (e) {
-    console.log('todo: search customer', e);
-    let that = this;
-
-    setTimeout(
-      function () {
-        that.setInProgress_Find(false);
-        let tmp = {
-          ...that.data.existingCustomer,
-          userid: 'ne*01',
-          userName: '张**',
-          idCardNo: '310***816', //'310112197003113821',
-          mobile: '137***139', // '13700011100',
-        }
-        that.setData({
-          existingCustomer: tmp
-        })
-        Toast.loading({
-          duration: 1000,       // 持续展示 toast
-          forbidClick: true, // 禁用背景点击
-          message: '用户查找失败',
-          type: 'fail'
-        });
-      },
-      1000
-    )
-    this.setInProgress_Find(true)
-    console.log('in onFindCustomer: ', this.data.existingCustomer)
-
   },
 
   updateActiveTab: function (tabIndex) {
@@ -124,15 +99,28 @@ Page({
     else if (tabIndex == newCustomerProfileTabIndex) {
       this.updateNewCustomerProfileTab();
     }
+    else if (tabIndex == existingCustomerProfileTabIndex) {
+      this.updateExistingCustomerProfileTab();
+    }
+  },
+  updateExistingCustomerProfileTab: function () {
+    let existingCustomerProfile = this.selectComponent("#existingCustomerProfile");
+    console.log(existingCustomerProfile);
+    let existingCustomer = this.data.existingCustomer;
+    existingCustomerProfile.initData({
+      existingCustomer,
+      profile: existingCustomer.profile
+    }, existingCustomer.products, true);
   },
 
   updateNewCustomerProfileTab: function() {
     let newCustomerProfile = this.selectComponent("#newCustomerProfile");
     console.log(newCustomerProfile);
+    let newCustomer = this.data.newCustomer
     newCustomerProfile.initData({
-      newCustomer: this.data.newCustomer,
-      profile: this.data.profile
-    }, this.data.products, true);
+      newCustomer,
+      profile: this.data.newCustomer.profile
+    }, this.data.newCustomer.products, true);
   },
 
   updateProfitTab: function () {

@@ -8,6 +8,7 @@
     "van-button": "../../../vant-lib/button/index",
     "van-field": "../../../vant-lib/field/index",
     "van-toast": "../../../vant-lib/toast/index",
-    "new-customer-profile": "../../../comp/new-customer-profile"
+    "new-customer-profile": "../../../comp/new-customer-profile",
+    "existing-customer-profile": "../../../comp/existing-customer-profile"
   }
 }

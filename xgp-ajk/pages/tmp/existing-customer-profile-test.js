@@ -33,7 +33,7 @@ Page({
     existingCustomerProfile.initData({
       existingCustomer: this.data.existingCustomer,
       profile: this.data.profile
-    }, this.data.products);
+    }, this.data.products, true);
   },
 
   /**

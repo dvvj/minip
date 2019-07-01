@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/tmp/new-customer-profile-test",
     "pages/tmp/existing-customer-profile-test",
+    "pages/tmp/new-customer-profile-test",
     "pages/tmp/customer-profile-test",
     "pages/mock/login",
     "pages/tmp/ajk-paytest",

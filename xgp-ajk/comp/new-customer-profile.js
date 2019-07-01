@@ -13,6 +13,7 @@ Component({
    * Component initial data
    */
   data: {
+    isMock: true,
     activeTabIndex: 0,
     newCustomer: {},
     profile: {},
@@ -24,9 +25,10 @@ Component({
    * Component methods
    */
   methods: {
-    initData: function (customerAndProfile, products) {
+    initData: function (customerAndProfile, products, isMock) {
       let selected = products.filter(p => p.checked).map(p => p.name);
       this.setData({
+        isMock,
         newCustomer: customerAndProfile.newCustomer,
         profile: customerAndProfile.profile,
         products,
@@ -48,7 +50,12 @@ Component({
     onNewCustomerProfile: function(e) {
       let result = this.getData();
       console.log('[todo] onNewCustomerProfile: ', result)
-      this.onNewCustomerProfileMock(e);
+      if (this.data.isMock) {
+        this.onNewCustomerProfileMock(e);
+      }
+      else {
+        this.onNewCustomerProfileProd(e);
+      }
     },
     onNextStep: function(e) {
       this.setData({ activeTabIndex: 1});
@@ -91,33 +98,20 @@ Component({
       let loadingText = isInProgress ? '添加客户中...' : '';
       this.updateNewCustomer("loadingText", { detail: loadingText });
     },
+    
     onNewCustomerProfileMock: function (e) {
       let that = this;
       setTimeout(
         function () {
           that.setInProgress(false);
-          // wx.showToast({
-          //   title: `用户添加成功`,
-          //   icon: 'success'
-          // });
-          // Toast.loading({
-          //   duration: 1000,       // 持续展示 toast
-          //   forbidClick: true, // 禁用背景点击
-          //   message: '用户添加成功',
-          //   type: 'success'
-          // });
-          // Toast.loading({
-          //   duration: 1000,       // 持续展示 toast
-          //   forbidClick: true, // 禁用背景点击
-          //   message: '用户添加失败',
-          //   type: 'fail'
-          // });
           console.log('done onNewCustomerProfileMock')
         },
         1000
       )
       this.setInProgress(true)
-      console.log('in onNewCustomer: ', this.data.newCustomer)
     },
+    onNewCustomerProfileProd: function(e) {
+      console.log('[todo] onNewCustomerProfileProd: ')
+    }
   }
 })

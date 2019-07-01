@@ -12,6 +12,7 @@ Component({
    * Component initial data
    */
   data: {
+    isMock: true,
     existingCustomer: {},
     profile: {},
     products: [],
@@ -22,9 +23,10 @@ Component({
    * Component methods
    */
   methods: {
-    initData: function (customerAndProfile, products) {
+    initData: function (customerAndProfile, products, isMock) {
       let selected = products.filter(p => p.checked).map(p => p.name);
       this.setData({
+        isMock,
         existingCustomer: customerAndProfile.existingCustomer,
         profile: customerAndProfile.profile,
         products,
@@ -42,13 +44,6 @@ Component({
       this.setData({
         selected: event.detail
       });
-    },
-    onExistingCustomerProfile: function (e) {
-      let result = this.getData();
-      console.log('[todo] onExistingCustomerProfile: ', result)
-    },
-    onFindCustomer: function (e) {
-      this.onFindCustomerMock(e);
     },
 
     updateExistingCustomer: function (field, e) {
@@ -102,9 +97,23 @@ Component({
         1000
       )
       this.setInProgress(true)
-      console.log('in onFindCustomer: ', this.data.existingCustomer)
 
     },
+    onFindCustomerProd: function(e) {
+      console.log('[todo] onFindCustomerProd')
+    },
 
+    onExistingCustomerProfile: function (e) {
+      let result = this.getData();
+      console.log('[todo] onExistingCustomerProfile: ', result)
+    },
+    onFindCustomer: function (e) {
+      if (this.data.isMock) {
+        this.onFindCustomerMock(e);
+      }
+      else {
+        this.onFindCustomerProd(e);
+      }
+    },
   }
 })

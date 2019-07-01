@@ -1,5 +1,7 @@
 <!--comp/existing-customer-profile.wxml-->
-<!--comp/new-customer-profile.wxml-->
+
+<van-toast id="van-toast" />
+
 <van-tabs active="{{ activeTabIndex }}" bind:change="onChangeTab">
   <van-tab title="查找用户">
     <van-cell-group>

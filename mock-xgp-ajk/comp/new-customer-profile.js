@@ -104,10 +104,16 @@ Component({
       setTimeout(
         function () {
           that.setInProgress(false);
-          console.log('done onNewCustomerProfileMock')
+          Toast.loading({
+            duration: 1000,       // 持续展示 toast
+            forbidClick: true, // 禁用背景点击
+            message: '用户添加成功',
+            type: 'success',
+            context: that
+          });
         },
         1000
-      )
+      );
       this.setInProgress(true)
     },
     onNewCustomerProfileProd: function(e) {

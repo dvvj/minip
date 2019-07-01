@@ -16,9 +16,11 @@ Page({
    */
   data: {
     activeTabIndex: 0,
-    profitStats: {
-      startYearMonth: '2018-11',
-      endYearMonth: '2019-03'
+    startEnd4ProfitStats: {
+      startYear: 2018,
+      startMonth: 2,
+      endYear: 2018,
+      endMonth: 7
     },
     customerInfos: [],
     existingCustomer: {
@@ -124,7 +126,9 @@ Page({
   },
 
   updateProfitTab: function () {
-    let rawProfitData = {
+    let profitStats = this.selectComponent("#profitStats");
+
+    let chartData = {
       "yearMonths": [
         "2019-01",
         "2019-02",
@@ -145,26 +149,11 @@ Page({
       ]
     }
 
-    new wxCharts({
-      canvasId: 'columnCanvas',
-      type: 'column',
-      categories: rawProfitData.yearMonths,
-      series: [{
-        name: '销售额',
-        data: util.roundPriceArr(rawProfitData.sales)
-      }, {
-        name: '佣金',
-        data: util.roundPriceArr(rawProfitData.rewards)
-      }],
-      yAxis: {
-        format: function (val) {
-          return val + '元';
-        }
-      },
-      width: 360,
-      height: 360
-    });
-
+    profitStats.initData(
+      this.data.startEnd4ProfitStats,
+      chartData
+    );
+    profitStats.drawChart();
   },
 
   updateProductTab: function(that) {

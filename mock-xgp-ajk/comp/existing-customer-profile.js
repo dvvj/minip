@@ -91,7 +91,8 @@ Component({
             duration: 1000,       // 持续展示 toast
             forbidClick: true, // 禁用背景点击
             message: '用户查找失败',
-            type: 'fail'
+            type: 'fail',
+            context: that
           });
         },
         1000

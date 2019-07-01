@@ -29,15 +29,3 @@
   </swiper-item>
   <swiper-item>todo</swiper-item>
 </swiper>
-
-<van-dialog id="van-dialog"
-  use-slot>
-  <van-datetime-picker
-    type="year-month"
-    value="{{ currentDate }}"
-    min-date="{{ minDate }}"
-    max-date="{{ maxDate }}"
-    formatter="{{ formatter }}"
-    bind:confirm="onYearMonthPickerConfirm"
-  />
-</van-dialog>

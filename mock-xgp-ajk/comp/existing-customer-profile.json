@@ -1,7 +1,8 @@
 {
   "component": true,
   "usingComponents": {
-    "van-tab": "../vant-lib//tab/index",
+    "van-toast": "../vant-lib/toast/index",
+    "van-tab": "../vant-lib/tab/index",
     "van-tabs": "../vant-lib/tabs/index",
     "van-cell": "../vant-lib/cell/index",
     "van-cell-group": "../vant-lib/cell-group/index",

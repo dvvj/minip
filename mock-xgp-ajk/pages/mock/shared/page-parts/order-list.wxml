@@ -12,16 +12,6 @@
           <van-tag round type="success" size="large">{{item.productShortName}}</van-tag>
           <van-tag plain type="danger" size="medium">{{item.creationTime}}</van-tag>
         </view>
-        <!-- <view>
-          <block wx:for="{{item.healthTags}}" wx:key="*this">
-            <van-tag plain type="danger">{{item}}</van-tag>
-          </block>
-        </view>
-        <view>
-          <block wx:for="{{item.medicineTags}}" wx:key="*this">
-            <van-tag round type="primary">{{item}}</van-tag>
-          </block>
-        </view> -->
       </view>
     </van-cell>
   </van-cell-group>

@@ -10,6 +10,6 @@
     "van-toast": "../../../vant-lib/toast/index",
     "new-customer-profile": "../../../comp/new-customer-profile",
     "existing-customer-profile": "../../../comp/existing-customer-profile",
-    "profit-stats": "../../../comp/profit-stats"
+    "set-year-month-range": "../../../comp/set-year-month-range"
   }
 }

@@ -17,11 +17,6 @@ Page({
 
   },
 
-  showDialog: function(e) {
-    let setYearMonthRange = this.selectComponent("#setYearMonthRange");
-    console.log('setYearMonthRange', setYearMonthRange);
-    setYearMonthRange.show();
-  },
   /**
    * Lifecycle function--Called when page is initially rendered
    */

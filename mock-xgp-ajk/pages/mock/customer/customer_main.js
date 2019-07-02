@@ -197,10 +197,10 @@ Page({
     });
   },
   onLoad: function (options) {
-    this.yearMonth = this.selectComponent("#yearMonthRange");
+    this.setYearMonthRange = this.selectComponent("#setYearMonthRange");
     this.setYearMonthDefault();
-    this.yearMonth.setEnd(this.data.yearMonthEnd);
-    this.yearMonth.setStart(this.data.yearMonthStart);
+    this.setYearMonthRange.setEnd(this.data.yearMonthEnd);
+    this.setYearMonthRange.setStart(this.data.yearMonthStart);
     
     var resDataRaw = [
       {

@@ -126,7 +126,7 @@ Page({
   },
 
   updateProfitTab: function () {
-    let profitStats = this.selectComponent("#profitStats");
+    // let profitStats = this.selectComponent("#profitStats");
 
     let chartData = {
       "yearMonths": [
@@ -149,11 +149,11 @@ Page({
       ]
     }
 
-    profitStats.initData(
-      this.data.startEnd4ProfitStats,
-      chartData
-    );
-    profitStats.drawChart();
+    // profitStats.initData(
+    //   this.data.startEnd4ProfitStats,
+    //   chartData
+    // );
+    // profitStats.drawChart();
   },
 
   updateProductTab: function(that) {

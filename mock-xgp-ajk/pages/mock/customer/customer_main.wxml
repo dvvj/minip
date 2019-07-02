@@ -40,7 +40,7 @@
     </scroll-view>
   </swiper-item>
   <swiper-item>
-    <van-cell-group>
+    <!-- <van-cell-group>
       <van-cell>
         <view slot="title">
           <view>
@@ -50,18 +50,18 @@
           </view>
         </view>
       </van-cell>
-    </van-cell-group>
-
+    </van-cell-group> -->
+    <set-year-month-range id="setYearMonthRange" />
     <include src="../shared/page-parts/order-list.wxml"/>
     
-    <van-dialog id="van-dialog"
+    <!-- <van-dialog id="van-dialog"
       bind:confirm="onDlgConfirm"
       use-slot>
       <year-month-range id='yearMonthRange'
         start='{{yearMonthStart}}'
         end='{{yearMonthEnd}}'
       />
-    </van-dialog>
+    </van-dialog> -->
   </swiper-item>
   <swiper-item>todo</swiper-item>
 </swiper>

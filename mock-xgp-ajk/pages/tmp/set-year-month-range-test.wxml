@@ -1,5 +1,5 @@
 <!--pages/tmp/set-year-month-range-test.wxml-->
-<button bindtap="showDialog">test</button>
+
 <set-year-month-range id='setYearMonthRange'
   start='2018-1'
   end='2019-3'

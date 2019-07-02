@@ -44,6 +44,7 @@
     </scroll-view>
   </swiper-item>
   <swiper-item>
+    <set-year-month-range id="setYearMonthRange" />
     <include src="../shared/page-parts/profit-stats.wxml"/>
     <!-- <profit-stats id="profitStats" /> -->
     <!-- <canvas class="main_canvas" canvas-id="columnCanvas"></canvas> -->

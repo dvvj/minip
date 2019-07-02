@@ -150,6 +150,10 @@ Component({
         console.log('confirmed: ', this.getSelection());
         // on close
       }).catch(reason => console.log('cancelled: ', reason));
+    },
+
+    onSetYearMonth: function(e) {
+      this.show();
     }
   }
 })

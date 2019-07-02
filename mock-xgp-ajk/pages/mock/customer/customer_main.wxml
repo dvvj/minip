@@ -7,7 +7,8 @@
 
 <swiper current="{{activeTabIndex}}" class="main_height" duration="300" bindchange='onSwiperChange'>
   <swiper-item>
-    <scroll-view scroll-y class="main_height">
+    <product-list id="productList" />
+    <!-- <scroll-view scroll-y class="main_height">
       <block wx:for="{{products}}" wx:key="id">
         <van-card wx:if="{{item.hasDiscount}}"
           tag="{{item.referingProfName}}"
@@ -37,7 +38,7 @@
           </view>
         </van-card>
       </block>
-    </scroll-view>
+    </scroll-view> -->
   </swiper-item>
   <swiper-item>
     <!-- <van-cell-group>

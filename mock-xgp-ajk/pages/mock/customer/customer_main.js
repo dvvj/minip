@@ -10,6 +10,7 @@ let roundPrice = function (price) {
 const customerProductUrl = util.webappBase + '/customerProductView'
 const wxPayUrl = util.webappBase + '/wx/payReq';
 const sessionTestUrl = util.webappBase + '/sessionTest';
+const productListTabIndex = 0;
 
 Page({
 
@@ -23,185 +24,17 @@ Page({
     }
   },
 
-  onDlgConfirm: function (e) {
-    console.log('dlg confirm: ', this.yearMonth.getSelection())
-  },
-  onSetYearMonth: function (e) {
-    Dialog.alert({
-      title: '设置起止年月',
-      showConfirmButton: true,
-      showCancelButton: true
-    }).then(() => {
-      // on close
-    }).catch(reason => console.log('cancelled: ', reason));
-  },
-
   updateActiveTab: function(tabIndex) {
-    this.setData({ activeTabIndex: tabIndex })
+    this.setData({ activeTabIndex: tabIndex });
+    this.updateTabContent(tabIndex);
   },
-  onTabbarChange: function (e) {
-    console.log(e)
-    wx.showToast({
-      title: `切换到标签 ${e.detail}`,
-      icon: 'none'
-    });
-    this.updateActiveTab(e.detail)
-  },
-  onSwiperChange: function (e) {
-    console.log(e.detail.current)
-    this.updateActiveTab(e.detail.current)
-  },
-  onBuy: function (e) {
-    let prodId = e.target.dataset.id
-    let prod = this.data.productDict[prodId]
-    console.log('prod: ', prod)
-    util.promisify(wx.getStorage)({ key: "tokens" })
-      .then(res => {
-        let tokens = res.data
-        console.log('got tokens: ', tokens)
-        wx.request({
-          url: wxPayUrl,
-          data: {
-            productId: prodId,
-            info: prod.name,
-            totalAmount: 1
-          },
-          method: "POST",
-          header: {
-            'content-type': 'application/json',
-            'Authorization': 'Bearer ' + tokens.accessToken,
-            'X-Auth-Token': tokens.xauth
-          },
-          success: function (r2) {
-            console.log('r2: ', r2)
-            util.saveTokens(r2.header[util.xAuthHeader], tokens.accessToken);
-            wx.requestPayment({
-              'timeStamp': r2.data.timeStamp,
-              'nonceStr': r2.data.nonceStr,
-              'package': r2.data.package_,
-              'signType': 'MD5',
-              'paySign': r2.data.paySign,
-              success: function (r3) {
-                console.info('r3: ', r3)
-                //报名
-                //goApply(event, that)
-              },
-              fail: function (e3) {
-                console.info("e3: ", e3)
-              },
-              complete: function (c3) {
-                console.info("c3: ", c3)
-              }
-            })
-          },
-          fail: function (e2) {
-            console.info("e2: ", e2)
-          }
-        })
-      })
+  updateTabContent: function(tabIndex) {
+    if (tabIndex == productListTabIndex) {
+      this.updateProductListTab();
+    }
   },
 
-  updateProd: function (prodId, delta) {
-    let prod = this.data.productDict[prodId]
-    let productDict = this.data.productDict
-    prod.count += delta
-    prod.totalPrice = roundPrice(prod.actualPrice * prod.count)
-    // console.log('prod: ', prodDict[prodId])
-    let products = this.data.products
-    products.forEach(function (item) { if (item === prodId) item.totalPrice = roundPrice(prod.count * item.actualPrice) })
-    this.setData({ productDict, products })
-  },
-
-  onPlus: function (e) {
-    console.log(e)
-    let prodId = e.target.dataset.id
-    this.updateProd(prodId, 1)
-  },
-
-  onMinus: function (e) {
-    console.log(e)
-    let prodId = e.target.dataset.id
-    this.updateProd(prodId, -1)
-  },
-
-  loadProds: function () {
-
-  },
-  onLoad00: function (options) {
-    let that = this
-    util.promisify(wx.getStorage)({ key: "tokens" })
-      .then(res => {
-        let tokens = res.data
-        console.log('got tokens: ', tokens)
-
-        wx.request({
-          url: customerProductUrl,
-          method: 'GET',
-          header: {
-            'Authorization': 'Bearer ' + tokens.accessToken,
-            'X-Auth-Token': tokens.xauth
-          },
-          success: function (r1) {
-            console.log('r1:', r1);
-            util.saveTokens(r1.header[util.xAuthHeader], tokens.accessToken);
-
-            let resDataRaw = r1.data
-            var resData = resDataRaw.map(item => {
-              let actualPrice = roundPrice(item.actualPrice);
-              let price0 = roundPrice(item.product.price0)
-              var hasDiscount = actualPrice < price0;
-              var resDataItem = {
-                id: item.product.id,
-                imgUrl: `${util.imgBaseUrl}/${item.product.id}/${item.productAssets[0].url}`,
-                name: item.product.name,
-                price0: price0,
-                actualPrice: actualPrice,
-                hasDiscount: hasDiscount,
-                referingProfName: item.referingProfName,
-                count: 1,
-                totalPrice: actualPrice
-              }
-              return resDataItem;
-            })
-
-            let productDict = {}
-            console.log('resData.length: ', resData.length)
-            for (var idx = 0; idx < resData.length; idx++) {
-              //console.log('resData[idx]', resData[idx])
-              let item = resData[idx]
-              productDict[item.id] = item
-            }
-
-            that.setData({ products: resData, productDict: productDict })
-          }
-        })
-      }).catch(function (reason) {
-        console.log('failed:', reason);
-      })
-
-  },
-  /**
-   * Lifecycle function--Called when page load
-   */
-  setYearMonthDefault: function() {
-    
-    let { _startYM, _endYM } = util.getYearMonthDefault();
-    let yearMonthStart = `${_startYM.year}-${_startYM.month}`;
-    let yearMonthEnd = `${_endYM.year}-${_endYM.month}`;
-    console.log('yearMonthStart:', yearMonthStart);
-    this.setData({
-      orderListStart: _startYM,
-      orderListEnd: _endYM,
-      yearMonthStart,
-      yearMonthEnd
-    });
-  },
-  onLoad: function (options) {
-    this.setYearMonthRange = this.selectComponent("#setYearMonthRange");
-    this.setYearMonthDefault();
-    this.setYearMonthRange.setEnd(this.data.yearMonthEnd);
-    this.setYearMonthRange.setStart(this.data.yearMonthStart);
-    
+  updateProductListTab: function() {
     var resDataRaw = [
       {
         "customerId": "c＿o1a1p1_customer1",
@@ -284,7 +117,7 @@ Page({
       }
     ]
 
-    var resData = resDataRaw.map(item => {
+    var products = resDataRaw.map(item => {
       let actualPrice = roundPrice(item.actualPrice);
       let price0 = roundPrice(item.product.price0)
       var hasDiscount = actualPrice < price0;
@@ -303,15 +136,155 @@ Page({
     })
 
     let productDict = {}
-    console.log('resData.length: ', resData.length)
-    for (var idx = 0; idx < resData.length; idx++) {
-      //console.log('resData[idx]', resData[idx])
-      let item = resData[idx]
+    console.log('products.length: ', products.length)
+    for (var idx = 0; idx < products.length; idx++) {
+      let item = products[idx]
       productDict[item.id] = item
     }
 
-    this.setData({ products: resData, productDict: productDict })
+    let productList = this.selectComponent('#productList');
+    productList.initData(products, productDict);
+  },
+  onTabbarChange: function (e) {
+    console.log(e)
+    wx.showToast({
+      title: `切换到标签 ${e.detail}`,
+      icon: 'none'
+    });
+    this.updateActiveTab(e.detail)
+  },
+  onSwiperChange: function (e) {
+    console.log(e.detail.current)
+    this.updateActiveTab(e.detail.current)
+  },
+  onBuy: function (e) {
+    let prodId = e.target.dataset.id
+    let prod = this.data.productDict[prodId]
+    console.log('prod: ', prod)
+    util.promisify(wx.getStorage)({ key: "tokens" })
+      .then(res => {
+        let tokens = res.data
+        console.log('got tokens: ', tokens)
+        wx.request({
+          url: wxPayUrl,
+          data: {
+            productId: prodId,
+            info: prod.name,
+            totalAmount: 1
+          },
+          method: "POST",
+          header: {
+            'content-type': 'application/json',
+            'Authorization': 'Bearer ' + tokens.accessToken,
+            'X-Auth-Token': tokens.xauth
+          },
+          success: function (r2) {
+            console.log('r2: ', r2)
+            util.saveTokens(r2.header[util.xAuthHeader], tokens.accessToken);
+            wx.requestPayment({
+              'timeStamp': r2.data.timeStamp,
+              'nonceStr': r2.data.nonceStr,
+              'package': r2.data.package_,
+              'signType': 'MD5',
+              'paySign': r2.data.paySign,
+              success: function (r3) {
+                console.info('r3: ', r3)
+                //报名
+                //goApply(event, that)
+              },
+              fail: function (e3) {
+                console.info("e3: ", e3)
+              },
+              complete: function (c3) {
+                console.info("c3: ", c3)
+              }
+            })
+          },
+          fail: function (e2) {
+            console.info("e2: ", e2)
+          }
+        })
+      })
+  },
 
+
+  onLoad00: function (options) {
+    let that = this
+    util.promisify(wx.getStorage)({ key: "tokens" })
+      .then(res => {
+        let tokens = res.data
+        console.log('got tokens: ', tokens)
+
+        wx.request({
+          url: customerProductUrl,
+          method: 'GET',
+          header: {
+            'Authorization': 'Bearer ' + tokens.accessToken,
+            'X-Auth-Token': tokens.xauth
+          },
+          success: function (r1) {
+            console.log('r1:', r1);
+            util.saveTokens(r1.header[util.xAuthHeader], tokens.accessToken);
+
+            let resDataRaw = r1.data
+            var resData = resDataRaw.map(item => {
+              let actualPrice = roundPrice(item.actualPrice);
+              let price0 = roundPrice(item.product.price0)
+              var hasDiscount = actualPrice < price0;
+              var resDataItem = {
+                id: item.product.id,
+                imgUrl: `${util.imgBaseUrl}/${item.product.id}/${item.productAssets[0].url}`,
+                name: item.product.name,
+                price0: price0,
+                actualPrice: actualPrice,
+                hasDiscount: hasDiscount,
+                referingProfName: item.referingProfName,
+                count: 1,
+                totalPrice: actualPrice
+              }
+              return resDataItem;
+            })
+
+            let productDict = {}
+            console.log('resData.length: ', resData.length)
+            for (var idx = 0; idx < resData.length; idx++) {
+              //console.log('resData[idx]', resData[idx])
+              let item = resData[idx]
+              productDict[item.id] = item
+            }
+
+            that.setData({ products: resData, productDict: productDict })
+          }
+        })
+      }).catch(function (reason) {
+        console.log('failed:', reason);
+      })
+
+  },
+  /**
+   * Lifecycle function--Called when page load
+   */
+  setYearMonthDefault: function() {
+    
+    let { _startYM, _endYM } = util.getYearMonthDefault();
+    let yearMonthStart = `${_startYM.year}-${_startYM.month}`;
+    let yearMonthEnd = `${_endYM.year}-${_endYM.month}`;
+    console.log('yearMonthStart:', yearMonthStart);
+    this.setData({
+      orderListStart: _startYM,
+      orderListEnd: _endYM,
+      yearMonthStart,
+      yearMonthEnd
+    });
+  },
+  onLoad: function (options) {
+    this.updateActiveTab(this.data.activeTabIndex);
+
+    this.setYearMonthRange = this.selectComponent("#setYearMonthRange");
+    this.setYearMonthDefault();
+    this.setYearMonthRange.setEnd(this.data.yearMonthEnd);
+    this.setYearMonthRange.setStart(this.data.yearMonthStart);
+    
     let ordersRaw = [
       {
         "order": {

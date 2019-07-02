@@ -1,0 +1,11 @@
+{
+  "component": true,
+  "usingComponents": {
+    "van-cell": "../../../vant-lib/cell/index",
+    "van-cell-group": "../../../vant-lib/cell-group/index",
+    "van-tag": "../../../vant-lib/tag/index",
+    "van-button": "../../../vant-lib/button/index",
+    "van-stepper": "../../../vant-lib/stepper/index",
+    "van-card": "../../../vant-lib/card/index"
+  }
+}

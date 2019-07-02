@@ -10,7 +10,8 @@
 
 <swiper current="{{activeTabIndex}}" class="main_height" duration="300" bindchange='onSwiperChange'>
   <swiper-item>
-    <scroll-view scroll-y class="main_height">
+    <reffed-customer-infos id="reffedCustomerInfos" />
+    <!-- <scroll-view scroll-y class="main_height">
       <block wx:for="{{customerInfos}}" wx:key="profileId">
         <van-cell-group>
           <van-cell is-link url="../../customer/reffed-order-stats">
@@ -41,7 +42,7 @@
           </van-cell>
         </van-cell-group>
       </block>
-    </scroll-view>
+    </scroll-view> -->
   </swiper-item>
   <swiper-item>
     <set-year-month-range id="setYearMonthRange" />

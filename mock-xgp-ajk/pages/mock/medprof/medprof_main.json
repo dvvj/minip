@@ -10,6 +10,7 @@
     "van-toast": "../../../vant-lib/toast/index",
     "new-customer-profile": "../../../comp/new-customer-profile",
     "existing-customer-profile": "../../../comp/existing-customer-profile",
-    "set-year-month-range": "../../../comp/set-year-month-range"
+    "set-year-month-range": "../../../comp/set-year-month-range",
+    "reffed-customer-infos": "../../../comp/reffed-customer-infos"
   }
 }

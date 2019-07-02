@@ -11,7 +11,8 @@
   </swiper-item>
   <swiper-item>
     <set-year-month-range id="setYearMonthRange" />
-    <include src="../shared/page-parts/order-list.wxml"/>
+    <order-list id="orderList" />
+    <!-- <include src="../shared/page-parts/order-list.wxml"/> -->
   </swiper-item>
   <swiper-item>
     <setting-customer id="settingCustomer" />

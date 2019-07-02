@@ -15,6 +15,7 @@
     "van-tabs": "../../../vant-lib/tabs/index",
     "set-year-month-range": "../../../comp/set-year-month-range",
     "product-list": "../../../comp/product-list",
+    "order-list": "../../../comp/order-list",
     "setting-customer": "../../../comp/setting-customer"
   }
 }

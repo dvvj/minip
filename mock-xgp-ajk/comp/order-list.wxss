@@ -1,0 +1,4 @@
+/* comp/order-list.wxss */
+.main_height {
+  height:1080rpx
+}

@@ -1,0 +1,21 @@
+<!--comp/order-list.wxml-->
+<scroll-view scroll-y class="main_height">
+  <block wx:for="{{orderList}}" wx:key="orderId">
+    <van-cell-group>
+      <van-cell is-link url="../../mock/customer/order-detail">
+        <view>
+          <text>{{item.actualCost}}</text>
+          <view>
+            <text>详情</text>
+          </view>
+        </view>
+        <view slot="title">
+          <view class="van-cell-text">
+            <van-tag round type="success" size="large">{{item.productShortName}}</van-tag>
+            <van-tag plain type="danger" size="medium">{{item.creationTime}}</van-tag>
+          </view>
+        </view>
+      </van-cell>
+    </van-cell-group>
+  </block>
+</scroll-view>

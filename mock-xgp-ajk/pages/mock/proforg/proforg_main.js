@@ -3,8 +3,12 @@ import Dialog from '../../../vant-lib/dialog/dialog';
 const orderStatsTestData = require('../../../utils/org-order-stats-td.js')
 const wxCharts = require('../../../utils/wxcharts-min.js');
 const util = require('../../../utils/util.js')
-const profitStatsTabIndex = 0;
-const settingTabIndex = 1;
+const datasrc = require('../../../utils/' + util.datasrc).datasrc;
+
+const tabIndices = {
+  profitStats: 0,
+  setting: 1
+};
 
 Page({
 
@@ -14,10 +18,6 @@ Page({
   data: {
     activeTabIndex: 0,
 
-    minHour: 10,
-    maxHour: 20,
-    minDate: new Date().getTime(),
-    maxDate: new Date(2019, 10, 1).getTime(),
     currentDate: new Date().getTime(),
     formatter(type, value) {
       if (type === 'year') {
@@ -45,10 +45,10 @@ Page({
   },
 
   updateTabContent: function(tabIndex) {
-    if (tabIndex == profitStatsTabIndex) {
-      this.updateProfitStatsTab();
+    if (tabIndex == tabIndices.profitStats) {
+      this.updateProfitStats();
     }
-    else if (tabIndex == settingTabIndex) {
+    else if (tabIndex == tabIndices.setting) {
       this.updateSetting();
     }
   },
@@ -64,27 +64,8 @@ Page({
     })
   },
 
-  updateProfitStatsTab: function() {
-    let rawData = {
-      "yearMonths": [
-        "2019-01",
-        "2019-02",
-        "2019-03",
-        "2019-04"
-      ],
-      "sales": [
-        9049.939999999999,
-        9049.939999999999,
-        9349.919999999998,
-        0
-      ],
-      "rewards": [
-        2714.982,
-        2714.982,
-        2804.9759999999997,
-        0
-      ]
-    }
+  updateProfitStats: function() {
+    let rawData = datasrc.proforg.getProfitStatsChartData();
 
     new wxCharts({
       canvasId: 'columnCanvas',

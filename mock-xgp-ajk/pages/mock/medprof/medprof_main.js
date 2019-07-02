@@ -131,7 +131,7 @@ Page({
     })
   },
 
-  updateExistingCustomerProfileTab: function () {
+  updateExistingCustomerProfile: function () {
     let existingCustomerProfile = this.selectComponent("#existingCustomerProfile");
     console.log(existingCustomerProfile);
     let existingCustomer = this.data.existingCustomer;

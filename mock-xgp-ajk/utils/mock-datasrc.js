@@ -196,6 +196,81 @@ const datasrc = {
         postAddr: '某省某市某区某路xx号 邮编111111',
       };
     }
+  },
+
+  medprof: {
+    getReffedCustomerInfos: () => {
+      return [
+        {
+          "profileId": 1,
+          "customerName": "张晓东",
+          "customerId": "c＿o1a1p1_customer1",
+          "productShortNames": [
+            "Astaxin虾青素",
+            "ACO产妇维生素"
+          ],
+          "pricePlanInfo": "{\"globalRate\":0.9}",
+          "healthTags": [
+            "糖尿病",
+            "高血压"
+          ],
+          "medicineTags": [
+            "降压药"
+          ]
+        },
+        {
+          "profileId": 2,
+          "customerName": "张晓",
+          "customerId": "c＿o1a1p1_customer2",
+          "productShortNames": [
+            "Astaxin虾青素",
+            "ACO产妇维生素"
+          ],
+          "pricePlanInfo": "{\"globalRate\":0.9}",
+          "healthTags": [
+            "糖尿病"
+          ],
+          "medicineTags": [
+            "维生素"
+          ]
+        },
+        {
+          "profileId": 3,
+          "customerName": "张丽",
+          "customerId": "c＿o1a1p1_customer4",
+          "productShortNames": [
+            "Astaxin虾青素"
+          ],
+          "pricePlanInfo": "{\"globalRate\":0.9}",
+          "healthTags": [
+            "贫血"
+          ],
+          "medicineTags": []
+        }
+      ];
+    },
+    getProfitStatsChartData: () => {
+      return {
+        "yearMonths": [
+          "2019-01",
+          "2019-02",
+          "2019-03",
+          "2019-04"
+        ],
+        "sales": [
+          9049.939999999999,
+          9049.939999999999,
+          9349.919999999998,
+          0
+        ],
+        "rewards": [
+          2714.982,
+          2714.982,
+          2804.9759999999997,
+          0
+        ]
+      };
+    }
   }
 
 };

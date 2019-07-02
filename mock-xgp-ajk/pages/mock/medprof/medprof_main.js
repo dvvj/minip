@@ -1,14 +1,16 @@
 // pages/mock/medprof/medprof_main.js
-const util = require('../../../utils/util.js')
+const util = require('../../../utils/util.js');
+const datasrc = require('../../../utils/' + util.datasrc).datasrc;
 const reffedCustomersUrl = util.webappBase + '/medprof/reffedCustomerInfos'
 const wxCharts = require('../../../utils/wxcharts-min.js');
-const newCustomerProfileTabIndex = 2;
-const existingCustomerProfileTabIndex = 3;
-const profitStatsTabIndex = 1;
-const reffedCustomerInfosTabIndex = 0;
-const settingTabIndex = 4;
 
-import Toast from '../../../vant-lib/toast/toast';
+const tabIndices = {
+  reffedCustomerInfos: 0,
+  profitStats: 1,
+  newCustomerProfile: 2,
+  existingCustomerProfile: 3,
+  setting: 4
+};
 
 Page({
 
@@ -90,76 +92,30 @@ Page({
     this.updateActiveTab(tabIndex)
   },
 
-  updateReffedCustomerTab: function() {
+  updateReffedCustomer: function() {
     let reffedCustomerInfos = this.selectComponent("#reffedCustomerInfos");
 
-    let customerInfos = [
-      {
-        "profileId": 1,
-        "customerName": "张晓东",
-        "customerId": "c＿o1a1p1_customer1",
-        "productShortNames": [
-          "Astaxin虾青素",
-          "ACO产妇维生素"
-        ],
-        "pricePlanInfo": "{\"globalRate\":0.9}",
-        "healthTags": [
-          "糖尿病",
-          "高血压"
-        ],
-        "medicineTags": [
-          "降压药"
-        ]
-      },
-      {
-        "profileId": 2,
-        "customerName": "张晓",
-        "customerId": "c＿o1a1p1_customer2",
-        "productShortNames": [
-          "Astaxin虾青素",
-          "ACO产妇维生素"
-        ],
-        "pricePlanInfo": "{\"globalRate\":0.9}",
-        "healthTags": [
-          "糖尿病"
-        ],
-        "medicineTags": [
-          "维生素"
-        ]
-      },
-      {
-        "profileId": 3,
-        "customerName": "张丽",
-        "customerId": "c＿o1a1p1_customer4",
-        "productShortNames": [
-          "Astaxin虾青素"
-        ],
-        "pricePlanInfo": "{\"globalRate\":0.9}",
-        "healthTags": [
-          "贫血"
-        ],
-        "medicineTags": []
-      }
-    ]
+    let customerInfos = datasrc.medprof.getReffedCustomerInfos();
 
     reffedCustomerInfos.initData(customerInfos)
   },
+
   updateTabContent: function(tabIndex) {
 
-    if (tabIndex == reffedCustomerInfosTabIndex) {
-      this.updateReffedCustomerTab();
+    if (tabIndex == tabIndices.reffedCustomerInfos) {
+      this.updateReffedCustomer();
     }
-    else if (tabIndex == profitStatsTabIndex) {
+    else if (tabIndex == tabIndices.profitStats) {
       // todo: cache data
-      this.updateProfitTab();
+      this.updateProfitStats();
     }
-    else if (tabIndex == newCustomerProfileTabIndex) {
-      this.updateNewCustomerProfileTab();
+    else if (tabIndex == tabIndices.newCustomerProfile) {
+      this.updateNewCustomerProfile();
     }
-    else if (tabIndex == existingCustomerProfileTabIndex) {
-      this.updateExistingCustomerProfileTab();
+    else if (tabIndex == tabIndices.existingCustomerProfile) {
+      this.updateExistingCustomerProfile();
     }
-    else if (tabIndex == settingTabIndex) {
+    else if (tabIndex == tabIndices.setting) {
       this.updateSetting();
     }
   },
@@ -185,7 +141,7 @@ Page({
     }, existingCustomer.products, true);
   },
 
-  updateNewCustomerProfileTab: function() {
+  updateNewCustomerProfile: function() {
     let newCustomerProfile = this.selectComponent("#newCustomerProfile");
     console.log(newCustomerProfile);
     let newCustomer = this.data.newCustomer
@@ -195,29 +151,8 @@ Page({
     }, this.data.newCustomer.products, true);
   },
 
-  updateProfitTab: function () {
-    // let profitStats = this.selectComponent("#profitStats");
-
-    let chartData = {
-      "yearMonths": [
-        "2019-01",
-        "2019-02",
-        "2019-03",
-        "2019-04"
-      ],
-      "sales": [
-        9049.939999999999,
-        9049.939999999999,
-        9349.919999999998,
-        0
-      ],
-      "rewards": [
-        2714.982,
-        2714.982,
-        2804.9759999999997,
-        0
-      ]
-    }
+  updateProfitStats: function () {
+    let chartData = datasrc.medprof.getProfitStatsChartData();
 
     new wxCharts({
       canvasId: 'columnCanvas',
@@ -238,12 +173,6 @@ Page({
       width: 360,
       height: 360
     });
-
-    // profitStats.initData(
-    //   this.data.startEnd4ProfitStats,
-    //   chartData
-    // );
-    // profitStats.drawChart();
   },
 
   onLoad: function (options) {

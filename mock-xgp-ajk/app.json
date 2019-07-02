@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/mock/login",
+    "pages/tmp/setting-customer-test",
     "pages/tmp/set-year-month-range-test",
     "pages/tmp/existing-customer-profile-test",
     "pages/tmp/new-customer-profile-test",

@@ -26,5 +26,7 @@
   <swiper-item>
     <existing-customer-profile id="existingCustomerProfile" />
   </swiper-item>
-  <swiper-item>todo</swiper-item>
+  <swiper-item>
+    <setting-password id="settingPassword" />
+  </swiper-item>
 </swiper>

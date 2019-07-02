@@ -13,5 +13,7 @@
     <set-year-month-range id="setYearMonthRange" />
     <include src="../shared/page-parts/order-list.wxml"/>
   </swiper-item>
-  <swiper-item>todo</swiper-item>
+  <swiper-item>
+    <setting-customer id="settingCustomer" />
+  </swiper-item>
 </swiper>

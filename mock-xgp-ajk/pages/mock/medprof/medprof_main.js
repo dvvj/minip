@@ -6,6 +6,7 @@ const newCustomerProfileTabIndex = 2;
 const existingCustomerProfileTabIndex = 3;
 const profitStatsTabIndex = 1;
 const reffedCustomerInfosTabIndex = 0;
+const settingTabIndex = 4;
 
 import Toast from '../../../vant-lib/toast/toast';
 
@@ -158,7 +159,22 @@ Page({
     else if (tabIndex == existingCustomerProfileTabIndex) {
       this.updateExistingCustomerProfileTab();
     }
+    else if (tabIndex == settingTabIndex) {
+      this.updateSetting();
+    }
   },
+
+  updateSetting: function () {
+    const settingPassword = this.selectComponent("#settingPassword");
+    settingPassword.initData({
+      disabled: false,
+      loadingText: '',
+      userid: 'medprof002',
+      password: '123',
+      password2: '123',
+    })
+  },
+
   updateExistingCustomerProfileTab: function () {
     let existingCustomerProfile = this.selectComponent("#existingCustomerProfile");
     console.log(existingCustomerProfile);

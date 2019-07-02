@@ -1,40 +1,30 @@
-// pages/mock/login.js
-const util = require('../../utils/util.js')
-
-const sessionTestUrl = util.webappBase + '/sessionTest';
-
+// pages/tmp/setting-customer-test.js
 Page({
 
   /**
    * Page initial data
    */
   data: {
-    userid: 'o_o1',
-    password: '123'
-  },
-  onLogin: function (e) {
-    console.log(e);
-    let userid = this.data.userid;
-    let password = this.data.password;
-    console.log(`username: ${userid}, password: ${password}`);
 
-    wx.navigateTo({
-      //url: './customer/customer_main',
-      //url: './proforg/proforg_main',
-      url: './medprof/medprof_main',
-    })
   },
-  onInputUserId: function (e) {
-    this.setData({ userid: e.detail })
-  },
-  onInputPassword: function (e) {
-    this.setData({ password: e.detail })
-  },
+
   /**
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
+    let settingCustomer = this.selectComponent("#settingCustomer");
 
+    settingCustomer.initData({
+      disabled: false,
+      loadingText: '',
+      userid: 'newcustomer02',
+      password: '123',
+      password2: '123',
+      userName: 'x某',
+      idCardNo: '310112197003113333',
+      mobile: '137000333333',
+      postAddr: '某省某市某区某路xx号 邮编111111',
+    }, true);
   },
 
   /**

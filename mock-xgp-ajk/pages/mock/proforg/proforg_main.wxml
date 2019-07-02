@@ -33,5 +33,7 @@
       />
     </van-dialog> -->
   </swiper-item>
-  <swiper-item>todo</swiper-item>
+  <swiper-item>
+    <setting-password id="settingPassword" />
+  </swiper-item>
 </swiper>

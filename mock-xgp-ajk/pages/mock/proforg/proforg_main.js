@@ -4,6 +4,7 @@ const orderStatsTestData = require('../../../utils/org-order-stats-td.js')
 const wxCharts = require('../../../utils/wxcharts-min.js');
 const util = require('../../../utils/util.js')
 const profitStatsTabIndex = 0;
+const settingTabIndex = 1;
 
 Page({
 
@@ -47,6 +48,20 @@ Page({
     if (tabIndex == profitStatsTabIndex) {
       this.updateProfitStatsTab();
     }
+    else if (tabIndex == settingTabIndex) {
+      this.updateSetting();
+    }
+  },
+
+  updateSetting: function() {
+    const settingPassword = this.selectComponent("#settingPassword");
+    settingPassword.initData({
+      disabled: false,
+      loadingText: '',
+      userid: 'proforg001',
+      password: '123',
+      password2: '123',
+    })
   },
 
   updateProfitStatsTab: function() {

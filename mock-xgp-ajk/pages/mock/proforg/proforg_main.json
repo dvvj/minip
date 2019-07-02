@@ -11,6 +11,7 @@
     "van-tabbar-item": "../../../vant-lib/tabbar-item/index",
     "van-tab": "../../../vant-lib//tab/index",
     "van-tabs": "../../../vant-lib/tabs/index",
-    "set-year-month-range": "../../../comp/set-year-month-range"
+    "set-year-month-range": "../../../comp/set-year-month-range",
+    "setting-password": "../../../comp/setting-password"
   }
 }

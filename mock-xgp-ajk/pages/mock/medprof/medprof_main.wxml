@@ -45,9 +45,11 @@
   </swiper-item>
   <swiper-item>
     <set-year-month-range id="setYearMonthRange" />
-    <include src="../shared/page-parts/profit-stats.wxml"/>
-    <!-- <profit-stats id="profitStats" /> -->
-    <!-- <canvas class="main_canvas" canvas-id="columnCanvas"></canvas> -->
+    <scroll-view scroll-y class="main_height">
+      <view class="canvas_container">
+        <canvas class="main_canvas" canvas-id="columnCanvas"></canvas>
+      </view>
+    </scroll-view>
   </swiper-item>
   <swiper-item>
     <!-- <include src="page-parts/new-customer.wxml"/> -->

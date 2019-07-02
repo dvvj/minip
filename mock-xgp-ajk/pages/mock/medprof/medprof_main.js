@@ -149,6 +149,26 @@ Page({
       ]
     }
 
+    new wxCharts({
+      canvasId: 'columnCanvas',
+      type: 'column',
+      categories: chartData.yearMonths,
+      series: [{
+        name: '销售额',
+        data: util.roundPriceArr(chartData.sales)
+      }, {
+        name: '佣金',
+        data: util.roundPriceArr(chartData.rewards)
+      }],
+      yAxis: {
+        format: function (val) {
+          return val + '元';
+        }
+      },
+      width: 360,
+      height: 360
+    });
+
     // profitStats.initData(
     //   this.data.startEnd4ProfitStats,
     //   chartData

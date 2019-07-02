@@ -7,7 +7,13 @@
 <swiper current="{{activeTabIndex}}" class="main_height" duration="300" bindchange='onSwiperChange'>
   <swiper-item>
     <!-- <include src="../shared/page-parts/profit-stats.wxml"/> -->
-    <van-cell-group>
+    <set-year-month-range id="setYearMonthRange" />
+    <scroll-view scroll-y class="main_height">
+      <view class="canvas_container">
+        <canvas class="main_canvas" canvas-id="columnCanvas"></canvas>
+      </view>
+    </scroll-view>
+    <!-- <van-cell-group>
       <van-cell>
         <view slot="title">
           <view>
@@ -25,7 +31,7 @@
         start='{{yearMonthStart}}'
         end='{{yearMonthEnd}}'
       />
-    </van-dialog>
+    </van-dialog> -->
   </swiper-item>
   <swiper-item>todo</swiper-item>
 </swiper>

@@ -3,6 +3,7 @@ import Dialog from '../../../vant-lib/dialog/dialog';
 const orderStatsTestData = require('../../../utils/org-order-stats-td.js')
 const wxCharts = require('../../../utils/wxcharts-min.js');
 const util = require('../../../utils/util.js')
+const profitStatsTabIndex = 0;
 
 Page({
 
@@ -42,44 +43,13 @@ Page({
     });
   },
 
-  onDlgConfirm: function (e) {
-    console.log('dlg confirm: ', this.yearMonth.getSelection())
-  },
-  onSetYearMonth: function (e) {
-    Dialog.alert({
-      title: '设置起止年月',
-      showConfirmButton: true,
-      showCancelButton: true
-    }).then(() => {
-      // on close
-    }).catch(reason => console.log('cancelled: ', reason));
+  updateTabContent: function(tabIndex) {
+    if (tabIndex == profitStatsTabIndex) {
+      this.updateProfitStatsTab();
+    }
   },
 
-  updateActiveTab: function (tabIndex) {
-    this.setData({ activeTabIndex: tabIndex })
-  },
-  onTabbarChange: function (e) {
-    console.log(e)
-    wx.showToast({
-      title: `切换到标签 ${e.detail}`,
-      icon: 'none'
-    });
-    this.updateActiveTab(e.detail)
-  },
-  onSwiperChange: function (e) {
-    console.log(e.detail.current)
-    this.updateActiveTab(e.detail.current)
-  },
-
-  /**
-   * Lifecycle function--Called when page load
-   */
-  onLoad: function (options) {
-    this.yearMonth = this.selectComponent("#yearMonthRange");
-    this.setYearMonthDefault();
-    this.yearMonth.setEnd(this.data.yearMonthEnd);
-    this.yearMonth.setStart(this.data.yearMonthStart);
-    
+  updateProfitStatsTab: function() {
     let rawData = {
       "yearMonths": [
         "2019-01",
@@ -120,6 +90,36 @@ Page({
       width: 360,
       height: 360
     });
+
+  },
+
+  updateActiveTab: function (tabIndex) {
+    this.setData({ activeTabIndex: tabIndex })
+    this.updateTabContent(tabIndex);
+  },
+  onTabbarChange: function (e) {
+    console.log(e)
+    wx.showToast({
+      title: `切换到标签 ${e.detail}`,
+      icon: 'none'
+    });
+    this.updateActiveTab(e.detail)
+  },
+  onSwiperChange: function (e) {
+    console.log(e.detail.current)
+    this.updateActiveTab(e.detail.current)
+  },
+
+  /**
+   * Lifecycle function--Called when page load
+   */
+  onLoad: function (options) {
+    this.setYearMonthRange = this.selectComponent("#setYearMonthRange");
+    this.setYearMonthDefault();
+    this.setYearMonthRange.setEnd(this.data.yearMonthEnd);
+    this.setYearMonthRange.setStart(this.data.yearMonthStart);
+
+    this.updateActiveTab(this.data.activeTabIndex);
   },
 
   /**

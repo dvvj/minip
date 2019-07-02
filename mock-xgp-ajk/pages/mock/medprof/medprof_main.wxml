@@ -11,38 +11,6 @@
 <swiper current="{{activeTabIndex}}" class="main_height" duration="300" bindchange='onSwiperChange'>
   <swiper-item>
     <reffed-customer-infos id="reffedCustomerInfos" />
-    <!-- <scroll-view scroll-y class="main_height">
-      <block wx:for="{{customerInfos}}" wx:key="profileId">
-        <van-cell-group>
-          <van-cell is-link url="../../customer/reffed-order-stats">
-            <view>
-              <block wx:for="{{item.productShortNames}}" wx:key="*this">
-                <van-tag round type="success">{{item}}</van-tag>
-              </block>
-              <view class="van-cell-text">
-                <text>订单统计</text>
-              </view>
-            </view>
-            <view slot="title">
-              <view class="van-cell-text">
-                <text>{{item.customerName}}</text>
-                <text></text>
-              </view>
-              <view>
-                <block wx:for="{{item.healthTags}}" wx:key="*this">
-                  <van-tag plain type="danger">{{item}}</van-tag>
-                </block>
-              </view>
-              <view>
-                <block wx:for="{{item.medicineTags}}" wx:key="*this">
-                  <van-tag round type="primary">{{item}}</van-tag>
-                </block>
-              </view>
-            </view>
-          </van-cell>
-        </van-cell-group>
-      </block>
-    </scroll-view> -->
   </swiper-item>
   <swiper-item>
     <set-year-month-range id="setYearMonthRange" />
@@ -53,7 +21,6 @@
     </scroll-view>
   </swiper-item>
   <swiper-item>
-    <!-- <include src="page-parts/new-customer.wxml"/> -->
     <new-customer-profile id="newCustomerProfile" />
   </swiper-item>
   <swiper-item>

@@ -143,9 +143,11 @@ Component({
       Dialog.alert({
         title: '设置起止年月',
         showConfirmButton: true,
-        showCancelButton: true,
+        showCancelButton: false,
+        confirmButtonText: '完成',
         context: this
       }).then(() => {
+        console.log('confirmed: ', this.getSelection());
         // on close
       }).catch(reason => console.log('cancelled: ', reason));
     }

@@ -1,6 +1,5 @@
 <!--comp/set-year-month-range.wxml-->
 <van-dialog id='van-dialog'
-  bind:confirm="onDlgConfirm"
   use-slot>
   <van-tabs active="{{ activeTabIndex }}" bind:change="onChangeTab">
     <van-tab title="起始{{ _startYM.year }}年{{ _startYM.month }}月">

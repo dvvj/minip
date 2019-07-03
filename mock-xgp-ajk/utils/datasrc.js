@@ -5,6 +5,9 @@ const orderListUrl = util.customerBaseUrl + '/ordersBtw';
 const wxPayUrl = util.webappBase + '/wx/payReq';
 const sessionTestUrl = util.webappBase + '/sessionTest';
 
+const reffedCustomersUrl = util.webappBase + '/medprof/reffedCustomerInfos'
+const profitStatsUrl = util.medprofBaseUrl + '/profitStats4Wx'
+
 const datasrc = {
   login: function(userid, password) {
     util.promisify(wx.login)()
@@ -89,102 +92,52 @@ const datasrc = {
   },
 
   medprof: {
-    getReffedCustomerInfos: () => {
-      return [
-        {
-          "profileId": 1,
-          "customerName": "张晓东",
-          "customerId": "c＿o1a1p1_customer1",
-          "productShortNames": [
-            "Astaxin虾青素",
-            "ACO产妇维生素"
-          ],
-          "pricePlanInfo": "{\"globalRate\":0.9}",
-          "healthTags": [
-            "糖尿病",
-            "高血压"
-          ],
-          "medicineTags": [
-            "降压药"
-          ]
+    getReffedCustomerInfos: (cb) => {
+      let that = this;
+      let tokens = wx.getStorageSync(util.userTokenKey);
+      console.log('[getReffedCustomerInfos] got tokens: ', tokens)
+
+      wx.request({
+        url: reffedCustomersUrl,
+        method: 'GET',
+        header: {
+          'Authorization': 'Bearer ' + tokens.accessToken,
+          'X-Auth-Token': tokens.xauth
         },
-        {
-          "profileId": 2,
-          "customerName": "张晓",
-          "customerId": "c＿o1a1p1_customer2",
-          "productShortNames": [
-            "Astaxin虾青素",
-            "ACO产妇维生素"
-          ],
-          "pricePlanInfo": "{\"globalRate\":0.9}",
-          "healthTags": [
-            "糖尿病"
-          ],
-          "medicineTags": [
-            "维生素"
-          ]
-        },
-        {
-          "profileId": 3,
-          "customerName": "张丽",
-          "customerId": "c＿o1a1p1_customer4",
-          "productShortNames": [
-            "Astaxin虾青素"
-          ],
-          "pricePlanInfo": "{\"globalRate\":0.9}",
-          "healthTags": [
-            "贫血"
-          ],
-          "medicineTags": []
+        success: function (r1) {
+          console.log('reffedCustomersUrl:', r1);
+          util.updateXAuth(r1.header[util.xAuthHeader]);
+          cb(r1.data);
         }
-      ];
+      })
+
     },
-    getProfitStatsChartData: () => {
-      return {
-        "yearMonths": [
-          "2019-01",
-          "2019-02",
-          "2019-03",
-          "2019-04"
-        ],
-        "sales": [
-          9049.939999999999,
-          9049.939999999999,
-          9349.919999999998,
-          0
-        ],
-        "rewards": [
-          2714.982,
-          2714.982,
-          2804.9759999999997,
-          0
-        ]
-      };
+    getProfitStatsChartData: (startYearMonth, endYearMonth, cb) => {
+      let that = this;
+      let tokens = wx.getStorageSync(util.userTokenKey);
+      console.log('[medprof::getProfitStatsChartData] got tokens: ', tokens)
+      console.log(`[medprof::getProfitStatsChartData] start ${startYearMonth} end ${endYearMonth}`);
+
+      wx.request({
+        url: profitStatsUrl,
+        data: { startYearMonth, endYearMonth },
+        method: "POST",
+        header: util.postJsonReqHeader(tokens),
+        success: function (reqRes) {
+          console.log('updateProfitStats res: ', reqRes)
+          cb(reqRes.data);
+        },
+        fail: function (e2) {
+          console.info("e2: ", e2)
+        }
+      })
+
     }
   },
 
   proforg: {
-    getProfitStatsChartData: () => {
-      return {
-        "yearMonths": [
-          "2019-01",
-          "2019-02",
-          "2019-03",
-          "2019-04"
-        ],
-        "sales": [
-          9049.939999999999,
-          9049.939999999999,
-          9349.919999999998,
-          0
-        ],
-        "rewards": [
-          2714.982,
-          2714.982,
-          2804.9759999999997,
-          0
-        ]
-      };
+    getProfitStatsChartData: (startYearMonth, endYearMonth, cb) => {
+      console.log(`[todo proforg::getProfitStatsChartData] start ${startYearMonth} end ${endYearMonth}`);
     }
   }
 

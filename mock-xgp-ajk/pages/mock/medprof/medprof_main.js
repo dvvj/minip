@@ -20,9 +20,9 @@ Page({
   data: {
     activeTabIndex: 0,
     startEnd4ProfitStats: {
-      startYear: 2018,
+      startYear: 2019,
       startMonth: 2,
-      endYear: 2018,
+      endYear: 2019,
       endMonth: 7
     },
     customerInfos: [],
@@ -93,11 +93,14 @@ Page({
   },
 
   updateReffedCustomer: function() {
-    let reffedCustomerInfos = this.selectComponent("#reffedCustomerInfos");
+    let that = this;
+    let customerInfos = datasrc.medprof.getReffedCustomerInfos(
+      customerInfos => {
+        let reffedCustomerInfos = that.selectComponent("#reffedCustomerInfos");
+        reffedCustomerInfos.initData(customerInfos)
+      }
+    );
 
-    let customerInfos = datasrc.medprof.getReffedCustomerInfos();
-
-    reffedCustomerInfos.initData(customerInfos)
   },
 
   updateTabContent: function(tabIndex) {
@@ -152,27 +155,34 @@ Page({
   },
 
   updateProfitStats: function () {
-    let chartData = datasrc.medprof.getProfitStatsChartData();
-
-    new wxCharts({
-      canvasId: 'columnCanvas',
-      type: 'column',
-      categories: chartData.yearMonths,
-      series: [{
-        name: '销售额',
-        data: util.roundPriceArr(chartData.sales)
-      }, {
-        name: '佣金',
-        data: util.roundPriceArr(chartData.rewards)
-      }],
-      yAxis: {
-        format: function (val) {
-          return val + '元';
-        }
-      },
-      width: 360,
-      height: 360
-    });
+    let that = this;
+    let startYearMonth = `${this.data.startEnd4ProfitStats.startYear}-${this.data.startEnd4ProfitStats.startMonth}`;
+    let endYearMonth = `${this.data.startEnd4ProfitStats.endYear}-${this.data.startEnd4ProfitStats.endMonth}`;
+    datasrc.medprof.getProfitStatsChartData(
+      startYearMonth, endYearMonth,
+      chartData => {
+        startYearMonth, endYearMonth,
+        new wxCharts({
+          canvasId: 'columnCanvas',
+          type: 'column',
+          categories: chartData.yearMonths,
+          series: [{
+            name: '销售额',
+            data: util.roundPriceArr(chartData.sales)
+          }, {
+            name: '佣金',
+            data: util.roundPriceArr(chartData.rewards)
+          }],
+          yAxis: {
+            format: function (val) {
+              return val + '元';
+            }
+          },
+          width: 360,
+          height: 360
+        });
+      }
+    );
   },
 
   onLoad: function (options) {

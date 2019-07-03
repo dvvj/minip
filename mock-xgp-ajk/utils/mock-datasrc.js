@@ -206,8 +206,8 @@ const datasrc = {
   },
 
   medprof: {
-    getReffedCustomerInfos: () => {
-      return [
+    getReffedCustomerInfos: (cb) => {
+      cb ([
         {
           "profileId": 1,
           "customerName": "张晓东",
@@ -254,10 +254,10 @@ const datasrc = {
           ],
           "medicineTags": []
         }
-      ];
+      ]);
     },
-    getProfitStatsChartData: () => {
-      return {
+    getProfitStatsChartData: (startYearMonth, endYearMonth, cb) => {
+      cb ({
         "yearMonths": [
           "2019-01",
           "2019-02",
@@ -276,7 +276,7 @@ const datasrc = {
           2804.9759999999997,
           0
         ]
-      };
+      });
     }
   },
 

@@ -9,7 +9,7 @@ Page({
    * Page initial data
    */
   data: {
-    userid: 'c_o1a1p1c1',
+    userid: 'o_o1',
     password: '123'
   },
   onLogin: function (e) {

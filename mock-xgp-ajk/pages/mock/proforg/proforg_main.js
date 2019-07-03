@@ -65,27 +65,32 @@ Page({
   },
 
   updateProfitStats: function() {
-    let rawData = datasrc.proforg.getProfitStatsChartData();
-
-    new wxCharts({
-      canvasId: 'columnCanvas',
-      type: 'column',
-      categories: rawData.yearMonths,
-      series: [{
-        name: '销售额',
-        data: util.roundPriceArr(rawData.sales)
-      }, {
-        name: '佣金',
-        data: util.roundPriceArr(rawData.rewards)
-      }],
-      yAxis: {
-        format: function (val) {
-          return val + '元';
-        }
-      },
-      width: 360,
-      height: 360
-    });
+    let yearMonthStart = this.data.yearMonthStart;
+    let yearMonthEnd = this.data.yearMonthEnd;
+    datasrc.proforg.getProfitStatsChartData(
+      yearMonthStart, yearMonthEnd,
+      chartData => {
+        new wxCharts({
+          canvasId: 'columnCanvas',
+          type: 'column',
+          categories: rawData.yearMonths,
+          series: [{
+            name: '销售额',
+            data: util.roundPriceArr(rawData.sales)
+          }, {
+            name: '佣金',
+            data: util.roundPriceArr(rawData.rewards)
+          }],
+          yAxis: {
+            format: function (val) {
+              return val + '元';
+            }
+          },
+          width: 360,
+          height: 360
+        });
+      }
+    );
 
   },
 

@@ -1,7 +1,14 @@
 const datasrc = {
+  login: function (userid, password) {
+    wx.navigateTo({
+      url: './customer/customer_main',
+      //url: './proforg/proforg_main',
+      //url: './medprof/medprof_main',
+    })
+  },
   customer: {
-    getProductList: () => {
-      return [
+    getProductList: (cb) => {
+      cb(true, [
         {
           "customerId": "c＿o1a1p1_customer1",
           "product": {
@@ -81,10 +88,10 @@ const datasrc = {
           "referingProfName": null,
           "actualPrice": 149.99
         }
-      ];
+      ]);
     },
-    getOrderList: () => {
-      return [
+    getOrderList: (startYearMonth, endYearMonth, cb) => {
+      cb([
         {
           "order": {
             "id": 1000,
@@ -181,7 +188,7 @@ const datasrc = {
           },
           "productShortName": "ACO产妇维生素"
         }
-      ];
+      ]);
     },
     getSetting: () => {
       return {

@@ -1,6 +1,6 @@
 // pages/mock/login.js
 const util = require('../../utils/util.js')
-
+const datasrc = require('../../utils/' + util.datasrc).datasrc;
 const sessionTestUrl = util.webappBase + '/sessionTest';
 
 Page({
@@ -9,7 +9,7 @@ Page({
    * Page initial data
    */
   data: {
-    userid: 'o_o1',
+    userid: 'c_o1a1p1c1',
     password: '123'
   },
   onLogin: function (e) {
@@ -18,11 +18,7 @@ Page({
     let password = this.data.password;
     console.log(`username: ${userid}, password: ${password}`);
 
-    wx.navigateTo({
-      //url: './customer/customer_main',
-      //url: './proforg/proforg_main',
-      url: './medprof/medprof_main',
-    })
+    datasrc.login(userid, password);
   },
   onInputUserId: function (e) {
     this.setData({ userid: e.detail })

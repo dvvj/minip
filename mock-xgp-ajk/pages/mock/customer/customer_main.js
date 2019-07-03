@@ -52,10 +52,16 @@ Page({
     this.setYearMonthRange.setEnd(this.data.yearMonthEnd);
     this.setYearMonthRange.setStart(this.data.yearMonthStart);
 
-    let ordersRaw = datasrc.customer.getOrderList();
-    let orders = this.trimOrderData(ordersRaw)
-    let orderList = this.selectComponent("#orderList");
-    orderList.initData(orders);
+    datasrc.customer.getOrderList(
+      this.data.yearMonthStart,
+      this.data.yearMonthEnd,
+      ordersRaw => {
+        let orders = this.trimOrderData(ordersRaw)
+        let orderList = this.selectComponent("#orderList");
+        orderList.initData(orders);
+      }
+    );
+
   },
 
   updateSetting: function() {
@@ -65,35 +71,39 @@ Page({
   },
 
   updateProductList: function() {
-    var resDataRaw = datasrc.customer.getProductList();
+    let that = this;
+    datasrc.customer.getProductList(
+      (isMock, resDataRaw) => {
+        var products = resDataRaw.map(item => {
+          let actualPrice = roundPrice(item.actualPrice);
+          let price0 = roundPrice(item.product.price0)
+          var hasDiscount = actualPrice < price0;
+          var resDataItem = {
+            id: item.product.id,
+            imgUrl: isMock ? '/images/product1.png' : `${util.imgBaseUrl}/${item.product.id}/${item.productAssets[0].url}`, //, //item.productAssets[0].url,
+            name: item.product.name,
+            price0: price0,
+            actualPrice: actualPrice,
+            hasDiscount: hasDiscount,
+            referingProfName: item.referingProfName,
+            count: 1,
+            totalPrice: actualPrice
+          }
+          return resDataItem;
+        })
 
-    var products = resDataRaw.map(item => {
-      let actualPrice = roundPrice(item.actualPrice);
-      let price0 = roundPrice(item.product.price0)
-      var hasDiscount = actualPrice < price0;
-      var resDataItem = {
-        id: item.product.id,
-        imgUrl: '/images/product1.png', //item.productAssets[0].url,
-        name: item.product.name,
-        price0: price0,
-        actualPrice: actualPrice,
-        hasDiscount: hasDiscount,
-        referingProfName: item.referingProfName,
-        count: 1,
-        totalPrice: actualPrice
+        let productDict = {}
+        console.log('products.length: ', products.length)
+        for (var idx = 0; idx < products.length; idx++) {
+          let item = products[idx]
+          productDict[item.id] = item
+        }
+
+        let productList = that.selectComponent('#productList');
+        productList.initData(products, productDict);
       }
-      return resDataItem;
-    })
+    );
 
-    let productDict = {}
-    console.log('products.length: ', products.length)
-    for (var idx = 0; idx < products.length; idx++) {
-      let item = products[idx]
-      productDict[item.id] = item
-    }
-
-    let productList = this.selectComponent('#productList');
-    productList.initData(products, productDict);
   },
   onTabbarChange: function (e) {
     console.log(e)

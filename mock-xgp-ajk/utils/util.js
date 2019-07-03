@@ -113,7 +113,7 @@ const wepayezReqUrl = function(token_id) {
   return wepayezReqTempl + token_id
 }
 
-const prodPagesBase = '/pages/prod';
+const prodPagesBase = '/pages/mock';
 const userType2MainPage = {
   Customer: prodPagesBase + '/customer/customer_main',
   MedProf: prodPagesBase + '/medprof/medprof_main',
@@ -143,5 +143,5 @@ module.exports = {
   getJsonReqHeader: getJsonReqHeader,
   getYearMonthDefault: getYearMonthDefault,
   wepayezReqUrl: wepayezReqUrl,
-  datasrc: 'mock-datasrc'
+  datasrc: 'datasrc'
 }

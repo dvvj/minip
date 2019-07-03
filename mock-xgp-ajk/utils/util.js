@@ -99,7 +99,7 @@ let roundPriceArr = function (arr) {
   return arr.map(i => roundPrice(i))
 };
 
-const webappBase = 'https://webapp.wonder4.life:8443';
+const webappBase = 'https://webapp.wonder4.life:443';
 //const webappBase = 'https://47.98.232.21:8443';
 //const webappBase = 'https://webapp.ajkhealth.com';
 const loginUrl = webappBase + '/wxlogin';
@@ -113,7 +113,7 @@ const wepayezReqUrl = function(token_id) {
   return wepayezReqTempl + token_id
 }
 
-const prodPagesBase = '/pages/mock';
+const prodPagesBase = '/pages/prod';
 const userType2MainPage = {
   Customer: prodPagesBase + '/customer/customer_main',
   MedProf: prodPagesBase + '/medprof/medprof_main',

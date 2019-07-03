@@ -1,5 +1,4 @@
 const util = require('util.js');
-const regeneratorRuntime = require("regenerator-runtime");
 
 const customerProductUrl = util.customerBaseUrl + '/customerProductView';
 const orderListUrl = util.customerBaseUrl + '/ordersBtw';

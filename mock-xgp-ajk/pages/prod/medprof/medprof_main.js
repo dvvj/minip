@@ -25,46 +25,7 @@ Page({
       endYear: 2019,
       endMonth: 7
     },
-    customerInfos: [],
-    existingCustomer: {
-      disabled: false,
-      loadingText: '',
-      userid: 'newcustomer02',
-      userName: 'x某',
-      idCardNo: '310112197003113333',
-      mobile: '137000333333',
-      profile: {
-        healthTags: 'healthTags - existingCustomer',
-        medicineTags: 'medicineTags - existingCustomer'
-      },
-      products: [
-        { id: 1, name: 'Astaxin虾青素', enabled: true, checked: false },
-        { id: 2, name: 'ACO复合维生素', enabled: true, checked: false },
-        { id: 3, name: '辅酶Q10', enabled: false, checked: true }
-      ]
-    },
-
-
-    newCustomer: {
-      disabled: false,
-      loadingText: '',
-      userid: 'newcustomer02',
-      password: '123',
-      password2: '123',
-      userName: 'x某',
-      idCardNo: '310112197003113333',
-      mobile: '137000333333',
-      postAddr: '某省某市某区某路xx号 邮编111111',
-      profile: {
-        healthTags: 'healthTags - newCustomer',
-        medicineTags: 'medicineTags - newCustomer'
-      },
-      products: [
-        { id: 1, name: 'Astaxin虾青素', enabled: true, checked: false },
-        { id: 2, name: 'ACO复合维生素', enabled: true, checked: false },
-        { id: 3, name: '辅酶Q10', enabled: false, checked: true }
-      ]
-    },
+    customerInfos: []
 
   },
 
@@ -137,21 +98,29 @@ Page({
   updateExistingCustomerProfile: function () {
     let existingCustomerProfile = this.selectComponent("#existingCustomerProfile");
     console.log(existingCustomerProfile);
-    let existingCustomer = this.data.existingCustomer;
-    existingCustomerProfile.initData({
-      existingCustomer,
-      profile: existingCustomer.profile
-    }, existingCustomer.products, true);
+    datasrc.medprof.getExistingCustomerData(
+      existingCustomer => {
+        existingCustomerProfile.initData({
+          existingCustomer,
+          profile: existingCustomer.profile
+        }, existingCustomer.products, true);
+      }
+    );
+
   },
 
   updateNewCustomerProfile: function() {
     let newCustomerProfile = this.selectComponent("#newCustomerProfile");
     console.log(newCustomerProfile);
-    let newCustomer = this.data.newCustomer
-    newCustomerProfile.initData({
-      newCustomer,
-      profile: this.data.newCustomer.profile
-    }, this.data.newCustomer.products, true);
+    datasrc.medprof.getNewCustomerData(
+      newCustomer => {
+        newCustomerProfile.initData({
+          newCustomer,
+          profile: newCustomer.profile
+        }, newCustomer.products, true);
+      }
+    )
+
   },
 
   updateProfitStats: function () {
@@ -161,7 +130,6 @@ Page({
     datasrc.medprof.getProfitStatsChartData(
       startYearMonth, endYearMonth,
       chartData => {
-        startYearMonth, endYearMonth,
         new wxCharts({
           canvasId: 'columnCanvas',
           type: 'column',

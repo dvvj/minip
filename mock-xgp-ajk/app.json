@@ -1,12 +1,12 @@
 {
   "pages": [
     "pages/prod/login",
+    "pages/tmp/ajk-paytest",
     "pages/tmp/setting-customer-test",
     "pages/tmp/set-year-month-range-test",
     "pages/tmp/existing-customer-profile-test",
     "pages/tmp/new-customer-profile-test",
     "pages/tmp/customer-profile-test",
-    "pages/tmp/ajk-paytest",
     "pages/tmp/year-month-range-test",
     "pages/prod/customer/customer_main",
     "pages/prod/proforg/proforg_main",

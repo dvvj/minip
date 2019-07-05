@@ -1,9 +1,9 @@
 const datasrc = {
   login: function (userid, password) {
     wx.navigateTo({
-      url: './customer/customer_main',
+      //url: './customer/customer_main',
       //url: './proforg/proforg_main',
-      //url: './medprof/medprof_main',
+      url: './medprof/medprof_main',
     })
   },
   customer: {
@@ -277,6 +277,49 @@ const datasrc = {
           0
         ]
       });
+    },
+    getNewCustomerData: (cb) => {
+      let newCustomer = {
+        disabled: false,
+        loadingText: '',
+        userid: 'newcustomer02',
+        password: '123',
+        password2: '123',
+        userName: 'x某',
+        idCardNo: '310112197003113333',
+        mobile: '137000333333',
+        postAddr: '某省某市某区某路xx号 邮编111111',
+        profile: {
+          healthTags: 'healthTags - newCustomer',
+          medicineTags: 'medicineTags - newCustomer'
+        },
+        products: [
+          { id: 1, name: 'Astaxin虾青素', enabled: true, checked: false },
+          { id: 2, name: 'ACO复合维生素', enabled: true, checked: false },
+          { id: 3, name: '辅酶Q10', enabled: false, checked: true }
+        ]
+      };
+      cb(newCustomer);
+    },
+    getExistingCustomerData: (cb) => {
+      let existingCustomer = {
+        disabled: false,
+        loadingText: '',
+        userid: 'newcustomer02',
+        userName: 'x某',
+        idCardNo: '310112197003113333',
+        mobile: '137000333333',
+        profile: {
+          healthTags: 'healthTags - existingCustomer',
+          medicineTags: 'medicineTags - existingCustomer'
+        },
+        products: [
+          { id: 1, name: 'Astaxin虾青素', enabled: true, checked: false },
+          { id: 2, name: 'ACO复合维生素', enabled: true, checked: false },
+          { id: 3, name: '辅酶Q10', enabled: false, checked: true }
+        ]
+      };
+      cb(existingCustomer);
     }
   },
 

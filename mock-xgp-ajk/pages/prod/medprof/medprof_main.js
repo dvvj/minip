@@ -86,10 +86,11 @@ Page({
 
   updateSetting: function () {
     const settingPassword = this.selectComponent("#settingPassword");
+    let userId = wx.getStorageSync(util.userIdKey);
     settingPassword.initData({
       disabled: false,
       loadingText: '',
-      userid: 'medprof002',
+      userid: userId,
       password: '123',
       password2: '123',
     })
@@ -106,7 +107,6 @@ Page({
         }, existingCustomer.products, true);
       }
     );
-
   },
 
   updateNewCustomerProfile: function() {

@@ -56,6 +56,7 @@ const promisify = original => {
 };
 
 const userTokenKey = "userTokens"
+const userIdKey = "userId"
 
 let saveTokens = function (evt) {
 
@@ -137,6 +138,7 @@ module.exports = {
   roundPrice: roundPrice,
   roundPriceArr: roundPriceArr,
   userTokenKey: userTokenKey,
+  userIdKey: userIdKey,
   updateXAuth: updateXAuth,
   getMainPage: getMainPage,
   postJsonReqHeader: postJsonReqHeader,

@@ -27,6 +27,7 @@ const datasrc = {
             util.saveTokens(e);
             let mainPage = util.getMainPage(e.data.userType);
             console.log(`main page: ${e.data.userType}: ${mainPage}`);
+            wx.setStorageSync(util.userIdKey, userid)
             wx.navigateTo({
               url: mainPage //'../product/product-list',
             })

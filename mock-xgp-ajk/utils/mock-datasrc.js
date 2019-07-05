@@ -1,5 +1,8 @@
+const util = require('util.js');
+
 const datasrc = {
   login: function (userid, password) {
+    wx.setStorageSync(util.userIdKey, userid)
     wx.navigateTo({
       //url: './customer/customer_main',
       //url: './proforg/proforg_main',

@@ -10,7 +10,7 @@
     <product-list id="productList" />
   </swiper-item>
   <swiper-item>
-    <set-year-month-range id="setYearMonthRange" />
+    <set-year-month-range id="setYearMonthRange" bind:confirm="onConfirmYearMonthRange" />
     <order-list id="orderList" />
     <!-- <include src="../shared/page-parts/order-list.wxml"/> -->
   </swiper-item>

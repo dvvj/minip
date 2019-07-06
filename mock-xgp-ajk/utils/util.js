@@ -145,5 +145,5 @@ module.exports = {
   getJsonReqHeader: getJsonReqHeader,
   getYearMonthDefault: getYearMonthDefault,
   wepayezReqUrl: wepayezReqUrl,
-  datasrc: 'mock-datasrc'
+  datasrc: 'datasrc'
 }

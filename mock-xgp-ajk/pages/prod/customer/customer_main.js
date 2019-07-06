@@ -28,6 +28,12 @@ Page({
     orderList: []
   },
 
+  onConfirmYearMonthRange: function(e) {
+    console.log('in onConfirmYearMonthRange', e);
+    let setYearMonthRange = this.selectComponent("#setYearMonthRange");
+    let yearMonthRange = setYearMonthRange.getSelection();
+    console.log('yearMonthRange', yearMonthRange);
+  },
   updateActiveTab: function(tabIndex) {
     this.setData({ activeTabIndex: tabIndex });
     this.updateTabContent(tabIndex);
@@ -66,8 +72,12 @@ Page({
 
   updateSetting: function() {
     let settingCustomer = this.selectComponent("#settingCustomer");
-    let settingData = datasrc.customer.getSetting();
-    settingCustomer.initData(settingData, true);
+    datasrc.customer.getSetting(
+      settingData => {
+        console.log('[updateSettingTab]:', settingData);
+        settingCustomer.initData(false, settingData);
+      }
+    );
   },
 
   updateProductList: function() {
@@ -182,7 +192,6 @@ Page({
   },
   onLoad: function (options) {
     this.updateActiveTab(this.data.activeTabIndex);
-
   },
 
   trimOrderData: function(orders) {

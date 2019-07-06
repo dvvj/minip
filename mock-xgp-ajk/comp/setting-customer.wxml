@@ -13,7 +13,7 @@
   />
 
   <van-field
-    disabled="{{ customer.disabled }}"
+    disabled="{{ disabled }}"
     value="{{ customer.password }}"
     type="password"
     label="密码"
@@ -24,7 +24,7 @@
   />
 
   <van-field
-    disabled="{{ customer.disabled }}"
+    disabled="{{ disabled }}"
     value="{{ customer.password2 }}"
     type="password"
     label="重复密码"
@@ -59,7 +59,7 @@
   />
 
   <van-field
-    disabled="{{ customer.disabled }}"
+    disabled="{{ disabled }}"
     value="{{ customer.mobile }}"
     required
     clearable
@@ -71,7 +71,7 @@
   />
 
   <van-field
-    disabled="{{ customer.disabled }}"
+    disabled="{{ disabled }}"
     value="{{ customer.postAddr }}"
     required
     clearable
@@ -83,7 +83,7 @@
   />
 
   <van-button type="primary" size="large" bind:click="onUpdateSetting"
-    loading="{{ customer.loadingText != '' }}"
-    loading-text='{{ customer.loadingText}}'>更新</van-button>
+    loading="{{ loadingText != '' }}"
+    loading-text='{{loadingText}}'>更新</van-button>
 </van-cell-group>
 

@@ -2,6 +2,8 @@ const util = require('util.js');
 
 const customerProductUrl = util.customerBaseUrl + '/customerProductView';
 const orderListUrl = util.customerBaseUrl + '/ordersBtw';
+const customerSettingUrl = util.customerBaseUrl + '/setting';
+const customerUpdateSettingUrl = util.customerBaseUrl + '/updateSetting';
 const wxPayUrl = util.webappBase + '/wx/payReq';
 const sessionTestUrl = util.webappBase + '/sessionTest';
 
@@ -57,7 +59,6 @@ const datasrc = {
 
     },
     getOrderList: (startYearMonth, endYearMonth, cb) => {
-      let that = this;
       let tokens = wx.getStorageSync(util.userTokenKey);
 
       console.log('[updateOrderList] got tokens: ', tokens);
@@ -77,18 +78,40 @@ const datasrc = {
         }
       })
     },
-    getSetting: () => {
-      return {
-        disabled: false,
-        loadingText: '',
-        userid: 'newcustomer02',
-        password: '123',
-        password2: '123',
-        userName: 'x某',
-        idCardNo: '310112197003113333',
-        mobile: '137000333333',
-        postAddr: '某省某市某区某路xx号 邮编111111',
-      };
+    getSetting: (cb) => {
+      let tokens = wx.getStorageSync(util.userTokenKey);
+
+      console.log('[getSetting] got tokens: ', tokens);
+      wx.request({
+        url: customerSettingUrl,
+        method: "GET",
+        header: util.getJsonReqHeader(tokens),
+        success: function (customerSettingReqRes) {
+          console.log('customerSettingReqRes: ', customerSettingReqRes)
+          cb(customerSettingReqRes.data);
+        },
+        fail: function (e2) {
+          console.info("e2: ", e2)
+        }
+      })
+    },
+    updateSetting: (customerSetting, cb) => {
+      let tokens = wx.getStorageSync(util.userTokenKey);
+
+      console.log('[updateSetting] got tokens: ', tokens);
+      wx.request({
+        url: customerUpdateSettingUrl,
+        method: "POST",
+        data: customerSetting,
+        header: util.postJsonReqHeader(tokens),
+        success: function (customerUpdateSettingReqRes) {
+          console.log('customerUpdateSettingReqRes: ', customerUpdateSettingReqRes)
+          cb(customerUpdateSettingReqRes);
+        },
+        fail: function (e2) {
+          console.info("e2: ", e2)
+        }
+      })
     }
   },
 

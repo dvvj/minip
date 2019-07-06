@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/tmp/async-test",
     "pages/comp/test-comp1",
+    "pages/tmp/async-test",
     "pages/toUse/inputForms/existing-customer-new-profile",
     "pages/toUse/inputForms/new-customer",
     "pages/toUse/shared/year-month",

@@ -1,4 +1,7 @@
 // comp/setting-customer.js
+const util = require('../utils/util.js');
+const datasrc = require('../utils/' + util.datasrc).datasrc;
+
 Component({
   /**
    * Component properties
@@ -11,6 +14,8 @@ Component({
    * Component initial data
    */
   data: {
+    disabled: false,
+    loadingText: '',
     customer: {},
     isMock: true
   },
@@ -19,7 +24,7 @@ Component({
    * Component methods
    */
   methods: {
-    initData: function (customer, isMock) {
+    initData: function (isMock, customer) {
       this.setData({
         isMock,
         customer
@@ -27,22 +32,30 @@ Component({
     },
 
     updateNewCustomer: function (field, e) {
-      var t = this.data.newCustomer;
+      var t = this.data.customer;
       t[field] = e.detail;
-      this.setData({ newCustomer: t });
+      this.setData({ customer: t });
     },
     onInputPassword: function (e) {
-      this.updateNewCustomer("password", e)
+      this.updateNewCustomer("password", e);
     },
     onInputPassword2: function (e) {
-      this.updateNewCustomer("password2", e)
+      this.updateNewCustomer("password2", e);
     },
     onInputMobile: function (e) {
-      this.updateNewCustomer("mobile", e)
+      this.updateNewCustomer("mobile", e);
     },
     onInputPostAddr: function (e) {
-      this.updateNewCustomer("postAddr", e)
+      this.updateNewCustomer("postAddr", e);
     },
-
+    onUpdateSetting: function(e) {
+      console.log('[onUpdateSetting]: ', this.data.customer);
+      datasrc.customer.updateSetting(
+        this.data.customer,
+        resp => {
+          console.log(resp);
+        }
+      )
+    }
   }
 })

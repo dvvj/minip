@@ -4,8 +4,8 @@ const datasrc = {
   login: function (userid, password) {
     wx.setStorageSync(util.userIdKey, userid)
     wx.navigateTo({
-      //url: './customer/customer_main',
-      url: './proforg/proforg_main',
+      url: './customer/customer_main',
+      //url: './proforg/proforg_main',
       //url: './medprof/medprof_main',
     })
   },
@@ -193,18 +193,17 @@ const datasrc = {
         }
       ]);
     },
-    getSetting: () => {
-      return {
-        disabled: false,
-        loadingText: '',
-        userid: 'newcustomer02',
+    getSetting: (cb) => {
+      let userid = wx.getStorageSync(util.userIdKey);
+      cb({
+        userid: userid,
         password: '123',
         password2: '123',
         userName: 'x某',
         idCardNo: '310112197003113333',
         mobile: '137000333333',
         postAddr: '某省某市某区某路xx号 邮编111111',
-      };
+      });
     }
   },
 

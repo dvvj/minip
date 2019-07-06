@@ -140,6 +140,7 @@ Component({
     },
 
     show: function () {
+      let that = this;
       Dialog.alert({
         title: '设置起止年月',
         showConfirmButton: true,
@@ -147,13 +148,14 @@ Component({
         confirmButtonText: '完成',
         context: this
       }).then(() => {
-        console.log('confirmed: ', this.getSelection());
+        console.log('triggering confirm event: ', this.getSelection());
+        that.triggerEvent("confirm");
         // on close
       }).catch(reason => console.log('cancelled: ', reason));
     },
 
     onSetYearMonth: function(e) {
       this.show();
-    }
+    },
   }
 })

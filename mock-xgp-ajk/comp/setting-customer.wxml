@@ -18,6 +18,7 @@
     type="password"
     label="密码"
     placeholder="请输入密码"
+    error-message="{{errors.password}}"
     required
     border="{{ true }}"
     bind:input="onInputPassword"
@@ -29,6 +30,7 @@
     type="password"
     label="重复密码"
     placeholder="请再次输入密码"
+    error-message="{{errors.password2}}"
     required
     border="{{ true }}"
     bind:input="onInputPassword2"

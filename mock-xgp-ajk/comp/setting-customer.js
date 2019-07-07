@@ -17,7 +17,17 @@ Component({
     disabled: false,
     loadingText: '',
     customer: {},
-    isMock: true
+    isMock: true,
+    errorMsgs: {
+      passwordCannotBeEmpty: '密码不能为空',
+      passwordsNotMatch: '两次输入密码不匹配'
+    },
+    errors: {
+      password: '',
+      password2: '',
+      mobile: '',
+      postAddr: ''
+    }
   },
 
   /**
@@ -35,6 +45,25 @@ Component({
       var t = this.data.customer;
       t[field] = e.detail;
       this.setData({ customer: t });
+      this.updateAllErrors();
+    },
+    updateError: function(field, errorMsg) {
+      var t = this.data.errors;
+      t[field] = errorMsg;
+      this.setData({ errors: t});
+    },
+    checkPasswordMatch: function() {
+      return this.data.customer.password === this.data.customer.password2;
+    },
+    updateAllErrors: function() {
+      this.updateError(
+        'password2',
+        this.checkPasswordMatch() ? '' : this.data.errorMsgs.passwordsNotMatch
+      );
+      this.updateError(
+        'password',
+        this.data.customer.password ? '' : this.data.errorMsgs.passwordCannotBeEmpty
+      );
     },
     onInputPassword: function (e) {
       this.updateNewCustomer("password", e);

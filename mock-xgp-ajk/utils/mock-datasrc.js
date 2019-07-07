@@ -204,6 +204,9 @@ const datasrc = {
         mobile: '137000333333',
         postAddr: '某省某市某区某路xx号 邮编111111',
       });
+    },
+    updateSetting: (customerSetting, cb) => {
+      console.log('[mock] updateSetting');
     }
   },
 

@@ -20,7 +20,10 @@ Component({
     isMock: true,
     errorMsgs: {
       passwordCannotBeEmpty: '密码不能为空',
-      passwordsNotMatch: '两次输入密码不匹配'
+      passwordsNotMatch: '两次输入密码不匹配',
+      mobileCannotBeEmpty: '手机号不能为空',
+      mobileFormatError: '手机号格式不正确',
+      postAddrCannotBeEmpty: '邮寄地址不能为空'
     },
     errors: {
       password: '',

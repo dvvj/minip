@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/tmp/ajk-paytest",
     "pages/prod/login",
+    "pages/tmp/ajk-paytest",
     "pages/tmp/setting-customer-test",
     "pages/tmp/set-year-month-range-test",
     "pages/tmp/existing-customer-profile-test",
@@ -12,7 +12,8 @@
     "pages/prod/proforg/proforg_main",
     "pages/prod/medprof/medprof_main",
     "pages/prod/customer/order-detail",
-    "pages/tmp/pay-webview"
+    "pages/tmp/pay-webview",
+    "pages/prod/wepayez-pay"
   ],
   "window": {
     "backgroundTextStyle": "light",

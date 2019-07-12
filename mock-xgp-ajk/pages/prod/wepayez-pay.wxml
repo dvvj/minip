@@ -1,0 +1,2 @@
+<!--pages/prod/wepayez-pay.wxml-->
+<web-view src="{{payUrl}}"></web-view>

@@ -9,6 +9,9 @@ const formatTime = date => {
   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
 
+const getStoredTokens = function() {
+  return wx.getStorageSync(userTokenKey);
+}
 const getYearMonthDefault = function() {
   let endDate = new Date();
   var startMonth = endDate.getMonth() - 5; // 6 months in total
@@ -87,7 +90,7 @@ let _saveTokens = function (xAuthToken, accessToken, userType) {
 }
 
 let updateXAuth = function(xauth) {
-  let tmp = wx.getStorageSync(userTokenKey)
+  let tmp = getStoredTokens();
   _saveTokens(xauth, tmp.accessToken, tmp.userType);
 }
 
@@ -100,7 +103,7 @@ let roundPriceArr = function (arr) {
   return arr.map(i => roundPrice(i))
 };
 
-const webappBase = 'https://webapp.wonder4.life:8443';
+const webappBase = 'https://webapp.wonder4.life';
 //const webappBase = 'https://47.98.232.21:8443';
 //const webappBase = 'https://webapp.ajkhealth.com';
 const loginUrl = webappBase + '/wxlogin';
@@ -112,6 +115,14 @@ const xAuthHeader = 'X-Auth-Token';
 const wepayezReqTempl = "https://gateway.wepayez.com/pay/jsIntl?token_id=";
 const wepayezReqUrl = function(token_id) {
   return wepayezReqTempl + token_id
+};
+const wepayezUrlKey = "wepayezUrlKey";
+const setWePayezUrl = function(token_id) {
+  let url = wepayezReqTempl + token_id;
+  wx.setStorageSync(wepayezUrlKey, url)
+};
+const getWePayezUrl = function() {
+  return wx.getStorageSync(wepayezUrlKey);
 }
 
 const prodPagesBase = '/pages/prod';
@@ -137,13 +148,14 @@ module.exports = {
   xAuthHeader: xAuthHeader,
   roundPrice: roundPrice,
   roundPriceArr: roundPriceArr,
-  userTokenKey: userTokenKey,
+  getStoredTokens: getStoredTokens,
   userIdKey: userIdKey,
   updateXAuth: updateXAuth,
   getMainPage: getMainPage,
   postJsonReqHeader: postJsonReqHeader,
   getJsonReqHeader: getJsonReqHeader,
   getYearMonthDefault: getYearMonthDefault,
-  wepayezReqUrl: wepayezReqUrl,
+  setWePayezUrl: setWePayezUrl,
+  getWePayezUrl: getWePayezUrl,
   datasrc: 'datasrc'
 }

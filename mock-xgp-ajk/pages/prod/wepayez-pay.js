@@ -1,20 +1,22 @@
-// pages/tmp/pay-webview.js
+// pages/prod/wepayez-pay.js
+const util = require('../../utils/util.js')
+
 Page({
 
   /**
    * Page initial data
    */
   data: {
-    payUrl: 'https//todo'
+    payUrl: 'https://todo'
   },
 
   /**
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
-    let payReqUrl = util.getWePayezUrl();
-    console.log('wepayez url: ', payReqUrl)
-    this.setData({payUrl: payReqUrl})
+    let payUrl = util.getWePayezUrl();
+    console.log('wepayez url: ', payUrl)
+    this.setData({ payUrl })
   },
 
   /**

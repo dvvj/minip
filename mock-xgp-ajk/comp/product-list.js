@@ -1,5 +1,6 @@
 // comp/product-list.js
 const util = require('../utils/util.js')
+const wePayezUrl = util.webappBase + '/wx/wepayezReq';
 
 Component({
   /**
@@ -50,7 +51,32 @@ Component({
     },
 
     onBuy: function(e) {
-      console.log("[todo] onBuy");
+      let prodId = e.target.dataset.id;
+      let prod = this.data.productDict[prodId];
+      console.log('prod: ', prod);
+      let tokens = util.getStoredTokens();
+
+      wx.request({
+        url: wePayezUrl,
+        data: {
+          productId: prodId,
+          info: prod.name,
+          totalAmount: 3
+        },
+        method: "POST",
+        header: util.postJsonReqHeader(tokens),
+        success: function (r2) {
+          console.log('[onBuy] WePayez token id: ', r2)
+
+          util.setWePayezUrl(r2.data);
+          wx.navigateTo({
+            url: '../wepayez-pay',
+          })
+        },
+        fail: function (e2) {
+          console.info("e2: ", e2)
+        }
+      })
     }
   }
 })

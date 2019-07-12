@@ -42,7 +42,7 @@ const datasrc = {
   },
   customer: {
     getProductList: (cb) => {
-      let tokens = wx.getStorageSync(util.userTokenKey);
+      let tokens = util.getStoredTokens();
       console.log('[GetProducts] got tokens: ', tokens)
 
       util.promisify(wx.request)
@@ -59,7 +59,7 @@ const datasrc = {
 
     },
     getOrderList: (startYearMonth, endYearMonth, cb) => {
-      let tokens = wx.getStorageSync(util.userTokenKey);
+      let tokens = util.getStoredTokens();
 
       console.log('[updateOrderList] got tokens: ', tokens);
       console.log(`[updateOrderList] start ${startYearMonth} end ${endYearMonth}`);
@@ -79,7 +79,7 @@ const datasrc = {
       })
     },
     getSetting: (cb) => {
-      let tokens = wx.getStorageSync(util.userTokenKey);
+      let tokens = util.getStoredTokens();
 
       console.log('[getSetting] got tokens: ', tokens);
       wx.request({
@@ -96,7 +96,7 @@ const datasrc = {
       })
     },
     updateSetting: (customerSetting, cb) => {
-      let tokens = wx.getStorageSync(util.userTokenKey);
+      let tokens = util.getStoredTokens();
 
       console.log('[updateSetting] got tokens: ', tokens);
       wx.request({
@@ -118,7 +118,7 @@ const datasrc = {
   medprof: {
     getReffedCustomerInfos: (cb) => {
       let that = this;
-      let tokens = wx.getStorageSync(util.userTokenKey);
+      let tokens = util.getStoredTokens();
       console.log('[getReffedCustomerInfos] got tokens: ', tokens)
 
       wx.request({
@@ -138,7 +138,7 @@ const datasrc = {
     },
     getProfitStatsChartData: (startYearMonth, endYearMonth, cb) => {
       let that = this;
-      let tokens = wx.getStorageSync(util.userTokenKey);
+      let tokens = util.getStoredTokens();
       console.log('[medprof::getProfitStatsChartData] got tokens: ', tokens)
       console.log(`[medprof::getProfitStatsChartData] start ${startYearMonth} end ${endYearMonth}`);
 

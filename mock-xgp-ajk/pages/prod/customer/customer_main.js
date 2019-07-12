@@ -130,7 +130,8 @@ Page({
   onBuy: function (e) {
     let prodId = e.target.dataset.id
     let prod = this.data.productDict[prodId]
-    console.log('prod: ', prod)
+    console.log('prod: ', prod);
+    let tokens = 
     util.promisify(wx.getStorage)({ key: "tokens" })
       .then(res => {
         let tokens = res.data

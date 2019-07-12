@@ -42,7 +42,7 @@ Page({
             //const tokens = { xauth: e.header[util.xAuthHeader], accessToken: e.data.access_token };
             util.saveTokens(e);
 
-            let tokens = wx.getStorageSync(util.userTokenKey);            
+            let tokens = util.getStoredTokens();            
             wx.request({
               url: wxPayezTestUrl,
               method: "GET",
@@ -50,9 +50,7 @@ Page({
               success: function (r2) {
                 console.log('WePayez token id: ', r2)
 
-                let payReqUrl = util.wepayezReqUrl(r2.data);
-                console.log('url: ', payReqUrl)
-                wx.setStorageSync('payReqUrl', payReqUrl)
+                util.setWePayezUrl(r2.data);
                 wx.navigateTo({
                   url: 'pay-webview',
                 })

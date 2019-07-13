@@ -6,7 +6,7 @@
   <van-tab title="新用户信息">
     <van-cell-group>
       <van-field
-        disabled="{{ newCustomer.disabled }}"
+        disabled="{{ inProcess }}"
         value="{{ newCustomer.userid }}"
         required
         clearable
@@ -18,7 +18,7 @@
       />
 
       <van-field
-        disabled="{{ newCustomer.disabled }}"
+        disabled="{{ inProcess }}"
         value="{{ newCustomer.password }}"
         type="password"
         label="密码"
@@ -29,7 +29,7 @@
       />
 
       <van-field
-        disabled="{{ newCustomer.disabled }}"
+        disabled="{{ inProcess }}"
         value="{{ newCustomer.password2 }}"
         type="password"
         label="重复密码"
@@ -40,7 +40,7 @@
       />
 
       <van-field
-        disabled="{{ newCustomer.disabled }}"
+        disabled="{{ inProcess }}"
         value="{{ newCustomer.userName }}"
         required
         clearable
@@ -52,7 +52,7 @@
       />
 
       <van-field
-        disabled="{{ newCustomer.disabled }}"
+        disabled="{{ inProcess }}"
         value="{{ newCustomer.idCardNo }}"
         required
         clearable
@@ -64,7 +64,7 @@
       />
 
       <van-field
-        disabled="{{ newCustomer.disabled }}"
+        disabled="{{ inProcess }}"
         value="{{ newCustomer.mobile }}"
         required
         clearable
@@ -76,7 +76,7 @@
       />
 
       <van-field
-        disabled="{{ newCustomer.disabled }}"
+        disabled="{{ inProcess }}"
         value="{{ newCustomer.postAddr }}"
         required
         clearable
@@ -88,8 +88,8 @@
       />
 
       <van-button type="primary" size="large" bind:click="onNextStep"
-        loading="{{ newCustomer.loadingText != '' }}"
-        loading-text='{{ newCustomer.loadingText}}'>下一步 {{">>"}}</van-button>
+        loading="{{ loadingText != '' }}"
+        loading-text='{{ loadingText}}'>下一步 {{">>"}}</van-button>
     </van-cell-group>
   </van-tab>
   <van-tab title="用户档案">
@@ -100,7 +100,7 @@
       />
 
       <van-field
-        disabled="{{ newCustomer.disabled }}"
+        disabled="{{ inProcess }}"
         value="{{ profile.healthTags }}"
         required
         clearable
@@ -111,7 +111,7 @@
         bind:input="onInputHealthTags"
       />
       <van-field
-        disabled="{{ newCustomer.disabled }}"
+        disabled="{{ inProcess }}"
         value="{{ profile.medicineTags }}"
         required
         clearable
@@ -145,7 +145,7 @@
           wx:for="{{ products }}"
           wx:key="id"
           name="{{ item.name }}"
-          disabled="{{ newCustomer.disabled || !item.enabled }}"
+          disabled="{{ inProcess || !item.enabled }}"
           value="{{ item.checked }}"
           custom-class="checkbox"
         >{{ item.name }}</van-checkbox>
@@ -158,8 +158,8 @@
 
       <!-- <van-button type="primary" size="large" bind:click="onNewCustomerProfile">添加用户档案</van-button> -->
       <van-button type="primary" size="large" bind:click="onNewCustomerProfile"
-        loading="{{ newCustomer.loadingText != '' }}"
-        loading-text='{{ newCustomer.loadingText}}'>添加用户档案</van-button>
+        loading="{{ loadingText != '' }}"
+        loading-text='{{ loadingText}}'>添加用户档案</van-button>
     </van-cell-group>
   </van-tab>
 </van-tabs>

@@ -4,9 +4,9 @@ const datasrc = {
   login: function (userid, password) {
     wx.setStorageSync(util.userIdKey, userid)
     wx.navigateTo({
-      url: './customer/customer_main',
+      //url: './customer/customer_main',
       //url: './proforg/proforg_main',
-      //url: './medprof/medprof_main',
+      url: './medprof/medprof_main',
     })
   },
   customer: {
@@ -285,7 +285,6 @@ const datasrc = {
     },
     getNewCustomerData: (cb) => {
       let newCustomer = {
-        disabled: false,
         loadingText: '',
         userid: 'newcustomer02',
         password: '123',

@@ -15,6 +15,8 @@ Component({
   data: {
     isMock: true,
     activeTabIndex: 0,
+    inProcess: false,
+    loadingText: '',
     newCustomer: {},
     profile: {},
     products: [],
@@ -94,9 +96,13 @@ Component({
       this.updateNewCustomer("medicineTags", e)
     },
     setInProgress: function (isInProgress) {
-      this.updateNewCustomer("disabled", { detail: isInProgress });
+      //this.updateNewCustomer("disabled", { detail: isInProgress });
       let loadingText = isInProgress ? '添加客户中...' : '';
-      this.updateNewCustomer("loadingText", { detail: loadingText });
+      this.setData({
+        inProcess: isInProgress,
+        loadingText
+      });
+      //this.updateNewCustomer("loadingText", { detail: loadingText });
     },
     
     onNewCustomerProfileMock: function (e) {

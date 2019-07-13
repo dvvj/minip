@@ -31,8 +31,10 @@ Page({
   onConfirmYearMonthRange: function(e) {
     console.log('in onConfirmYearMonthRange', e);
     let setYearMonthRange = this.selectComponent("#setYearMonthRange");
-    let yearMonthRange = setYearMonthRange.getSelection();
-    console.log('yearMonthRange', yearMonthRange);
+    let range = setYearMonthRange.getSelection();
+    console.log('range: ', range);
+    this.yearMonthRange(range.start, range.end);
+    this.updateOrderList();
   },
   updateActiveTab: function(tabIndex) {
     this.setData({ activeTabIndex: tabIndex });
@@ -54,7 +56,6 @@ Page({
 
   updateOrderList: function() {
     this.setYearMonthRange = this.selectComponent("#setYearMonthRange");
-    this.setYearMonthDefault();
     this.setYearMonthRange.setEnd(this.data.yearMonthEnd);
     this.setYearMonthRange.setStart(this.data.yearMonthStart);
 
@@ -178,20 +179,30 @@ Page({
       })
   },
 
-  setYearMonthDefault: function() {
-    
-    let { _startYM, _endYM } = util.getYearMonthDefault();
-    let yearMonthStart = `${_startYM.year}-${_startYM.month}`;
-    let yearMonthEnd = `${_endYM.year}-${_endYM.month}`;
+  yearMonthRange: function(startYM, endYM) {
+    let yearMonthStart = `${startYM.year}-${startYM.month}`;
+    let yearMonthEnd = `${endYM.year}-${endYM.month}`;
     console.log('yearMonthStart:', yearMonthStart);
     this.setData({
-      orderListStart: _startYM,
-      orderListEnd: _endYM,
       yearMonthStart,
       yearMonthEnd
     });
   },
+  setYearMonthDefault: function() {
+    let { _startYM, _endYM } = util.getYearMonthDefault();
+    this.yearMonthRange(_startYM, _endYM);
+    // let yearMonthStart = `${_startYM.year}-${_startYM.month}`;
+    // let yearMonthEnd = `${_endYM.year}-${_endYM.month}`;
+    // console.log('yearMonthStart:', yearMonthStart);
+    // this.setData({
+    //   // orderListStart: _startYM,
+    //   // orderListEnd: _endYM,
+    //   yearMonthStart,
+    //   yearMonthEnd
+    // });
+  },
   onLoad: function (options) {
+    this.setYearMonthDefault();
     this.updateActiveTab(this.data.activeTabIndex);
   },
 

@@ -68,10 +68,11 @@ Component({
         success: function (r2) {
           console.log('[onBuy] WePayez token id: ', r2)
 
+          //util.requestWePayez(r2.data, tokens);
           util.setWePayezUrl(r2.data);
           wx.navigateTo({
             url: '../wepayez-pay',
-          })
+          });
         },
         fail: function (e2) {
           console.info("e2: ", e2)

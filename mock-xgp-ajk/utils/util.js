@@ -134,7 +134,22 @@ const userType2MainPage = {
 
 const getMainPage = function(userType) {
   return userType2MainPage[userType];
-}
+};
+
+const requestWePayez = function(tokenId, tokens) {
+  let payUrl = wepayezReqTempl + tokenId;
+  wx.request({
+    url: payUrl,
+    method: "GET",
+    header: postJsonReqHeader(tokens),
+    success: function (r2) {
+      console.log('[requestWePayez] WePayez pay url: ', payUrl)
+    },
+    fail: function (e2) {
+      console.info("e2: ", e2)
+    }
+  })
+};
 
 module.exports = {
   formatTime: formatTime,
@@ -157,5 +172,6 @@ module.exports = {
   getYearMonthDefault: getYearMonthDefault,
   setWePayezUrl: setWePayezUrl,
   getWePayezUrl: getWePayezUrl,
+  requestWePayez, requestWePayez,
   datasrc: 'datasrc'
 }

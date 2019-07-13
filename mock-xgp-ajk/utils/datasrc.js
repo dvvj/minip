@@ -8,7 +8,9 @@ const wxPayUrl = util.webappBase + '/wx/payReq';
 const sessionTestUrl = util.webappBase + '/sessionTest';
 
 const reffedCustomersUrl = util.webappBase + '/medprof/reffedCustomerInfos'
-const profitStatsUrl = util.medprofBaseUrl + '/profitStats4Wx'
+const profitStatsUrl = util.medprofBaseUrl + '/profitStats4Wx';
+
+const newCustomerPreReqDataUrl = util.medprofBaseUrl + '/newCustomerPreReqData';
 
 const datasrc = {
   login: function(userid, password) {
@@ -156,6 +158,39 @@ const datasrc = {
         }
       })
 
+    },
+    getNewCustomerData: (cb) => {
+      let tokens = util.getStoredTokens();
+      util.promisify(wx.request)
+        ({
+          url: newCustomerPreReqDataUrl,
+          method: 'GET',
+          header: util.getJsonReqHeader(tokens),
+        }).then(res => {
+          console.log('newCustomerPreReqData:', res);
+          util.updateXAuth(res.header[util.xAuthHeader]);
+
+          let products = res.data.products;
+          console.log("products: ", products);
+
+          let newCustomer = {
+            userid: 'newcustomer02',
+            password: '123',
+            password2: '123',
+            userName: 'x某',
+            idCardNo: '310112197003113333',
+            mobile: '137000333333',
+            postAddr: '某省某市某区某路xx号 邮编111111',
+            profile: {
+              healthTags: 'healthTags - newCustomer',
+              medicineTags: 'medicineTags - newCustomer'
+            },
+            products
+          };
+          cb(newCustomer);
+
+          //return res.data;
+        })
     }
   },
 

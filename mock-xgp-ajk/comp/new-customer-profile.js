@@ -28,7 +28,7 @@ Component({
    */
   methods: {
     initData: function (customerAndProfile, products, isMock) {
-      let selected = products.filter(p => p.checked).map(p => p.name);
+      let selected = products.filter(p => p.checked).map(p => p.shortName);
       this.setData({
         isMock,
         newCustomer: customerAndProfile.newCustomer,
@@ -39,7 +39,7 @@ Component({
     },
     getData: function () {
       let { newCustomer, profile, products, selected } = this.data;
-      let selectedProducts = products.filter(p => p.enabled && selected.includes(p.name));
+      let selectedProducts = products.filter(p => p.enabled && selected.includes(p.shortName));
       return { newCustomer, profile, selectedProducts };
     },
     onChange(event) {

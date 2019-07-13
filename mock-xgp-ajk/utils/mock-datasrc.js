@@ -285,7 +285,6 @@ const datasrc = {
     },
     getNewCustomerData: (cb) => {
       let newCustomer = {
-        loadingText: '',
         userid: 'newcustomer02',
         password: '123',
         password2: '123',
@@ -298,9 +297,9 @@ const datasrc = {
           medicineTags: 'medicineTags - newCustomer'
         },
         products: [
-          { id: 1, name: 'Astaxin虾青素', enabled: true, checked: false },
-          { id: 2, name: 'ACO复合维生素', enabled: true, checked: false },
-          { id: 3, name: '辅酶Q10', enabled: false, checked: true }
+          { id: 1, shortName: 'Astaxin虾青素', enabled: true, checked: false },
+          { id: 2, shortName: 'ACO复合维生素', enabled: true, checked: false },
+          { id: 3, shortName: '辅酶Q10', enabled: false, checked: true }
         ]
       };
       cb(newCustomer);

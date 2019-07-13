@@ -144,11 +144,11 @@
         <van-checkbox
           wx:for="{{ products }}"
           wx:key="id"
-          name="{{ item.name }}"
+          name="{{ item.shortName }}"
           disabled="{{ inProcess || !item.enabled }}"
           value="{{ item.checked }}"
           custom-class="checkbox"
-        >{{ item.name }}</van-checkbox>
+        >{{ item.shortName }}</van-checkbox>
       </van-checkbox-group>
 
       <van-cell

@@ -172,6 +172,8 @@ const datasrc = {
 
           let products = res.data.products;
           console.log("products: ", products);
+          let pricePlans = res.data.pricePlans;
+          console.log("pricePlans: ", pricePlans);
 
           let newCustomer = {
             userid: 'newcustomer02',
@@ -180,16 +182,35 @@ const datasrc = {
             userName: 'x某',
             idCardNo: '310112197003113333',
             mobile: '137000333333',
-            postAddr: '某省某市某区某路xx号 邮编111111',
-            profile: {
-              healthTags: 'healthTags - newCustomer',
-              medicineTags: 'medicineTags - newCustomer'
-            },
-            products
+            postAddr: '某省某市某区某路xx号 邮编111111'
           };
-          cb(newCustomer);
+          let profile = {
+            healthTags: 'healthTags - newCustomer',
+            medicineTags: 'medicineTags - newCustomer'
+          };
+          cb({ newCustomer, profile, products, pricePlans });
 
           //return res.data;
+        })
+    },
+    createNewCustomerAndProfile: (newCustomerReq, cb) => {
+      console.log('[to debug] createNewCustomerAndProfile:', res);
+      let tokens = util.getStoredTokens();
+      util.promisify(wx.request)
+        ({
+          url: newCustomerPreReqDataUrl,
+          method: 'POST',
+          data: newCustomerReq,
+          header: util.postJsonReqHeader(tokens),
+        }).then(res => {
+          console.log('createNewCustomerAndProfile:', res);
+          util.updateXAuth(res.header[util.xAuthHeader]);
+          let success = res.status;
+          let msg = res.data;
+          cb(success, msg);
+        })
+        .catch(function (reason) {
+          console.log('createNewCustomerAndProfile failed, reason: ', reason)
         })
     }
   },

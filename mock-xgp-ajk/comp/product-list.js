@@ -1,5 +1,5 @@
 // comp/product-list.js
-const util = require('../utils/util.js')
+const util = require('../utils/util.js');
 const wePayezUrl = util.webappBase + '/wx/wepayezReq';
 
 Component({

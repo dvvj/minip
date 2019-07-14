@@ -117,14 +117,11 @@ Page({
     let newCustomerProfile = this.selectComponent("#newCustomerProfile");
     console.log(newCustomerProfile);
     datasrc.medprof.getNewCustomerData(
-      newCustomer => {
+      newCustomerData => {
+        console.log(newCustomerData);
+        let { newCustomer, profile, products, pricePlans } = newCustomerData;
         newCustomerProfile.initData(
-          {
-            newCustomer,
-            profile: newCustomer.profile
-          },
-          newCustomer.products,
-          newCustomer.pricePlans,
+          newCustomerData,
           true
         );
       }

@@ -1,5 +1,7 @@
 // comp/new-customer-profile.js
 import Toast from '../vant-lib/toast/toast';
+const util = require('../utils/util.js');
+const datasrc = require('../utils/' + util.datasrc).datasrc;
 
 Component({
   /**
@@ -29,14 +31,15 @@ Component({
    * Component methods
    */
   methods: {
-    initData: function (customerAndProfile, products, pricePlans, isMock) {
+    initData: function (newCustomerData, isMock) {
+      console.log('newCustomerData', newCustomerData);
+      let { newCustomer, profile, products, pricePlans } = newCustomerData;
       let selected = products.filter(p => p.checked).map(p => p.shortName);
-      console.log("price plans: ", pricePlans);
       let pricePlanInfos = pricePlans.map(pp => pp.desc);
       this.setData({
         isMock,
-        newCustomer: customerAndProfile.newCustomer,
-        profile: customerAndProfile.profile,
+        newCustomer,
+        profile,
         products,
         selected,
         pricePlans,
@@ -65,12 +68,7 @@ Component({
     onNewCustomerProfile: function(e) {
       let result = this.getData();
       console.log('[todo] onNewCustomerProfile: ', result)
-      if (this.data.isMock) {
-        this.onNewCustomerProfileMock(e);
-      }
-      else {
-        this.onNewCustomerProfileProd(e);
-      }
+      this.onNewCustomerProfile();
     },
     onNextStep: function(e) {
       this.setData({ activeTabIndex: 1});
@@ -118,25 +116,48 @@ Component({
       //this.updateNewCustomer("loadingText", { detail: loadingText });
     },
     
-    onNewCustomerProfileMock: function (e) {
+    // onNewCustomerProfileMock: function (e) {
+    //   let that = this;
+    //   setTimeout(
+    //     function () {
+    //       that.setInProgress(false);
+    //       Toast.loading({
+    //         duration: 1000,       // 持续展示 toast
+    //         forbidClick: true, // 禁用背景点击
+    //         message: '用户添加成功',
+    //         type: 'success',
+    //         context: that
+    //       });
+    //     },
+    //     1000
+    //   );
+    //   this.setInProgress(true)
+    // },
+    onNewCustomerProfile: function() {
       let that = this;
-      setTimeout(
-        function () {
+      console.log('onNewCustomerProfile: ');
+
+      let customer = this.data.newCustomer;
+      let profileReq = this.data.profile;
+      let newCustomerReq = {
+        customer, profileReq
+      };
+
+      this.setInProgress(true)
+      datasrc.medprof.createNewCustomerAndProfile(
+        newCustomerReq,
+        respData => {
+          let { success, msg } = respData;
           that.setInProgress(false);
           Toast.loading({
             duration: 1000,       // 持续展示 toast
             forbidClick: true, // 禁用背景点击
-            message: '用户添加成功',
-            type: 'success',
+            message: msg,
+            type: success ? 'success' : 'fail',
             context: that
           });
-        },
-        1000
-      );
-      this.setInProgress(true)
-    },
-    onNewCustomerProfileProd: function(e) {
-      console.log('[todo] onNewCustomerProfileProd: ')
+        }
+      )
     }
   }
 })

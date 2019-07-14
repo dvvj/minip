@@ -300,6 +300,28 @@ const datasrc = {
           { id: 1, shortName: 'Astaxin虾青素', enabled: true, checked: false },
           { id: 2, shortName: 'ACO复合维生素', enabled: true, checked: false },
           { id: 3, shortName: '辅酶Q10', enabled: false, checked: true }
+        ],
+        "pricePlans": [
+          {
+            "id": "PrFixed-0.9",
+            "desc": "所有商品9折"
+          },
+          {
+            "id": "PrFixed-0.9_P112",
+            "desc": "所有商品95折"
+          },
+          {
+            "id": "PrFixed-0.95",
+            "desc": "所有商品95折"
+          },
+          {
+            "id": "PrProdBased-Advanced",
+            "desc": "【商品1】8折，【商品2】85折，其余9折"
+          },
+          {
+            "id": "PrProdBased-Basic",
+            "desc": "【商品1】9折，【商品2】85折，其余95折"
+          }
         ]
       };
       cb(newCustomer);

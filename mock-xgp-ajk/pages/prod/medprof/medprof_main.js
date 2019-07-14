@@ -101,10 +101,14 @@ Page({
     console.log(existingCustomerProfile);
     datasrc.medprof.getExistingCustomerData(
       existingCustomer => {
-        existingCustomerProfile.initData({
-          existingCustomer,
-          profile: existingCustomer.profile
-        }, existingCustomer.products, true);
+        existingCustomerProfile.initData(
+          {
+            existingCustomer,
+            profile: existingCustomer.profile
+          },
+          existingCustomer.products,
+          existingCustomer.pricePlans,
+          true);
       }
     );
   },
@@ -114,10 +118,15 @@ Page({
     console.log(newCustomerProfile);
     datasrc.medprof.getNewCustomerData(
       newCustomer => {
-        newCustomerProfile.initData({
-          newCustomer,
-          profile: newCustomer.profile
-        }, newCustomer.products, true);
+        newCustomerProfile.initData(
+          {
+            newCustomer,
+            profile: newCustomer.profile
+          },
+          newCustomer.products,
+          newCustomer.pricePlans,
+          true
+        );
       }
     )
 

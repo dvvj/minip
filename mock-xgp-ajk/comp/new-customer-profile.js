@@ -20,27 +20,40 @@ Component({
     newCustomer: {},
     profile: {},
     products: [],
-    selected: []
+    selected: [],
+    pricePlans: [],
+    pricePlanInfos: []
   },
 
   /**
    * Component methods
    */
   methods: {
-    initData: function (customerAndProfile, products, isMock) {
+    initData: function (customerAndProfile, products, pricePlans, isMock) {
       let selected = products.filter(p => p.checked).map(p => p.shortName);
+      console.log("price plans: ", pricePlans);
+      let pricePlanInfos = pricePlans.map(pp => pp.desc);
       this.setData({
         isMock,
         newCustomer: customerAndProfile.newCustomer,
         profile: customerAndProfile.profile,
         products,
-        selected
+        selected,
+        pricePlans,
+        pricePlanInfos
       });
     },
+    onPricePlanChange: function(e) {
+      const { picker, value, index } = e.detail;
+      let selectedPricePlan = this.data.pricePlans[index];
+      console.log("price plan changed: ", selectedPricePlan);
+      this.setData({selectedPricePlan});
+    },
     getData: function () {
-      let { newCustomer, profile, products, selected } = this.data;
+      let { newCustomer, profile, products, pricePlans, selected } = this.data;
       let selectedProducts = products.filter(p => p.enabled && selected.includes(p.shortName));
-      return { newCustomer, profile, selectedProducts };
+      let pricePlan = this.data.selectedPricePlan;
+      return { newCustomer, profile, selectedProducts, pricePlan };
     },
     onChange(event) {
       console.log('event: ', event)

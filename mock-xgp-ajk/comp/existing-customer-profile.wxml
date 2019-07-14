@@ -119,9 +119,14 @@
       </van-checkbox-group>
 
       <van-cell
-        title="优惠信息：如85折，待完成..."
+        title="优惠信息："
         value-class="value-class"
       />
+      <van-picker
+        columns="{{ pricePlanInfos }}"
+        visible-item-count="2"
+        item-height="40"
+        bind:change="onPricePlanChange" />
 
       <van-button type="primary" size="large" bind:click="onExistingCustomerProfile">添加用户档案</van-button>
 

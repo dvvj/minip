@@ -9,6 +9,7 @@
     "van-button": "../vant-lib/button/index",
     "van-field": "../vant-lib/field/index",
     "van-checkbox": "../../../vant-lib/checkbox/index",
-    "van-checkbox-group": "../../../vant-lib/checkbox-group/index"
+    "van-checkbox-group": "../../../vant-lib/checkbox-group/index",
+    "van-picker": "../../../vant-lib/picker/index"
   }
 }

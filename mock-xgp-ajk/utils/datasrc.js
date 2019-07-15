@@ -11,6 +11,7 @@ const reffedCustomersUrl = util.webappBase + '/medprof/reffedCustomerInfos'
 const profitStatsUrl = util.medprofBaseUrl + '/profitStats4Wx';
 
 const newCustomerPreReqDataUrl = util.medprofBaseUrl + '/newCustomerPreReqData';
+const newCustomerAndProfileUrl = util.medprofBaseUrl + '/newCustomerAndProfile';
 
 const datasrc = {
   login: function(userid, password) {
@@ -176,7 +177,7 @@ const datasrc = {
           console.log("pricePlans: ", pricePlans);
 
           let newCustomer = {
-            userid: 'newcustomer02',
+            userid: 'c_newcustomer02',
             password: '123',
             password2: '123',
             userName: 'x某',
@@ -194,20 +195,20 @@ const datasrc = {
         })
     },
     createNewCustomerAndProfile: (newCustomerReq, cb) => {
-      console.log('[to debug] createNewCustomerAndProfile:', res);
+      console.log('[to debug] createNewCustomerAndProfile:', newCustomerReq);
       let tokens = util.getStoredTokens();
       util.promisify(wx.request)
         ({
-          url: newCustomerPreReqDataUrl,
+          url: newCustomerAndProfileUrl,
           method: 'POST',
           data: newCustomerReq,
           header: util.postJsonReqHeader(tokens),
         }).then(res => {
           console.log('createNewCustomerAndProfile:', res);
           util.updateXAuth(res.header[util.xAuthHeader]);
-          let success = res.status;
+          let success = res.statusCode == 200;
           let msg = res.data;
-          cb(success, msg);
+          cb({success, msg});
         })
         .catch(function (reason) {
           console.log('createNewCustomerAndProfile failed, reason: ', reason)

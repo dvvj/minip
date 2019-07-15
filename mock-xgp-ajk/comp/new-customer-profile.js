@@ -36,6 +36,7 @@ Component({
       let { newCustomer, profile, products, pricePlans } = newCustomerData;
       let selected = products.filter(p => p.checked).map(p => p.shortName);
       let pricePlanInfos = pricePlans.map(pp => pp.desc);
+      let selectedPricePlan = pricePlans[0];
       this.setData({
         isMock,
         newCustomer,
@@ -43,7 +44,8 @@ Component({
         products,
         selected,
         pricePlans,
-        pricePlanInfos
+        pricePlanInfos,
+        selectedPricePlan
       });
     },
     onPricePlanChange: function(e) {
@@ -133,24 +135,45 @@ Component({
     //   );
     //   this.setInProgress(true)
     // },
+
+    convertCustomer: function(wxCustomer) {
+      return {
+        uid: wxCustomer.userid,
+        postalAddr: wxCustomer.postAddr,
+        name: wxCustomer.userName,
+        passHash: wxCustomer.password,
+        idCardNo: wxCustomer.idCardNo,
+        mobile: wxCustomer.mobile,
+        bday: wxCustomer.bday,
+      };
+    },
     onNewCustomerProfile: function() {
       let that = this;
       console.log('onNewCustomerProfile: ');
 
-      let customer = this.data.newCustomer;
-      let profileReq = this.data.profile;
+      let { newCustomer, profile, selectedProducts, pricePlan } = this.getData();
+
+      let customer = this.convertCustomer(newCustomer);
+      let productIds = selectedProducts.map(p => p.id);
+      let profileReq = {
+        ...profile,
+        pricePlanId: pricePlan.id,
+        productIds
+      };
       let newCustomerReq = {
         customer, profileReq
       };
+
 
       this.setInProgress(true)
       datasrc.medprof.createNewCustomerAndProfile(
         newCustomerReq,
         respData => {
+          console.log('respData', respData);
           let { success, msg } = respData;
           that.setInProgress(false);
           Toast.loading({
-            duration: 1000,       // 持续展示 toast
+            duration: 2000,       // 持续展示 toast
             forbidClick: true, // 禁用背景点击
             message: msg,
             type: success ? 'success' : 'fail',

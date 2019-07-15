@@ -173,5 +173,5 @@ module.exports = {
   setWePayezUrl: setWePayezUrl,
   getWePayezUrl: getWePayezUrl,
   requestWePayez, requestWePayez,
-  datasrc: 'mock-datasrc'
+  datasrc: 'datasrc'
 }

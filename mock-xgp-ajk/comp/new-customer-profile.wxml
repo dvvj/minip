@@ -135,7 +135,7 @@
         </van-cell>
       </van-checkbox-group> -->
 
-      <van-cell
+      <van-cell required
         title="选择推荐保健品："
       />
 

@@ -1,13 +1,25 @@
 const util = require('util.js');
 
 const datasrc = {
-  login: function (userid, password) {
+  login: function (userid, password, cb) {
     wx.setStorageSync(util.userIdKey, userid)
-    wx.navigateTo({
-      //url: './customer/customer_main',
-      //url: './proforg/proforg_main',
-      url: './medprof/medprof_main',
-    })
+
+    setTimeout(
+      function () {
+        cb({
+          success: true,
+          msg: '登录成功'
+        });
+        wx.navigateTo({
+          //url: './customer/customer_main',
+          //url: './proforg/proforg_main',
+          url: './medprof/medprof_main',
+        })
+      },
+      2000
+    )
+
+
   },
   customer: {
     getProductList: (cb) => {

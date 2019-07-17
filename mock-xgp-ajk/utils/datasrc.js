@@ -14,7 +14,7 @@ const newCustomerPreReqDataUrl = util.medprofBaseUrl + '/newCustomerPreReqData';
 const newCustomerAndProfileUrl = util.medprofBaseUrl + '/newCustomerAndProfile';
 
 const datasrc = {
-  login: function(userid, password) {
+  login: function(userid, password, cb) {
     util.promisify(wx.login)()
       .then(({ code }) => {
         console.log(`code: ${code}`)
@@ -28,6 +28,10 @@ const datasrc = {
           },
           success: function (e) {
             console.log('login success', e)
+            cb({
+              success: true,
+              msg: '登录成功'
+            });
             // const tokens = { xauth: e.header[xAuthHeader], accessToken: e.data.access_token };
             util.saveTokens(e);
             let mainPage = util.getMainPage(e.data.userType);
@@ -36,6 +40,13 @@ const datasrc = {
             wx.navigateTo({
               url: mainPage //'../product/product-list',
             })
+          },
+          fail: function(err) {
+            console.log('login failed', err)
+            cb({
+              success: false,
+              msg: '登录失败'
+            });
           }
         })
       })

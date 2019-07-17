@@ -164,7 +164,6 @@ Component({
         customer, profileReq
       };
 
-
       this.setInProgress(true)
       datasrc.medprof.createNewCustomerAndProfile(
         newCustomerReq,

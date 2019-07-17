@@ -10,15 +10,36 @@ Page({
    */
   data: {
     userid: 'c_o1a1p1c1',
-    password: '123'
+    password: '123',
+    inProcess: false,
+    loadingText: ''
   },
+
+  setInProgress: function (isInProgress) {
+    //this.updateNewCustomer("disabled", { detail: isInProgress });
+    let loadingText = isInProgress ? '登录中...' : '';
+    this.setData({
+      inProcess: isInProgress,
+      loadingText
+    });
+    //this.updateNewCustomer("loadingText", { detail: loadingText });
+  },
+
   onLogin: function (e) {
     console.log(e);
     let userid = this.data.userid;
     let password = this.data.password;
     console.log(`username: ${userid}, password: ${password}`);
 
-    datasrc.login(userid, password);
+    this.setInProgress(true);
+    datasrc.login(
+      userid, password,
+      resp => {
+        let { success, msg } = resp;
+        console.log('resp: ', resp);
+        this.setInProgress(false);
+      }
+    );
   },
   onInputUserId: function (e) {
     this.setData({ userid: e.detail })

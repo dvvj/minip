@@ -1,0 +1,2 @@
+<!--comp/waiting-dialog.wxml-->
+<van-toast id="van-toast" />

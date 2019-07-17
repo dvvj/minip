@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/tmp/waiting-toast-test",
     "pages/prod/login",
     "pages/tmp/ajk-paytest",
     "pages/tmp/setting-customer-test",

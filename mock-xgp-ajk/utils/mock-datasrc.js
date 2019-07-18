@@ -16,7 +16,7 @@ const datasrc = {
           url: './medprof/medprof_main',
         })
       },
-      2000
+      200
     )
 
 
@@ -224,146 +224,122 @@ const datasrc = {
 
   medprof: {
     getReffedCustomerInfos: (cb) => {
-      cb ([
-        {
-          "profileId": 1,
-          "customerName": "张晓东",
-          "customerId": "c＿o1a1p1_customer1",
-          "productShortNames": [
-            "Astaxin虾青素",
-            "ACO产妇维生素"
-          ],
-          "pricePlanInfo": "{\"globalRate\":0.9}",
-          "healthTags": [
-            "糖尿病",
-            "高血压"
-          ],
-          "medicineTags": [
-            "降压药"
-          ]
+      setTimeout(
+        function() {
+          cb([
+            {
+              "profileId": 1,
+              "customerName": "张晓东",
+              "customerId": "c＿o1a1p1_customer1",
+              "productShortNames": [
+                "Astaxin虾青素",
+                "ACO产妇维生素"
+              ],
+              "pricePlanInfo": "{\"globalRate\":0.9}",
+              "healthTags": [
+                "糖尿病",
+                "高血压"
+              ],
+              "medicineTags": [
+                "降压药"
+              ]
+            },
+            {
+              "profileId": 2,
+              "customerName": "张晓",
+              "customerId": "c＿o1a1p1_customer2",
+              "productShortNames": [
+                "Astaxin虾青素",
+                "ACO产妇维生素"
+              ],
+              "pricePlanInfo": "{\"globalRate\":0.9}",
+              "healthTags": [
+                "糖尿病"
+              ],
+              "medicineTags": [
+                "维生素"
+              ]
+            },
+            {
+              "profileId": 3,
+              "customerName": "张丽",
+              "customerId": "c＿o1a1p1_customer4",
+              "productShortNames": [
+                "Astaxin虾青素"
+              ],
+              "pricePlanInfo": "{\"globalRate\":0.9}",
+              "healthTags": [
+                "贫血"
+              ],
+              "medicineTags": []
+            }
+          ]);
         },
-        {
-          "profileId": 2,
-          "customerName": "张晓",
-          "customerId": "c＿o1a1p1_customer2",
-          "productShortNames": [
-            "Astaxin虾青素",
-            "ACO产妇维生素"
-          ],
-          "pricePlanInfo": "{\"globalRate\":0.9}",
-          "healthTags": [
-            "糖尿病"
-          ],
-          "medicineTags": [
-            "维生素"
-          ]
-        },
-        {
-          "profileId": 3,
-          "customerName": "张丽",
-          "customerId": "c＿o1a1p1_customer4",
-          "productShortNames": [
-            "Astaxin虾青素"
-          ],
-          "pricePlanInfo": "{\"globalRate\":0.9}",
-          "healthTags": [
-            "贫血"
-          ],
-          "medicineTags": []
-        }
-      ]);
+        1000
+      )
+
     },
     getProfitStatsChartData: (startYearMonth, endYearMonth, cb) => {
-      cb ({
-        "yearMonths": [
-          "2019-01",
-          "2019-02",
-          "2019-03",
-          "2019-04"
-        ],
-        "sales": [
-          9049.939999999999,
-          9049.939999999999,
-          9349.919999999998,
-          0
-        ],
-        "rewards": [
-          2714.982,
-          2714.982,
-          2804.9759999999997,
-          0
-        ]
-      });
+      setTimeout(
+        function() {
+          cb({
+            "yearMonths": [
+              "2019-01",
+              "2019-02",
+              "2019-03",
+              "2019-04"
+            ],
+            "sales": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "rewards": [
+              0,
+              0,
+              0,
+              0
+            ]
+            // "sales": [
+            //   9049.939999999999,
+            //   9049.939999999999,
+            //   9349.919999999998,
+            //   0
+            // ],
+            // "rewards": [
+            //   2714.982,
+            //   2714.982,
+            //   2804.9759999999997,
+            //   0
+            // ]
+          });
+        },
+        1000
+      );
+      
     },
     getNewCustomerData: (cb) => {
-      let newCustomer = {
-        userid: 'newcustomer02',
-        password: '123',
-        password2: '123',
-        userName: 'x某',
-        idCardNo: '310112197003113333',
-        mobile: '137000333333',
-        postAddr: '某省某市某区某路xx号 邮编111111'
-      };
-      let profile = {
-        healthTags: 'healthTags - newCustomer',
-        medicineTags: 'medicineTags - newCustomer'
-      };
-      let products = [
-        { id: 1, shortName: 'Astaxin虾青素', enabled: true, checked: false },
-        { id: 2, shortName: 'ACO复合维生素', enabled: true, checked: false },
-        { id: 3, shortName: '辅酶Q10', enabled: false, checked: true }
-      ];
-      let pricePlans = [
-        {
-          "id": "PrFixed-0.9",
-          "desc": "所有商品9折"
-        },
-        {
-          "id": "PrFixed-0.9_P112",
-          "desc": "所有商品95折"
-        },
-        {
-          "id": "PrFixed-0.95",
-          "desc": "所有商品95折"
-        },
-        {
-          "id": "PrProdBased-Advanced",
-          "desc": "【商品1】8折，【商品2】85折，其余9折"
-        },
-        {
-          "id": "PrProdBased-Basic",
-          "desc": "【商品1】9折，【商品2】85折，其余95折"
-        }
-      ];
-      let newCustomerData = { newCustomer, profile, products, pricePlans };
-      cb(newCustomerData);
-    },
-    createNewCustomerAndProfile: (newCustomerReq, cb) => {
-      cb({
-        success: true,
-        msg: '用户添加成功'
-      });
-    },
-
-    getExistingCustomerData: (cb) => {
-      let existingCustomer = {
-        disabled: false,
-        loadingText: '',
-        userid: 'newcustomer02',
-        userName: 'x某',
-        idCardNo: '310112197003113333',
-        mobile: '137000333333',
-        profile: {
-          healthTags: 'healthTags - existingCustomer',
-          medicineTags: 'medicineTags - existingCustomer'
-        },
-        products: [
-          { id: 1, name: 'Astaxin虾青素', enabled: true, checked: false },
-          { id: 2, name: 'ACO复合维生素', enabled: true, checked: false },
-          { id: 3, name: '辅酶Q10', enabled: false, checked: true }
-        ],
-        pricePlans: [
+      setTimeout(function() {
+        let newCustomer = {
+          userid: 'c_',
+          password: '123',
+          password2: '123',
+          userName: 'x某',
+          idCardNo: '310112197003113333',
+          mobile: '137000333333',
+          postAddr: '某省某市某区某路xx号 邮编111111'
+        };
+        let profile = {
+          healthTags: 'healthTags - newCustomer',
+          medicineTags: 'medicineTags - newCustomer'
+        };
+        let products = [
+          { id: 1, shortName: 'Astaxin虾青素', enabled: true, checked: false },
+          { id: 2, shortName: 'ACO复合维生素', enabled: true, checked: false },
+          { id: 3, shortName: '辅酶Q10', enabled: false, checked: true }
+        ];
+        let pricePlans = [
           {
             "id": "PrFixed-0.9",
             "desc": "所有商品9折"
@@ -384,9 +360,64 @@ const datasrc = {
             "id": "PrProdBased-Basic",
             "desc": "【商品1】9折，【商品2】85折，其余95折"
           }
-        ]
-      };
-      cb(existingCustomer);
+        ];
+        let newCustomerData = { newCustomer, profile, products, pricePlans };
+        cb(newCustomerData);
+      }, 1000);
+
+    },
+    createNewCustomerAndProfile: (newCustomerReq, cb) => {
+      setTimeout(function () {
+        cb({
+          success: true,
+          msg: '用户添加成功'
+        });
+      }, 200);
+    },
+
+    getExistingCustomerData: (cb) => {
+      setTimeout(function () {
+        let existingCustomer = {
+          disabled: false,
+          loadingText: '',
+          userid: 'newcustomer02',
+          userName: 'x某',
+          idCardNo: '310112197003113333',
+          mobile: '137000333333',
+          profile: {
+            healthTags: 'healthTags - existingCustomer',
+            medicineTags: 'medicineTags - existingCustomer'
+          },
+          products: [
+            { id: 1, name: 'Astaxin虾青素', enabled: true, checked: false },
+            { id: 2, name: 'ACO复合维生素', enabled: true, checked: false },
+            { id: 3, name: '辅酶Q10', enabled: false, checked: true }
+          ],
+          pricePlans: [
+            {
+              "id": "PrFixed-0.9",
+              "desc": "所有商品9折"
+            },
+            {
+              "id": "PrFixed-0.9_P112",
+              "desc": "所有商品95折"
+            },
+            {
+              "id": "PrFixed-0.95",
+              "desc": "所有商品95折"
+            },
+            {
+              "id": "PrProdBased-Advanced",
+              "desc": "【商品1】8折，【商品2】85折，其余9折"
+            },
+            {
+              "id": "PrProdBased-Basic",
+              "desc": "【商品1】9折，【商品2】85折，其余95折"
+            }
+          ]
+        };
+        cb(existingCustomer);
+      }, 1000);
     }
   },
 
@@ -400,17 +431,29 @@ const datasrc = {
           "2019-04"
         ],
         "sales": [
-          9049.939999999999,
-          9049.939999999999,
-          9349.919999999998,
+          0,
+          0,
+          0,
           0
         ],
         "rewards": [
-          2714.982,
-          2714.982,
-          2804.9759999999997,
+          0,
+          0,
+          0,
           0
         ]
+        // "sales": [
+        //   9049.939999999999,
+        //   9049.939999999999,
+        //   9349.919999999998,
+        //   0
+        // ],
+        // "rewards": [
+        //   2714.982,
+        //   2714.982,
+        //   2804.9759999999997,
+        //   0
+        // ]
       };
     }
   }

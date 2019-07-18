@@ -13,6 +13,7 @@
         label="用户ID"
         icon="question-o"
         placeholder="请输入用户ID"
+        error-message="{{ errorMsgs.userid }}"
         bind:click-icon="onClickIcon"
         bind:input="onInputUserId"
       />

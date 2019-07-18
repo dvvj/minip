@@ -1,6 +1,7 @@
 // comp/new-customer-profile.js
 import Toast from '../vant-lib/toast/toast';
 const util = require('../utils/util.js');
+const inputCheck = require('../utils/input-check.js');
 const datasrc = require('../utils/' + util.datasrc).datasrc;
 
 Component({
@@ -24,7 +25,8 @@ Component({
     products: [],
     selected: [],
     pricePlans: [],
-    pricePlanInfos: []
+    pricePlanInfos: [],
+    errorMsgs: {}
   },
 
   /**
@@ -76,13 +78,35 @@ Component({
       this.setData({ activeTabIndex: 1});
     },
 
+    updateErrorMsg: function(field, msg) {
+      let errorMsgs = this.data.errorMsgs;
+      errorMsgs[field] = msg;
+      console.log('errorMsgs', errorMsgs);
+      this.setData({errorMsgs});
+    },
+
     updateNewCustomer: function (field, e) {
       var t = this.data.newCustomer;
       t[field] = e.detail;
       this.setData({ newCustomer: t });
     },
+
+    checkAndUpdateInput: function(field, checker, e) {
+      let input = e.detail;
+      this.updateNewCustomer(field, e)
+      let err = checker(input);
+      this.updateErrorMsg(field, err);
+    },
+
     onInputUserId: function (e) {
-      this.updateNewCustomer("userid", e)
+      this.checkAndUpdateInput(
+        "userid",
+        inputCheck.checkInputUserId,
+        e
+      );
+      // this.updateNewCustomer("userid", e)
+      // let errorMsg = inputCheck.checkInputUserId(this.data.newCustomer.userid);
+      // this.updateErrorMsg('userid', errorMsg);
     },
     onInputPassword: function (e) {
       this.updateNewCustomer("password", e)

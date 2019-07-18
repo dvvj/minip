@@ -151,7 +151,33 @@ const requestWePayez = function(tokenId, tokens) {
   })
 };
 
+const wxCharts = require('wxcharts-min.js');
+const createChart = function (chartData) {
+  return new wxCharts({
+    canvasId: 'columnCanvas',
+    type: 'column',
+    categories: chartData.yearMonths,
+    series: [{
+      name: '销售额',
+      data: roundPriceArr(chartData.sales)
+    }, {
+      name: '佣金',
+      data: roundPriceArr(chartData.rewards)
+    }],
+    yAxis: {
+      title: '总金额（￥）',
+      format: function (val) {
+        return val.toFixed(2);
+      },
+      min: 0,
+    },
+    width: 360,
+    height: 360
+  });
+};
+
 module.exports = {
+  createChart: createChart,
   formatTime: formatTime,
   promisify: promisify,
   webappBase: webappBase,

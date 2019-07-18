@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/tmp/waiting-toast-test",
     "pages/prod/login",
+    "pages/tmp/waiting-toast-test",
     "pages/tmp/ajk-paytest",
     "pages/tmp/setting-customer-test",
     "pages/tmp/set-year-month-range-test",

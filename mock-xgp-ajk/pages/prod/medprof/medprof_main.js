@@ -41,10 +41,10 @@ Page({
   onTabbarChange: function (e) {
     console.log(e)
     let tabIndex = e.detail
-    wx.showToast({
-      title: `切换到标签 ${tabIndex}`,
-      icon: 'none'
-    });
+    // wx.showToast({
+    //   title: `切换到标签 ${tabIndex}`,
+    //   icon: 'none'
+    // });
     this.updateActiveTab(tabIndex)
   },
   onSwiperChange: function (e) {
@@ -99,6 +99,7 @@ Page({
   updateExistingCustomerProfile: function () {
     let existingCustomerProfile = this.selectComponent("#existingCustomerProfile");
     console.log(existingCustomerProfile);
+    this.showWaitingToast(true, '加载数据中...');
     datasrc.medprof.getExistingCustomerData(
       existingCustomer => {
         existingCustomerProfile.initData(
@@ -108,14 +109,22 @@ Page({
           },
           existingCustomer.products,
           existingCustomer.pricePlans,
-          true);
+          true
+        );
+        this.showWaitingToast(false);
       }
     );
+  },
+
+  showWaitingToast: function(doShow, msg) {
+    let waitingToast = this.selectComponent('#waitingToast');
+    doShow ? waitingToast.show(msg) : waitingToast.clear();
   },
 
   updateNewCustomerProfile: function() {
     let newCustomerProfile = this.selectComponent("#newCustomerProfile");
     console.log(newCustomerProfile);
+    this.showWaitingToast(true, '加载数据中...');
     datasrc.medprof.getNewCustomerData(
       newCustomerData => {
         console.log(newCustomerData);
@@ -124,6 +133,7 @@ Page({
           newCustomerData,
           true
         );
+        this.showWaitingToast(false);
       }
     )
 
@@ -133,28 +143,31 @@ Page({
     let that = this;
     let startYearMonth = `${this.data.startEnd4ProfitStats.startYear}-${this.data.startEnd4ProfitStats.startMonth}`;
     let endYearMonth = `${this.data.startEnd4ProfitStats.endYear}-${this.data.startEnd4ProfitStats.endMonth}`;
+    this.showWaitingToast(true, '加载数据中...');
     datasrc.medprof.getProfitStatsChartData(
       startYearMonth, endYearMonth,
       chartData => {
-        new wxCharts({
-          canvasId: 'columnCanvas',
-          type: 'column',
-          categories: chartData.yearMonths,
-          series: [{
-            name: '销售额',
-            data: util.roundPriceArr(chartData.sales)
-          }, {
-            name: '佣金',
-            data: util.roundPriceArr(chartData.rewards)
-          }],
-          yAxis: {
-            format: function (val) {
-              return val + '元';
-            }
-          },
-          width: 360,
-          height: 360
-        });
+        util.createChart(chartData);
+        this.showWaitingToast(false);
+        // new wxCharts({
+        //   canvasId: 'columnCanvas',
+        //   type: 'column',
+        //   categories: chartData.yearMonths,
+        //   series: [{
+        //     name: '销售额',
+        //     data: util.roundPriceArr(chartData.sales)
+        //   }, {
+        //     name: '佣金',
+        //     data: util.roundPriceArr(chartData.rewards)
+        //   }],
+        //   yAxis: {
+        //     format: function (val) {
+        //       return '￥' + val;
+        //     }
+        //   },
+        //   width: 360,
+        //   height: 360
+        // });
       }
     );
   },

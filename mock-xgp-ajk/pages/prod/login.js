@@ -10,34 +10,36 @@ Page({
    */
   data: {
     userid: 'c_o1a1p1c1',
-    password: '123',
-    inProcess: false,
-    loadingText: ''
+    password: '123'
+    // inProcess: false,
+    // loadingText: ''
   },
 
-  setInProgress: function (isInProgress) {
-    //this.updateNewCustomer("disabled", { detail: isInProgress });
-    let loadingText = isInProgress ? '登录中...' : '';
-    this.setData({
-      inProcess: isInProgress,
-      loadingText
-    });
-    //this.updateNewCustomer("loadingText", { detail: loadingText });
-  },
+  // setInProgress: function (isInProgress) {
+  //   //this.updateNewCustomer("disabled", { detail: isInProgress });
+  //   let loadingText = isInProgress ? '登录中...' : '';
+  //   this.setData({
+  //     inProcess: isInProgress,
+  //     loadingText
+  //   });
+  //   //this.updateNewCustomer("loadingText", { detail: loadingText });
+  // },
 
   onLogin: function (e) {
-    console.log(e);
+    let waitingToast = this.selectComponent("#waitingToast");
     let userid = this.data.userid;
     let password = this.data.password;
     console.log(`username: ${userid}, password: ${password}`);
 
-    this.setInProgress(true);
+    // this.setInProgress(true);
+    waitingToast.show('登录中...');
     datasrc.login(
       userid, password,
       resp => {
+        waitingToast.clear();
         let { success, msg } = resp;
         console.log('resp: ', resp);
-        this.setInProgress(false);
+        // this.setInProgress(false);
       }
     );
   },

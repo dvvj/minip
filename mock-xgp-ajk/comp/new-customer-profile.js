@@ -94,14 +94,14 @@ Component({
     checkAndUpdateInput: function(field, checker, e) {
       let input = e.detail;
       this.updateNewCustomer(field, e)
-      let err = checker(input);
+      let err = checker.check(input);
       this.updateErrorMsg(field, err);
     },
 
     onInputUserId: function (e) {
       this.checkAndUpdateInput(
         "userid",
-        inputCheck.checkInputUserId,
+        inputCheck.userid,
         e
       );
       // this.updateNewCustomer("userid", e)
@@ -109,22 +109,47 @@ Component({
       // this.updateErrorMsg('userid', errorMsg);
     },
     onInputPassword: function (e) {
-      this.updateNewCustomer("password", e)
+      this.checkAndUpdateInput(
+        "password",
+        inputCheck.password,
+        e
+      );
+      //this.updateNewCustomer("password", e)
     },
     onInputPassword2: function (e) {
       this.updateNewCustomer("password2", e)
     },
     onInputUserName: function (e) {
-      this.updateNewCustomer("userName", e)
+      this.checkAndUpdateInput(
+        "userName",
+        inputCheck.userName,
+        e
+      );
+      //this.updateNewCustomer("userName", e)
     },
     onInputIdCardNo: function (e) {
-      this.updateNewCustomer("idCardNo", e)
+      //this.updateNewCustomer("idCardNo", e)
+      this.checkAndUpdateInput(
+        "idCardNo",
+        inputCheck.idCardNo,
+        e
+      );
     },
     onInputMobile: function (e) {
-      this.updateNewCustomer("mobile", e)
+      //this.updateNewCustomer("mobile", e)
+      this.checkAndUpdateInput(
+        "mobile",
+        inputCheck.mobile,
+        e
+      );
     },
     onInputPostAddr: function (e) {
-      this.updateNewCustomer("postAddr", e)
+      //this.updateNewCustomer("postAddr", e)
+      this.checkAndUpdateInput(
+        "postAddr",
+        inputCheck.postAddr,
+        e
+      );
     },
     onInputHealthTags: function (e) {
       this.updateNewCustomer("healthTags", e)

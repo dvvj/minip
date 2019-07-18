@@ -93,9 +93,7 @@
         bind:input="onInputPostAddr"
       />
 
-      <van-button type="primary" size="large" bind:click="onNextStep"
-        loading="{{ loadingText != '' }}"
-        loading-text='{{ loadingText}}'>下一步 {{">>"}}</van-button>
+      <van-button type="primary" size="large" bind:click="onNextStep">下一步 {{">>"}}</van-button>
     </van-cell-group>
   </van-tab>
   <van-tab title="用户档案">

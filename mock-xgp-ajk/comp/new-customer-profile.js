@@ -74,8 +74,25 @@ Component({
       console.log('[todo] onNewCustomerProfile: ', result)
       this.onNewCustomerProfile();
     },
+
+    hasInputError: function() {
+      let errorMsgs = this.data.errorMsgs;
+
+      let keys = Object.keys(errorMsgs);
+      var hasError = false;
+      keys.forEach ( k => {
+        let prop = errorMsgs[k];
+        console.log(`${k}: ${prop}`);
+        if (prop)
+          hasError = true;
+      });
+      return hasError;
+    },
     onNextStep: function(e) {
-      this.setData({ activeTabIndex: 1});
+
+      if (!this.hasInputError()) {
+        this.setData({ activeTabIndex: 1 });
+      }
     },
 
     updateErrorMsg: function(field, msg) {

@@ -193,7 +193,7 @@ function initChart(canvas, width, height) {
   });
   canvas.setChart(chart);
 
-  var option = opt2;
+  var option = opt1;
 
   chart.setOption(option);
   return chart;
@@ -218,6 +218,9 @@ Page({
     setTimeout(function () {
       // 获取 chart 实例的方式
       console.log(chart)
+      var option = opt2;
+
+      chart.setOption(option);
     }, 2000);
   }
 });

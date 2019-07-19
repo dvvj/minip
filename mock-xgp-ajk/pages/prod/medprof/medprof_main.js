@@ -1,5 +1,6 @@
 // pages/mock/medprof/medprof_main.js
 const util = require('../../../utils/util.js');
+const echartData = require('../../../utils/echart-data.js');
 const datasrc = require('../../../utils/' + util.datasrc).datasrc;
 const reffedCustomersUrl = util.webappBase + '/medprof/reffedCustomerInfos'
 const wxCharts = require('../../../utils/wxcharts-min.js');
@@ -14,89 +15,6 @@ const tabIndices = {
 
 import * as echarts from '../../../ec-canvas/echarts';
 
-let opt2 = {
-  color: ['#32c5e9', '#67e0e3'],
-  tooltip: {
-    trigger: 'axis',
-    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-      type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-    },
-    confine: true
-  },
-  legend: {
-    data: ['正面', '热度']
-  },
-  grid: {
-    left: 20,
-    right: 20,
-    bottom: 15,
-    top: 40,
-    containLabel: true
-  },
-  xAxis: [
-    {
-      type: 'value',
-      axisLine: {
-        lineStyle: {
-          color: '#999'
-        }
-      },
-      axisLabel: {
-        color: '#666'
-      }
-    }
-  ],
-  yAxis: [
-    {
-      type: 'category',
-      axisTick: { show: false },
-      data: ['汽车之家', '今日头条', '百度贴吧', '一点资讯', '微信', '微博', '知乎'],
-      axisLine: {
-        lineStyle: {
-          color: '#999'
-        }
-      },
-      axisLabel: {
-        color: '#666'
-      }
-    }
-  ],
-  series: [
-    {
-      name: '正面',
-      type: 'bar',
-      stack: '总量',
-      label: {
-        normal: {
-          show: true
-        }
-      },
-      data: [120, 102, 141, 174, 190, 250, 220],
-      itemStyle: {
-        // emphasis: {
-        //   color: '#32c5e9'
-        // }
-      }
-    },
-    {
-      name: '热度',
-      type: 'bar',
-      label: {
-        normal: {
-          show: true,
-          position: 'inside'
-        }
-      },
-      data: [300, 270, 340, 344, 300, 320, 310],
-      itemStyle: {
-        // emphasis: {
-        //   color: '#37a2da'
-        // }
-      }
-    }
-
-  ]
-};
 var chart = null;
 function initChart(canvas, width, height) {
   chart = echarts.init(canvas, null, {
@@ -105,7 +23,7 @@ function initChart(canvas, width, height) {
   });
   canvas.setChart(chart);
 
-  var option = opt2;
+  var option = echartData.optionEmptyData;
 
   chart.setOption(option);
   return chart;
@@ -249,7 +167,10 @@ Page({
     datasrc.medprof.getProfitStatsChartData(
       startYearMonth, endYearMonth,
       chartData => {
-        util.createChart(chartData);
+        //util.createChart(chartData);
+        chart.setOption(
+          echartData.optionFrom(chartData)
+        );
         this.showWaitingToast(false);
         // new wxCharts({
         //   canvasId: 'columnCanvas',

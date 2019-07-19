@@ -1,13 +1,30 @@
 // pages/mock/proforg/proforg_main.js
 import Dialog from '../../../vant-lib/dialog/dialog';
 const orderStatsTestData = require('../../../utils/org-order-stats-td.js')
-const wxCharts = require('../../../utils/wxcharts-min.js');
+//const wxCharts = require('../../../utils/wxcharts-min.js');
+const echartData = require('../../../utils/echart-data.js');
 const util = require('../../../utils/util.js')
 const datasrc = require('../../../utils/' + util.datasrc).datasrc;
 
 const tabIndices = {
   profitStats: 0,
   setting: 1
+};
+
+import * as echarts from '../../../ec-canvas/echarts';
+
+var chart = null;
+function initChart(canvas, width, height) {
+  chart = echarts.init(canvas, null, {
+    width: width,
+    height: height
+  });
+  canvas.setChart(chart);
+
+  var option = echartData.proforgEmptyOption;
+
+  chart.setOption(option);
+  return chart;
 };
 
 Page({
@@ -26,6 +43,10 @@ Page({
         return `${value}月`;
       }
       return value;
+    },
+
+    ec: {
+      onInit: initChart
     }
 
   },
@@ -46,6 +67,7 @@ Page({
 
   updateTabContent: function(tabIndex) {
     if (tabIndex == tabIndices.profitStats) {
+      console.log('updateProfitStats');
       this.updateProfitStats();
     }
     else if (tabIndex == tabIndices.setting) {
@@ -71,25 +93,34 @@ Page({
     datasrc.proforg.getProfitStatsChartData(
       yearMonthStart, yearMonthEnd,
       chartData => {
-        new wxCharts({
-          canvasId: 'columnCanvas',
-          type: 'column',
-          categories: rawData.yearMonths,
-          series: [{
-            name: '销售额',
-            data: util.roundPriceArr(rawData.sales)
-          }, {
-            name: '佣金',
-            data: util.roundPriceArr(rawData.rewards)
-          }],
-          yAxis: {
-            format: function (val) {
-              return val + '元';
-            }
-          },
-          width: 360,
-          height: 360
-        });
+        console.log('chartData:', chartData);
+        let opt = echartData.proforgOptionFrom(chartData);
+        console.log('opt:', opt);
+        if (chart) {
+          chart.setOption(opt);
+        }
+        else {
+          console.log('todo: undefined chart')
+        }
+        // new wxCharts({
+        //   canvasId: 'columnCanvas',
+        //   type: 'column',
+        //   categories: rawData.yearMonths,
+        //   series: [{
+        //     name: '销售额',
+        //     data: util.roundPriceArr(rawData.sales)
+        //   }, {
+        //     name: '佣金',
+        //     data: util.roundPriceArr(rawData.rewards)
+        //   }],
+        //   yAxis: {
+        //     format: function (val) {
+        //       return val + '元';
+        //     }
+        //   },
+        //   width: 360,
+        //   height: 360
+        // });
       }
     );
 
@@ -101,10 +132,10 @@ Page({
   },
   onTabbarChange: function (e) {
     console.log(e)
-    wx.showToast({
-      title: `切换到标签 ${e.detail}`,
-      icon: 'none'
-    });
+    // wx.showToast({
+    //   title: `切换到标签 ${e.detail}`,
+    //   icon: 'none'
+    // });
     this.updateActiveTab(e.detail)
   },
   onSwiperChange: function (e) {

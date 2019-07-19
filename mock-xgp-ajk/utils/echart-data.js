@@ -1,10 +1,11 @@
 const util = require('util.js');
-const legends = {
+const _legends = {
   sales: '销售额',
-  rewards: '佣金'
+  rewards: '佣金',
+  profits: '利润'
 };
 
-const optionFrom = function(optionData) {
+const optionFrom = function(optionData, legends) {
   let rounded = {
     yearMonths: optionData.yearMonths,
     sales: util.roundPriceArr(optionData.sales),
@@ -20,7 +21,7 @@ const optionFrom = function(optionData) {
       confine: true
     },
     legend: {
-      data: [legends.sales, legends.rewards]
+      data: legends
     },
     grid: {
       left: 20,
@@ -60,7 +61,7 @@ const optionFrom = function(optionData) {
     ],
     series: [
       {
-        name: legends.sales,
+        name: legends[0],
         type: 'bar',
         stack: '总量',
         label: {
@@ -77,7 +78,7 @@ const optionFrom = function(optionData) {
         }
       },
       {
-        name: legends.rewards,
+        name: legends[1],
         type: 'bar',
         label: {
           normal: {
@@ -98,13 +99,29 @@ const optionFrom = function(optionData) {
   };
 };
 
-const optionEmptyData = optionFrom({
+const proforgOptionFrom = function(optionData) {
+  return optionFrom(optionData, [_legends.sales, _legends.profits]);
+};
+
+const medprofOptionFrom = function (optionData) {
+  return optionFrom(optionData, [_legends.sales, _legends.rewards]);
+}
+
+const proforgEmptyOption = proforgOptionFrom({
+  yearMonths: [],
+  sales: [],
+  rewards: []
+});
+
+const medprofEmptyOption = medprofOptionFrom({
   yearMonths: [],
   sales: [],
   rewards: []
 });
 
 module.exports = {
-  optionFrom,
-  optionEmptyData
+  proforgOptionFrom,
+  medprofOptionFrom,
+  proforgEmptyOption,
+  medprofEmptyOption
 }

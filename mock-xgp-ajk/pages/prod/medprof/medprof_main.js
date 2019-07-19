@@ -3,7 +3,7 @@ const util = require('../../../utils/util.js');
 const echartData = require('../../../utils/echart-data.js');
 const datasrc = require('../../../utils/' + util.datasrc).datasrc;
 const reffedCustomersUrl = util.webappBase + '/medprof/reffedCustomerInfos'
-const wxCharts = require('../../../utils/wxcharts-min.js');
+//const wxCharts = require('../../../utils/wxcharts-min.js');
 
 const tabIndices = {
   reffedCustomerInfos: 0,
@@ -23,7 +23,7 @@ function initChart(canvas, width, height) {
   });
   canvas.setChart(chart);
 
-  var option = echartData.optionEmptyData;
+  var option = echartData.medprofEmptyOption;
 
   chart.setOption(option);
   return chart;
@@ -169,7 +169,7 @@ Page({
       chartData => {
         //util.createChart(chartData);
         chart.setOption(
-          echartData.optionFrom(chartData)
+          echartData.medprofOptionFrom(chartData)
         );
         this.showWaitingToast(false);
         // new wxCharts({

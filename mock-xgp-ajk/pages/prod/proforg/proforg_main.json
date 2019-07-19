@@ -12,6 +12,7 @@
     "van-tab": "../../../vant-lib//tab/index",
     "van-tabs": "../../../vant-lib/tabs/index",
     "set-year-month-range": "../../../comp/set-year-month-range",
-    "setting-password": "../../../comp/setting-password"
+    "setting-password": "../../../comp/setting-password",
+    "ec-canvas": "../../../ec-canvas/ec-canvas"
   }
 }

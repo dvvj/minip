@@ -13,6 +13,7 @@
     "set-year-month-range": "../../../comp/set-year-month-range",
     "reffed-customer-infos": "../../../comp/reffed-customer-infos",
     "setting-password": "../../../comp/setting-password",
-    "waiting-toast": "../../../comp/waiting-toast"
+    "waiting-toast": "../../../comp/waiting-toast",
+    "ec-canvas": "../../../ec-canvas/ec-canvas"
   }
 }

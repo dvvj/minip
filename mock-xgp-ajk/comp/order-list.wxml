@@ -1,8 +1,8 @@
 <!--comp/order-list.wxml-->
 <scroll-view scroll-y class="main_height">
-  <block wx:for="{{orderList}}" wx:key="orderId">
+  <block wx:for="{{orderList}}" wx:key="orderId" wx:for-index="orderIndex">
     <van-cell-group>
-      <van-cell is-link url="../../mock/customer/order-detail">
+      <van-cell is-link url="../../prod/customer/order-detail" data-index="{{orderIndex}}" bind:click="onClick">
         <view>
           <text>{{item.actualCost}}</text>
           <view>

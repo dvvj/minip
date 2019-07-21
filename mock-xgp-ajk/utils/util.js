@@ -60,6 +60,7 @@ const promisify = original => {
 
 const userTokenKey = "userTokens"
 const userIdKey = "userId"
+const currOrderKey = "currOrder";
 
 let saveTokens = function (evt) {
 
@@ -103,9 +104,9 @@ let roundPriceArr = function (arr) {
   return arr.map(i => roundPrice(i))
 };
 
-//const webappBase = 'https://webapp.wonder4.life';
+const webappBase = 'https://webapp.wonder4.life';
 //const webappBase = 'https://47.98.232.21:8443';
-const webappBase = 'https://webapp.ajkhealth.com';
+//const webappBase = 'https://webapp.ajkhealth.com';
 const loginUrl = webappBase + '/wxlogin';
 const imgBaseUrl = webappBase + '/product';
 const customerBaseUrl = webappBase + '/customer';
@@ -191,6 +192,7 @@ module.exports = {
   roundPriceArr: roundPriceArr,
   getStoredTokens: getStoredTokens,
   userIdKey: userIdKey,
+  currOrderKey: currOrderKey,
   updateXAuth: updateXAuth,
   getMainPage: getMainPage,
   postJsonReqHeader: postJsonReqHeader,
@@ -199,5 +201,5 @@ module.exports = {
   setWePayezUrl: setWePayezUrl,
   getWePayezUrl: getWePayezUrl,
   requestWePayez, requestWePayez,
-  datasrc: 'mock-datasrc'
+  datasrc: 'datasrc'
 }

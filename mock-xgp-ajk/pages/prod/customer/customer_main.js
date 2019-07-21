@@ -128,56 +128,56 @@ Page({
     console.log(e.detail.current)
     this.updateActiveTab(e.detail.current)
   },
-  onBuy: function (e) {
-    let prodId = e.target.dataset.id
-    let prod = this.data.productDict[prodId]
-    console.log('prod: ', prod);
-    let tokens = 
-    util.promisify(wx.getStorage)({ key: "tokens" })
-      .then(res => {
-        let tokens = res.data
-        console.log('got tokens: ', tokens)
-        wx.request({
-          url: wxPayUrl,
-          data: {
-            productId: prodId,
-            info: prod.name,
-            totalAmount: 1
-          },
-          method: "POST",
-          header: {
-            'content-type': 'application/json',
-            'Authorization': 'Bearer ' + tokens.accessToken,
-            'X-Auth-Token': tokens.xauth
-          },
-          success: function (r2) {
-            console.log('r2: ', r2)
-            util.saveTokens(r2.header[util.xAuthHeader], tokens.accessToken);
-            wx.requestPayment({
-              'timeStamp': r2.data.timeStamp,
-              'nonceStr': r2.data.nonceStr,
-              'package': r2.data.package_,
-              'signType': 'MD5',
-              'paySign': r2.data.paySign,
-              success: function (r3) {
-                console.info('r3: ', r3)
-                //报名
-                //goApply(event, that)
-              },
-              fail: function (e3) {
-                console.info("e3: ", e3)
-              },
-              complete: function (c3) {
-                console.info("c3: ", c3)
-              }
-            })
-          },
-          fail: function (e2) {
-            console.info("e2: ", e2)
-          }
-        })
-      })
-  },
+  // onBuy: function (e) {
+  //   let prodId = e.target.dataset.id
+  //   let prod = this.data.productDict[prodId]
+  //   console.log('prod: ', prod);
+  //   let tokens = 
+  //   util.promisify(wx.getStorage)({ key: "tokens" })
+  //     .then(res => {
+  //       let tokens = res.data
+  //       console.log('got tokens: ', tokens)
+  //       wx.request({
+  //         url: wxPayUrl,
+  //         data: {
+  //           productId: prodId,
+  //           info: prod.name,
+  //           totalAmount: 1
+  //         },
+  //         method: "POST",
+  //         header: {
+  //           'content-type': 'application/json',
+  //           'Authorization': 'Bearer ' + tokens.accessToken,
+  //           'X-Auth-Token': tokens.xauth
+  //         },
+  //         success: function (r2) {
+  //           console.log('r2: ', r2)
+  //           util.saveTokens(r2.header[util.xAuthHeader], tokens.accessToken);
+  //           wx.requestPayment({
+  //             'timeStamp': r2.data.timeStamp,
+  //             'nonceStr': r2.data.nonceStr,
+  //             'package': r2.data.package_,
+  //             'signType': 'MD5',
+  //             'paySign': r2.data.paySign,
+  //             success: function (r3) {
+  //               console.info('r3: ', r3)
+  //               //报名
+  //               //goApply(event, that)
+  //             },
+  //             fail: function (e3) {
+  //               console.info("e3: ", e3)
+  //             },
+  //             complete: function (c3) {
+  //               console.info("c3: ", c3)
+  //             }
+  //           })
+  //         },
+  //         fail: function (e2) {
+  //           console.info("e2: ", e2)
+  //         }
+  //       })
+  //     })
+  // },
 
   yearMonthRange: function(startYM, endYM) {
     let yearMonthStart = `${startYM.year}-${startYM.month}`;
@@ -213,7 +213,9 @@ Page({
       let creationTime = order.order.creationTime
         .substring(0, 16)
         .replace('T', ' ');
-      return { actualCost, creationTime, productShortName};
+      let orderId = order.order.id;
+      let prodCount = order.order.qty;
+      return { orderId, actualCost, prodCount, creationTime, productShortName};
     })
   },
 

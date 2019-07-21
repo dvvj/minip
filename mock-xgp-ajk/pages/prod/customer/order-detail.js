@@ -1,4 +1,7 @@
 // pages/mock/customer/order-detail.js
+
+const util = require('../../../utils/util.js');
+
 Page({
 
   /**
@@ -12,7 +15,10 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
+    let currOrder = wx.getStorageSync(util.currOrderKey);
 
+    console.log('in order-detail', currOrder);
+    this.setData({currOrder})
   },
 
   /**

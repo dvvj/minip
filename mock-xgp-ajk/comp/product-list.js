@@ -28,8 +28,8 @@ Component({
     },
 
     updateProd: function (prodId, delta) {
-      let prod = this.data.productDict[prodId]
-      let productDict = this.data.productDict
+      let productDict = this.data.productDict;
+      let prod = productDict[prodId];
       prod.count += delta
       prod.totalPrice = util.roundPrice(prod.actualPrice * prod.count)
       // console.log('prod: ', prodDict[prodId])
@@ -78,13 +78,15 @@ Component({
       console.log('prod: ', prod);
       let tokens = util.getStoredTokens();
       let that = this;
-
+      let userid = wx.getStorageSync(util.userIdKey)
       wx.request({
         url: wePayezUrl,
         data: {
+          // customerId: userid,
           productId: prodId,
+          prodCount: prod.count,
           info: prod.name,
-          totalAmount: 3
+          totalCost: 3
         },
         method: "POST",
         header: util.postJsonReqHeader(tokens),

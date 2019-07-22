@@ -1,0 +1,30 @@
+<!--pages/prod/orgagent/orgagent_main.wxml-->
+<waiting-toast id="waitingToast" />
+
+<van-tabbar active="{{activeTabIndex}}" bind:change="onTabbarChange">
+  <van-tabbar-item icon="friends">客户列表</van-tabbar-item>
+  <van-tabbar-item icon="gold-coin">收益统计</van-tabbar-item>
+  <van-tabbar-item icon="add-square">新医生</van-tabbar-item>
+  <van-tabbar-item icon="setting" dot>设置</van-tabbar-item>
+</van-tabbar>
+
+<swiper current="{{activeTabIndex}}" class="main_height" duration="300" bindchange='onSwiperChange'>
+  <swiper-item>
+    <medprof-list id="medprofList" />
+  </swiper-item>
+  <swiper-item>
+    <set-year-month-range id="setYearMonthRange" bind:confirm="onConfirmYearMonthRange" />
+    <scroll-view scroll-y class="main_height">
+      <view class="canvas_container">
+        <!-- <canvas class="main_canvas" canvas-id="columnCanvas"></canvas> -->
+        <ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
+      </view>
+    </scroll-view>
+  </swiper-item>
+  <swiper-item>
+    <new-customer-profile id="newCustomerProfile" />
+  </swiper-item>
+  <swiper-item>
+    <setting-password id="settingPassword" />
+  </swiper-item>
+</swiper>

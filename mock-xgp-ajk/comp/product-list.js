@@ -50,6 +50,11 @@ Component({
       this.updateProd(prodId, -1)
     },
 
+    showWaitingToast: function (doShow, msg) {
+      let waitingToast = this.selectComponent('#waitingToast');
+      doShow ? waitingToast.show(msg) : waitingToast.clear();
+    },
+
     doPay: function(payInfo) {
       wx.requestPayment({
         'timeStamp': payInfo.timeStamp,
@@ -79,6 +84,8 @@ Component({
       let tokens = util.getStoredTokens();
       let that = this;
       let userid = wx.getStorageSync(util.userIdKey)
+
+      this.showWaitingToast(true, '支付准备中...');
       wx.request({
         url: wePayezUrl,
         data: {
@@ -98,6 +105,7 @@ Component({
           // wx.navigateTo({
           //   url: '../wepayez-pay',
           // });
+          that.showWaitingToast(false);
           that.doPay(payInfo);
         },
         fail: function (e2) {

@@ -3,5 +3,6 @@
   <van-cell title="订单号" value="{{currOrder.orderId}}" />
   <van-cell title="产品名" value="{{currOrder.productShortName}}" />
   <van-cell title="数量" value="{{currOrder.prodCount}}" />
-  <van-cell title="实付款" value="{{currOrder.actualCost}}" />
+  <van-cell title="价格" value="{{currOrder.actualCost}}" />
+  <van-cell title="状态" value="{{currOrder.status}}" />
 </van-cell-group>

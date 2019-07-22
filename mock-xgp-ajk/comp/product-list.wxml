@@ -1,4 +1,5 @@
 <!--comp/product-list.wxml-->
+<waiting-toast id="waitingToast" />
 <scroll-view scroll-y class="main_height">
   <block wx:for="{{products}}" wx:key="id">
     <van-card wx:if="{{item.hasDiscount}}"

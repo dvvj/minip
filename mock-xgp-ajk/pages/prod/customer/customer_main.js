@@ -215,7 +215,8 @@ Page({
         .replace('T', ' ');
       let orderId = order.order.id;
       let prodCount = order.order.qty;
-      return { orderId, actualCost, prodCount, creationTime, productShortName};
+      let status = order.order.payTime ? '已付款' : '未付款';
+      return { orderId, status, actualCost, prodCount, creationTime, productShortName};
     })
   },
 

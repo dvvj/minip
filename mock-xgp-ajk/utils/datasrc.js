@@ -13,6 +13,8 @@ const profitStatsUrl = util.medprofBaseUrl + '/profitStats4Wx';
 const newCustomerPreReqDataUrl = util.medprofBaseUrl + '/newCustomerPreReqData';
 const newCustomerAndProfileUrl = util.medprofBaseUrl + '/newCustomerAndProfile';
 
+const medprofListUrl = util.proforgagentBaseUrl + '/medprofList';
+
 const datasrc = {
   login: function(userid, password, cb) {
     util.promisify(wx.login)()
@@ -187,17 +189,17 @@ const datasrc = {
           console.log("pricePlans: ", pricePlans);
 
           let newCustomer = {
-            userid: 'c_newcustomer02',
-            password: '123',
-            password2: '123',
-            userName: 'x某',
+            userid: 'c_',
+            password: '123456',
+            password2: '123456',
+            userName: '张某',
             idCardNo: '310112197003113333',
             mobile: '137000333333',
             postAddr: '某省某市某区某路xx号 邮编111111'
           };
           let profile = {
-            healthTags: 'healthTags - newCustomer',
-            medicineTags: 'medicineTags - newCustomer'
+            healthTags: '糖尿病',
+            medicineTags: '板蓝根'
           };
           cb({ newCustomer, profile, products, pricePlans });
 
@@ -223,6 +225,72 @@ const datasrc = {
         .catch(function (reason) {
           console.log('createNewCustomerAndProfile failed, reason: ', reason)
         })
+    },
+    getExistingCustomerData: function(cb) {
+      console.log('[todo] getExistingCustomerData')
+      setTimeout(function () {
+        let existingCustomer = {
+          disabled: false,
+          loadingText: '',
+          userid: 'newcustomer02',
+          userName: 'x某',
+          idCardNo: '310112197003113333',
+          mobile: '137000333333',
+          profile: {
+            healthTags: '高血压',
+            medicineTags: '降压药'
+          },
+          products: [
+            { id: 1, name: 'Astaxin虾青素', enabled: true, checked: false },
+            { id: 2, name: 'ACO复合维生素', enabled: true, checked: false },
+            { id: 3, name: '辅酶Q10', enabled: false, checked: true }
+          ],
+          pricePlans: [
+            {
+              "id": "PrFixed-0.9",
+              "desc": "所有商品9折"
+            },
+            {
+              "id": "PrFixed-0.9_P112",
+              "desc": "所有商品95折"
+            },
+            {
+              "id": "PrFixed-0.95",
+              "desc": "所有商品95折"
+            },
+            {
+              "id": "PrProdBased-Advanced",
+              "desc": "【商品1】8折，【商品2】85折，其余9折"
+            },
+            {
+              "id": "PrProdBased-Basic",
+              "desc": "【商品1】9折，【商品2】85折，其余95折"
+            }
+          ]
+        };
+        cb(existingCustomer);
+      }, 1000);
+
+    }
+  },
+
+  orgagent: {
+    getMedProfs: (cb) => {
+      let that = this;
+      let tokens = util.getStoredTokens();
+
+      wx.request({
+        url: medprofListUrl,
+        method: "GET",
+        header: util.postJsonReqHeader(tokens),
+        success: function (medProfsRes) {
+          console.log('medProfsRes: ', medProfsRes)
+          cb(medProfsRes.data);
+        },
+        fail: function (e2) {
+          console.info("e2: ", e2)
+        }
+      })
     }
   },
 

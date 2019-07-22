@@ -111,6 +111,7 @@ const loginUrl = webappBase + '/wxlogin';
 const imgBaseUrl = webappBase + '/product';
 const customerBaseUrl = webappBase + '/customer';
 const medprofBaseUrl = webappBase + '/medprof';
+const proforgagentBaseUrl = webappBase + '/proforgagent';
 const xAuthHeader = 'X-Auth-Token';
 
 const wepayezReqTempl = "https://gateway.wepayez.com/pay/jsIntl?token_id=";
@@ -130,6 +131,7 @@ const prodPagesBase = '/pages/prod';
 const userType2MainPage = {
   Customer: prodPagesBase + '/customer/customer_main',
   MedProf: prodPagesBase + '/medprof/medprof_main',
+  ProfOrgAgent: prodPagesBase + '/orgagent/orgagent_main',
   ProfOrg: prodPagesBase + '/proforg/proforg_main',
 };
 
@@ -184,6 +186,7 @@ module.exports = {
   webappBase: webappBase,
   customerBaseUrl: customerBaseUrl,
   medprofBaseUrl: medprofBaseUrl,
+  proforgagentBaseUrl: proforgagentBaseUrl,
   loginUrl: loginUrl,
   imgBaseUrl: imgBaseUrl,
   saveTokens: saveTokens,

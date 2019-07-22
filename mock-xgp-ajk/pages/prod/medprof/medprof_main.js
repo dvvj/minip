@@ -61,10 +61,6 @@ Page({
   onTabbarChange: function (e) {
     console.log(e)
     let tabIndex = e.detail
-    // wx.showToast({
-    //   title: `切换到标签 ${tabIndex}`,
-    //   icon: 'none'
-    // });
     this.updateActiveTab(tabIndex)
   },
   onSwiperChange: function (e) {
@@ -81,7 +77,6 @@ Page({
         reffedCustomerInfos.initData(customerInfos)
       }
     );
-
   },
 
   updateTabContent: function(tabIndex) {

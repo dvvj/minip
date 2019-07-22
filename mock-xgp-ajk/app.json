@@ -14,7 +14,8 @@
     "pages/prod/medprof/medprof_main",
     "pages/prod/customer/order-detail",
     "pages/tmp/pay-webview",
-    "pages/prod/wepayez-pay"
+    "pages/prod/wepayez-pay",
+    "pages/prod/orgagent/orgagent_main"
   ],
   "window": {
     "backgroundTextStyle": "light",

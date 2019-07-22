@@ -54,11 +54,18 @@ Page({
     
   },
 
+  showWaitingToast: function (doShow, msg) {
+    let waitingToast = this.selectComponent('#waitingToast');
+    doShow ? waitingToast.show(msg) : waitingToast.clear();
+  },
+
   updateOrderList: function() {
+    let that = this;
     this.setYearMonthRange = this.selectComponent("#setYearMonthRange");
     this.setYearMonthRange.setEnd(this.data.yearMonthEnd);
     this.setYearMonthRange.setStart(this.data.yearMonthStart);
 
+    this.showWaitingToast(true, '加载数据中...');
     datasrc.customer.getOrderList(
       this.data.yearMonthStart,
       this.data.yearMonthEnd,
@@ -66,23 +73,28 @@ Page({
         let orders = this.trimOrderData(ordersRaw)
         let orderList = this.selectComponent("#orderList");
         orderList.initData(orders);
+        that.showWaitingToast(false);
       }
     );
 
   },
 
   updateSetting: function() {
+    let that = this;
     let settingCustomer = this.selectComponent("#settingCustomer");
+    this.showWaitingToast(true, '加载数据中...');
     datasrc.customer.getSetting(
       settingData => {
         console.log('[updateSettingTab]:', settingData);
         settingCustomer.initData(false, settingData);
+        that.showWaitingToast(false);
       }
     );
   },
 
   updateProductList: function() {
     let that = this;
+    this.showWaitingToast(true, '加载数据中...');
     datasrc.customer.getProductList(
       (isMock, resDataRaw) => {
         var products = resDataRaw.map(item => {
@@ -100,6 +112,7 @@ Page({
             count: 1,
             totalPrice: actualPrice
           }
+          that.showWaitingToast(false);
           return resDataItem;
         })
 
@@ -117,11 +130,11 @@ Page({
 
   },
   onTabbarChange: function (e) {
-    console.log(e)
-    wx.showToast({
-      title: `切换到标签 ${e.detail}`,
-      icon: 'none'
-    });
+    // console.log(e)
+    // wx.showToast({
+    //   title: `切换到标签 ${e.detail}`,
+    //   icon: 'none'
+    // });
     this.updateActiveTab(e.detail)
   },
   onSwiperChange: function (e) {

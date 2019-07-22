@@ -13,7 +13,7 @@
     <reffed-customer-infos id="reffedCustomerInfos" />
   </swiper-item>
   <swiper-item>
-    <set-year-month-range id="setYearMonthRange" />
+    <set-year-month-range id="setYearMonthRange" bind:confirm="onConfirmYearMonthRange" />
     <scroll-view scroll-y class="main_height">
       <view class="canvas_container">
         <!-- <canvas class="main_canvas" canvas-id="columnCanvas"></canvas> -->

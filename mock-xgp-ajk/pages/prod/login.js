@@ -9,7 +9,7 @@ Page({
    * Page initial data
    */
   data: {
-    userid: 'c_o1a1p1c1',
+    userid: 'p_o1a1p1',
     password: '123'
     // inProcess: false,
     // loadingText: ''
@@ -36,9 +36,9 @@ Page({
     datasrc.login(
       userid, password,
       resp => {
-        waitingToast.clear();
         let { success, msg } = resp;
         console.log('resp: ', resp);
+        waitingToast.clear();
         // this.setInProgress(false);
       }
     );

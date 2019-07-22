@@ -16,6 +16,7 @@
     "set-year-month-range": "../../../comp/set-year-month-range",
     "product-list": "../../../comp/product-list",
     "order-list": "../../../comp/order-list",
+    "waiting-toast": "../../../comp/waiting-toast",
     "setting-customer": "../../../comp/setting-customer"
   }
 }

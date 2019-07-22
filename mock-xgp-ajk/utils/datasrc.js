@@ -153,8 +153,7 @@ const datasrc = {
     getProfitStatsChartData: (startYearMonth, endYearMonth, cb) => {
       let that = this;
       let tokens = util.getStoredTokens();
-      console.log('[medprof::getProfitStatsChartData] got tokens: ', tokens)
-      console.log(`[medprof::getProfitStatsChartData] start ${startYearMonth} end ${endYearMonth}`);
+      console.log(`[medprof::getProfitStatsChartData] start ${startYearMonth} end ${endYearMonth}, tokens:`, tokens);
 
       wx.request({
         url: profitStatsUrl,

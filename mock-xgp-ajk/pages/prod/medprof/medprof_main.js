@@ -36,12 +36,12 @@ Page({
    */
   data: {
     activeTabIndex: 0,
-    startEnd4ProfitStats: {
-      startYear: 2019,
-      startMonth: 2,
-      endYear: 2019,
-      endMonth: 7
-    },
+    // startEnd4ProfitStats: {
+    //   startYear: 2019,
+    //   startMonth: 2,
+    //   endYear: 2019,
+    //   endMonth: 7
+    // },
     customerInfos: [],
 
     ec: {
@@ -158,20 +158,35 @@ Page({
     )
 
   },
+  yearMonthRange: function (startYM, endYM) {
+    let yearMonthStart = `${startYM.year}-${startYM.month}`;
+    let yearMonthEnd = `${endYM.year}-${endYM.month}`;
+
+    this.setData({
+      yearMonthStart,
+      yearMonthEnd
+    });
+  },
+
+  setYearMonthDefault: function () {
+    let { _startYM, _endYM } = util.getYearMonthDefault();
+    this.yearMonthRange(_startYM, _endYM);
+  },
 
   updateProfitStats: function () {
     let that = this;
-    let startYearMonth = `${this.data.startEnd4ProfitStats.startYear}-${this.data.startEnd4ProfitStats.startMonth}`;
-    let endYearMonth = `${this.data.startEnd4ProfitStats.endYear}-${this.data.startEnd4ProfitStats.endMonth}`;
+    // let startYearMonth = `${this.data.startEnd4ProfitStats.startYear}-${this.data.startEnd4ProfitStats.startMonth}`;
+    // let endYearMonth = `${this.data.startEnd4ProfitStats.endYear}-${this.data.startEnd4ProfitStats.endMonth}`;
+  
     this.showWaitingToast(true, '加载数据中...');
     datasrc.medprof.getProfitStatsChartData(
-      startYearMonth, endYearMonth,
+      this.data.yearMonthStart, this.data.yearMonthEnd,
       chartData => {
         //util.createChart(chartData);
         chart.setOption(
           echartData.medprofOptionFrom(chartData)
         );
-        this.showWaitingToast(false);
+        that.showWaitingToast(false);
         // new wxCharts({
         //   canvasId: 'columnCanvas',
         //   type: 'column',
@@ -195,7 +210,17 @@ Page({
     );
   },
 
+  onConfirmYearMonthRange: function (e) {
+    console.log('in onConfirmYearMonthRange', e);
+    let setYearMonthRange = this.selectComponent("#setYearMonthRange");
+    let range = setYearMonthRange.getSelection();
+    console.log('range: ', range);
+    this.yearMonthRange(range.start, range.end);
+    this.updateProfitStats();
+  },
+
   onLoad: function (options) {
+    this.setYearMonthDefault();
     this.updateTabContent(this.data.activeTabIndex);
   },
 

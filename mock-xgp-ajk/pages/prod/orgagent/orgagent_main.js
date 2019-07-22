@@ -57,6 +57,38 @@ Page({
       }
     );
   },
+
+  yearMonthRange: function (startYM, endYM) {
+    let yearMonthStart = `${startYM.year}-${startYM.month}`;
+    let yearMonthEnd = `${endYM.year}-${endYM.month}`;
+
+    this.setData({
+      yearMonthStart,
+      yearMonthEnd
+    });
+  },
+
+  setYearMonthDefault: function () {
+    let { _startYM, _endYM } = util.getYearMonthDefault();
+    this.yearMonthRange(_startYM, _endYM);
+  },
+  updateProfitStats: function () {
+    let that = this;
+
+    this.showWaitingToast(true, '加载数据中...');
+    datasrc.proforgagent.getProfitStatsChartData(
+      this.data.yearMonthStart, this.data.yearMonthEnd,
+      chartData => {
+        //util.createChart(chartData);
+        chart.setOption(
+          echartData.medprofOptionFrom(chartData)
+        );
+        that.showWaitingToast(false);
+      }
+    );
+  },
+
+
   /**
    * Lifecycle function--Called when page load
    */

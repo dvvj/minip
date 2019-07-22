@@ -170,8 +170,6 @@ Page({
 
   updateProfitStats: function () {
     let that = this;
-    // let startYearMonth = `${this.data.startEnd4ProfitStats.startYear}-${this.data.startEnd4ProfitStats.startMonth}`;
-    // let endYearMonth = `${this.data.startEnd4ProfitStats.endYear}-${this.data.startEnd4ProfitStats.endMonth}`;
   
     this.showWaitingToast(true, '加载数据中...');
     datasrc.medprof.getProfitStatsChartData(

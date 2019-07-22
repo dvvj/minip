@@ -8,7 +8,8 @@ const wxPayUrl = util.webappBase + '/wx/payReq';
 const sessionTestUrl = util.webappBase + '/sessionTest';
 
 const reffedCustomersUrl = util.webappBase + '/medprof/reffedCustomerInfos'
-const profitStatsUrl = util.medprofBaseUrl + '/profitStats4Wx';
+const medprofProfitStatsUrl = util.medprofBaseUrl + '/profitStats4Wx';
+const proforgAgentprofitStatsUrl = util.proforgagentBaseUrl + '/profitStats4Wx';
 
 const newCustomerPreReqDataUrl = util.medprofBaseUrl + '/newCustomerPreReqData';
 const newCustomerAndProfileUrl = util.medprofBaseUrl + '/newCustomerAndProfile';
@@ -158,7 +159,7 @@ const datasrc = {
       console.log(`[medprof::getProfitStatsChartData] start ${startYearMonth} end ${endYearMonth}, tokens:`, tokens);
 
       wx.request({
-        url: profitStatsUrl,
+        url: medprofProfitStatsUrl,
         data: { startYearMonth, endYearMonth },
         method: "POST",
         header: util.postJsonReqHeader(tokens),
@@ -291,7 +292,28 @@ const datasrc = {
           console.info("e2: ", e2)
         }
       })
-    }
+    },
+
+    getProfitStatsChartData: (startYearMonth, endYearMonth, cb) => {
+      let that = this;
+      let tokens = util.getStoredTokens();
+      console.log(`[orgagent::getProfitStatsChartData] start ${startYearMonth} end ${endYearMonth}, tokens:`, tokens);
+
+      wx.request({
+        url: proforgAgentprofitStatsUrl,
+        data: { startYearMonth, endYearMonth },
+        method: "POST",
+        header: util.postJsonReqHeader(tokens),
+        success: function (reqRes) {
+          console.log('orgagent::getProfitStatsChartData res: ', reqRes)
+          cb(reqRes.data);
+        },
+        fail: function (e2) {
+          console.info("e2: ", e2)
+        }
+      })
+
+    },
   },
 
   proforg: {

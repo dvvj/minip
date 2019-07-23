@@ -2,3 +2,25 @@
 .main_height {
   height:1080rpx
 }
+
+.canvas_container {
+  width: 720rpx;
+  height: 900rpx;
+
+  padding: 50rpx 0rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.main_canvas {
+  width: 800rpx;
+  height: 800rpx;
+}
+
+ec-canvas {
+  width: 100%;
+  height: 100%;
+}

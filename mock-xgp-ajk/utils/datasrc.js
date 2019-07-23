@@ -275,7 +275,7 @@ const datasrc = {
     }
   },
 
-  orgagent: {
+  proforgagent: {
     getMedProfs: (cb) => {
       let that = this;
       let tokens = util.getStoredTokens();
@@ -286,6 +286,7 @@ const datasrc = {
         header: util.postJsonReqHeader(tokens),
         success: function (medProfsRes) {
           console.log('medProfsRes: ', medProfsRes)
+          util.updateXAuth(medProfsRes.header[util.xAuthHeader]);
           cb(medProfsRes.data);
         },
         fail: function (e2) {
@@ -306,6 +307,7 @@ const datasrc = {
         header: util.postJsonReqHeader(tokens),
         success: function (reqRes) {
           console.log('orgagent::getProfitStatsChartData res: ', reqRes)
+          util.updateXAuth(reqRes.header[util.xAuthHeader]);
           cb(reqRes.data);
         },
         fail: function (e2) {

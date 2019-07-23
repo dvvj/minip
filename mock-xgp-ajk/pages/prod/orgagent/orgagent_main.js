@@ -10,6 +10,22 @@ const tabIndices = {
   setting: 3
 };
 
+import * as echarts from '../../../ec-canvas/echarts';
+
+var chart = null;
+function initChart(canvas, width, height) {
+  chart = echarts.init(canvas, null, {
+    width: width,
+    height: height
+  });
+  canvas.setChart(chart);
+
+  var option = echartData.medprofEmptyOption;
+
+  chart.setOption(option);
+  return chart;
+};
+
 Page({
 
   /**
@@ -17,7 +33,9 @@ Page({
    */
   data: {
     activeTabIndex: 0,
-
+    ec: {
+      onInit: initChart
+    }
   },
   onTabbarChange: function (e) {
     console.log(e)
@@ -28,7 +46,11 @@ Page({
     this.updateTabContent(tabIndex);
     this.setData({ activeTabIndex: tabIndex });
   },
-
+  onSwiperChange: function (e) {
+    let tabIndex = e.detail.current
+    console.log(tabIndex)
+    this.updateActiveTab(tabIndex)
+  },
   updateTabContent: function (tabIndex) {
 
     if (tabIndex == tabIndices.medprofInfos) {
@@ -49,7 +71,7 @@ Page({
   updateMedProfs: function () {
     let that = this;
     console.log('in updateMedProfs');
-    datasrc.orgagent.getMedProfs(
+    datasrc.proforgagent.getMedProfs(
       medprofs => {
         console.log('in updateMedProfs, ', medprofs);
         let medprofList = that.selectComponent("#medprofList");
@@ -72,6 +94,12 @@ Page({
     let { _startYM, _endYM } = util.getYearMonthDefault();
     this.yearMonthRange(_startYM, _endYM);
   },
+
+  showWaitingToast: function (doShow, msg) {
+    let waitingToast = this.selectComponent('#waitingToast');
+    doShow ? waitingToast.show(msg) : waitingToast.clear();
+  },
+
   updateProfitStats: function () {
     let that = this;
 
@@ -89,10 +117,19 @@ Page({
   },
 
 
+  onConfirmYearMonthRange: function (e) {
+    console.log('in onConfirmYearMonthRange', e);
+    let setYearMonthRange = this.selectComponent("#setYearMonthRange");
+    let range = setYearMonthRange.getSelection();
+    console.log('range: ', range);
+    this.yearMonthRange(range.start, range.end);
+    this.updateProfitStats();
+  },
   /**
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
+    this.setYearMonthDefault();
     this.updateActiveTab(this.data.activeTabIndex);
   },
 

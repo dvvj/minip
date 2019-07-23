@@ -138,7 +138,7 @@ Page({
 
   updateNewCustomerProfile: function() {
     let newCustomerProfile = this.selectComponent("#newCustomerProfile");
-    console.log(newCustomerProfile);
+    //console.log(newCustomerProfile);
     this.showWaitingToast(true, '加载数据中...');
     datasrc.medprof.getNewCustomerData(
       newCustomerData => {

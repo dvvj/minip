@@ -15,6 +15,7 @@ const newCustomerPreReqDataUrl = util.medprofBaseUrl + '/newCustomerPreReqData';
 const newCustomerAndProfileUrl = util.medprofBaseUrl + '/newCustomerAndProfile';
 
 const medprofListUrl = util.proforgagentBaseUrl + '/medprofList';
+const newMedProfPreReqDataUrl = util.proforgagentBaseUrl + '/newMedProfPreReqData';
 
 const datasrc = {
   login: function(userid, password, cb) {
@@ -316,6 +317,37 @@ const datasrc = {
       })
 
     },
+
+    getNewMedProfData: (cb) => {
+      let tokens = util.getStoredTokens();
+      util.promisify(wx.request)
+        ({
+          url: newMedProfPreReqDataUrl,
+          method: 'GET',
+          header: util.getJsonReqHeader(tokens),
+        }).then(res => {
+          console.log('newMedProfPreReqData:', res);
+          util.updateXAuth(res.header[util.xAuthHeader]);
+
+          let rewardPlans = res.data.rewardPlans;
+          console.log("reward plans: ", rewardPlans);
+
+          let newMedProf = {
+            userid: 'p_',
+            password: '123456',
+            password2: '123456',
+            name: '张某',
+            idCardNo: '310112197003113333',
+            mobile: '137000333333',
+            info: '脑,心血管'
+          };
+
+          cb({ newMedProf, rewardPlans });
+
+          //return res.data;
+        })
+    },
+
   },
 
   proforg: {

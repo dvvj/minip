@@ -115,7 +115,25 @@ Page({
       }
     );
   },
+  showWaitingToast: function (doShow, msg) {
+    let waitingToast = this.selectComponent('#waitingToast');
+    doShow ? waitingToast.show(msg) : waitingToast.clear();
+  },
+  updateNewMedProf: function () {
+    let newMedProf = this.selectComponent("#newMedProf");
+    console.log(newMedProf);
+    this.showWaitingToast(true, '加载数据中...');
+    datasrc.proforgagent.getNewMedProfData(
+      newMedProfData => {
+        console.log(newMedProfData);
+        newMedProf.initData(
+          newMedProfData
+        );
+        this.showWaitingToast(false);
+      }
+    )
 
+  },
 
   onConfirmYearMonthRange: function (e) {
     console.log('in onConfirmYearMonthRange', e);

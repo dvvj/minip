@@ -9,7 +9,7 @@
     label="用户ID"
     icon="question-o"
     placeholder="请输入用户ID"
-    error-message="{{ errorMsgs.userid }}"
+    error-message="{{ errorMsgs.profid }}"
     bind:click-icon="onClickIcon"
     bind:input="onInputUserId"
   />
@@ -42,7 +42,7 @@
     label="姓名"
     icon="question-o"
     placeholder="请输入姓名，必须与身份证一致"
-    error-message="{{ errorMsgs.userName }}"
+    error-message="{{ errorMsgs.name }}"
     bind:click-icon="onClickIcon"
     bind:input="onInputUserName"
   />
@@ -83,5 +83,12 @@
     bind:input="onInputInfo"
   />
 
-  <van-button type="primary" size="large" bind:click="onNextStep">下一步 {{">>"}}</van-button>
+  <van-cell title="奖励套餐："/>
+  <van-picker
+    columns="{{ rewardPlanInfos }}"
+    visible-item-count="2"
+    item-height="40"
+    bind:change="onRewardPlanChange" />
+
+  <van-button type="primary" size="large" bind:click="onAddMedProf">添加</van-button>
 </van-cell-group>

@@ -6,24 +6,35 @@ const checkRegex = function (input, regex) {
   else return '';
 };
 
+const uidChecker = function(input, prefix, checkerObj) {
+  var err = '';
+  if (input) {
+    if (!input.startsWith(prefix)) {
+      err = checkerObj.errorMsg;
+    }
+    else {
+      let rem = input.substring(2);
+      err = checkRegex(rem, checkerObj);
+    }
+  }
+  else {
+    err = checkerObj.errorMsg;
+  }
+  return err;
+}
 const userid = {
   pattern: /^[a-zA-Z][\da-zA-Z]*$/,
   errorMsg: '用户id必须以c_作为前缀，主体部分必须以字母为首，其余部分只能使用数字或者字母',
   check: function(input) {
-    var err = '';
-    if (input) {
-      if (!input.startsWith('c_')) {
-        err = "用户id必须以'c_'开头";
-      }
-      else {
-        let rem = input.substring(2);
-        err = checkRegex(rem, this);
-      }
-    }
-    else {
-      err = '用户id不能为空';
-    }
-    return err;
+    return uidChecker(input, 'c_', this);
+  }
+};
+
+const profid = {
+  pattern: /^[a-zA-Z][\da-zA-Z]*$/,
+  errorMsg: '营养师id必须以p_作为前缀，主体部分必须以字母为首，其余部分只能使用数字或者字母',
+  check: function (input) {
+    return uidChecker(input, 'p_', this);
   }
 };
 
@@ -35,13 +46,17 @@ const password = {
   }
 };
 
-const userName = {
-  pattern: /^.{2,4}$/,
-  errorMsg: '用户名为2-4个字符',
-  check: function (input) {
-    return checkRegex(input, this);
+const genRegexChecker = function(pattern, errorMsg) {
+  return {
+    pattern, errorMsg,
+    check: function (input) {
+      return checkRegex(input, this);
+    }
   }
-};
+}
+
+const userName = genRegexChecker(/^.{2,4}$/, '用户名为2-4个字符');
+const name = genRegexChecker(/^.{2,4}$/, '用户名为2-4个字符');
 
 const idCardNo = {
   pattern: /(^\d{15}$)|(^\d{17}(\d|X)$)/,
@@ -71,8 +86,10 @@ const postAddr = {
 
 module.exports = {
   userid,
+  profid,
   password,
   userName,
+  name,
   idCardNo,
   mobile,
   postAddr

@@ -333,7 +333,7 @@ const datasrc = {
           console.log("reward plans: ", rewardPlans);
 
           let newMedProf = {
-            userid: 'p_',
+            profid: 'p_',
             password: '123456',
             password2: '123456',
             name: '张某',

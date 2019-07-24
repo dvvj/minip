@@ -38,6 +38,14 @@ const profid = {
   }
 };
 
+const agentid = {
+  pattern: /^[a-zA-Z][\da-zA-Z]*$/,
+  errorMsg: '业务员id必须以a_作为前缀，主体部分必须以字母为首，其余部分只能使用数字或者字母',
+  check: function (input) {
+    return uidChecker(input, 'a_', this);
+  }
+};
+
 const password = {
   pattern: /^.{3,}$/,
   errorMsg: '密码至少3位',
@@ -73,6 +81,7 @@ const info = genRegexChecker(/^.{5,}$/, '最多可以输入255个字符');
 module.exports = {
   userid,
   profid,
+  agentid,
   password,
   userName,
   name,

@@ -1,4 +1,4 @@
-// comp/new-medprof.js
+// comp/new-proforgagent.js
 const util = require('../utils/util.js');
 const inputCheck = require('../utils/input-check.js');
 const datasrc = require('../utils/' + util.datasrc).datasrc;
@@ -15,7 +15,7 @@ Component({
    * Component initial data
    */
   data: {
-    newMedProf: {},
+    newProfOrgAgent: {},
     errorMsgs: {},
     rewardPlans: [],
     rewardPlanInfos: []
@@ -29,45 +29,14 @@ Component({
       let waitingToast = this.selectComponent('#waitingToast');
       doShow ? waitingToast.show(msg) : waitingToast.clear();
     },
-
-    initData: function (newMedProfData) {
-      console.log('newMedProfData', newMedProfData);
-      let { newMedProf, rewardPlans } = newMedProfData;
+    initData: function (newProfOrgAgentData) {
+      console.log('newProfOrgAgentData', newProfOrgAgentData);
+      let { newProfOrgAgent, rewardPlans } = newProfOrgAgentData;
       let rewardPlanInfos = rewardPlans.map(p => p.info);
       let selectedRewardPlan = rewardPlans[0];
       this.setData({
-        newMedProf, rewardPlans, rewardPlanInfos, selectedRewardPlan
+        newProfOrgAgent, rewardPlans, rewardPlanInfos, selectedRewardPlan
       });
-    },
-
-    fixMedProf: function(medprof, agentId) {
-      return {
-        uid: medprof.profid,
-        name: medprof.name,
-        info: medprof.info,
-        passHash: medprof.password,
-        idCardNo: medprof.idCardNo,
-        mobile: medprof.mobile,
-        orgAgentId: agentId
-      }
-    },
-    onAddMedProf: function(e) {
-      let that = this;
-      let userid = util.getUserId();
-      console.log('onAddMedProf: agentid: ', userid);
-      let newMedProfReq = {
-        medprof: this.fixMedProf(this.data.newMedProf, userid),
-        rewardPlanId: this.data.selectedRewardPlan.id
-      };
-      this.showWaitingToast(true, '添加操作中...');
-      datasrc.proforgagent.createNewMedProf(
-        newMedProfReq,
-        respData => {
-          console.log('respData', respData);
-          let { success, msg } = respData;
-          that.showWaitingToast(false);
-        }
-      )
     },
     onRewardPlanChange: function (e) {
       const { picker, value, index } = e.detail;
@@ -76,10 +45,10 @@ Component({
       this.setData({ selectedRewardPlan });
     },
 
-    updateNewMedProf: function (field, e) {
-      var t = this.data.newMedProf;
+    updateNewProfOrgAgent: function (field, e) {
+      var t = this.data.newProfOrgAgent;
       t[field] = e.detail;
-      this.setData({ newMedProf: t });
+      this.setData({ newProfOrgAgent: t });
     },
     updateErrorMsg: function (field, msg) {
       let errorMsgs = this.data.errorMsgs;
@@ -87,17 +56,16 @@ Component({
       console.log('errorMsgs', errorMsgs);
       this.setData({ errorMsgs });
     },
-
     checkAndUpdateInput: function (field, checker, e) {
       let input = e.detail;
-      this.updateNewMedProf(field, e)
+      this.updateNewProfOrgAgent(field, e)
       let err = checker.check(input);
       this.updateErrorMsg(field, err);
     },
     onInputUserId: function (e) {
       this.checkAndUpdateInput(
-        "profid",
-        inputCheck.profid,
+        "agentid",
+        inputCheck.agentid,
         e
       );
     },
@@ -109,7 +77,7 @@ Component({
       );
     },
     onInputPassword2: function (e) {
-      this.updateNewCustomer("password2", e)
+      this.updateNewProfOrgAgent("password2", e)
     },
     onInputUserName: function (e) {
       this.checkAndUpdateInput(
@@ -139,5 +107,6 @@ Component({
         e
       );
     },
+
   }
 })

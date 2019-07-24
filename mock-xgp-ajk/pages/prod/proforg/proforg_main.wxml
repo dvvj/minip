@@ -1,7 +1,10 @@
 <!--pages/mock/proforg/proforg_main.wxml-->
+<waiting-toast id="waitingToast" />
+
 <van-tabbar active="{{activeTabIndex}}" bind:change="onTabbarChange">
   <van-tabbar-item icon="friends">业务员列表</van-tabbar-item>
   <van-tabbar-item icon="gold-coin">收益统计</van-tabbar-item>
+  <van-tabbar-item icon="add-square">新增业务员</van-tabbar-item>
   <van-tabbar-item icon="setting" dot>设置</van-tabbar-item>
 </van-tabbar>
 
@@ -18,25 +21,9 @@
         <ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
       </view>
     </scroll-view>
-    <!-- <van-cell-group>
-      <van-cell>
-        <view slot="title">
-          <view>
-            <van-button plain size="normal" type="danger" bind:click='onSetYearMonth'>
-              {{ profitStatsStart.year }}年{{ profitStatsStart.month }}月 到 {{ profitStatsEnd.year }}年{{ profitStatsEnd.month }}月
-            </van-button>
-          </view>
-        </view>
-      </van-cell>
-    </van-cell-group>
-    <van-dialog id="van-dialog"
-      bind:confirm="onDlgConfirm"
-      use-slot>
-      <year-month-range id='yearMonthRange'
-        start='{{yearMonthStart}}'
-        end='{{yearMonthEnd}}'
-      />
-    </van-dialog> -->
+  </swiper-item>
+  <swiper-item>
+    <new-proforgagent id="newProfOrgAgent" />
   </swiper-item>
   <swiper-item>
     <setting-password id="settingPassword" />

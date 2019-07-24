@@ -13,6 +13,8 @@
     "van-tabs": "../../../vant-lib/tabs/index",
     "set-year-month-range": "../../../comp/set-year-month-range",
     "setting-password": "../../../comp/setting-password",
+    "new-proforgagent": "../../../comp/new-proforgagent",
+    "waiting-toast": "../../../comp/waiting-toast",
     "proforgagent-list": "../../../comp/proforgagent-list",
     "ec-canvas": "../../../ec-canvas/ec-canvas"
   }

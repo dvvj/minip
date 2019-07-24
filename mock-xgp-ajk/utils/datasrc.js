@@ -20,6 +20,7 @@ const newMedProfUrl = util.proforgagentBaseUrl + '/newMedProf';
 
 const profOrgAgentListUrl = util.proforgBaseUrl + '/proforgagentList';
 const profOrgProfitStatsUrl = util.proforgBaseUrl + '/profitStats4Wx';
+const newProfOrgAgentPreReqDataUrl = util.proforgBaseUrl + '/newrofOrgAgentPreReqData';
 
 const datasrc = {
   login: function(userid, password, cb) {
@@ -414,6 +415,36 @@ const datasrc = {
         }
       })
 
+    },
+
+    getNewProfOrgAgentData: function(cb) {
+      let tokens = util.getStoredTokens();
+      util.promisify(wx.request)
+        ({
+          url: newProfOrgAgentPreReqDataUrl,
+          method: 'GET',
+          header: util.getJsonReqHeader(tokens),
+        }).then(res => {
+          console.log('getNewProfOrgAgentData:', res);
+          util.updateXAuth(res.header[util.xAuthHeader]);
+
+          let rewardPlans = res.data.rewardPlans;
+          console.log("reward plans: ", rewardPlans);
+
+          let newProfOrgAgent = {
+            agentid: 'a_',
+            password: '123',
+            password2: '123',
+            name: '张某',
+            idCardNo: '310112197003113333',
+            mobile: '137000333333',
+            info: '业务员信息'
+          };
+
+          cb({ newProfOrgAgent, rewardPlans });
+
+          //return res.data;
+        })
     }
   }
 

@@ -9,7 +9,8 @@ const datasrc = require('../../../utils/' + util.datasrc).datasrc;
 const tabIndices = {
   proforgAgentList: 0,
   profitStats: 1,
-  setting: 2
+  addProfOrgAgent: 2,
+  setting: 3
 };
 
 import * as echarts from '../../../ec-canvas/echarts';
@@ -74,6 +75,10 @@ Page({
       console.log('updateProfitStats');
       this.updateProfitStats();
     }
+    else if (tabIndex == tabIndices.addProfOrgAgent) {
+      console.log('updateAddProfOrgAgent');
+      this.updateAddProfOrgAgent();
+    }
     else if (tabIndex == tabIndices.setting) {
       this.updateSetting();
     }
@@ -89,6 +94,24 @@ Page({
       password: '123',
       password2: '123',
     })
+  },
+  showWaitingToast: function (doShow, msg) {
+    let waitingToast = this.selectComponent('#waitingToast');
+    doShow ? waitingToast.show(msg) : waitingToast.clear();
+  },
+  updateAddProfOrgAgent: function() {
+    let newProfOrgAgent = this.selectComponent("#newProfOrgAgent");
+    console.log(newProfOrgAgent);
+    this.showWaitingToast(true, '加载数据中...');
+    datasrc.proforg.getNewProfOrgAgentData(
+      newAgentData => {
+        console.log(newAgentData);
+        newProfOrgAgent.initData(
+          newAgentData
+        );
+        this.showWaitingToast(false);
+      }
+    )
   },
 
   updateProfOrgAgentList: function() {

@@ -9,7 +9,7 @@ Page({
    * Page initial data
    */
   data: {
-    userid: 'a_o1a1',
+    userid: 'o_o1',
     password: '123'
     // inProcess: false,
     // loadingText: ''

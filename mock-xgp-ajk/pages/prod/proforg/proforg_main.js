@@ -7,8 +7,9 @@ const util = require('../../../utils/util.js')
 const datasrc = require('../../../utils/' + util.datasrc).datasrc;
 
 const tabIndices = {
-  profitStats: 0,
-  setting: 1
+  proforgAgentList: 0,
+  profitStats: 1,
+  setting: 2
 };
 
 import * as echarts from '../../../ec-canvas/echarts';
@@ -66,7 +67,10 @@ Page({
   },
 
   updateTabContent: function(tabIndex) {
-    if (tabIndex == tabIndices.profitStats) {
+    if (tabIndex == tabIndices.proforgAgentList) {
+      this.updateProfOrgAgentList();
+    }
+    else if (tabIndex == tabIndices.profitStats) {
       console.log('updateProfitStats');
       this.updateProfitStats();
     }
@@ -85,6 +89,35 @@ Page({
       password: '123',
       password2: '123',
     })
+  },
+
+  updateProfOrgAgentList: function() {
+    let that = this;
+    console.log('in updateProfOrgAgentList');
+    datasrc.proforg.getProfOrgAgentList(
+      agents => {
+        console.log('in updateMedProfs, ', agents);
+        let proforgagentList = that.selectComponent("#proforgagentList");
+        proforgagentList.initData(agents)
+      }
+    );
+  },
+  yearMonthRange: function (startYM, endYM) {
+    let yearMonthStart = `${startYM.year}-${startYM.month}`;
+    let yearMonthEnd = `${endYM.year}-${endYM.month}`;
+
+    this.setData({
+      yearMonthStart,
+      yearMonthEnd
+    });
+  },
+  onConfirmYearMonthRange: function (e) {
+    console.log('in onConfirmYearMonthRange', e);
+    let setYearMonthRange = this.selectComponent("#setYearMonthRange");
+    let range = setYearMonthRange.getSelection();
+    console.log('range: ', range);
+    this.yearMonthRange(range.start, range.end);
+    this.updateProfitStats();
   },
 
   updateProfitStats: function() {

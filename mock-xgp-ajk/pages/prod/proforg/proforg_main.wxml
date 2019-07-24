@@ -1,13 +1,17 @@
 <!--pages/mock/proforg/proforg_main.wxml-->
 <van-tabbar active="{{activeTabIndex}}" bind:change="onTabbarChange">
+  <van-tabbar-item icon="friends">业务员列表</van-tabbar-item>
   <van-tabbar-item icon="gold-coin">收益统计</van-tabbar-item>
   <van-tabbar-item icon="setting" dot>设置</van-tabbar-item>
 </van-tabbar>
 
 <swiper current="{{activeTabIndex}}" class="main_height" duration="300" bindchange='onSwiperChange'>
   <swiper-item>
+    <proforgagent-list id="proforgagentList" />
+  </swiper-item>
+  <swiper-item>
     <!-- <include src="../shared/page-parts/profit-stats.wxml"/> -->
-    <set-year-month-range id="setYearMonthRange" />
+    <set-year-month-range id="setYearMonthRange" bind:confirm="onConfirmYearMonthRange" />
     <scroll-view scroll-y class="main_height">
       <view class="canvas_container">
         <!-- <canvas class="main_canvas" canvas-id="columnCanvas"></canvas> -->

@@ -1,0 +1,24 @@
+<!--comp/proforgagent-list.wxml-->
+<scroll-view scroll-y class="main_height">
+  <block wx:for="{{proforgagents}}" wx:key="agentId">
+    <van-cell-group>
+      <!-- <van-cell is-link url="../../customer/reffed-order-stats"> -->
+      <van-cell>
+        <view>
+          <view class="van-cell-text">
+            <text>{{item.mobile}}</text>
+          </view>
+        </view>
+        <view slot="title">
+          <view class="van-cell-text">
+            <text>{{item.name}}</text>
+          </view>
+          <view class="van-cell-text">
+            <van-tag round type="success">{{item.info}}</van-tag>
+          </view>
+        </view>
+      </van-cell>
+    </van-cell-group>
+  </block>
+</scroll-view>
+

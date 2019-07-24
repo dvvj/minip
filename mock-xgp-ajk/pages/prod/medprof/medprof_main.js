@@ -54,6 +54,10 @@ Page({
     Toast('请输入用户唯一标识ID');
   },
 
+  onGotoAddNewCustomer: function() {
+    this.updateActiveTab(tabIndices.newCustomerProfile);
+  },
+
   updateActiveTab: function (tabIndex) {
     this.updateTabContent(tabIndex);
     this.setData({ activeTabIndex: tabIndex });

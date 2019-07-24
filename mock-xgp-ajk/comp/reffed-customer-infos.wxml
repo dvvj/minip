@@ -1,5 +1,20 @@
 <!--comp/reffed-customer-infos.wxml-->
 <scroll-view scroll-y class="main_height">
+  <van-cell-group>
+    <van-cell>
+      <view slot="title">
+        <text style='font-size:40rpx;font-weight:bold;'>客户列表</text>
+      </view>
+    </van-cell>
+    <van-cell wx:if="{{customerInfos.length == 0}}">
+      <view slot="title">
+        <view><text>客户列表为空</text></view>
+        <view>
+          <van-button size="small" type="primary" bind:click='onAddNewCustomerClicked'>添加新客户</van-button>
+        </view>
+      </view>
+    </van-cell>
+  </van-cell-group>
   <block wx:for="{{customerInfos}}" wx:key="profileId">
     <van-cell-group>
       <van-cell is-link url="../../customer/reffed-order-stats">

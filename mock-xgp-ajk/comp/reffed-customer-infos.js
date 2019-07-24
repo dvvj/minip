@@ -20,6 +20,11 @@ Component({
   methods: {
     initData: function(customerInfos) {
       this.setData({ customerInfos });
+    },
+
+    onAddNewCustomerClicked: function(e) {
+      console.log('onAddNewCustomerClicked, triggering event gotoAddNewCustomer');
+      this.triggerEvent('gotoAddNewCustomer');
     }
   }
 })

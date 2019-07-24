@@ -335,8 +335,8 @@ const datasrc = {
 
           let newMedProf = {
             profid: 'p_',
-            password: '123456',
-            password2: '123456',
+            password: '123',
+            password2: '123',
             name: '张某',
             idCardNo: '310112197003113333',
             mobile: '137000333333',

@@ -107,6 +107,33 @@ Component({
         e
       );
     },
-
+    fixProfOrgAgent: function (agent, orgId) {
+      return {
+        uid: agent.agentid,
+        name: agent.name,
+        info: agent.info,
+        passHash: agent.password,
+        phone: agent.mobile,
+        orgId: orgId
+      }
+    },
+    onAddProfOrgAgent: function(e) {
+      let that = this;
+      let orgId = util.getUserId();
+      console.log('onAddProfOrgAgent: orgId: ', orgId);
+      let newProfOrgAgentReq = {
+        profOrgAgent: this.fixProfOrgAgent(this.data.newProfOrgAgent, orgId),
+        rewardPlanId: this.data.selectedRewardPlan.id
+      };
+      this.showWaitingToast(true, '添加操作中...');
+      datasrc.proforg.createNewProfOrgAgent(
+        newProfOrgAgentReq,
+        respData => {
+          console.log('respData', respData);
+          let { success, msg } = respData;
+          that.showWaitingToast(false);
+        }
+      )
+    }
   }
 })

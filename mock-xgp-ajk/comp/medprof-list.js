@@ -20,6 +20,11 @@ Component({
   methods: {
     initData: function (medprofs) {
       this.setData({ medprofs });
+    },
+
+    onAddNewMedProfClicked: function(e) {
+      console.log('onAddNewMedProfClicked, triggering event gotoAddNewMedProf');
+      this.triggerEvent('gotoAddNewMedProf');
     }
   }
 })

@@ -135,6 +135,10 @@ Page({
 
   },
 
+  onGotoAddNewMedProf: function() {
+    this.updateActiveTab(tabIndices.newMedProf);
+  },
+
   onConfirmYearMonthRange: function (e) {
     console.log('in onConfirmYearMonthRange', e);
     let setYearMonthRange = this.selectComponent("#setYearMonthRange");

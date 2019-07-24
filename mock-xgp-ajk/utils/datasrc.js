@@ -20,7 +20,8 @@ const newMedProfUrl = util.proforgagentBaseUrl + '/newMedProf';
 
 const profOrgAgentListUrl = util.proforgBaseUrl + '/proforgagentList';
 const profOrgProfitStatsUrl = util.proforgBaseUrl + '/profitStats4Wx';
-const newProfOrgAgentPreReqDataUrl = util.proforgBaseUrl + '/newrofOrgAgentPreReqData';
+const newProfOrgAgentPreReqDataUrl = util.proforgBaseUrl + '/newProfOrgAgentPreReqData';
+const newProfOrgAgentUrl = util.proforgBaseUrl + '/newProfOrgAgent';
 
 const datasrc = {
   login: function(userid, password, cb) {
@@ -436,7 +437,6 @@ const datasrc = {
             password: '123',
             password2: '123',
             name: '张某',
-            idCardNo: '310112197003113333',
             mobile: '137000333333',
             info: '业务员信息'
           };
@@ -445,6 +445,27 @@ const datasrc = {
 
           //return res.data;
         })
+    },
+    createNewProfOrgAgent: function (newProfOrgAgent, cb) {
+      let tokens = util.getStoredTokens();
+      console.log('newProfOrgAgent', newProfOrgAgent);
+      util.promisify(wx.request)
+        ({
+          url: newProfOrgAgentUrl,
+          method: 'POST',
+          data: newProfOrgAgent,
+          header: util.postJsonReqHeader(tokens),
+        }).then(res => {
+          console.log('createNewProfOrgAgent:', res);
+          util.updateXAuth(res.header[util.xAuthHeader]);
+          let success = res.statusCode == 200;
+          let msg = res.data;
+          cb({ success, msg });
+        })
+        .catch(function (reason) {
+          console.log('createNewProfOrgAgent failed, reason: ', reason)
+        })
+
     }
   }
 

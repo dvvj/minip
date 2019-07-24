@@ -10,7 +10,7 @@
 
 <swiper current="{{activeTabIndex}}" class="main_height" duration="300" bindchange='onSwiperChange'>
   <swiper-item>
-    <medprof-list id="medprofList" />
+    <medprof-list id="medprofList" bind:gotoAddNewMedProf='onGotoAddNewMedProf' />
   </swiper-item>
   <swiper-item>
     <set-year-month-range id="setYearMonthRange" bind:confirm="onConfirmYearMonthRange" />

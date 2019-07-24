@@ -26,12 +26,18 @@ Component({
    * Component methods
    */
   methods: {
+    showWaitingToast: function (doShow, msg) {
+      let waitingToast = this.selectComponent('#waitingToast');
+      doShow ? waitingToast.show(msg) : waitingToast.clear();
+    },
+
     initData: function (newMedProfData) {
       console.log('newMedProfData', newMedProfData);
       let { newMedProf, rewardPlans } = newMedProfData;
       let rewardPlanInfos = rewardPlans.map(p => p.info);
+      let selectedRewardPlan = rewardPlans[0];
       this.setData({
-        newMedProf, rewardPlans, rewardPlanInfos
+        newMedProf, rewardPlans, rewardPlanInfos, selectedRewardPlan
       });
     },
 
@@ -47,17 +53,20 @@ Component({
       }
     },
     onAddMedProf: function(e) {
+      let that = this;
       let userid = util.getUserId();
       console.log('onAddMedProf: agentid: ', userid);
       let newMedProfReq = {
         medprof: this.fixMedProf(this.data.newMedProf, userid),
         rewardPlanId: this.data.selectedRewardPlan.id
       };
+      this.showWaitingToast(true, '添加操作中...');
       datasrc.proforgagent.createNewMedProf(
         newMedProfReq,
         respData => {
           console.log('respData', respData);
           let { success, msg } = respData;
+          that.showWaitingToast(false);
         }
       )
     },

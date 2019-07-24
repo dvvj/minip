@@ -1,5 +1,5 @@
 <!--comp/new-medprof.wxml-->
-<van-toast id="van-toast" />
+<waiting-toast id="waitingToast" />
 
 <van-cell-group>
   <van-field

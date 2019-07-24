@@ -34,8 +34,32 @@ Component({
         newMedProf, rewardPlans, rewardPlanInfos
       });
     },
+
+    fixMedProf: function(medprof, agentId) {
+      return {
+        uid: medprof.profid,
+        name: medprof.name,
+        info: medprof.info,
+        passHash: medprof.password,
+        idCardNo: medprof.idCardNo,
+        mobile: medprof.mobile,
+        orgAgentId: agentId
+      }
+    },
     onAddMedProf: function(e) {
-      console.log('onAddMedProf: todo')
+      let userid = util.getUserId();
+      console.log('onAddMedProf: agentid: ', userid);
+      let newMedProfReq = {
+        medprof: this.fixMedProf(this.data.newMedProf, userid),
+        rewardPlanId: this.data.selectedRewardPlan.id
+      };
+      datasrc.proforgagent.createNewMedProf(
+        newMedProfReq,
+        respData => {
+          console.log('respData', respData);
+          let { success, msg } = respData;
+        }
+      )
     },
     onRewardPlanChange: function (e) {
       const { picker, value, index } = e.detail;
@@ -100,6 +124,12 @@ Component({
         e
       );
     },
-
+    onInputInfo: function (e) {
+      this.checkAndUpdateInput(
+        "info",
+        inputCheck.info,
+        e
+      );
+    },
   }
 })

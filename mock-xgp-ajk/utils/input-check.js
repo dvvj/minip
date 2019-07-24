@@ -66,23 +66,9 @@ const idCardNo = {
   }
 };
 
-const mobile = {
-  pattern: /^\d{11}$/,
-  errorMsg: 'todo：手机号必须是11位',
-  check: function (input) {
-    //return checkRegex(input, this);
-    return '';
-  }
-};
-
-const postAddr = {
-  pattern: /^.{5,}$/,
-  errorMsg: 'todo：邮寄地址太短？',
-  check: function (input) {
-    //return checkRegex(input, this);
-    return true;
-  }
-};
+const mobile = genRegexChecker(/^\d{11}$/, 'todo：手机号必须是11位');
+const postAddr = genRegexChecker(/^.{5,}$/, 'todo：邮寄地址太短？');
+const info = genRegexChecker(/^.{5,}$/, '最多可以输入255个字符');
 
 module.exports = {
   userid,

@@ -206,7 +206,7 @@ const datasrc = {
       ]);
     },
     getSetting: (cb) => {
-      let userid = wx.getStorageSync(util.userIdKey);
+      let userid = util.getUserId(); //wx.getStorageSync(util.userIdKey);
       cb({
         userid: userid,
         password: '123',

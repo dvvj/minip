@@ -77,7 +77,7 @@ Page({
 
   updateSetting: function() {
     const settingPassword = this.selectComponent("#settingPassword");
-    let userId = wx.getStorageSync(util.userIdKey);
+    let userId = util.getUserId(); // wx.getStorageSync(util.userIdKey);
     settingPassword.initData({
       disabled: false,
       loadingText: '',

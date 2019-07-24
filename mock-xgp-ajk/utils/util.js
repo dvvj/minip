@@ -62,6 +62,10 @@ const userTokenKey = "userTokens"
 const userIdKey = "userId"
 const currOrderKey = "currOrder";
 
+const getUserId = () => {
+  return wx.getStorageSync(userIdKey);
+};
+
 let saveTokens = function (evt) {
 
   let xAuthToken = evt.header[xAuthHeader];
@@ -195,6 +199,7 @@ module.exports = {
   roundPriceArr: roundPriceArr,
   getStoredTokens: getStoredTokens,
   userIdKey: userIdKey,
+  getUserId: getUserId,
   currOrderKey: currOrderKey,
   updateXAuth: updateXAuth,
   getMainPage: getMainPage,

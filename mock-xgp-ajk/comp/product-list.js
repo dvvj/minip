@@ -83,7 +83,7 @@ Component({
       console.log('prod: ', prod);
       let tokens = util.getStoredTokens();
       let that = this;
-      let userid = wx.getStorageSync(util.userIdKey)
+      let userid = util.getUserId(); //wx.getStorageSync(util.userIdKey)
 
       this.showWaitingToast(true, '支付准备中...');
       wx.request({

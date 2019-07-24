@@ -16,6 +16,7 @@ const newCustomerAndProfileUrl = util.medprofBaseUrl + '/newCustomerAndProfile';
 
 const medprofListUrl = util.proforgagentBaseUrl + '/medprofList';
 const newMedProfPreReqDataUrl = util.proforgagentBaseUrl + '/newMedProfPreReqData';
+const newMedProfUrl = util.proforgagentBaseUrl + '/newMedProf';
 
 const datasrc = {
   login: function(userid, password, cb) {
@@ -209,7 +210,7 @@ const datasrc = {
         })
     },
     createNewCustomerAndProfile: (newCustomerReq, cb) => {
-      console.log('[to debug] createNewCustomerAndProfile:', newCustomerReq);
+      // console.log('[to debug] createNewCustomerAndProfile:', newCustomerReq);
       let tokens = util.getStoredTokens();
       util.promisify(wx.request)
         ({
@@ -347,7 +348,27 @@ const datasrc = {
           //return res.data;
         })
     },
+    createNewMedProf: function(newMedProReq, cb) {
+      let tokens = util.getStoredTokens();
+      console.log('newMedProReq', newMedProReq);
+      util.promisify(wx.request)
+        ({
+          url: newMedProfUrl,
+          method: 'POST',
+          data: newMedProReq,
+          header: util.postJsonReqHeader(tokens),
+        }).then(res => {
+          console.log('createNewMedProf:', res);
+          util.updateXAuth(res.header[util.xAuthHeader]);
+          let success = res.statusCode == 200;
+          let msg = res.data;
+          cb({ success, msg });
+        })
+        .catch(function (reason) {
+          console.log('createNewMedProf failed, reason: ', reason)
+        })
 
+    }
   },
 
   proforg: {

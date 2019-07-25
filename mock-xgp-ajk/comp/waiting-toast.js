@@ -31,6 +31,22 @@ Component({
     },
     clear: function() {
       Toast.clear();
+    },
+
+    success: function(msg) {
+      Toast.success({
+        duration: 1000,
+        message: msg,
+        context: this
+      });
+    },
+
+    fail: function (msg) {
+      Toast.fail({
+        duration: 2000,
+        message: msg,
+        context: this
+      });
     }
   }
 })

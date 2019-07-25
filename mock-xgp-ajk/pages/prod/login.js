@@ -2,7 +2,7 @@
 const util = require('../../utils/util.js')
 const datasrc = require('../../utils/' + util.datasrc).datasrc;
 const sessionTestUrl = util.webappBase + '/sessionTest';
-import Toast from '../../vant-lib/toast/toast';
+const toastUtil = require('../../utils/toast-util.js');
 
 Page({
 
@@ -12,42 +12,25 @@ Page({
   data: {
     userid: 'o_o1',
     password: '123'
-    // inProcess: false,
-    // loadingText: ''
   },
 
-  // setInProgress: function (isInProgress) {
-  //   //this.updateNewCustomer("disabled", { detail: isInProgress });
-  //   let loadingText = isInProgress ? '登录中...' : '';
-  //   this.setData({
-  //     inProcess: isInProgress,
-  //     loadingText
-  //   });
-  //   //this.updateNewCustomer("loadingText", { detail: loadingText });
-  // },
-
   onLogin: function (e) {
-    let waitingToast = this.selectComponent("#waitingToast");
     let userid = this.data.userid;
     let password = this.data.password;
     console.log(`username: ${userid}, password: ${password}`);
     let that = this;
 
     // this.setInProgress(true);
-    waitingToast.show('登录中...');
+    toastUtil.waiting(this, true, '登录中...');
     datasrc.login(
       userid, password,
       resp => {
         let { success, msg } = resp;
         console.log('resp: ', resp);
-        waitingToast.clear();
+        toastUtil.waiting(that, false);
 
         if (!success) {
-          Toast.fail({
-            duration: 2000,
-            message: `登录失败: ${msg}`,
-            context: that
-          });
+          toastUtil.fail(that, `登录失败: ${msg}`);
         }
         // this.setInProgress(false);
       }

@@ -1,6 +1,5 @@
 <!--pages/mock/login.wxml-->
 <waiting-toast id="waitingToast" />
-<van-toast id="van-toast" />
 
 <view>
   <view>

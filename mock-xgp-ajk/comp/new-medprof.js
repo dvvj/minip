@@ -1,8 +1,9 @@
 // comp/new-medprof.js
 const util = require('../utils/util.js');
+const toastUtil = require('../utils/toast-util.js');
 const inputCheck = require('../utils/input-check.js');
 const datasrc = require('../utils/' + util.datasrc).datasrc;
-import Toast from '../vant-lib/toast/toast';
+
 
 Component({
   /**
@@ -26,11 +27,6 @@ Component({
    * Component methods
    */
   methods: {
-    showWaitingToast: function (doShow, msg) {
-      let waitingToast = this.selectComponent('#waitingToast');
-      doShow ? waitingToast.show(msg) : waitingToast.clear();
-    },
-
     initData: function (newMedProfData) {
       console.log('newMedProfData', newMedProfData);
       let { newMedProf, rewardPlans } = newMedProfData;
@@ -61,13 +57,13 @@ Component({
         rewardPlanId: this.data.selectedRewardPlan.id
       };
       let profid = newMedProfReq.medprof.uid;
-      this.showWaitingToast(true, '添加操作中...');
+      toastUtil.waiting(this, true, '添加操作中...');
       datasrc.proforgagent.createNewMedProf(
         newMedProfReq,
         respData => {
           console.log('respData', respData);
           let { success, msg } = respData;
-          that.showWaitingToast(false);
+          toastUtil.waiting(this, false);
 
           if (success) {
             Toast.success({

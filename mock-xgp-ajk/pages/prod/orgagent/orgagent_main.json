@@ -12,6 +12,7 @@
     "new-medprof": "../../../comp/new-medprof",
     "waiting-toast": "../../../comp/waiting-toast",
     "medprof-list": "../../../comp/medprof-list",
+    "setting-password": "../../../comp/setting-password",
     "ec-canvas": "../../../ec-canvas/ec-canvas"
   }
 }

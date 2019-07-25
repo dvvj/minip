@@ -1,5 +1,6 @@
 // pages/prod/orgagent/orgagent_main.js
 const util = require('../../../utils/util.js');
+const toastUtil = require('../../../utils/toast-util.js');
 const echartData = require('../../../utils/echart-data.js');
 const datasrc = require('../../../utils/' + util.datasrc).datasrc;
 
@@ -67,7 +68,18 @@ Page({
       this.updateSetting();
     }
   },
-
+  updateSetting: function () {
+    const settingPassword = this.selectComponent("#settingPassword");
+    let userId = util.getUserId(); //wx.getStorageSync(util.userIdKey);
+    settingPassword.initData({
+      disabled: false,
+      loadingText: '',
+      userid: userId,
+      password: '123',
+      password2: '123',
+    })
+  },
+  
   updateMedProfs: function () {
     let that = this;
     console.log('in updateMedProfs');
@@ -95,15 +107,10 @@ Page({
     this.yearMonthRange(_startYM, _endYM);
   },
 
-  showWaitingToast: function (doShow, msg) {
-    let waitingToast = this.selectComponent('#waitingToast');
-    doShow ? waitingToast.show(msg) : waitingToast.clear();
-  },
-
   updateProfitStats: function () {
     let that = this;
 
-    this.showWaitingToast(true, '加载数据中...');
+    toastUtil.waiting(this, true, '加载数据中...');
     datasrc.proforgagent.getProfitStatsChartData(
       this.data.yearMonthStart, this.data.yearMonthEnd,
       chartData => {
@@ -111,25 +118,23 @@ Page({
         chart.setOption(
           echartData.medprofOptionFrom(chartData)
         );
-        that.showWaitingToast(false);
+        toastUtil.waiting(that, false);
       }
     );
   },
-  showWaitingToast: function (doShow, msg) {
-    let waitingToast = this.selectComponent('#waitingToast');
-    doShow ? waitingToast.show(msg) : waitingToast.clear();
-  },
+
   updateNewMedProf: function () {
+    let that = this;
     let newMedProf = this.selectComponent("#newMedProf");
     console.log(newMedProf);
-    this.showWaitingToast(true, '加载数据中...');
+    toastUtil.waiting(this, true, '加载数据中...');
     datasrc.proforgagent.getNewMedProfData(
       newMedProfData => {
         console.log(newMedProfData);
         newMedProf.initData(
           newMedProfData
         );
-        this.showWaitingToast(false);
+        toastUtil.waiting(that, false);
       }
     )
 

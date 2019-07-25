@@ -1,6 +1,6 @@
 <!--comp/new-customer-profile.wxml-->
 
-<van-toast id="van-toast" />
+<waiting-toast id="waitingToast" />
 
 <van-tabs active="{{ activeTabIndex }}" bind:change="onChangeTab">
   <van-tab title="新用户信息">

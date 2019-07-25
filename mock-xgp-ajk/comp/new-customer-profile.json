@@ -10,6 +10,7 @@
     "van-field": "../vant-lib/field/index",
     "van-checkbox": "../../../vant-lib/checkbox/index",
     "van-checkbox-group": "../../../vant-lib/checkbox-group/index",
-    "van-picker": "../../../vant-lib/picker/index"
+    "van-picker": "../../../vant-lib/picker/index",
+    "waiting-toast": "waiting-toast"
   }
 }

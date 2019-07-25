@@ -1,5 +1,5 @@
 // comp/new-customer-profile.js
-import Toast from '../vant-lib/toast/toast';
+const toastUtil = require('../utils/toast-util.js');
 const util = require('../utils/util.js');
 const inputCheck = require('../utils/input-check.js');
 const datasrc = require('../utils/' + util.datasrc).datasrc;
@@ -121,9 +121,6 @@ Component({
         inputCheck.userid,
         e
       );
-      // this.updateNewCustomer("userid", e)
-      // let errorMsg = inputCheck.checkInputUserId(this.data.newCustomer.userid);
-      // this.updateErrorMsg('userid', errorMsg);
     },
     onInputPassword: function (e) {
       this.checkAndUpdateInput(
@@ -174,33 +171,6 @@ Component({
     onInputMedicineTags: function (e) {
       this.updateNewCustomer("medicineTags", e)
     },
-    setInProgress: function (isInProgress) {
-      //this.updateNewCustomer("disabled", { detail: isInProgress });
-      let loadingText = isInProgress ? '添加客户中...' : '';
-      this.setData({
-        inProcess: isInProgress,
-        loadingText
-      });
-      //this.updateNewCustomer("loadingText", { detail: loadingText });
-    },
-    
-    // onNewCustomerProfileMock: function (e) {
-    //   let that = this;
-    //   setTimeout(
-    //     function () {
-    //       that.setInProgress(false);
-    //       Toast.loading({
-    //         duration: 1000,       // 持续展示 toast
-    //         forbidClick: true, // 禁用背景点击
-    //         message: '用户添加成功',
-    //         type: 'success',
-    //         context: that
-    //       });
-    //     },
-    //     1000
-    //   );
-    //   this.setInProgress(true)
-    // },
 
     convertCustomer: function(wxCustomer) {
       return {
@@ -230,20 +200,14 @@ Component({
         customer, profileReq
       };
 
-      this.setInProgress(true)
+      toastUtil.waiting(this, true, '添加用户中')
       datasrc.medprof.createNewCustomerAndProfile(
         newCustomerReq,
         respData => {
           console.log('respData', respData);
           let { success, msg } = respData;
-          that.setInProgress(false);
-          Toast.loading({
-            duration: 2000,       // 持续展示 toast
-            forbidClick: true, // 禁用背景点击
-            message: msg,
-            type: success ? 'success' : 'fail',
-            context: that
-          });
+          let message = success ? '添加成功' : `添加失败: ${msg}`
+          success ? toastUtil.success(that, message) : toastUtil.fail(that, message);
         }
       )
     }

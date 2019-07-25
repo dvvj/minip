@@ -63,21 +63,13 @@ Component({
         respData => {
           console.log('respData', respData);
           let { success, msg } = respData;
-          toastUtil.waiting(this, false);
+          toastUtil.waiting(that, false);
 
           if (success) {
-            Toast.success({
-              duration: 1000,
-              message: `添加成功`,
-              context: that
-            });
+            toastUtil.success(that, `添加成功`);
           }
           else {
-            Toast.fail({
-              duration: 2000,
-              message: `添加营养师[${profid}]失败: ${msg}`,
-              context: that
-            });
+            toastUtil.fail(that, `添加营养师[${profid}]失败: ${msg}`);
           }
         }
       )

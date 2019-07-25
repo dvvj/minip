@@ -13,7 +13,6 @@
     <proforgagent-list id="proforgagentList" />
   </swiper-item>
   <swiper-item>
-    <!-- <include src="../shared/page-parts/profit-stats.wxml"/> -->
     <set-year-month-range id="setYearMonthRange" bind:confirm="onConfirmYearMonthRange" />
     <scroll-view scroll-y class="main_height">
       <view class="canvas_container">

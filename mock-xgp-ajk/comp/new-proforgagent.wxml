@@ -1,6 +1,5 @@
 <!--comp/new-proforgagent.wxml-->
 <waiting-toast id="waitingToast" />
-<van-toast id="van-toast" />
 
 <van-cell-group>
   <van-field

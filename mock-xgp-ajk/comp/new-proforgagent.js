@@ -2,7 +2,7 @@
 const util = require('../utils/util.js');
 const inputCheck = require('../utils/input-check.js');
 const datasrc = require('../utils/' + util.datasrc).datasrc;
-import Toast from '../vant-lib/toast/toast';
+const toastUtil = require('../utils/toast-util.js');
 
 Component({
   /**
@@ -26,10 +26,6 @@ Component({
    * Component methods
    */
   methods: {
-    showWaitingToast: function (doShow, msg) {
-      let waitingToast = this.selectComponent('#waitingToast');
-      doShow ? waitingToast.show(msg) : waitingToast.clear();
-    },
     initData: function (newProfOrgAgentData) {
       console.log('newProfOrgAgentData', newProfOrgAgentData);
       let { newProfOrgAgent, rewardPlans } = newProfOrgAgentData;
@@ -127,27 +123,19 @@ Component({
         rewardPlanId: this.data.selectedRewardPlan.id
       };
       let agentId = newProfOrgAgentReq.profOrgAgent.uid;
-      this.showWaitingToast(true, '添加操作中...');
+      toastUtil.waiting(this, true, '添加操作中...');
       datasrc.proforg.createNewProfOrgAgent(
         newProfOrgAgentReq,
         respData => {
           console.log('respData', respData);
           let { success, msg } = respData;
-          that.showWaitingToast(false);
+          toastUtil.waiting(that, false);
 
           if (success) {
-            Toast.success({
-              duration: 1000,
-              message: `添加成功`,
-              context: that
-            });
+            toastUtil.success(that, `添加成功`);
           }
           else {
-            Toast.fail({
-              duration: 2000,
-              message: `添加业务员[${agentId}]失败: ${msg}`,
-              context: that
-            });
+            toastUtil.fail(that, `添加业务员[${agentId}]失败: ${msg}`);
           }
         }
       )

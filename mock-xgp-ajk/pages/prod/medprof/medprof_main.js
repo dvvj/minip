@@ -1,5 +1,6 @@
 // pages/mock/medprof/medprof_main.js
 const util = require('../../../utils/util.js');
+const toastUtil = require('../../../utils/toast-util.js');
 const echartData = require('../../../utils/echart-data.js');
 const datasrc = require('../../../utils/' + util.datasrc).datasrc;
 const reffedCustomersUrl = util.webappBase + '/medprof/reffedCustomerInfos'
@@ -116,9 +117,10 @@ Page({
   },
 
   updateExistingCustomerProfile: function () {
+    let that = this;
     let existingCustomerProfile = this.selectComponent("#existingCustomerProfile");
     console.log(existingCustomerProfile);
-    this.showWaitingToast(true, '加载数据中...');
+    toastUtil.waiting(this, true, '加载数据中...');
     datasrc.medprof.getExistingCustomerData(
       existingCustomer => {
         existingCustomerProfile.initData(
@@ -130,20 +132,16 @@ Page({
           existingCustomer.pricePlans,
           true
         );
-        this.showWaitingToast(false);
+        toastUtil.waiting(that, false);
       }
     );
   },
 
-  showWaitingToast: function(doShow, msg) {
-    let waitingToast = this.selectComponent('#waitingToast');
-    doShow ? waitingToast.show(msg) : waitingToast.clear();
-  },
-
   updateNewCustomerProfile: function() {
+    let that = this;
     let newCustomerProfile = this.selectComponent("#newCustomerProfile");
     //console.log(newCustomerProfile);
-    this.showWaitingToast(true, '加载数据中...');
+    toastUtil.waiting(this, true, '加载数据中...');
     datasrc.medprof.getNewCustomerData(
       newCustomerData => {
         console.log(newCustomerData);
@@ -152,7 +150,7 @@ Page({
           newCustomerData,
           true
         );
-        this.showWaitingToast(false);
+        toastUtil.waiting(that, false);
       }
     )
 
@@ -175,7 +173,7 @@ Page({
   updateProfitStats: function () {
     let that = this;
   
-    this.showWaitingToast(true, '加载数据中...');
+    toastUtil.waiting(this, true, '加载数据中...');
     datasrc.medprof.getProfitStatsChartData(
       this.data.yearMonthStart, this.data.yearMonthEnd,
       chartData => {
@@ -183,7 +181,7 @@ Page({
         chart.setOption(
           echartData.medprofOptionFrom(chartData)
         );
-        that.showWaitingToast(false);
+        toastUtil.waiting(that, false);
         // new wxCharts({
         //   canvasId: 'columnCanvas',
         //   type: 'column',

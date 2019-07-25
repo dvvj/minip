@@ -10,7 +10,7 @@ Page({
    * Page initial data
    */
   data: {
-    userid: 'a_o1a1',
+    userid: 'c_o1a1p1c1',
     password: '123'
   },
 

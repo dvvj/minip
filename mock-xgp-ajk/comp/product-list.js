@@ -1,6 +1,7 @@
 // comp/product-list.js
 const util = require('../utils/util.js');
 const wePayezUrl = util.webappBase + '/wx/wepayezReq';
+const toastUtil = require('../utils/toast-util.js');
 
 Component({
   /**
@@ -50,11 +51,6 @@ Component({
       this.updateProd(prodId, -1)
     },
 
-    showWaitingToast: function (doShow, msg) {
-      let waitingToast = this.selectComponent('#waitingToast');
-      doShow ? waitingToast.show(msg) : waitingToast.clear();
-    },
-
     doPay: function(payInfo) {
       wx.requestPayment({
         'timeStamp': payInfo.timeStamp,
@@ -85,7 +81,7 @@ Component({
       let that = this;
       let userid = util.getUserId(); //wx.getStorageSync(util.userIdKey)
 
-      this.showWaitingToast(true, '支付准备中...');
+      toastUtil.waiting(this, true, '支付准备中...');
       wx.request({
         url: wePayezUrl,
         data: {
@@ -105,7 +101,7 @@ Component({
           // wx.navigateTo({
           //   url: '../wepayez-pay',
           // });
-          that.showWaitingToast(false);
+          toastUtil.waiting(that, false);
           that.doPay(payInfo);
         },
         fail: function (e2) {

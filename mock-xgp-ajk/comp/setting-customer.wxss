@@ -1,1 +1,2 @@
 /* comp/setting-customer.wxss */
+@import "../app.wxss";

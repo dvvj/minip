@@ -1,1 +1,2 @@
 /* comp/set-year-month-range.wxss */
+@import "../app.wxss";

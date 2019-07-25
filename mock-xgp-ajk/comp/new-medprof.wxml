@@ -90,5 +90,6 @@
     item-height="40"
     bind:change="onRewardPlanChange" />
 
-  <van-button type="info" size="large" bind:click="onAddMedProf">添加</van-button>
+  <van-button type="custom" custom-class="lb-button"
+    size="large" bind:click="onAddMedProf">添加</van-button>
 </van-cell-group>

@@ -2,7 +2,7 @@
 <van-cell-group>
   <van-cell>
     <view slot="title">
-      <van-button size="large" type="primary" type="info" bind:click='onSetYearMonth'>
+      <van-button size="large" type="custom" custom-class="lb-button" bind:click='onSetYearMonth'>
         {{ _startYM.year }}年{{ _startYM.month }}月 到 {{ _endYM.year }}年{{ _endYM.month }}月
       </van-button>
     </view>

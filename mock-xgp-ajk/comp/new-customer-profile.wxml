@@ -93,7 +93,7 @@
         bind:input="onInputPostAddr"
       />
 
-      <van-button size="large" type="info" bind:click="onNextStep">下一步 {{">>"}}</van-button>
+      <van-button size="large" type="custom" custom-class="lb-button" bind:click="onNextStep">下一步 {{">>"}}</van-button>
     </van-cell-group>
   </van-tab>
   <van-tab title="用户档案">
@@ -166,7 +166,8 @@
         bind:change="onPricePlanChange" />
 
       <!-- <van-button type="primary" size="large" bind:click="onNewCustomerProfile">添加用户档案</van-button> -->
-      <van-button type="info" size="large" bind:click="onNewCustomerProfile"
+      <van-button type="custom" custom-class="lb-button"
+        size="large" bind:click="onNewCustomerProfile"
         loading="{{ loadingText != '' }}"
         loading-text='{{ loadingText}}'>添加用户档案</van-button>
     </van-cell-group>

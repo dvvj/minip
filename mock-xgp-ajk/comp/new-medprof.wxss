@@ -1,1 +1,2 @@
 /* comp/new-medprof.wxss */
+@import "../app.wxss";

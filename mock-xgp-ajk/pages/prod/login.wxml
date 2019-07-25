@@ -30,7 +30,7 @@
 <van-cell-group>
   <van-cell>
     <view slot="title">
-      <van-button type="primary" size="large" type="info" class="large-button" bind:click="onLogin">
+      <van-button type="primary" size="large" type="custom" custom-class="lb-button" bind:click="onLogin">
         登 录
       </van-button>
     </view>

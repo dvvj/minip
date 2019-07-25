@@ -2,6 +2,7 @@
 const util = require('../utils/util.js');
 const inputCheck = require('../utils/input-check.js');
 const datasrc = require('../utils/' + util.datasrc).datasrc;
+import Toast from '../vant-lib/toast/toast';
 
 Component({
   /**
@@ -125,6 +126,7 @@ Component({
         profOrgAgent: this.fixProfOrgAgent(this.data.newProfOrgAgent, orgId),
         rewardPlanId: this.data.selectedRewardPlan.id
       };
+      let agentId = newProfOrgAgentReq.profOrgAgent.uid;
       this.showWaitingToast(true, '添加操作中...');
       datasrc.proforg.createNewProfOrgAgent(
         newProfOrgAgentReq,
@@ -132,6 +134,21 @@ Component({
           console.log('respData', respData);
           let { success, msg } = respData;
           that.showWaitingToast(false);
+
+          if (success) {
+            Toast.success({
+              duration: 1000,
+              message: `添加成功`,
+              context: that
+            });
+          }
+          else {
+            Toast.fail({
+              duration: 2000,
+              message: `添加业务员[${agentId}]失败: ${msg}`,
+              context: that
+            });
+          }
         }
       )
     }

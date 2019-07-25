@@ -2,6 +2,7 @@
 const util = require('../../utils/util.js')
 const datasrc = require('../../utils/' + util.datasrc).datasrc;
 const sessionTestUrl = util.webappBase + '/sessionTest';
+import Toast from '../../vant-lib/toast/toast';
 
 Page({
 
@@ -30,6 +31,7 @@ Page({
     let userid = this.data.userid;
     let password = this.data.password;
     console.log(`username: ${userid}, password: ${password}`);
+    let that = this;
 
     // this.setInProgress(true);
     waitingToast.show('登录中...');
@@ -39,6 +41,14 @@ Page({
         let { success, msg } = resp;
         console.log('resp: ', resp);
         waitingToast.clear();
+
+        if (!success) {
+          Toast.fail({
+            duration: 2000,
+            message: `登录失败: ${msg}`,
+            context: that
+          });
+        }
         // this.setInProgress(false);
       }
     );

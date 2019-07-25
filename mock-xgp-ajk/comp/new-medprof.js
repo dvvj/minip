@@ -2,6 +2,7 @@
 const util = require('../utils/util.js');
 const inputCheck = require('../utils/input-check.js');
 const datasrc = require('../utils/' + util.datasrc).datasrc;
+import Toast from '../vant-lib/toast/toast';
 
 Component({
   /**
@@ -59,6 +60,7 @@ Component({
         medprof: this.fixMedProf(this.data.newMedProf, userid),
         rewardPlanId: this.data.selectedRewardPlan.id
       };
+      let profid = newMedProfReq.medprof.uid;
       this.showWaitingToast(true, '添加操作中...');
       datasrc.proforgagent.createNewMedProf(
         newMedProfReq,
@@ -66,6 +68,21 @@ Component({
           console.log('respData', respData);
           let { success, msg } = respData;
           that.showWaitingToast(false);
+
+          if (success) {
+            Toast.success({
+              duration: 1000,
+              message: `添加成功`,
+              context: that
+            });
+          }
+          else {
+            Toast.fail({
+              duration: 2000,
+              message: `添加营养师[${profid}]失败: ${msg}`,
+              context: that
+            });
+          }
         }
       )
     },

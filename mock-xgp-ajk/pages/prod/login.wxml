@@ -1,5 +1,7 @@
 <!--pages/mock/login.wxml-->
 <waiting-toast id="waitingToast" />
+<van-toast id="van-toast" />
+
 <view>
   <view>
     <image src="../../images/product11.png" style="width:100%; height:600rpx;" mode="aspectFill"></image>

@@ -37,19 +37,21 @@ const datasrc = {
             userPass: password
           },
           success: function (e) {
-            console.log('login success', e)
-            cb({
-              success: true,
-              msg: '登录成功'
-            });
+            let status = e.statusCode;
+            console.log(`datasrc.login success, status: ${status}`, e);
+            let success = status == 200;
+            let msg = success ? '' : (status == 401 ? '用户名/密码错误' : '未知错误');
+            cb({ success, msg });
             // const tokens = { xauth: e.header[xAuthHeader], accessToken: e.data.access_token };
-            util.saveTokens(e);
-            let mainPage = util.getMainPage(e.data.userType);
-            console.log(`main page: ${e.data.userType}: ${mainPage}`);
-            wx.setStorageSync(util.userIdKey, userid)
-            wx.navigateTo({
-              url: mainPage //'../product/product-list',
-            })
+            if (success) {
+              util.saveTokens(e);
+              let mainPage = util.getMainPage(e.data.userType);
+              console.log(`main page: ${e.data.userType}: ${mainPage}`);
+              wx.setStorageSync(util.userIdKey, userid)
+              wx.navigateTo({
+                url: mainPage //'../product/product-list',
+              })
+            }
           },
           fail: function(err) {
             console.log('login failed', err)
@@ -198,8 +200,8 @@ const datasrc = {
 
           let newCustomer = {
             userid: 'c_',
-            password: '123456',
-            password2: '123456',
+            password: '123',
+            password2: '123',
             userName: '张某',
             idCardNo: '310112197003113333',
             mobile: '137000333333',
@@ -402,7 +404,7 @@ const datasrc = {
       console.log(`[proforg::getProfitStatsChartData] start ${startYearMonth} end ${endYearMonth}, tokens:`, tokens);
 
       wx.request({
-        url: proforgAgentprofitStatsUrl,
+        url: profOrgProfitStatsUrl,
         data: { startYearMonth, endYearMonth },
         method: "POST",
         header: util.postJsonReqHeader(tokens),

@@ -1,6 +1,7 @@
 // pages/mock/proforg/proforg_main.js
 import Dialog from '../../../vant-lib/dialog/dialog';
 const orderStatsTestData = require('../../../utils/org-order-stats-td.js')
+const toastUtil = require('../../../utils/toast-util.js');
 //const wxCharts = require('../../../utils/wxcharts-min.js');
 const echartData = require('../../../utils/echart-data.js');
 const util = require('../../../utils/util.js')
@@ -95,21 +96,19 @@ Page({
       password2: '123',
     })
   },
-  showWaitingToast: function (doShow, msg) {
-    let waitingToast = this.selectComponent('#waitingToast');
-    doShow ? waitingToast.show(msg) : waitingToast.clear();
-  },
+
   updateAddProfOrgAgent: function() {
+    let that = this;
     let newProfOrgAgent = this.selectComponent("#newProfOrgAgent");
     console.log(newProfOrgAgent);
-    this.showWaitingToast(true, '加载数据中...');
+    toastUtil.waiting(this, true, '加载数据中...');
     datasrc.proforg.getNewProfOrgAgentData(
       newAgentData => {
         console.log(newAgentData);
         newProfOrgAgent.initData(
           newAgentData
         );
-        this.showWaitingToast(false);
+        toastUtil.waiting(that, false);
       }
     )
   },
@@ -117,11 +116,13 @@ Page({
   updateProfOrgAgentList: function() {
     let that = this;
     console.log('in updateProfOrgAgentList');
+    toastUtil.waiting(this, true, '加载数据中...');
     datasrc.proforg.getProfOrgAgentList(
       agents => {
         console.log('in updateMedProfs, ', agents);
         let proforgagentList = that.selectComponent("#proforgagentList");
-        proforgagentList.initData(agents)
+        proforgagentList.initData(agents);
+        toastUtil.waiting(that, false);
       }
     );
   },
@@ -144,8 +145,10 @@ Page({
   },
 
   updateProfitStats: function() {
+    let that = this;
     let yearMonthStart = this.data.yearMonthStart;
     let yearMonthEnd = this.data.yearMonthEnd;
+    toastUtil.waiting(this, true, '加载数据中...');
     datasrc.proforg.getProfitStatsChartData(
       yearMonthStart, yearMonthEnd,
       chartData => {
@@ -158,25 +161,7 @@ Page({
         else {
           console.log('todo: undefined chart')
         }
-        // new wxCharts({
-        //   canvasId: 'columnCanvas',
-        //   type: 'column',
-        //   categories: rawData.yearMonths,
-        //   series: [{
-        //     name: '销售额',
-        //     data: util.roundPriceArr(rawData.sales)
-        //   }, {
-        //     name: '佣金',
-        //     data: util.roundPriceArr(rawData.rewards)
-        //   }],
-        //   yAxis: {
-        //     format: function (val) {
-        //       return val + '元';
-        //     }
-        //   },
-        //   width: 360,
-        //   height: 360
-        // });
+        toastUtil.waiting(that, false);
       }
     );
 

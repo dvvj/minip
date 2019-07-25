@@ -1,4 +1,6 @@
 <!--comp/setting-customer.wxml-->
+<waiting-toast id="waitingToast" />
+
 <van-cell-group>
   <van-field
     disabled="{{ true }}"
@@ -46,18 +48,6 @@
     placeholder="请输入姓名，必须与身份证一致"
     bind:click-icon="onClickIcon"
     bind:input="onInputUserName"
-  />
-
-  <van-field
-    disabled="{{ true }}"
-    value="{{ customer.idCardNo }}"
-    required
-    clearable
-    label="身份证号"
-    icon="question-o"
-    placeholder="姓名必须与身份证一致"
-    bind:click-icon="onClickIcon"
-    bind:input="onInputIdCardNo"
   />
 
   <van-field

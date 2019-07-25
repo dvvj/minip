@@ -23,6 +23,20 @@ const profOrgProfitStatsUrl = util.proforgBaseUrl + '/profitStats4Wx';
 const newProfOrgAgentPreReqDataUrl = util.proforgBaseUrl + '/newProfOrgAgentPreReqData';
 const newProfOrgAgentUrl = util.proforgBaseUrl + '/newProfOrgAgent';
 
+const _parseResponse = function(resp, error401) {
+  let status = resp.statusCode;
+  let success = 200 == status;
+  let msg = success ? '' : (status == 401 ? '用户名/密码错误' : '未知错误');
+  return { success, msg, status };
+};
+
+const parseResponse4Login = function (resp) {
+  return _parseResponse(resp, '用户名/密码错误');
+};
+const parseResponseGeneral = function (resp) {
+  return _parseResponse(resp, '未授权，登录超时？');
+};
+
 const datasrc = {
   login: function(userid, password, cb) {
     util.promisify(wx.login)()
@@ -37,10 +51,8 @@ const datasrc = {
             userPass: password
           },
           success: function (e) {
-            let status = e.statusCode;
+            let { success, msg, status } = parseResponse4Login(e);
             console.log(`datasrc.login success, status: ${status}`, e);
-            let success = status == 200;
-            let msg = success ? '' : (status == 401 ? '用户名/密码错误' : '未知错误');
             cb({ success, msg });
             // const tokens = { xauth: e.header[xAuthHeader], accessToken: e.data.access_token };
             if (success) {
@@ -130,9 +142,10 @@ const datasrc = {
         method: "POST",
         data: customerSetting,
         header: util.postJsonReqHeader(tokens),
-        success: function (customerUpdateSettingReqRes) {
-          console.log('customerUpdateSettingReqRes: ', customerUpdateSettingReqRes)
-          cb(customerUpdateSettingReqRes);
+        success: function (resp) {
+          console.log('customerUpdateSettingReqRes: ', resp)
+          let { success, msg, status } = parseResponseGeneral(resp); 
+          cb({ success, msg });
         },
         fail: function (e2) {
           console.info("e2: ", e2)

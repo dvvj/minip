@@ -13,7 +13,7 @@ Component({
    * Component initial data
    */
   data: {
-
+    _waiting: false
   },
 
   /**
@@ -21,15 +21,26 @@ Component({
    */
   methods: {
     show: function(msg) {
-      Toast.loading({
-        duration: 0,       // 持续展示 toast
-        forbidClick: true, // 禁用背景点击
-        message: msg,
-        loadingType: 'spinner',
-        context: this
-      });
+
+      let that = this;
+      this.setData({ _waiting: true });
+      setTimeout(
+        function() {
+          if (that.data._waiting) {
+            Toast.loading({
+              duration: 0,       // 持续展示 toast
+              forbidClick: true, // 禁用背景点击
+              message: msg,
+              loadingType: 'spinner',
+              context: that
+            });
+          }
+        },
+        600
+      );
     },
     clear: function() {
+      this.setData({ _waiting: false });
       Toast.clear();
     },
 
@@ -37,6 +48,7 @@ Component({
       Toast.success({
         duration: 1000,
         message: msg,
+        position: 'top',
         context: this
       });
     },
@@ -45,6 +57,7 @@ Component({
       Toast.fail({
         duration: 2000,
         message: msg,
+        position: 'top',
         context: this
       });
     }

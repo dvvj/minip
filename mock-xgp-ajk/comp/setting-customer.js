@@ -1,6 +1,7 @@
 // comp/setting-customer.js
 const util = require('../utils/util.js');
 const datasrc = require('../utils/' + util.datasrc).datasrc;
+const toastUtil = require('../utils/toast-util.js');
 
 Component({
   /**
@@ -81,11 +82,16 @@ Component({
       this.updateNewCustomer("postAddr", e);
     },
     onUpdateSetting: function(e) {
+      let that = this;
       console.log('[onUpdateSetting]: ', this.data.customer);
+      toastUtil.waiting(that, true, '更新中...');
       datasrc.customer.updateSetting(
         this.data.customer,
         resp => {
+          let { success, msg } = resp;
           console.log(resp);
+          toastUtil.waiting(this, false);
+          success ? toastUtil.success(that, '更新成功') : toastUtil.fail(that, msg);
         }
       )
     }

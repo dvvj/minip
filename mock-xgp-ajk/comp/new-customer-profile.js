@@ -72,7 +72,7 @@ Component({
     onNewCustomerProfile: function(e) {
       let result = this.getData();
       console.log('[todo] onNewCustomerProfile: ', result)
-      this.onNewCustomerProfile();
+      this.createNewCustomerProfile();
     },
 
     hasInputError: function() {
@@ -183,9 +183,9 @@ Component({
         bday: wxCustomer.bday,
       };
     },
-    onNewCustomerProfile: function() {
+    createNewCustomerProfile: function() {
       let that = this;
-      console.log('onNewCustomerProfile: ');
+      console.log('createNewCustomerProfile: ');
 
       let { newCustomer, profile, selectedProducts, pricePlan } = this.getData();
 
@@ -204,6 +204,7 @@ Component({
       datasrc.medprof.createNewCustomerAndProfile(
         newCustomerReq,
         respData => {
+          toastUtil.waiting(this, false);
           console.log('respData', respData);
           let { success, msg } = respData;
           let message = success ? '添加成功' : `添加失败: ${msg}`

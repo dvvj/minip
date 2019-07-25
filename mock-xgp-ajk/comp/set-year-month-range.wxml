@@ -2,11 +2,9 @@
 <van-cell-group>
   <van-cell>
     <view slot="title">
-      <view>
-        <van-button size="large" type="primary" bind:click='onSetYearMonth'>
-          {{ _startYM.year }}年{{ _startYM.month }}月 到 {{ _endYM.year }}年{{ _endYM.month }}月
-        </van-button>
-      </view>
+      <van-button size="large" type="primary" type="info" bind:click='onSetYearMonth'>
+        {{ _startYM.year }}年{{ _startYM.month }}月 到 {{ _endYM.year }}年{{ _endYM.month }}月
+      </van-button>
     </view>
   </van-cell>
 </van-cell-group>

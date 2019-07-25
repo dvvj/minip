@@ -74,7 +74,7 @@
     bind:input="onInputPostAddr"
   />
 
-  <van-button type="primary" size="large" bind:click="onUpdateSetting"
+  <van-button type="info" size="large" bind:click="onUpdateSetting"
     loading="{{ loadingText != '' }}"
     loading-text='{{loadingText}}'>更新</van-button>
 </van-cell-group>

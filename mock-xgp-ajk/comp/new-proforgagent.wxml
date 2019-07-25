@@ -78,5 +78,5 @@
     item-height="40"
     bind:change="onRewardPlanChange" />
 
-  <van-button type="primary" size="large" bind:click="onAddProfOrgAgent">添加</van-button>
+  <van-button type="info" size="large" bind:click="onAddProfOrgAgent">添加</van-button>
 </van-cell-group>

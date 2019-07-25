@@ -56,7 +56,7 @@
       <!-- <van-button type="primary" size="large" bind:click="onFindCustomer">查找</van-button> -->
       <van-button
         disabled="{{ existingCustomer.disabled }}"
-        type="primary" size="large" bind:click="onFindCustomer"
+        type="info" size="large" bind:click="onFindCustomer"
         loading="{{ existingCustomer.loadingText != '' }}"
         loading-text='{{ existingCustomer.loadingText}}'>查找</van-button>
 
@@ -128,7 +128,7 @@
         item-height="40"
         bind:change="onPricePlanChange" />
 
-      <van-button type="primary" size="large" bind:click="onExistingCustomerProfile">添加用户档案</van-button>
+      <van-button type="info" size="large" bind:click="onExistingCustomerProfile">添加用户档案</van-button>
 
     </van-cell-group>
   </van-tab>

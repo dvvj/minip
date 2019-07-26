@@ -45,6 +45,7 @@ Component({
     },
 
     success: function(msg) {
+      this.setData({ _waiting: false });
       Toast.success({
         duration: 1000,
         message: msg,
@@ -54,6 +55,7 @@ Component({
     },
 
     fail: function (msg) {
+      this.setData({ _waiting: false });
       Toast.fail({
         duration: 2000,
         message: msg,

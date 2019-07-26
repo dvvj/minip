@@ -20,7 +20,15 @@ Component({
     newMedProf: {},
     errorMsgs: {},
     rewardPlans: [],
-    rewardPlanInfos: []
+    rewardPlanInfos: [],
+    field2Checker: {
+      "profid": inputCheck.profid,
+      "password": inputCheck.password,
+      "name": inputCheck.name,
+      "idCardNo": inputCheck.idCardNo,
+      "mobile": inputCheck.mobile,
+      "info": inputCheck.info,
+    }
   },
 
   /**
@@ -49,30 +57,35 @@ Component({
       }
     },
     onAddMedProf: function(e) {
-      let that = this;
-      let userid = util.getUserId();
-      console.log('onAddMedProf: agentid: ', userid);
-      let newMedProfReq = {
-        medprof: this.fixMedProf(this.data.newMedProf, userid),
-        rewardPlanId: this.data.selectedRewardPlan.id
-      };
-      let profid = newMedProfReq.medprof.uid;
-      toastUtil.waiting(this, true, '添加操作中...');
-      datasrc.proforgagent.createNewMedProf(
-        newMedProfReq,
-        respData => {
-          console.log('respData', respData);
-          let { success, msg } = respData;
-          toastUtil.waiting(that, false);
+      if (this.checkAllError()) {
+        console.log("has input error(s)");
+      }
+      else {
+        let that = this;
+        let userid = util.getUserId();
+        console.log('onAddMedProf: agentid: ', userid);
+        let newMedProfReq = {
+          medprof: this.fixMedProf(this.data.newMedProf, userid),
+          rewardPlanId: this.data.selectedRewardPlan.id
+        };
+        let profid = newMedProfReq.medprof.uid;
+        toastUtil.waiting(this, true, '添加操作中...');
+        datasrc.proforgagent.createNewMedProf(
+          newMedProfReq,
+          respData => {
+            console.log('respData', respData);
+            let { success, msg } = respData;
+            toastUtil.waiting(that, false);
 
-          if (success) {
-            toastUtil.success(that, `添加成功`);
+            if (success) {
+              toastUtil.success(that, `添加成功`);
+            }
+            else {
+              toastUtil.fail(that, `添加营养师[${profid}]失败: ${msg}`);
+            }
           }
-          else {
-            toastUtil.fail(that, `添加营养师[${profid}]失败: ${msg}`);
-          }
-        }
-      )
+        );
+      }
     },
     onRewardPlanChange: function (e) {
       const { picker, value, index } = e.detail;
@@ -93,23 +106,36 @@ Component({
       this.setData({ errorMsgs });
     },
 
-    checkAndUpdateInput: function (field, checker, e) {
+    checkAllError: function() {
+      var hasError = false;
+      for (var field in this.data.field2Checker) {
+        let checker = this.data.field2Checker[field];
+        console.log(`${field} checker: `, checker);
+        let input = this.data.newMedProf[field];
+        let err = checker.check(input);
+        this.updateErrorMsg(field, err);
+        if (err != inputCheck.MsgNoError) hasError = true;
+      }
+      return hasError;
+    },
+
+    checkAndUpdateInput: function (field, e) {
       let input = e.detail;
-      this.updateNewMedProf(field, e)
+      this.updateNewMedProf(field, e);
+      let checker = this.data.field2Checker[field];
+      //console.log('checker: ', checker);
       let err = checker.check(input);
       this.updateErrorMsg(field, err);
     },
     onInputUserId: function (e) {
       this.checkAndUpdateInput(
         "profid",
-        inputCheck.profid,
         e
       );
     },
     onInputPassword: function (e) {
       this.checkAndUpdateInput(
         "password",
-        inputCheck.password,
         e
       );
     },
@@ -119,28 +145,24 @@ Component({
     onInputUserName: function (e) {
       this.checkAndUpdateInput(
         "name",
-        inputCheck.name,
         e
       );
     },
     onInputIdCardNo: function (e) {
       this.checkAndUpdateInput(
         "idCardNo",
-        inputCheck.idCardNo,
         e
       );
     },
     onInputMobile: function (e) {
       this.checkAndUpdateInput(
         "mobile",
-        inputCheck.mobile,
         e
       );
     },
     onInputInfo: function (e) {
       this.checkAndUpdateInput(
         "info",
-        inputCheck.info,
         e
       );
     },

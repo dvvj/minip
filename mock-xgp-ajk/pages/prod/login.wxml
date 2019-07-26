@@ -3,7 +3,7 @@
 
 
 <view>
-  <image src="../../images/product1.png" style="width:100%; height:600rpx;" mode="aspectFill"></image>
+  <image src="../../images/product11.png" style="width:100%; height:600rpx;" mode="aspectFill"></image>
 </view>
 <van-cell-group>
   <van-field

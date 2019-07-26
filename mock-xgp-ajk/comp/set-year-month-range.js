@@ -156,6 +156,7 @@ Component({
 
     onSetYearMonth: function(e) {
       this.show();
+      this.triggerEvent("preShow");
     },
   }
 })

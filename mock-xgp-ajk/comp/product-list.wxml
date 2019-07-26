@@ -8,6 +8,7 @@
       origin-price="{{item.price0}}"
       title="{{item.name}}"
       thumb="{{item.imgUrl}}"
+      currency="HK$"
     >
       <view slot="footer">
         <van-stepper value="{{item.count}}" bind:plus="onPlus" bind:minus="onMinus" data-id="{{item.id}}" />
@@ -21,6 +22,7 @@
       price="{{item.actualPrice}}"
       title="{{item.name}}"
       thumb="{{item.imgUrl}}"
+      currency="HK$"
     >
       <view slot="footer">
         <van-stepper value="{{item.count}}" bind:plus="onPlus" bind:minus="onMinus" data-id="{{item.id}}" />

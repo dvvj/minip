@@ -80,6 +80,7 @@ Component({
       let tokens = util.getStoredTokens();
       let that = this;
       let userid = util.getUserId(); //wx.getStorageSync(util.userIdKey)
+      let totalCost = Math.round(prod.totalPrice*100);
 
       toastUtil.waiting(this, true, '支付准备中...');
       wx.request({
@@ -89,7 +90,7 @@ Component({
           productId: prodId,
           prodCount: prod.count,
           info: prod.name,
-          totalCost: 3
+          totalCost
         },
         method: "POST",
         header: util.postJsonReqHeader(tokens),

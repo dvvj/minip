@@ -47,7 +47,8 @@ Page({
 
     ec: {
       onInit: initChart
-    }
+    },
+    hideChart: false
   },
 
 
@@ -204,7 +205,12 @@ Page({
       }
     );
   },
-
+  hideEChart: function (hide) {
+    this.setData({ hideChart: hide });
+  },
+  onPreSetYearMonthRange: function (e) {
+    this.hideEChart(true);
+  },
   onConfirmYearMonthRange: function (e) {
     console.log('in onConfirmYearMonthRange', e);
     let setYearMonthRange = this.selectComponent("#setYearMonthRange");
@@ -212,6 +218,7 @@ Page({
     console.log('range: ', range);
     this.yearMonthRange(range.start, range.end);
     this.updateProfitStats();
+    this.hideEChart(false);
   },
 
   onLoad: function (options) {

@@ -13,9 +13,11 @@
     <proforgagent-list id="proforgagentList" bind:gotoAddNewProfOrgAgent="onGotoAddProfOrgAgent" />
   </swiper-item>
   <swiper-item>
-    <set-year-month-range id="setYearMonthRange" bind:confirm="onConfirmYearMonthRange" />
+    <set-year-month-range id="setYearMonthRange"
+      bind:preShow="onPreSetYearMonthRange"
+      bind:confirm="onConfirmYearMonthRange" />
     <scroll-view scroll-y class="main_height">
-      <view class="canvas_container">
+      <view class="canvas_container" hidden="{{hideChart}}">
         <!-- <canvas class="main_canvas" canvas-id="columnCanvas"></canvas> -->
         <ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
       </view>

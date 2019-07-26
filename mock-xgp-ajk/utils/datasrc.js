@@ -212,7 +212,7 @@ const datasrc = {
           console.log("pricePlans: ", pricePlans);
 
           let newCustomer = {
-            userid: 'c_',
+            userid: 'c-',
             password: '123',
             password2: '123',
             userName: '张某',
@@ -354,7 +354,7 @@ const datasrc = {
           console.log("reward plans: ", rewardPlans);
 
           let newMedProf = {
-            profid: 'p_',
+            profid: 'p-',
             password: '123',
             password2: '123',
             name: '张某',
@@ -448,7 +448,7 @@ const datasrc = {
           console.log("reward plans: ", rewardPlans);
 
           let newProfOrgAgent = {
-            agentid: 'a_',
+            agentid: 'a-',
             password: '123',
             password2: '123',
             name: '张某',

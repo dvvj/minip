@@ -27,25 +27,25 @@ const uidChecker = function(input, prefix, checkerObj) {
 
 const userid = {
   pattern: /^[a-zA-Z][\da-zA-Z]*$/,
-  errorMsg: '用户id必须以c_作为前缀，主体部分必须以字母为首，其余部分只能使用数字或者字母',
+  errorMsg: '用户id必须以c-作为前缀，主体部分必须以字母为首，其余部分只能使用数字或者字母',
   check: function(input) {
-    return uidChecker(input, 'c_', userid);
+    return uidChecker(input, 'c-', userid);
   }
 };
 
 const profid = {
   pattern: /^[a-zA-Z][\da-zA-Z]*$/,
-  errorMsg: '营养师id必须以p_作为前缀，主体部分必须以字母为首，其余部分只能使用数字或者字母',
+  errorMsg: '营养师id必须以p-作为前缀，主体部分必须以字母为首，其余部分只能使用数字或者字母',
   check: function (input) {
-    return uidChecker(input, 'p_', profid);
+    return uidChecker(input, 'p-', profid);
   }
 };
 
 const agentid = {
   pattern: /^[a-zA-Z][\da-zA-Z]*$/,
-  errorMsg: '业务员id必须以a_作为前缀，主体部分必须以字母为首，其余部分只能使用数字或者字母',
+  errorMsg: '业务员id必须以a-作为前缀，主体部分必须以字母为首，其余部分只能使用数字或者字母',
   check: function (input) {
-    return uidChecker(input, 'a_', agentid);
+    return uidChecker(input, 'a-', agentid);
   }
 };
 

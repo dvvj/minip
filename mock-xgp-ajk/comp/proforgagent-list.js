@@ -20,6 +20,10 @@ Component({
   methods: {
     initData: function (proforgagents) {
       this.setData({ proforgagents });
+    },
+    onAddNewProfOrgAgentClicked: function() {
+      console.log('onAddNewProfOrgAgentClicked, triggering event gotoAddNewProfOrgAgent');
+      this.triggerEvent('gotoAddNewProfOrgAgent');
     }
   }
 })

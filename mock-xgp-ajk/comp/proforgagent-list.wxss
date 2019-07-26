@@ -1,1 +1,2 @@
 /* comp/proforgagent-list.wxss */
+@import "../app.wxss";

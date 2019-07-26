@@ -19,7 +19,14 @@ Component({
     newProfOrgAgent: {},
     errorMsgs: {},
     rewardPlans: [],
-    rewardPlanInfos: []
+    rewardPlanInfos: [],
+    field2Checker: {
+      "agentid": inputCheck.agentid,
+      "password": inputCheck.password,
+      "name": inputCheck.name,
+      "mobile": inputCheck.mobile,
+      "info": inputCheck.info,
+    }
   },
 
   /**
@@ -53,23 +60,24 @@ Component({
       console.log('errorMsgs', errorMsgs);
       this.setData({ errorMsgs });
     },
-    checkAndUpdateInput: function (field, checker, e) {
+    checkAndUpdateInput: function (field, e) {
       let input = e.detail;
       this.updateNewProfOrgAgent(field, e)
+      let checker = this.data.field2Checker[field];
       let err = checker.check(input);
       this.updateErrorMsg(field, err);
     },
+
+
     onInputUserId: function (e) {
       this.checkAndUpdateInput(
         "agentid",
-        inputCheck.agentid,
         e
       );
     },
     onInputPassword: function (e) {
       this.checkAndUpdateInput(
         "password",
-        inputCheck.password,
         e
       );
     },
@@ -79,28 +87,24 @@ Component({
     onInputUserName: function (e) {
       this.checkAndUpdateInput(
         "name",
-        inputCheck.name,
         e
       );
     },
     onInputIdCardNo: function (e) {
       this.checkAndUpdateInput(
         "idCardNo",
-        inputCheck.idCardNo,
         e
       );
     },
     onInputMobile: function (e) {
       this.checkAndUpdateInput(
         "mobile",
-        inputCheck.mobile,
         e
       );
     },
     onInputInfo: function (e) {
       this.checkAndUpdateInput(
         "info",
-        inputCheck.info,
         e
       );
     },
@@ -114,31 +118,50 @@ Component({
         orgId: orgId
       }
     },
-    onAddProfOrgAgent: function(e) {
-      let that = this;
-      let orgId = util.getUserId();
-      console.log('onAddProfOrgAgent: orgId: ', orgId);
-      let newProfOrgAgentReq = {
-        profOrgAgent: this.fixProfOrgAgent(this.data.newProfOrgAgent, orgId),
-        rewardPlanId: this.data.selectedRewardPlan.id
-      };
-      let agentId = newProfOrgAgentReq.profOrgAgent.uid;
-      toastUtil.waiting(this, true, '添加操作中...');
-      datasrc.proforg.createNewProfOrgAgent(
-        newProfOrgAgentReq,
-        respData => {
-          console.log('respData', respData);
-          let { success, msg } = respData;
-          toastUtil.waiting(that, false);
 
-          if (success) {
-            toastUtil.success(that, `添加成功`);
+    checkAllError: function () {
+      var hasError = false;
+      for (var field in this.data.field2Checker) {
+        let checker = this.data.field2Checker[field];
+        console.log(`${field} checker: `, checker);
+        let input = this.data.newProfOrgAgent[field];
+        let err = checker.check(input);
+        this.updateErrorMsg(field, err);
+        if (err != inputCheck.MsgNoError) hasError = true;
+      }
+      return !hasError;
+    },
+    onAddProfOrgAgent: function(e) {
+
+      if (!this.checkAllError()) {
+        console.log('has input error(s)');
+      }
+      else {
+        let that = this;
+        let orgId = util.getUserId();
+        console.log('onAddProfOrgAgent: orgId: ', orgId);
+        let newProfOrgAgentReq = {
+          profOrgAgent: this.fixProfOrgAgent(this.data.newProfOrgAgent, orgId),
+          rewardPlanId: this.data.selectedRewardPlan.id
+        };
+        let agentId = newProfOrgAgentReq.profOrgAgent.uid;
+        toastUtil.waiting(this, true, '添加操作中...');
+        datasrc.proforg.createNewProfOrgAgent(
+          newProfOrgAgentReq,
+          respData => {
+            console.log('respData', respData);
+            let { success, msg } = respData;
+            toastUtil.waiting(that, false);
+
+            if (success) {
+              toastUtil.success(that, `添加成功`);
+            }
+            else {
+              toastUtil.fail(that, `添加业务员[${agentId}]失败: ${msg}`);
+            }
           }
-          else {
-            toastUtil.fail(that, `添加业务员[${agentId}]失败: ${msg}`);
-          }
-        }
-      )
+        )
+      }
     }
   }
 })

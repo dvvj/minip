@@ -1,1 +1,2 @@
 /* comp/reffed-customer-infos.wxss */
+@import "../app.wxss";

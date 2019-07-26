@@ -68,6 +68,10 @@ Page({
     });
   },
 
+  onGotoAddProfOrgAgent: function () {
+    this.updateActiveTab(tabIndices.addProfOrgAgent);
+  },
+
   updateTabContent: function(tabIndex) {
     if (tabIndex == tabIndices.proforgAgentList) {
       this.updateProfOrgAgentList();

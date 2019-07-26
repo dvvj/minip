@@ -10,7 +10,8 @@
       <view slot="title">
         <view><text>客户列表为空</text></view>
         <view>
-          <van-button size="small" type="primary" bind:click='onAddNewCustomerClicked'>添加新客户</van-button>
+          <van-button size="small" type="custom" custom-class="lb-button"
+            bind:click='onAddNewCustomerClicked'>添加新客户</van-button>
         </view>
       </view>
     </van-cell>

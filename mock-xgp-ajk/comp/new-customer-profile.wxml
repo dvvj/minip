@@ -98,10 +98,14 @@
   </van-tab>
   <van-tab title="用户档案">
     <van-cell-group>
-      <van-cell
-        title="用户信息：{{ newCustomer.userid }}，{{ newCustomer.userName }}，{{ newCustomer.idCardNo }}"
-        value-class="value-class"
-      />
+      <van-cell>
+        <view slot="title">
+          <text style='font-size:30rpx;font-weight:bold;'>用户信息</text>
+        </view>
+        <view slot="title">
+          <text>{{ newCustomer.userid }}，{{ newCustomer.userName }}，{{ newCustomer.idCardNo }}</text>
+        </view>
+      </van-cell>
 
       <van-field
         disabled="{{ inProcess }}"
@@ -139,9 +143,12 @@
         </van-cell>
       </van-checkbox-group> -->
 
-      <van-cell required
-        title="选择推荐保健品："
-      />
+      <van-cell required>
+        <view slot="title">
+          <text>选择推荐保健品：</text>
+          <text wx:if="{{ errorMsgs.selectProduct && errorMsgs.selectProduct != '' }}" style="color: #f00;">{{ errorMsgs.selectProduct }}</text>
+        </view>
+      </van-cell>
 
       <van-checkbox-group
         value="{{ selected }}" data-key="selected" custom-class="checkbox-group" bind:change="onChange">

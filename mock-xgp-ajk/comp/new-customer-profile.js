@@ -77,10 +77,33 @@ Component({
         selected: event.detail
       });
     },
+
+    checkTab2Input: function() {
+      if (this.data.selected && this.data.selected.length > 0) {
+        return true;
+      }
+      else {
+        this.updateErrorMsg('selectProduct', '请至少选择一个产品');
+        return false;
+      }
+    },
+
+    checkAllTabsInput: function()  {
+      if (!this.checkTab1Input()) {
+        this.setData({ activeTabIndex: 0 });
+        return false;
+      }
+      else {
+        return this.checkTab2Input();
+      }
+    },
+
     onNewCustomerProfile: function(e) {
-      let result = this.getData();
-      console.log('[todo] onNewCustomerProfile: ', result)
-      this.createNewCustomerProfile();
+      if (this.checkAllTabsInput()) {
+        let result = this.getData();
+        console.log('[todo] onNewCustomerProfile: ', result)
+        this.createNewCustomerProfile();
+      }
     },
 
     // hasInputError: function() {
@@ -97,7 +120,7 @@ Component({
     //   return hasError;
     // },
 
-    checkAllError: function () {
+    checkTab1Input: function () {
       var hasError = false;
       for (var field in this.data.field2Checker) {
         let checker = this.data.field2Checker[field];
@@ -111,7 +134,7 @@ Component({
     },
 
     onNextStep: function(e) {
-      if (this.checkAllError()) {
+      if (this.checkTab1Input()) {
         this.setData({ activeTabIndex: 1 });
       }
       else {

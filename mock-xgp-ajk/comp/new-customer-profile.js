@@ -26,7 +26,15 @@ Component({
     selected: [],
     pricePlans: [],
     pricePlanInfos: [],
-    errorMsgs: {}
+    errorMsgs: {},
+    field2Checker: {
+      "userid": inputCheck.userid,
+      "password": inputCheck.password,
+      "userName": inputCheck.userName,
+      "idCardNo": inputCheck.idCardNo,
+      "mobile": inputCheck.mobile,
+      "postAddr": inputCheck.postAddr,
+    }
   },
 
   /**
@@ -75,23 +83,39 @@ Component({
       this.createNewCustomerProfile();
     },
 
-    hasInputError: function() {
-      let errorMsgs = this.data.errorMsgs;
+    // hasInputError: function() {
+    //   let errorMsgs = this.data.errorMsgs;
 
-      let keys = Object.keys(errorMsgs);
+    //   let keys = Object.keys(errorMsgs);
+    //   var hasError = false;
+    //   keys.forEach ( k => {
+    //     let prop = errorMsgs[k];
+    //     console.log(`${k}: ${prop}`);
+    //     if (prop)
+    //       hasError = true;
+    //   });
+    //   return hasError;
+    // },
+
+    checkAllError: function () {
       var hasError = false;
-      keys.forEach ( k => {
-        let prop = errorMsgs[k];
-        console.log(`${k}: ${prop}`);
-        if (prop)
-          hasError = true;
-      });
-      return hasError;
+      for (var field in this.data.field2Checker) {
+        let checker = this.data.field2Checker[field];
+        console.log(`${field} checker: `, checker);
+        let input = this.data.newCustomer[field];
+        let err = checker.check(input);
+        this.updateErrorMsg(field, err);
+        if (err != inputCheck.MsgNoError) hasError = true;
+      }
+      return !hasError;
     },
-    onNextStep: function(e) {
 
-      if (!this.hasInputError()) {
+    onNextStep: function(e) {
+      if (this.checkAllError()) {
         this.setData({ activeTabIndex: 1 });
+      }
+      else {
+        console.log('has input error(s)');
       }
     },
 
@@ -108,24 +132,20 @@ Component({
       this.setData({ newCustomer: t });
     },
 
-    checkAndUpdateInput: function(field, checker, e) {
+    checkAndUpdateInput: function(field, e) {
       let input = e.detail;
       this.updateNewCustomer(field, e)
+      let checker = this.data.field2Checker[field];
       let err = checker.check(input);
       this.updateErrorMsg(field, err);
     },
 
     onInputUserId: function (e) {
-      this.checkAndUpdateInput(
-        "userid",
-        inputCheck.userid,
-        e
-      );
+      this.checkAndUpdateInput("userid", e);
     },
     onInputPassword: function (e) {
       this.checkAndUpdateInput(
         "password",
-        inputCheck.password,
         e
       );
       //this.updateNewCustomer("password", e)
@@ -136,7 +156,6 @@ Component({
     onInputUserName: function (e) {
       this.checkAndUpdateInput(
         "userName",
-        inputCheck.userName,
         e
       );
       //this.updateNewCustomer("userName", e)
@@ -145,7 +164,6 @@ Component({
       //this.updateNewCustomer("idCardNo", e)
       this.checkAndUpdateInput(
         "idCardNo",
-        inputCheck.idCardNo,
         e
       );
     },
@@ -153,7 +171,6 @@ Component({
       //this.updateNewCustomer("mobile", e)
       this.checkAndUpdateInput(
         "mobile",
-        inputCheck.mobile,
         e
       );
     },
@@ -161,7 +178,6 @@ Component({
       //this.updateNewCustomer("postAddr", e)
       this.checkAndUpdateInput(
         "postAddr",
-        inputCheck.postAddr,
         e
       );
     },

@@ -57,7 +57,7 @@ Component({
       }
     },
     onAddMedProf: function(e) {
-      if (this.checkAllError()) {
+      if (!this.checkAllError()) {
         console.log("has input error(s)");
       }
       else {
@@ -116,7 +116,7 @@ Component({
         this.updateErrorMsg(field, err);
         if (err != inputCheck.MsgNoError) hasError = true;
       }
-      return hasError;
+      return !hasError;
     },
 
     checkAndUpdateInput: function (field, e) {

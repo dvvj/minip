@@ -23,7 +23,8 @@ const uidChecker = function(input, prefix, checkerObj) {
     err = checkerObj.errorMsg;
   }
   return err;
-}
+};
+
 const userid = {
   pattern: /^[a-zA-Z][\da-zA-Z]*$/,
   errorMsg: '用户id必须以c_作为前缀，主体部分必须以字母为首，其余部分只能使用数字或者字母',

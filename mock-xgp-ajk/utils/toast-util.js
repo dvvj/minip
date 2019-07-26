@@ -15,7 +15,7 @@ const success = function (context, msg, cid) {
 
 const fail = function (context, msg, cid) {
   let toast = toastById(context, cid);
-  toast.success(msg);
+  toast.fail(msg);
 };
 
 module.exports = {

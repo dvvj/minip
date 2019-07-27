@@ -6,7 +6,7 @@
     value="{{ newMedProf.profid }}"
     required
     clearable
-    label="用户ID"
+    label="营养师ID"
     icon="question-o"
     placeholder="请输入用户ID"
     error-message="{{ errorMsgs.profid }}"

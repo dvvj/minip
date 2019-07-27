@@ -217,7 +217,7 @@ const datasrc = {
             password2: '123',
             userName: '张某',
             idCardNo: '310112197003113333',
-            mobile: '137000333333',
+            mobile: '13700033333',
             postAddr: '某省某市某区某路xx号 邮编111111'
           };
           let profile = {
@@ -258,7 +258,7 @@ const datasrc = {
           userid: 'newcustomer02',
           userName: 'x某',
           idCardNo: '310112197003113333',
-          mobile: '137000333333',
+          mobile: '13700033333',
           profile: {
             healthTags: '高血压',
             medicineTags: '降压药'
@@ -359,7 +359,7 @@ const datasrc = {
             password2: '123',
             name: '张某',
             idCardNo: '310112197003113333',
-            mobile: '137000333333',
+            mobile: '13700033333',
             info: '脑,心血管'
           };
 
@@ -452,7 +452,7 @@ const datasrc = {
             password: '123',
             password2: '123',
             name: '张某',
-            mobile: '137000333333',
+            mobile: '13700033333',
             info: '业务员信息'
           };
 

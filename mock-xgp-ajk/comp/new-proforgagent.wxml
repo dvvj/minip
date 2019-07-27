@@ -6,7 +6,7 @@
     value="{{ newProfOrgAgent.agentid }}"
     required
     clearable
-    label="用户ID"
+    label="业务员ID"
     icon="question-o"
     placeholder="请输入用户ID"
     error-message="{{ errorMsgs.agentid }}"

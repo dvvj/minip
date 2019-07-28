@@ -1,4 +1,6 @@
 // comp/medprof-list.js
+const util = require('../utils/util.js');
+
 Component({
   /**
    * Component properties
@@ -25,6 +27,13 @@ Component({
     onAddNewMedProfClicked: function(e) {
       console.log('onAddNewMedProfClicked, triggering event gotoAddNewMedProf');
       this.triggerEvent('gotoAddNewMedProf');
+    },
+
+    onClick: function (e) {
+      let idx = e.currentTarget.dataset.index;
+      let currMedProf = this.data.medprofs[idx];
+      console.log('medprofs', currMedProf);
+      wx.setStorageSync(util.currMedProfKey, currMedProf)
     }
   }
 })

@@ -1,0 +1,8 @@
+<!--pages/prod/orgagent/medprof-detail.wxml-->
+<van-cell-group title="业务员详情">
+  <van-cell title="姓名" value="{{currMedProf.name}}" />
+  <van-cell title="ID" value="{{currMedProf.profId}}" />
+  <van-cell title="手机号" value="{{currMedProf.mobile}}" />
+  <van-cell title="其他信息" value="{{currMedProf.info}}" />
+</van-cell-group>
+

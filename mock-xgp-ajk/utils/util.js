@@ -61,7 +61,8 @@ const promisify = original => {
 const userTokenKey = "userTokens"
 const userIdKey = "userId"
 const currOrderKey = "currOrder";
-const currAgentKey = "currAgent"
+const currAgentKey = "currAgent";
+const currMedProfKey = "currMedProf";
 
 const getUserId = () => {
   return wx.getStorageSync(userIdKey);
@@ -207,6 +208,7 @@ module.exports = {
   getUserId: getUserId,
   currOrderKey: currOrderKey,
   currAgentKey: currAgentKey,
+  currMedProfKey: currMedProfKey,
   updateXAuth: updateXAuth,
   getMainPage: getMainPage,
   postJsonReqHeader: postJsonReqHeader,

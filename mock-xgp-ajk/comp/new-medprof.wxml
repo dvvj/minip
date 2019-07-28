@@ -48,18 +48,6 @@
   />
 
   <van-field
-    value="{{ newMedProf.idCardNo }}"
-    required
-    clearable
-    label="身份证号"
-    icon="question-o"
-    placeholder="姓名必须与身份证一致"
-    error-message="{{ errorMsgs.idCardNo }}"
-    bind:click-icon="onClickIcon"
-    bind:input="onInputIdCardNo"
-  />
-
-  <van-field
     value="{{ newMedProf.mobile }}"
     required
     clearable

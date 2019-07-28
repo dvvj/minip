@@ -358,7 +358,6 @@ const datasrc = {
             password: '123',
             password2: '123',
             name: '张某',
-            idCardNo: '310112197003113333',
             mobile: '13700033333',
             info: '脑,心血管'
           };

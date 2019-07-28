@@ -25,7 +25,6 @@ Component({
       "profid": inputCheck.profid,
       "password": inputCheck.password,
       "name": inputCheck.name,
-      "idCardNo": inputCheck.idCardNo,
       "mobile": inputCheck.mobile,
       "info": inputCheck.info,
     }

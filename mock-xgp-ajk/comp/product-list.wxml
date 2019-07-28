@@ -2,8 +2,8 @@
 <waiting-toast id="waitingToast" />
 <scroll-view scroll-y class="main_height">
   <block wx:for="{{products}}" wx:key="id">
+      <!-- tag="{{item.referingProfName}}" -->
     <van-card wx:if="{{item.hasDiscount}}"
-      tag="{{item.referingProfName}}"
       price="{{item.actualPrice}}"
       origin-price="{{item.price0}}"
       title="{{item.name}}"
@@ -17,8 +17,8 @@
         <van-button size="small" data-id="{{item.id}}">详情 {{'>>'}}</van-button>
       </view>
     </van-card>
+      <!-- tag="{{item.referingProfName}}" -->
     <van-card wx:else
-      tag="{{item.referingProfName}}"
       price="{{item.actualPrice}}"
       title="{{item.name}}"
       thumb="{{item.imgUrl}}"

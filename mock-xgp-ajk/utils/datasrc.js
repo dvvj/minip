@@ -54,12 +54,13 @@ const datasrc = {
             let { success, msg, status } = parseResponse4Login(e);
             console.log(`datasrc.login success, status: ${status}`, e);
             cb({ success, msg });
-            // const tokens = { xauth: e.header[xAuthHeader], accessToken: e.data.access_token };
             if (success) {
               util.saveTokens(e);
-              let mainPage = util.getMainPage(e.data.userType);
+              let { uid, userType } = e.data;
+              let mainPage = util.getMainPage(userType);
               console.log(`main page: ${e.data.userType}: ${mainPage}`);
-              wx.setStorageSync(util.userIdKey, userid)
+              // userid: uid or phone #, uid: converted from phone # if it's the later case
+              wx.setStorageSync(util.userIdKey, uid);
               wx.navigateTo({
                 url: mainPage //'../product/product-list',
               })

@@ -18,7 +18,8 @@
     "pages/prod/wepayez-pay",
     "pages/prod/orgagent/orgagent_main",
     "pages/prod/proforg/agent-detail",
-    "pages/prod/orgagent/medprof-detail"
+    "pages/prod/orgagent/medprof-detail",
+    "pages/prod/medprof/customer-detail"
   ],
   "window": {
     "backgroundTextStyle": "light",

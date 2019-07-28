@@ -1,0 +1,10 @@
+<!--pages/prod/medprof/customer-detail.wxml-->
+<van-cell-group title="客户详情">
+  <van-cell title="姓名" value="{{currCustomer.customerName}}" />
+  <van-cell title="ID" value="{{currCustomer.customerId}}" />
+  <van-cell title="推荐产品" value="{{currCustomer.productShortNames}}" />
+  <van-cell title="身体状况" value="{{currCustomer.healthTags}}" />
+  <van-cell title="服用药物" value="{{currCustomer.medicineTags}}" />
+  <!-- <van-cell title="手机号" value="{{currCustomer.mobile}}" />
+  <van-cell title="其他信息" value="{{currCustomer.info}}" /> -->
+</van-cell-group>

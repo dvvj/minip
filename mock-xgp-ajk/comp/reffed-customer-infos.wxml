@@ -16,15 +16,13 @@
       </view>
     </van-cell>
   </van-cell-group>
-  <block wx:for="{{customerInfos}}" wx:key="profileId">
+  <block wx:for="{{customerInfos}}" wx:key="profileId" wx:for-index="customerIndex">
     <van-cell-group>
-      <van-cell is-link url="../../customer/reffed-order-stats">
+      <van-cell is-link url="../../prod/medprof/customer-detail"
+        data-index="{{customerIndex}}" bind:click="onClick">
         <view>
-          <block wx:for="{{item.productShortNames}}" wx:key="*this">
-            <van-tag round type="success">{{item}}</van-tag>
-          </block>
           <view class="van-cell-text">
-            <text>订单统计</text>
+            <text>详细资料</text>
           </view>
         </view>
         <view slot="title">
@@ -33,6 +31,11 @@
             <text></text>
           </view>
           <view>
+            <block wx:for="{{item.productShortNames}}" wx:key="*this">
+              <van-tag round color="#28a8f0">{{item}}</van-tag>
+            </block>
+          </view>
+          <!-- <view>
             <block wx:for="{{item.healthTags}}" wx:key="*this">
               <van-tag plain type="danger">{{item}}</van-tag>
             </block>
@@ -41,7 +44,7 @@
             <block wx:for="{{item.medicineTags}}" wx:key="*this">
               <van-tag round type="primary">{{item}}</van-tag>
             </block>
-          </view>
+          </view> -->
         </view>
       </van-cell>
     </van-cell-group>

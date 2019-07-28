@@ -1,0 +1,7 @@
+<!--pages/prod/proforg/agent-detail.wxml-->
+<van-cell-group title="业务员详情">
+  <van-cell title="姓名" value="{{currAgent.name}}" />
+  <van-cell title="ID" value="{{currAgent.agentId}}" />
+  <van-cell title="手机号" value="{{currAgent.mobile}}" />
+  <van-cell title="其他信息" value="{{currAgent.info}}" />
+</van-cell-group>

@@ -16,10 +16,11 @@
       </view>
     </van-cell>
   </van-cell-group>
-  <block wx:for="{{proforgagents}}" wx:key="agentId">
+  <block wx:for="{{proforgagents}}" wx:key="agentId" wx:for-index="agentIndex">
     <van-cell-group>
       <!-- <van-cell is-link url="../../customer/reffed-order-stats"> -->
-      <van-cell>
+      <van-cell is-link url="../../prod/proforg/agent-detail"
+        data-index="{{agentIndex}}" bind:click="onClick">
         <view>
           <view class="van-cell-text">
             <text>{{item.mobile}}</text>
@@ -30,7 +31,7 @@
             <text>{{item.name}}</text>
           </view>
           <view class="van-cell-text">
-            <van-tag round type="success">{{item.info}}</van-tag>
+            <van-tag round color="#28a8f0">{{item.info}}</van-tag>
           </view>
         </view>
       </van-cell>

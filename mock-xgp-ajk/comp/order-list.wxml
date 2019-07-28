@@ -11,7 +11,7 @@
         </view>
         <view slot="title">
           <view class="van-cell-text">
-            <van-tag round type="success" size="large">{{item.productShortName}}</van-tag>
+            <van-tag round type="info" size="large">{{item.productShortName}}</van-tag>
             <van-tag plain type="danger" size="medium">{{item.creationTime}}</van-tag>
           </view>
         </view>

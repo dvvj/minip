@@ -16,7 +16,8 @@
     "pages/prod/customer/order-detail",
     "pages/tmp/pay-webview",
     "pages/prod/wepayez-pay",
-    "pages/prod/orgagent/orgagent_main"
+    "pages/prod/orgagent/orgagent_main",
+    "pages/prod/proforg/agent-detail"
   ],
   "window": {
     "backgroundTextStyle": "light",

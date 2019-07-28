@@ -64,6 +64,7 @@ const currOrderKey = "currOrder";
 const currAgentKey = "currAgent";
 const currMedProfKey = "currMedProf";
 const currCustomerKey = "currCustomer";
+const currProductKey = "currProduct";
 
 const getUserId = () => {
   return wx.getStorageSync(userIdKey);
@@ -211,6 +212,7 @@ module.exports = {
   currAgentKey: currAgentKey,
   currMedProfKey: currMedProfKey,
   currCustomerKey: currCustomerKey,
+  currProductKey: currProductKey,
   updateXAuth: updateXAuth,
   getMainPage: getMainPage,
   postJsonReqHeader: postJsonReqHeader,

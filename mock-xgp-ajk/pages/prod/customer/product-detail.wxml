@@ -1,0 +1,10 @@
+<!--pages/prod/customer/product-detail.wxml-->
+
+<van-cell-group title="产品详情">
+  <image src="{{currProduct.imgUrl}}" style="width:100%; height:600rpx;" mode="aspectFill"></image>
+  <van-cell title="产品名" value="{{currProduct.name}}" />
+  <van-cell title="产品ID" value="{{currProduct.id}}" />
+  <van-cell title="原价" value="{{currProduct.price0}}" />
+  <van-cell title="优惠价" value="{{currProduct.actualPrice}}" />
+  <van-cell title="推荐营养师" value="{{currProduct.referingProfName}}" />
+</van-cell-group>

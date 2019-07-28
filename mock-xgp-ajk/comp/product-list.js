@@ -73,6 +73,16 @@ Component({
 
     },
 
+    onDetail: function(e) {
+      let prodId = e.target.dataset.id;
+      let currProduct = this.data.productDict[prodId];
+      console.log('currProduct: ', currProduct);
+      wx.setStorageSync(util.currProductKey, currProduct);
+      wx.navigateTo({
+        url: '../../prod/customer/product-detail',
+      })
+    },
+
     onBuy: function(e) {
       let prodId = e.target.dataset.id;
       let prod = this.data.productDict[prodId];

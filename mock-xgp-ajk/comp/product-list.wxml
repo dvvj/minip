@@ -13,8 +13,10 @@
       <view slot="footer">
         <van-stepper value="{{item.count}}" bind:plus="onPlus" bind:minus="onMinus" data-id="{{item.id}}" />
         <text>共计：</text><text class='price-total'>{{item.totalPrice}}</text>
-        <van-button size="small" type="custom" custom-class="lb-button" bind:click="onBuy" data-id="{{item.id}}">立即购买</van-button>
-        <van-button size="small" data-id="{{item.id}}">详情 {{'>>'}}</van-button>
+        <van-button size="small" type="custom" custom-class="lb-button"
+          bind:click="onBuy" data-id="{{item.id}}">立即购买</van-button>
+        <van-button size="small" data-id="{{item.id}}"
+          bind:click="onDetail">详情 {{'>>'}}</van-button>
       </view>
     </van-card>
       <!-- tag="{{item.referingProfName}}" -->
@@ -27,8 +29,10 @@
       <view slot="footer">
         <van-stepper value="{{item.count}}" bind:plus="onPlus" bind:minus="onMinus" data-id="{{item.id}}" />
         <text>共计：</text><text class='price-total'>{{item.totalPrice}}</text>
-        <van-button size="small" type="custom" custom-class="lb-button" bind:click="onBuy" data-id="{{item.id}}">立即购买</van-button>
-        <van-button size="small" data-id="{{item.id}}">详情 {{'>>'}}</van-button>
+        <van-button size="small" type="custom" custom-class="lb-button"
+          bind:click="onBuy" data-id="{{item.id}}">立即购买</van-button>
+        <van-button size="small" data-id="{{item.id}}"
+          bind:click="onDetail">详情 {{'>>'}}</van-button>
       </view>
     </van-card>
   </block>

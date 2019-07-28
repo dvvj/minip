@@ -19,7 +19,8 @@
     "pages/prod/orgagent/orgagent_main",
     "pages/prod/proforg/agent-detail",
     "pages/prod/orgagent/medprof-detail",
-    "pages/prod/medprof/customer-detail"
+    "pages/prod/medprof/customer-detail",
+    "pages/prod/customer/product-detail"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,5 +1,4 @@
-// pages/mock/customer/order-detail.js
-
+// pages/prod/customer/product-detail.js
 const util = require('../../../utils/util.js');
 
 Page({
@@ -15,8 +14,8 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
-    let currOrder = wx.getStorageSync(util.currOrderKey);
-    this.setData({currOrder})
+    let currProduct = wx.getStorageSync(util.currProductKey);
+    this.setData({ currProduct })
   },
 
   /**

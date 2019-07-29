@@ -1,5 +1,4 @@
 <!--pages/prod/customer/product-detail.wxml-->
-
 <van-cell-group title="产品详情">
   <image src="{{currProduct.imgUrl}}" style="width:100%; height:600rpx;" mode="aspectFill"></image>
   <van-cell title="产品名" value="{{currProduct.name}}" />

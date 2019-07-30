@@ -83,8 +83,8 @@ const datasrc = {
   },
   customer: {
     getProductList: (cb) => {
-
-      let cachedProductList = cacheUtil.getCachedProductList();
+      let uid = util.getUserId();
+      let cachedProductList = cacheUtil.getCachedProductList(uid);
 
       if (cachedProductList) {
         console.log('using product list in cache');
@@ -128,7 +128,7 @@ const datasrc = {
               return resDataItem;
             })
 
-            cacheUtil.saveCachedProductList(products);
+            cacheUtil.saveCachedProductList(uid, products);
 
             cb(false, products);
             //return res.data;

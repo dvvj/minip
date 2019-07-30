@@ -1,22 +1,25 @@
 const cacheUtil = require('cache-util.js');
 
-const saveToCache = function (fs, cacheKeyName, filePath) {
+const saveToCache = function (fs, cacheKeyName, filePath, cb) {
+  console.log('file to save: ', filePath);
   fs.saveFile({
     tempFilePath: filePath,
     success: function (fsres) {
       console.log('saved: ', fsres.savedFilePath);
       wx.setStorageSync(cacheKeyName, fsres.savedFilePath);
-      cb({
-        success: true,
-        savedPath: fsres.savedFilePath
-      });
+      if (cb)
+        cb({
+          success: true,
+          savedPath: fsres.savedFilePath
+        });
     },
     fail: function (err) {
       console.log('failed to save, err: ', err);
-      cb({
-        success: false,
-        err
-      });
+      if (cb)
+        cb({
+          success: false,
+          err
+        });
     }
   })
 
@@ -28,7 +31,7 @@ const replaceCache = function (fs, cacheKeyName, filePath, replacementFile) {
     filePath,
     success: function (r) {
       console.log('removed existing cache file: ', filePath);
-      saveToCache(fs, replacementFile);
+      saveToCache(fs, cacheKeyName, replacementFile);
     },
     fail: function (e) {
       console.log('error removing existing cache file: ', e);
@@ -41,7 +44,7 @@ const downloadAndCache = function(prodId, isThumb, url, cb) {
     url,
     success: function (res) {
       if (res.statusCode == 200) {
-        console.log('image download: ', res.tempFilePath);
+        console.log('image downloaded: ', res.tempFilePath);
         const fs = wx.getFileSystemManager();
         let cacheKeyName = cacheUtil.getImgKey(prodId, isThumb);
         let existing = wx.getStorageSync(cacheKeyName);

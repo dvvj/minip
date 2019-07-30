@@ -11,13 +11,15 @@ const getCachedImgPath = function (prodId, isThumb) {
   return wx.getStorageSync(getImgKey(prodId, isThumb));
 };
 
-const productListKey = appKeyPrefix + ".products";
-const getCachedProductList = function() {
-  return wx.getStorageSync(productListKey);
+const productListKey = function(uid) {
+  return `${appKeyPrefix}.${uid}.products`;
+}
+const getCachedProductList = function (uid) {
+  return wx.getStorageSync(productListKey(uid));
 };
-const saveCachedProductList = function(products) {
-  wx.setStorageSync(productListKey, products);
-  console.log(`product list cached, #: ${product.length}`);
+const saveCachedProductList = function(uid, products) {
+  wx.setStorageSync(productListKey(uid), products);
+  console.log(`product list cached, #: ${products.length}`);
 }
 // const productDictKey = appKeyPrefix + ".productDict";
 // const getCachedProductDict = function () {

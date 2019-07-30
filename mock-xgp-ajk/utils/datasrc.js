@@ -88,6 +88,16 @@ const datasrc = {
 
       if (cachedProductList) {
         console.log('using product list in cache');
+        cachedProductList.forEach(function(prod) {
+          let cachedUrl = cacheUtil.getCachedImgPath(prod.id, false);
+          if (cachedUrl)
+            prod.imgUrl = cachedUrl;
+          let cachedThumbUrl = cacheUtil.getCachedImgPath(prod.id, true);
+          if (cachedThumbUrl)
+            prod.imgThumbUrl = cachedThumbUrl;
+          console.log(`image cached: ${cachedUrl}`);
+          console.log(`image thumb cached: ${cachedThumbUrl}`);
+        });
         cb(false, cachedProductList);
       }
       else {

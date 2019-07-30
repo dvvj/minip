@@ -23,9 +23,15 @@ Component({
    * Component methods
    */
   methods: {
-    initData: function(products, productDict) {
+    initData: function(products) {
       // console.log("products: ", products);
-      this.setData({ products, productDict});
+      let productDict = {}
+      console.log('products.length: ', products.length)
+      for (var idx = 0; idx < products.length; idx++) {
+        let item = products[idx]
+        productDict[item.id] = item
+      }
+      this.setData({ products, productDict });
     },
 
     updateProd: function (prodId, delta) {

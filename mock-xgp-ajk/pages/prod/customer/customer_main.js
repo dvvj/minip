@@ -4,11 +4,6 @@ const toastUtil = require('../../../utils/toast-util.js');
 const datasrc = require('../../../utils/' + util.datasrc).datasrc;
 import Dialog from '../../../vant-lib/dialog/dialog';
 
-let roundPrice = function (price) {
-  var p100 = Math.round(price * 100)
-  return p100 / 100.0;
-};
-
 const customerProductUrl = util.webappBase + '/customerProductView'
 const wxPayUrl = util.webappBase + '/wx/payReq';
 const sessionTestUrl = util.webappBase + '/sessionTest';
@@ -92,36 +87,29 @@ Page({
     let that = this;
     toastUtil.waiting(this, true, '加载数据中...');
     datasrc.customer.getProductList(
-      (isMock, resDataRaw) => {
-        var products = resDataRaw.map(item => {
-          let actualPrice = roundPrice(item.actualPrice);
-          let price0 = roundPrice(item.product.price0)
-          var hasDiscount = actualPrice < price0;
-          var resDataItem = {
-            id: item.product.id,
-            imgThumbUrl: isMock ? '/images/product1.png' : `${util.imgBaseUrl}/${item.product.id}/${item.productAssets[1].url}`, //, 
-            imgUrl: isMock ? '/images/product1.png' : `${util.imgBaseUrl}/${item.product.id}/${item.productAssets[0].url}`, //, //item.productAssets[0].url,
-            name: item.product.name,
-            price0: price0,
-            actualPrice: actualPrice,
-            hasDiscount: hasDiscount,
-            referingProfName: item.referingProfName,
-            count: 1,
-            totalPrice: actualPrice
-          }
-          toastUtil.waiting(this, false);
-          return resDataItem;
-        })
-
-        let productDict = {}
-        console.log('products.length: ', products.length)
-        for (var idx = 0; idx < products.length; idx++) {
-          let item = products[idx]
-          productDict[item.id] = item
-        }
+      (isMock, products) => {
+        // var products = resDataRaw.map(item => {
+        //   let actualPrice = roundPrice(item.actualPrice);
+        //   let price0 = roundPrice(item.product.price0)
+        //   var hasDiscount = actualPrice < price0;
+        //   var resDataItem = {
+        //     id: item.product.id,
+        //     imgThumbUrl: isMock ? '/images/product1.png' : `${util.imgBaseUrl}/${item.product.id}/${item.productAssets[1].url}`, //, 
+        //     imgUrl: isMock ? '/images/product1.png' : `${util.imgBaseUrl}/${item.product.id}/${item.productAssets[0].url}`, //, //item.productAssets[0].url,
+        //     name: item.product.name,
+        //     price0: price0,
+        //     actualPrice: actualPrice,
+        //     hasDiscount: hasDiscount,
+        //     referingProfName: item.referingProfName,
+        //     count: 1,
+        //     totalPrice: actualPrice
+        //   };
+        //   return resDataItem;
+        // })
 
         let productList = that.selectComponent('#productList');
-        productList.initData(products, productDict);
+        productList.initData(products);
+        toastUtil.waiting(this, false);
       }
     );
 

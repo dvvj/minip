@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/prod/login",
+    "pages/tmp/cache-img-test",
     "pages/tmp/test-getnumber",
     "pages/tmp/waiting-toast-test",
     "pages/tmp/ajk-paytest",

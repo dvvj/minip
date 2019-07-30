@@ -1,4 +1,6 @@
 const util = require('util.js');
+const cacheUtil = require('cache-util.js');
+const imgUtil = require('img-util.js');
 
 const customerProductUrl = util.customerBaseUrl + '/customerProductView';
 const orderListUrl = util.customerBaseUrl + '/ordersBtw';
@@ -81,20 +83,58 @@ const datasrc = {
   },
   customer: {
     getProductList: (cb) => {
-      let tokens = util.getStoredTokens();
-      console.log('[GetProducts] got tokens: ', tokens)
 
-      util.promisify(wx.request)
-        ({
-          url: customerProductUrl,
-          method: 'GET',
-          header: util.getJsonReqHeader(tokens),
-        }).then(res => {
-          console.log('Customer product list:', res);
-          util.updateXAuth(res.header[util.xAuthHeader]);
-          cb(false, res.data);
-          //return res.data;
-        })
+      let cachedProductList = cacheUtil.getCachedProductList();
+
+      if (cachedProductList) {
+        console.log('using product list in cache');
+        cb(false, cachedProductList);
+      }
+      else {
+        console.log('cache not hit, retrieve product list from ' + customerProductUrl);
+        let tokens = util.getStoredTokens();
+        console.log('[GetProducts] got tokens: ', tokens);
+
+        util.promisify(wx.request)
+          ({
+            url: customerProductUrl,
+            method: 'GET',
+            header: util.getJsonReqHeader(tokens),
+          }).then(res => {
+            console.log('Customer product list:', res);
+            util.updateXAuth(res.header[util.xAuthHeader]);
+
+            var products = res.data.map(item => {
+              let actualPrice = util.roundPrice(item.actualPrice);
+              let price0 = util.roundPrice(item.product.price0)
+              var hasDiscount = actualPrice < price0;
+              let prodId = item.product.id;
+              let imgThumbUrl = `${util.imgBaseUrl}/${prodId}/${item.productAssets[1].url}`;
+              imgUtil.downloadAndCache(prodId, true, imgThumbUrl, function (r) {console.log(`downloadAndCache ${imgThumbUrl}: `, r)})
+              let imgUrl = `${util.imgBaseUrl}/${prodId}/${item.productAssets[0].url}`;
+              imgUtil.downloadAndCache(prodId, false, imgUrl, function (r) { console.log(`downloadAndCache ${imgUrl}: `, r)})
+              var resDataItem = {
+                id: prodId,
+                imgThumbUrl,
+                imgUrl,
+                name: item.product.name,
+                price0: price0,
+                actualPrice: actualPrice,
+                hasDiscount: hasDiscount,
+                referingProfName: item.referingProfName,
+                count: 1,
+                totalPrice: actualPrice
+              };
+              return resDataItem;
+            })
+
+            cacheUtil.saveCachedProductList(products);
+
+            cb(false, products);
+            //return res.data;
+          })
+      }
+
 
     },
     getOrderList: (startYearMonth, endYearMonth, cb) => {

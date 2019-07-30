@@ -22,7 +22,9 @@ Component({
   methods: {
     initData: function(orderList) {
       console.log(orderList);
-      this.setData({orderList})
+      // by default only show paid orders
+      let paidList = orderList.filter(o => o.status == '已付款');
+      this.setData({orderList: paidList});
     },
 
     onClick: function(e) {

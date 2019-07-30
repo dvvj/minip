@@ -99,6 +99,7 @@ Page({
           var hasDiscount = actualPrice < price0;
           var resDataItem = {
             id: item.product.id,
+            imgThumbUrl: isMock ? '/images/product1.png' : `${util.imgBaseUrl}/${item.product.id}/${item.productAssets[1].url}`, //, 
             imgUrl: isMock ? '/images/product1.png' : `${util.imgBaseUrl}/${item.product.id}/${item.productAssets[0].url}`, //, //item.productAssets[0].url,
             name: item.product.name,
             price0: price0,

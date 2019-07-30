@@ -7,7 +7,7 @@
       price="{{item.actualPrice}}"
       origin-price="{{item.price0}}"
       title="{{item.name}}"
-      thumb="{{item.imgUrl}}"
+      thumb="{{item.imgThumbUrl}}"
       currency="HK$"
     >
       <view slot="footer">
@@ -23,7 +23,7 @@
     <van-card wx:else
       price="{{item.actualPrice}}"
       title="{{item.name}}"
-      thumb="{{item.imgUrl}}"
+      thumb="{{item.imgThumbUrl}}"
       currency="HK$"
     >
       <view slot="footer">

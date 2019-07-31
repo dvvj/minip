@@ -39,7 +39,7 @@ const replaceCache = function (fs, cacheKeyName, filePath, replacementFile) {
   });
 }
 
-const downloadAndCache = function(prodId, isThumb, url, cb) {
+const updateCache = function(prodId, isThumb, url, cb) {
   wx.downloadFile({
     url,
     success: function (res) {
@@ -59,6 +59,35 @@ const downloadAndCache = function(prodId, isThumb, url, cb) {
       console.log('error downloading file, err:', err)
     }
   })
+};
+
+const downloadAndCache = function (prodId, isThumb, url, cb) {
+  let cacheKeyName = cacheUtil.getImgKey(prodId, isThumb);
+  let existing = wx.getStorageSync(cacheKeyName);
+  if (existing) {
+    console.log(`cache hit for product(id:${prodId})`);
+  }
+  else {
+    console.log(`cache miss for product(id:${prodId}), downloading from ${url}`);
+    wx.downloadFile({
+      url,
+      success: function (res) {
+        if (res.statusCode == 200) {
+          console.log('image downloaded: ', res.tempFilePath);
+          const fs = wx.getFileSystemManager();
+          let fileToSave = res.tempFilePath;
+          if (existing)
+            replaceCache(fs, cacheKeyName, existing, fileToSave);
+          else
+            saveToCache(fs, cacheKeyName, fileToSave);
+        }
+      },
+      fail: function (err) {
+        console.log('error downloading file, err:', err)
+      }
+    })
+
+  }
 };
 
 module.exports = {

@@ -1,6 +1,7 @@
 <!--comp/product-list.wxml-->
 <waiting-toast id="waitingToast" />
 <scroll-view scroll-y class="main_height">
+<van-cell-group>
   <block wx:for="{{products}}" wx:key="id">
       <!-- tag="{{item.referingProfName}}" -->
     <van-card wx:if="{{item.hasDiscount}}"
@@ -8,11 +9,11 @@
       origin-price="{{item.price0}}"
       title="{{item.name}}"
       thumb="{{item.imgThumbUrl}}"
-      currency="HK$"
+      currency="￥"
     >
       <view slot="footer">
         <van-stepper value="{{item.count}}" bind:plus="onPlus" bind:minus="onMinus" data-id="{{item.id}}" />
-        <text>共计：</text><text class='price-total'>{{item.totalPrice}}</text>
+        <text>共计：</text><text class='price-total'>￥{{item.totalPrice}} *</text>
         <van-button size="small" type="custom" custom-class="lb-button"
           bind:click="onBuy" data-id="{{item.id}}">立即购买</van-button>
         <van-button size="small" data-id="{{item.id}}"
@@ -24,11 +25,11 @@
       price="{{item.actualPrice}}"
       title="{{item.name}}"
       thumb="{{item.imgThumbUrl}}"
-      currency="HK$"
+      currency="￥"
     >
       <view slot="footer">
         <van-stepper value="{{item.count}}" bind:plus="onPlus" bind:minus="onMinus" data-id="{{item.id}}" />
-        <text>共计：</text><text class='price-total'>{{item.totalPrice}}</text>
+        <text>共计：</text><text class='price-total'>￥{{item.totalPrice}} *</text>
         <van-button size="small" type="custom" custom-class="lb-button"
           bind:click="onBuy" data-id="{{item.id}}">立即购买</van-button>
         <van-button size="small" data-id="{{item.id}}"
@@ -36,5 +37,5 @@
       </view>
     </van-card>
   </block>
+</van-cell-group>
 </scroll-view>
-

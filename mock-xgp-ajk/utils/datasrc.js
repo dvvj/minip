@@ -3,6 +3,7 @@ const cacheUtil = require('cache-util.js');
 const imgUtil = require('img-util.js');
 
 const customerProductUrl = util.customerBaseUrl + '/customerProductView';
+const customerProductNoUpdateUrl = util.customerBaseUrl + '/customerProductViewNoUpdate';
 const orderListUrl = util.customerBaseUrl + '/ordersBtw';
 const customerSettingUrl = util.customerBaseUrl + '/setting';
 const customerUpdateSettingUrl = util.customerBaseUrl + '/updateSetting';
@@ -85,25 +86,35 @@ const datasrc = {
     getProductList: (cb) => {
       let uid = util.getUserId();
       let cachedProductList = cacheUtil.getCachedProductList(uid);
+      let tokens = util.getStoredTokens();
+      console.log('[getProductList] got tokens: ', tokens);
 
       if (cachedProductList) {
-        console.log('using product list in cache');
-        cachedProductList.forEach(function(prod) {
-          let cachedUrl = cacheUtil.getCachedImgPath(prod.id, false);
-          if (cachedUrl)
-            prod.imgUrl = cachedUrl;
-          let cachedThumbUrl = cacheUtil.getCachedImgPath(prod.id, true);
-          if (cachedThumbUrl)
-            prod.imgThumbUrl = cachedThumbUrl;
-          console.log(`image cached: ${cachedUrl}`);
-          console.log(`image thumb cached: ${cachedThumbUrl}`);
-        });
-        cb(false, cachedProductList);
+        console.log('using product list in cache, but session token needed');
+
+        util.promisify(wx.request)
+          ({
+            url: customerProductNoUpdateUrl,
+            method: 'GET',
+            header: util.getJsonReqHeader(tokens),
+          }).then(res => {
+            util.updateXAuth(res.header[util.xAuthHeader]);
+
+            cachedProductList.forEach(function (prod) {
+              let cachedUrl = cacheUtil.getCachedImgPath(prod.id, false);
+              if (cachedUrl)
+                prod.imgUrl = cachedUrl;
+              let cachedThumbUrl = cacheUtil.getCachedImgPath(prod.id, true);
+              if (cachedThumbUrl)
+                prod.imgThumbUrl = cachedThumbUrl;
+              console.log(`image cached: ${cachedUrl}`);
+              console.log(`image thumb cached: ${cachedThumbUrl}`);
+            });
+            cb(false, cachedProductList);
+          });
       }
       else {
         console.log('cache not hit, retrieve product list from ' + customerProductUrl);
-        let tokens = util.getStoredTokens();
-        console.log('[GetProducts] got tokens: ', tokens);
 
         util.promisify(wx.request)
           ({
@@ -116,7 +127,8 @@ const datasrc = {
 
             var products = res.data.map(item => {
               let actualPrice = util.roundPrice(item.actualPrice);
-              let price0 = util.roundPrice(item.product.price0)
+              let price0 = util.roundPrice(item.product.price0);
+              console.log(`actualPrice: ${actualPrice}; price0: ${price0}`);
               var hasDiscount = actualPrice < price0;
               let prodId = item.product.id;
               let imgThumbUrl = `${util.imgBaseUrl}/${prodId}/${item.productAssets[1].url}`;

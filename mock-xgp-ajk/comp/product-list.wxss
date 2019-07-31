@@ -4,6 +4,7 @@
 .price-total {
   color: red;
   padding: 15rpx 15rpx;
+  font-weight: bold;
 }
 
 .main_height {

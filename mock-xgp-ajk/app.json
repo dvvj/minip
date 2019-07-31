@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/tmp/qr-test",
     "pages/prod/login",
     "pages/tmp/cache-img-test",
     "pages/tmp/test-getnumber",

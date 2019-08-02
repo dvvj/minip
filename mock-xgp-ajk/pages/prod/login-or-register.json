@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "van-tab": "../../vant-lib/tab/index",
+    "van-tabs": "../../vant-lib/tabs/index",
+    "login-comp": "../../comp/login-comp",
+    "register-comp": "../../comp/register-comp"
+  }
+}

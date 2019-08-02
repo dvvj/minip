@@ -3,7 +3,7 @@ import drawQrcode from '../../utils/weapp.qrcode.min.js'
 
 Page({
   data: {
-    text: 'https://m.baidu.com',
+    text: '{ "userType": "Customer", "profileReq": { "productIds": [1,2,3], "pricePlanId": "PrFixed-0.95", "healthTags": "", "medicineTags": "" }}',
     inputValue: ''
   },
   onLoad() {

@@ -1,0 +1,13 @@
+<!--comp/register-comp.wxml-->
+<view>
+  <image src="../images/product1.png" style="width:100%; height:600rpx;" mode="aspectFill"></image>
+</view>
+<van-cell-group>
+  <van-cell>
+    <view slot="title">
+      <van-button type="primary" size="large" type="custom" custom-class="lb-button" bind:click="onRegister">
+        扫码注册
+      </van-button>
+    </view>
+  </van-cell>
+</van-cell-group>

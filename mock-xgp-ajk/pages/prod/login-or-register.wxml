@@ -1,0 +1,9 @@
+<!--pages/prod/login-or-register.wxml-->
+<van-tabs active="{{ activeTabIndex }}" bind:change="onChangeTab">
+  <van-tab title="用户登录">
+    <login-comp id="loginComp" />
+  </van-tab>
+  <van-tab title="用户注册">
+    <register-comp id="registerComp" />
+  </van-tab>
+</van-tabs>

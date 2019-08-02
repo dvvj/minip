@@ -1,5 +1,6 @@
 // pages/tmp/qr-gen-scan-test.js
 import drawQrcode from '../../utils/weapp.qrcode.min.js'
+const registerUtil = require('../../utils/register-util.js');
 
 Page({
 
@@ -7,7 +8,8 @@ Page({
    * Page initial data
    */
   data: {
-    text: 'https://m.baidu.com',
+    //text: '{ "userType": "Customer", "profileReq": { "productIds": [1,2,3], "pricePlanId": "PrFixed-0.95", "healthTags": "", "medicineTags": "" }}',
+    text: '', //'{"userType":"Customer","profileReq":{"productIds":[1,2,3],"pricePlanId":"PrFixed-0.95"}}',
     inputValue: ''
   },
   testScan: function(e) {
@@ -80,6 +82,12 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
+    let text = registerUtil.genQRStrCustomer(
+      [1,2,3],
+      "p-prof",
+      "PrFixed-0.95"
+    );
+    this.setData({text});
     this.draw();
   },
 

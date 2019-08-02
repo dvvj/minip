@@ -1,8 +1,8 @@
 const util = require('util.js');
 const _legends = {
-  sales: '销售额(HK$)',
-  rewards: '佣金(HK$)',
-  profits: '利润(HK$)'
+  sales: '销售额(￥)',
+  rewards: '佣金(￥)',
+  profits: '利润(￥)'
 };
 
 const optionFrom = function(optionData, legends) {

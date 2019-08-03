@@ -26,6 +26,8 @@ const profOrgProfitStatsUrl = util.proforgBaseUrl + '/profitStats4Wx';
 const newProfOrgAgentPreReqDataUrl = util.proforgBaseUrl + '/newProfOrgAgentPreReqData';
 const newProfOrgAgentUrl = util.proforgBaseUrl + '/newProfOrgAgent';
 
+const registerCustomerUrl = util.registrationBaseUrl + '/customer';
+
 const _parseResponse = function(resp, error401) {
   let status = resp.statusCode;
   let success = 200 == status;
@@ -81,6 +83,29 @@ const datasrc = {
       .catch(function (reason) {
         console.log('failed, reason: ', reason)
       })
+  },
+  registration: {
+    registerCustomer: (registerCustomerReq, cb) => {
+      // console.log('[to debug] registerCustomerReq:', registerCustomerReq);
+      // let tokens = util.getStoredTokens();
+      util.promisify(wx.request)
+        ({
+          url: registerCustomerUrl,
+          method: 'POST',
+          data: registerCustomerReq,
+          // header: util.postJsonReqHeader(tokens),
+        }).then(res => {
+          console.log('registerCustomer:', res);
+          // util.updateXAuth(res.header[util.xAuthHeader]);
+          let success = res.statusCode == 200;
+          let msg = res.data;
+          cb({ success, msg });
+        })
+        .catch(function (reason) {
+          console.log('registerCustomer failed, reason: ', reason)
+        })
+    },
+
   },
   customer: {
     getProductList: (cb) => {

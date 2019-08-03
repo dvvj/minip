@@ -1,6 +1,7 @@
 // comp/new-customer-info.js
 const toastUtil = require('../utils/toast-util.js');
 const util = require('../utils/util.js');
+const registerUtil = require('../utils/register-util.js');
 const inputCheck = require('../utils/input-check.js');
 const datasrc = require('../utils/' + util.datasrc).datasrc;
 
@@ -33,45 +34,46 @@ Component({
    * Component methods
    */
   methods: {
-    initData: function (newCustomer, profileReq) {
-      console.log('newCustomer', newCustomer);
-      console.log('profileReq', profileReq);
+    initData: function (profId, newCustomer, profileReq) {
+      let d = { profId, newCustomer, profileReq };
+      console.log('initData', d);
       // let { newCustomer, profile, products, pricePlans } = newCustomerData;
       // let selected = products.filter(p => p.checked).map(p => p.shortName);
       // let pricePlanInfos = pricePlans.map(pp => pp.desc);
       // let selectedPricePlan = pricePlans[0];
-      this.setData({ newCustomer, profileReq });
+      this.setData(d);
     },
 
     onRegisterCustomer: function (e) {
       if (this.checkAllInput()) {
-        let result = this.getData();
-        console.log('[todo] onRegisterCustomer: ', result)
-        this.createNewCustomerProfile();
+        // let result = this.getData();
+        // console.log('[todo] onRegisterCustomer: ', result)
+        this.doRegisterCustomer();
       }
     },
 
-    createNewCustomerProfile: function () {
+    doRegisterCustomer: function () {
       let that = this;
-      console.log('createNewCustomerProfile: ');
+      console.log('doRegisterCustomer: ');
 
-      let newCustomerReq = {
-        customer, profileReq
-      };
+      let { profId, newCustomer, profileReq } = this.data;
+      let customer = registerUtil.convertCustomer(newCustomer);
+      let newCustomerReq = { customer, profileReq };
+      let registerCustomerReq = { profId, newCustomerReq };
 
-      console.log('[todo] newCustomerReq', newCustomerReq);
+      console.log('[todo] registerCustomerReq', registerCustomerReq);
 
-      // toastUtil.waiting(this, true, '添加用户中')
-      // datasrc.medprof.createNewCustomerAndProfile(
-      //   newCustomerReq,
-      //   respData => {
-      //     toastUtil.waiting(this, false);
-      //     console.log('respData', respData);
-      //     let { success, msg } = respData;
-      //     let message = success ? '添加成功' : `添加失败: ${msg}`
-      //     success ? toastUtil.success(that, message) : toastUtil.fail(that, message);
-      //   }
-      // )
+      toastUtil.waiting(this, true, '添加用户中')
+      datasrc.registration.registerCustomer(
+        registerCustomerReq,
+        respData => {
+          toastUtil.waiting(this, false);
+          console.log('respData', respData);
+          let { success, msg } = respData;
+          let message = success ? '添加成功' : `添加失败: ${msg}`
+          success ? toastUtil.success(that, message) : toastUtil.fail(that, message);
+        }
+      )
     },
 
     checkAllInput: function () {

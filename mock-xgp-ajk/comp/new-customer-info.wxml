@@ -1,4 +1,6 @@
 <!--comp/new-customer-info.wxml-->
+<waiting-toast id="waitingToast" />
+
 <van-cell-group>
   <van-field
     disabled="{{ inProcess }}"

@@ -1,6 +1,7 @@
 // comp/new-customer-profile.js
 const toastUtil = require('../utils/toast-util.js');
 const util = require('../utils/util.js');
+const registerUtil = require('../utils/register-util.js');
 const inputCheck = require('../utils/input-check.js');
 const datasrc = require('../utils/' + util.datasrc).datasrc;
 
@@ -197,24 +198,13 @@ Component({
       this.updateNewCustomer("medicineTags", e)
     },
 
-    convertCustomer: function(wxCustomer) {
-      return {
-        uid: wxCustomer.userid,
-        postalAddr: wxCustomer.postAddr,
-        name: wxCustomer.userName,
-        passHash: wxCustomer.password,
-        idCardNo: wxCustomer.idCardNo,
-        mobile: wxCustomer.mobile,
-        bday: wxCustomer.bday,
-      };
-    },
     createNewCustomerProfile: function() {
       let that = this;
       console.log('createNewCustomerProfile: ');
 
       let { newCustomer, profile, selectedProducts, pricePlan } = this.getData();
 
-      let customer = this.convertCustomer(newCustomer);
+      let customer = registerUtil.convertCustomer(newCustomer);
       let productIds = selectedProducts.map(p => p.id);
       let profileReq = {
         ...profile,

@@ -20,9 +20,9 @@ Component({
    * Component methods
    */
   methods: {
-    initData: function (newCustomer, profileReq) {
+    initData: function (profId, newCustomer, profileReq) {
       let newCustomerInfo = this.selectComponent('#newCustomerInfo');
-      newCustomerInfo.initData(newCustomer, profileReq);
+      newCustomerInfo.initData(profId, newCustomer, profileReq);
     },
 
     showDlg: function() {
@@ -30,8 +30,8 @@ Component({
       Dialog.alert({
         title: '新用户注册',
         showConfirmButton: true,
-        showCancelButton: true,
-        confirmButtonText: '完成',
+        showCancelButton: false,
+        confirmButtonText: '关闭',
         context: this
       }).then(() => {
         console.log('triggering confirm event: ');

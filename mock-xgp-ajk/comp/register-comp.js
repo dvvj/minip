@@ -25,8 +25,11 @@ Component({
       wx.scanCode({
         success(res) {
           console.log('Scan result: ', res);
-          let profileReq = registerUtil.parseJsonCustomer(res.result);
-          console.log('Parsed result: ', profileReq);
+          let parsed = registerUtil.parseJsonCustomer(res.result);
+          console.log('Parsed result: ', parsed);
+          let { userType, profId, profileReq } = parsed;
+
+          // todo: based on userType
 
           let newCustomer = {
             userid: 'c-',
@@ -38,7 +41,7 @@ Component({
             postAddr: '某省某市某区某路xx号 邮编111111'
           };
 
-          that.prepareRegisterCustomer(newCustomer, profileReq);
+          that.prepareRegisterCustomer(profId, newCustomer, profileReq);
         }
       })
     },
@@ -46,10 +49,10 @@ Component({
     onRegisterCustomerConfirm: function(e) {
       console.log('in onRegisterCustomerConfirm', e);
     },
-    prepareRegisterCustomer: function (newCustomer, profileReq) {
+    prepareRegisterCustomer: function (profId, newCustomer, profileReq) {
       let registerCustomer = this.selectComponent('#registerCustomer');
       console.log('registerCustomer: ', registerCustomer);
-      registerCustomer.initData(newCustomer, profileReq);
+      registerCustomer.initData(profId, newCustomer, profileReq);
       registerCustomer.showDlg();
     }
   }

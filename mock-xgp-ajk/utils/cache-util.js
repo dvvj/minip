@@ -15,6 +15,8 @@ const productListKey = function(uid) {
   return `${appKeyPrefix}.${uid}.products`;
 }
 const getCachedProductList = function (uid) {
+  let cacheKey = productListKey(uid);
+  console.log('product list cache key: ', cacheKey);
   return wx.getStorageSync(productListKey(uid));
 };
 const saveCachedProductList = function(uid, products) {

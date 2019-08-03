@@ -112,9 +112,9 @@ let roundPriceArr = function (arr) {
   return arr.map(i => roundPrice(i))
 };
 
-//const webappBase = 'https://webapp.wonder4.life';
+const webappBase = 'https://webapp.wonder4.life';
 //const webappBase = 'https://47.98.232.21:8443';
-const webappBase = 'https://webapp.ajkhealth.com';
+//const webappBase = 'https://webapp.ajkhealth.com';
 const loginUrl = webappBase + '/wxlogin';
 //const loginUrl = webappBase + '/wxloginUidOrMobile';
 const imgBaseUrl = webappBase + '/product';
@@ -122,6 +122,7 @@ const customerBaseUrl = webappBase + '/customer';
 const medprofBaseUrl = webappBase + '/medprof';
 const proforgagentBaseUrl = webappBase + '/proforgagent';
 const proforgBaseUrl = webappBase + '/proforg';
+const registrationBaseUrl = webappBase + '/register';
 
 const xAuthHeader = 'X-Auth-Token';
 
@@ -199,6 +200,7 @@ module.exports = {
   medprofBaseUrl: medprofBaseUrl,
   proforgagentBaseUrl: proforgagentBaseUrl,
   proforgBaseUrl: proforgBaseUrl,
+  registrationBaseUrl: registrationBaseUrl,
   loginUrl: loginUrl,
   imgBaseUrl: imgBaseUrl,
   saveTokens: saveTokens,

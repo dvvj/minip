@@ -28,7 +28,20 @@ const parseJsonCustomer = function(j) {
   }
 };
 
+const convertCustomer = function(wxCustomer) {
+  return {
+    uid: wxCustomer.userid,
+    postalAddr: wxCustomer.postAddr,
+    name: wxCustomer.userName,
+    passHash: wxCustomer.password,
+    idCardNo: wxCustomer.idCardNo,
+    mobile: wxCustomer.mobile,
+    bday: wxCustomer.bday,
+  };
+};
+
 module.exports = {
   genQRStrCustomer,
-  parseJsonCustomer
+  parseJsonCustomer,
+  convertCustomer
 };

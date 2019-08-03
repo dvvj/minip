@@ -14,6 +14,7 @@ Page({
   onLoad: function (options) {
     let loginComp = this.selectComponent("#loginComp");
     loginComp.initData('p-prof', '123');
+    
   },
 
   /**

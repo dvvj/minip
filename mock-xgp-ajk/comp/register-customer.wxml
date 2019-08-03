@@ -1,0 +1,4 @@
+<!--comp/register-customer.wxml-->
+<van-dialog id='van-dialog' use-slot>
+  <new-customer-info id="newCustomerInfo" />
+</van-dialog>

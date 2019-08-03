@@ -11,3 +11,4 @@
     </view>
   </van-cell>
 </van-cell-group>
+<register-customer id="registerCustomer" bind:confirm="onRegisterCustomerConfirm" />

@@ -5,7 +5,6 @@
     "van-cell-group": "../vant-lib/cell-group/index",
     "van-button": "../vant-lib/button/index",
     "van-field": "../vant-lib/field/index",
-    "register-customer": "register-customer",
     "waiting-toast": "waiting-toast"
   }
 }

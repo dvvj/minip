@@ -106,20 +106,6 @@ Component({
       }
     },
 
-    // hasInputError: function() {
-    //   let errorMsgs = this.data.errorMsgs;
-
-    //   let keys = Object.keys(errorMsgs);
-    //   var hasError = false;
-    //   keys.forEach ( k => {
-    //     let prop = errorMsgs[k];
-    //     console.log(`${k}: ${prop}`);
-    //     if (prop)
-    //       hasError = true;
-    //   });
-    //   return hasError;
-    // },
-
     checkTab1Input: function () {
       var hasError = false;
       for (var field in this.data.field2Checker) {

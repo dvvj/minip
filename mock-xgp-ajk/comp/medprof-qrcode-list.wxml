@@ -1,0 +1,37 @@
+<!--comp/medprof-qrcode-list.wxml-->
+<scroll-view scroll-y class="main_height">
+  <van-cell-group>
+    <van-cell>
+      <view slot="title">
+        <text style='font-size:40rpx;font-weight:bold;'>二维码列表</text>
+      </view>
+    </van-cell>
+    <van-cell wx:if="{{qrcodes.length == 0}}">
+      <view slot="title">
+        <view><text>二维码列表为空</text></view>
+        <view>
+          <van-button size="small" type="custom" custom-class="lb-button"
+            bind:click='onAddNewQRCodeClicked'>添加二维码</van-button>
+        </view>
+      </view>
+    </van-cell>
+  </van-cell-group>
+    <block wx:for="{{qrcodes}}" wx:key="profId" wx:for-index="qrcodeIndex">
+    <van-cell-group>
+      <!-- <van-cell is-link url="../../customer/reffed-order-stats"> -->
+      <van-cell is-link url="../../prod/medprof/qrcode-detail"
+        data-index="{{qrcodeIndex}}" bind:click="onClick">
+        <view>
+          <view class="van-cell-text">
+            <text>todo</text>
+          </view>
+        </view>
+        <view slot="title">
+          <view class="van-cell-text">
+            <text>{{item.desc}}</text>
+          </view>
+        </view>
+      </van-cell>
+    </van-cell-group>
+  </block>
+</scroll-view>

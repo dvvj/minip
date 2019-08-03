@@ -24,7 +24,8 @@
     "pages/prod/proforg/agent-detail",
     "pages/prod/orgagent/medprof-detail",
     "pages/prod/medprof/customer-detail",
-    "pages/prod/customer/product-detail"
+    "pages/prod/customer/product-detail",
+    "comp/qrcode"
   ],
   "window": {
     "backgroundTextStyle": "light",

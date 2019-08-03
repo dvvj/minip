@@ -5,7 +5,8 @@
   <van-tabbar-item icon="friends">客户列表</van-tabbar-item>
   <van-tabbar-item icon="gold-coin">收益统计</van-tabbar-item>
   <van-tabbar-item icon="add-square">新客户</van-tabbar-item>
-  <van-tabbar-item icon="add">老客户</van-tabbar-item>
+  <van-tabbar-item icon="add-square">二维码</van-tabbar-item>
+  <!-- <van-tabbar-item icon="add">老客户</van-tabbar-item> -->
   <van-tabbar-item icon="setting" dot>设置</van-tabbar-item>
 </van-tabbar>
 
@@ -28,7 +29,8 @@
     <new-customer-profile id="newCustomerProfile" />
   </swiper-item>
   <swiper-item>
-    <existing-customer-profile id="existingCustomerProfile" />
+    <!-- <existing-customer-profile id="existingCustomerProfile" /> -->
+    <medprof-qrcode-list id="medprofQrcodeList" />
   </swiper-item>
   <swiper-item>
     <setting-password id="settingPassword" />

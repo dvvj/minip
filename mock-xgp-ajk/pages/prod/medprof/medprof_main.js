@@ -10,7 +10,8 @@ const tabIndices = {
   reffedCustomerInfos: 0,
   profitStats: 1,
   newCustomerProfile: 2,
-  existingCustomerProfile: 3,
+  //existingCustomerProfile: 3,
+  addByQRCode: 3,
   setting: 4
 };
 
@@ -97,12 +98,19 @@ Page({
     else if (tabIndex == tabIndices.newCustomerProfile) {
       this.updateNewCustomerProfile();
     }
-    else if (tabIndex == tabIndices.existingCustomerProfile) {
-      this.updateExistingCustomerProfile();
+    // else if (tabIndex == tabIndices.existingCustomerProfile) {
+    //   this.updateExistingCustomerProfile();
+    // }
+    else if (tabIndex == tabIndices.addByQRCode) {
+      this.updateAddByQRCode();
     }
     else if (tabIndex == tabIndices.setting) {
       this.updateSetting();
     }
+  },
+
+  updateAddByQRCode: function() {
+
   },
 
   updateSetting: function () {

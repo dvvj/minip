@@ -2,6 +2,8 @@
 import Dialog from '../../vant-lib/dialog/dialog';
 const util = require('../../utils/util.js');
 const registerUtil = require('../../utils/register-util.js');
+const toastUtil = require('../../utils/toast-util.js');
+const datasrc = require('../../utils/' + util.datasrc).datasrc;
 
 Component({
   /**
@@ -57,6 +59,7 @@ Component({
 
     },
     onNewQRCode: function() {
+      let that = this;
       let selectedProducts = this.data.products
         .filter(p => p.checked && this.data.selected.includes(p.shortName));
       let selectedProductIds = selectedProducts.map(prod => prod.id);
@@ -71,8 +74,17 @@ Component({
         profId,
         qrcode: newQrcode,
         qrcodeDesc
-      }
+      };
       console.log('onNewQRCode:', newQrCodeReq);
+
+      toastUtil.waiting(this, true, '保存二维码...');
+      datasrc.medprof.saveNewQrcode(
+        newQrCodeReq,
+        res => {
+          console.log('saveNewQrcode', res);
+          toastUtil.waiting(that, false);
+        }
+      );
     },
     onPricePlanChange: function (e) {
       const { picker, value, index } = e.detail;

@@ -1,4 +1,6 @@
 <!--comp/_qrcode/medprof-qrcode-gen.wxml-->
+<waiting-toast id="waitingToast" />
+
 <van-dialog id='van-dialog' use-slot>
   <van-cell-group>
 

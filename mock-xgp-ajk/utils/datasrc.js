@@ -20,6 +20,7 @@ const newCustomerAndProfileUrl = util.medprofBaseUrl + '/newCustomerAndProfile';
 
 // same data as new customer
 const newQrcodePreReqDataUrl = newCustomerPreReqDataUrl;
+const saveNewQrcodeUrl = util.medprofBaseUrl + '/newQrcodeCfg';
 
 const medprofListUrl = util.proforgagentBaseUrl + '/medprofList';
 const newMedProfPreReqDataUrl = util.proforgagentBaseUrl + '/newMedProfPreReqData';
@@ -328,7 +329,22 @@ const datasrc = {
           //return res.data;
         })
     },
+    saveNewQrcode: (req, cb) => {
+      let tokens = util.getStoredTokens();
+      util.promisify(wx.request)
+        ({
+          url: saveNewQrcodeUrl,
+          method: 'POST',
+          data: req,
+          header: util.postJsonReqHeader(tokens),
+        }).then(res => {
+          console.log('saveNewQrcode:', res);
+          util.updateXAuth(res.header[util.xAuthHeader]);
+          cb(res);
 
+          //return res.data;
+        })
+    },
     getNewCustomerData: (cb) => {
       let tokens = util.getStoredTokens();
       util.promisify(wx.request)

@@ -10,7 +10,8 @@ const customerUpdateSettingUrl = util.customerBaseUrl + '/updateSetting';
 const wxPayUrl = util.webappBase + '/wx/payReq';
 const sessionTestUrl = util.webappBase + '/sessionTest';
 
-const reffedCustomersUrl = util.webappBase + '/medprof/reffedCustomerInfos'
+const reffedCustomersUrl = util.medprofBaseUrl + '/reffedCustomerInfos'
+const qrcodeListUrl = util.medprofBaseUrl + '/getMedProfCfgs'
 const medprofProfitStatsUrl = util.medprofBaseUrl + '/profitStats4Wx';
 const proforgAgentprofitStatsUrl = util.proforgagentBaseUrl + '/profitStats4Wx';
 
@@ -243,6 +244,24 @@ const datasrc = {
   },
 
   medprof: {
+    getQRCodeList: (cb) => {
+      let tokens = util.getStoredTokens();
+      console.log('[getQRCodeList] got tokens: ', tokens);
+
+      wx.request({
+        url: qrcodeListUrl,
+        method: "GET",
+        header: util.getJsonReqHeader(tokens),
+        success: function (qrcodeListRes) {
+          console.log('qrcodeListRes: ', qrcodeListRes)
+          let qrcodes = qrcodeListRes.data;
+          cb(qrcodes);
+        },
+        fail: function (e2) {
+          console.info("e2: ", e2)
+        }
+      })
+    },
     getReffedCustomerInfos: (cb) => {
       let that = this;
       let tokens = util.getStoredTokens();

@@ -7,11 +7,16 @@ const formatTime = date => {
   const second = date.getSeconds()
 
   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
-}
+};
+
+const base64DecAscii = function (buf) {
+  return String.fromCharCode.apply(null, new Uint8Array(buf));
+};
 
 const getStoredTokens = function() {
   return wx.getStorageSync(userTokenKey);
-}
+};
+
 const getYearMonthDefault = function() {
   let endDate = new Date();
   var startMonth = endDate.getMonth() - 5; // 6 months in total
@@ -192,6 +197,7 @@ const createChart = function (chartData) {
 };
 
 module.exports = {
+  base64DecAscii: base64DecAscii,
   createChart: createChart,
   formatTime: formatTime,
   promisify: promisify,

@@ -1,0 +1,9 @@
+/* comp/_qrcode/medprof-qrcode-list.wxss */
+@import "../../app.wxss";
+
+.cell-content {
+  text-align:center;
+  align-items:center;
+  justify-content: center;
+  margin: auto;
+}

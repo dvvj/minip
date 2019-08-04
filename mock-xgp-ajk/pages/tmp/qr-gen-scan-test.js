@@ -47,8 +47,8 @@ Page({
       height: 160,
       x: 20,
       y: 20,
-      canvasId: 'myQrcode',
-      // ctx: wx.createCanvasContext('myQrcode'),
+      //canvasId: 'myQrcode',
+      ctx: wx.createCanvasContext('myQrcode'),
       typeNumber: 10,
       text: this.data.text,
       image: {
@@ -87,6 +87,7 @@ Page({
       "p-prof",
       "PrFixed-0.95"
     );
+    console.log('qrcode str', text);
     this.setData({text});
     this.draw();
   },

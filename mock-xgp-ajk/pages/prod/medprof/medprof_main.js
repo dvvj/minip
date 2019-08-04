@@ -110,7 +110,17 @@ Page({
   },
 
   updateAddByQRCode: function() {
-
+    let that = this;
+    let qrcodeList = this.selectComponent("#medprofQrcodeList");
+    //console.log(newCustomerProfile);
+    toastUtil.waiting(this, true, '加载数据中...');
+    datasrc.medprof.getQRCodeList(
+      qrcodes => {
+        console.log(qrcodes);
+        qrcodeList.initData(qrcodes);
+        toastUtil.waiting(that, false);
+      }
+    )
   },
 
   updateSetting: function () {

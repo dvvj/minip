@@ -1,3 +1,4 @@
+<!--comp/_qrcode/medprof-qrcode-list.wxml-->
 <!--comp/medprof-qrcode-list.wxml-->
 <scroll-view scroll-y class="main_height">
   <van-cell-group>
@@ -16,22 +17,17 @@
       </view>
     </van-cell>
   </van-cell-group>
-    <block wx:for="{{qrcodes}}" wx:key="profId" wx:for-index="qrcodeIndex">
+    <block wx:for="{{qrcodes}}" wx:key="id" wx:for-index="qrcodeIndex">
     <van-cell-group>
       <!-- <van-cell is-link url="../../customer/reffed-order-stats"> -->
-      <van-cell is-link url="../../prod/medprof/qrcode-detail"
-        data-index="{{qrcodeIndex}}" bind:click="onClick">
-        <view>
-          <view class="van-cell-text">
-            <text>todo</text>
-          </view>
-        </view>
-        <view slot="title">
-          <view class="van-cell-text">
-            <text>{{item.desc}}</text>
-          </view>
+      <van-cell class="van-cell-text">
+        <view class="cell-content">
+          <text>{{item.qrcodeDesc}}</text>
+          <!-- <text>{{item.qrcode}}</text> -->
+          <canvas style="width: 200px; height: 200px;" canvas-id="qrc-canvas-{{item.id}}"></canvas>
         </view>
       </van-cell>
     </van-cell-group>
   </block>
 </scroll-view>
+

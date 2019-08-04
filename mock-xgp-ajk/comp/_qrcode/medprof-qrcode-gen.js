@@ -11,7 +11,11 @@ Component({
    * Component initial data
    */
   data: {
-
+    products: [],
+    selected: [],
+    pricePlans: [],
+    pricePlanInfos: [],
+    errorMsgs: {},
   },
 
   /**

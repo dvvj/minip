@@ -23,16 +23,21 @@ Component({
    * Component methods
    */
   methods: {
-    initData: function (qrcodesEncoded) {
+    convertAndDraw: function (qrcodesEncoded) {
       let that = this;
-      let qrcodes = qrcodesEncoded.map(enc => {
+      let qrcodesDecoded = qrcodesEncoded.map(enc => {
         let decArr = wx.base64ToArrayBuffer(enc.qrcodeEnc);
         enc.qrcode = util.base64DecAscii(decArr);
-        console.log('enc: ', enc);
+        //console.log('enc: ', enc);
         that.draw(enc);
         console.log('dec: ', enc.qrcode);
         return enc;
       });
+      return qrcodesDecoded;
+    },
+    initData: function (qrcodesEncoded) {
+
+      let qrcodes = this.convertAndDraw(qrcodesEncoded);
       let sysInfo = wx.getSystemInfoSync();
       let marginLeft = (sysInfo.windowWidth - 200) / 2 - 10;
       console.log('marginLeft: ', marginLeft);
@@ -57,6 +62,9 @@ Component({
       let medprofQrcodeGen = this.selectComponent('#medprofQrcodeGen');
       let newlyAdded = medprofQrcodeGen.getNewlyAdded();
       console.log('newlyAdded', newlyAdded);
+      let newQrcodes = this.convertAndDraw(newlyAdded);
+      let qrcodes = this.data.qrcodes.concat(newQrcodes);
+      this.setData({qrcodes});
     },
 
     draw: function (qr) {

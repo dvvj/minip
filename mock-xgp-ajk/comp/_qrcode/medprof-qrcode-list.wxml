@@ -1,5 +1,6 @@
 <!--comp/_qrcode/medprof-qrcode-list.wxml-->
-<!--comp/medprof-qrcode-list.wxml-->
+<waiting-toast id="waitingToast" />
+
 <scroll-view scroll-y class="main_height">
   <van-cell-group>
     <van-cell>
@@ -7,17 +8,8 @@
         <text style='font-size:40rpx;font-weight:bold;'>二维码列表</text>
       </view>
     </van-cell>
-    <van-cell wx:if="{{qrcodes.length == 0}}">
-      <view slot="title">
-        <view><text>二维码列表为空</text></view>
-        <view>
-          <van-button size="small" type="custom" custom-class="lb-button"
-            bind:click='onAddNewQRCodeClicked'>添加二维码</van-button>
-        </view>
-      </view>
-    </van-cell>
   </van-cell-group>
-    <block wx:for="{{qrcodes}}" wx:key="id" wx:for-index="qrcodeIndex">
+  <block wx:for="{{qrcodes}}" wx:key="id" wx:for-index="qrcodeIndex">
     <van-cell-group>
       <!-- <van-cell is-link url="../../customer/reffed-order-stats"> -->
       <van-cell class="van-cell-text">
@@ -31,5 +23,13 @@
       </van-cell>
     </van-cell-group>
   </block>
+  <van-cell>
+    <view slot="title">
+      <view>
+        <van-button size="small" type="custom" custom-class="lb-button"
+          bind:click='onAddNewQRCodeClicked'>添加二维码</van-button>
+      </view>
+    </view>
+  </van-cell>
 </scroll-view>
-
+<medprof-qrcode-gen id="medprofQrcodeGen" />

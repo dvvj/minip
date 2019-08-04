@@ -1,6 +1,8 @@
 {
   "component": true,
   "usingComponents": {
+    "medprof-qrcode-gen": "medprof-qrcode-gen",
+    "waiting-toast": "../waiting-toast",
     "van-button": "../../vant-lib/button/index",
     "van-cell": "../../vant-lib/cell/index",
     "van-cell-group": "../../vant-lib/cell-group/index",

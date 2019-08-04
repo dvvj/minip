@@ -18,6 +18,9 @@ const proforgAgentprofitStatsUrl = util.proforgagentBaseUrl + '/profitStats4Wx';
 const newCustomerPreReqDataUrl = util.medprofBaseUrl + '/newCustomerPreReqData';
 const newCustomerAndProfileUrl = util.medprofBaseUrl + '/newCustomerAndProfile';
 
+// same data as new customer
+const newQrcodePreReqDataUrl = newCustomerPreReqDataUrl;
+
 const medprofListUrl = util.proforgagentBaseUrl + '/medprofList';
 const newMedProfPreReqDataUrl = util.proforgagentBaseUrl + '/newMedProfPreReqData';
 const newMedProfUrl = util.proforgagentBaseUrl + '/newMedProf';
@@ -302,6 +305,30 @@ const datasrc = {
       })
 
     },
+    getNewQrcodeData: (cb) => {
+      let tokens = util.getStoredTokens();
+      util.promisify(wx.request)
+        ({
+          url: newQrcodePreReqDataUrl,
+          method: 'GET',
+          header: util.getJsonReqHeader(tokens),
+        }).then(res => {
+          console.log('newQrcodePreReqData:', res);
+          util.updateXAuth(res.header[util.xAuthHeader]);
+
+          let products = res.data.products;
+          // check all products by default
+          products.forEach(function(prod) {prod.checked = true;});
+          console.log("products: ", products);
+          let pricePlans = res.data.pricePlans;
+          console.log("pricePlans: ", pricePlans);
+
+          cb({ products, pricePlans });
+
+          //return res.data;
+        })
+    },
+
     getNewCustomerData: (cb) => {
       let tokens = util.getStoredTokens();
       util.promisify(wx.request)

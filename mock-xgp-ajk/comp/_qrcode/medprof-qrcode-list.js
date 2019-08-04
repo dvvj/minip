@@ -1,6 +1,8 @@
 // comp/_qrcode/medprof-qrcode-list.js
 const util = require('../../utils/util.js');
 import drawQrcode from '../../utils/weapp.qrcode.min.js'
+const toastUtil = require('../../utils/toast-util.js');
+const datasrc = require('../../utils/' + util.datasrc).datasrc;
 
 Component({
   /**
@@ -37,7 +39,18 @@ Component({
       this.setData({ qrcodes, marginLeft });
     },
     onAddNewQRCodeClicked: function (e) {
-      console.log('todo');
+      let that = this;
+      let medprofQrcodeGen = this.selectComponent('#medprofQrcodeGen');
+      console.log('todo: ', medprofQrcodeGen);
+
+      toastUtil.waiting(this, true, '准备二维码数据中...');
+      datasrc.medprof.getNewQrcodeData(
+        qrcodeData => {
+          medprofQrcodeGen.initData(qrcodeData);
+          toastUtil.waiting(that, false);
+          medprofQrcodeGen.showDlg();
+        }
+      );
     },
     draw: function (qr) {
       let that = this;

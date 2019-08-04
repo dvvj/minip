@@ -10,7 +10,7 @@
     </van-cell>
 
     <van-checkbox-group
-      value="{{ selected }}" data-key="selected" custom-class="checkbox-group" bind:change="onChange">
+      value="{{ selected }}" data-key="selected" custom-class="checkbox-group" bind:change="onProductCheckboxChange">
       <van-checkbox
         wx:for="{{ products }}"
         wx:key="id"

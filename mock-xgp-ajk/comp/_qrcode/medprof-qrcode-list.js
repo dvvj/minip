@@ -31,7 +31,10 @@ Component({
         console.log('dec: ', enc.qrcode);
         return enc;
       });
-      this.setData({ qrcodes });
+      let sysInfo = wx.getSystemInfoSync();
+      let marginLeft = (sysInfo.windowWidth - 200) / 2 - 10;
+      console.log('marginLeft: ', marginLeft);
+      this.setData({ qrcodes, marginLeft });
     },
     onAddNewQRCodeClicked: function (e) {
       console.log('todo');

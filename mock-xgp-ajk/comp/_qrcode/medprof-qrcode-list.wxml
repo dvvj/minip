@@ -24,7 +24,9 @@
         <view class="cell-content">
           <text>{{item.qrcodeDesc}}</text>
           <!-- <text>{{item.qrcode}}</text> -->
-          <canvas style="width: 200px; height: 200px;" canvas-id="qrc-canvas-{{item.id}}"></canvas>
+          <view style="margin-left: {{marginLeft}}px">
+            <canvas style="width: 200px; height: 200px;" canvas-id="qrc-canvas-{{item.id}}"></canvas>
+          </view>
         </view>
       </van-cell>
     </van-cell-group>

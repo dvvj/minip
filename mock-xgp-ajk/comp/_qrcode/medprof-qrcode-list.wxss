@@ -3,7 +3,8 @@
 
 .cell-content {
   text-align:center;
-  align-items:center;
-  justify-content: center;
-  margin: auto;
+}
+
+.main_height {
+  height:1080rpx
 }

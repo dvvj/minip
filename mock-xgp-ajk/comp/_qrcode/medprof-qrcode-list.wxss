@@ -5,6 +5,11 @@
   text-align:center;
 }
 
+.qr-canvas {
+  width: 200px;
+  height: 200px;
+}
+
 .main_height {
   height:1080rpx
 }

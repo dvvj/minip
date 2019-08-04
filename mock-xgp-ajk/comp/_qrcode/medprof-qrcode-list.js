@@ -52,6 +52,13 @@ Component({
         }
       );
     },
+
+    onNewQrcodeDlgClose: function() {
+      let medprofQrcodeGen = this.selectComponent('#medprofQrcodeGen');
+      let newlyAdded = medprofQrcodeGen.getNewlyAdded();
+      console.log('newlyAdded', newlyAdded);
+    },
+
     draw: function (qr) {
       let that = this;
       let {id, qrcode} = qr;

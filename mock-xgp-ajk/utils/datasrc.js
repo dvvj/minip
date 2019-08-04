@@ -340,7 +340,10 @@ const datasrc = {
         }).then(res => {
           console.log('saveNewQrcode:', res);
           util.updateXAuth(res.header[util.xAuthHeader]);
-          cb(res);
+
+          let success = res.statusCode == 200;
+          let dataOrMsg = res.data;
+          cb({ success, dataOrMsg });
 
           //return res.data;
         })

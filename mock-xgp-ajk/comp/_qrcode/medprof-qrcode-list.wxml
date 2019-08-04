@@ -16,8 +16,8 @@
         <view class="cell-content">
           <text>{{item.qrcodeDesc}}</text>
           <!-- <text>{{item.qrcode}}</text> -->
-          <view style="margin-left: {{marginLeft}}px">
-            <canvas style="width: 200px; height: 200px;" canvas-id="qrc-canvas-{{item.id}}"></canvas>
+          <view class="qr-canvas" style="margin-left: {{marginLeft}}px">
+            <canvas class="qr-canvas" canvas-id="qrc-canvas-{{item.id}}"></canvas>
           </view>
         </view>
       </van-cell>
@@ -32,4 +32,4 @@
     </view>
   </van-cell>
 </scroll-view>
-<medprof-qrcode-gen id="medprofQrcodeGen" />
+<medprof-qrcode-gen id="medprofQrcodeGen" bind:close="onNewQrcodeDlgClose" />

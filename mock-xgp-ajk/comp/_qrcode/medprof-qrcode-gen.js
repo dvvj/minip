@@ -23,6 +23,7 @@ Component({
     pricePlanInfos: [],
     selectedPricePlan: {},
     errorMsgs: {},
+    newlyAdded: []
   },
 
   /**
@@ -45,6 +46,7 @@ Component({
     },
     showDlg: function() {
       let that = this;
+      this.setData({ newlyAdded: [] });
       Dialog.alert({
         title: '生成新二维码',
         showConfirmButton: true,
@@ -52,12 +54,16 @@ Component({
         confirmButtonText: '关闭',
         context: this
       }).then(() => {
-        console.log('triggering confirm event: ');
-        that.triggerEvent("confirm");
+        console.log('triggering close event: ');
+        that.triggerEvent("close");
         // on close
       }).catch(reason => console.log('cancelled: ', reason));
 
     },
+    getNewlyAdded: function() {
+      return this.data.newlyAdded;
+    },
+
     onNewQRCode: function() {
       let that = this;
       let selectedProducts = this.data.products
@@ -80,9 +86,16 @@ Component({
       toastUtil.waiting(this, true, '保存二维码...');
       datasrc.medprof.saveNewQrcode(
         newQrCodeReq,
-        res => {
-          console.log('saveNewQrcode', res);
-          toastUtil.waiting(that, false);
+        respData => {
+          console.log('saveNewQrcode', respData);
+          let { success, dataOrMsg } = respData;
+          let message = success ? '保存成功' : `保存失败: ${dataOrMsg}`;
+          if (success) {
+            let newlyAdded = this.data.newlyAdded;
+            newlyAdded.push(dataOrMsg);
+            that.setData({newlyAdded});
+          }
+          success ? toastUtil.success(that, message) : toastUtil.fail(that, message);
         }
       );
     },

@@ -16,6 +16,7 @@ Component({
    * Component initial data
    */
   data: {
+    qrcodesEncoded: [],
     qrcodes: []
   },
 
@@ -35,13 +36,18 @@ Component({
       });
       return qrcodesDecoded;
     },
+
+    getEncodedQrcodes: function() {
+      return this.data.qrcodesEncoded;
+    },
+    
     initData: function (qrcodesEncoded) {
 
       let qrcodes = this.convertAndDraw(qrcodesEncoded);
       let sysInfo = wx.getSystemInfoSync();
       let marginLeft = (sysInfo.windowWidth - 200) / 2 - 10;
       console.log('marginLeft: ', marginLeft);
-      this.setData({ qrcodes, marginLeft });
+      this.setData({ qrcodesEncoded, qrcodes, marginLeft });
     },
     onAddNewQRCodeClicked: function (e) {
       let that = this;
@@ -51,20 +57,15 @@ Component({
       toastUtil.waiting(this, true, '准备二维码数据中...');
       datasrc.medprof.getNewQrcodeData(
         qrcodeData => {
-          medprofQrcodeGen.initData(qrcodeData);
+          //medprofQrcodeGen.initData(qrcodeData);
+          wx.setStorageSync(util.currQrcodeDataKey, qrcodeData);
           toastUtil.waiting(that, false);
-          medprofQrcodeGen.showDlg();
+          wx.navigateTo({
+            url: '../../../pages/prod/medprof/gen-qrcode',
+          })
+          //medprofQrcodeGen.showDlg();
         }
       );
-    },
-
-    onNewQrcodeDlgClose: function() {
-      let medprofQrcodeGen = this.selectComponent('#medprofQrcodeGen');
-      let newlyAdded = medprofQrcodeGen.getNewlyAdded();
-      console.log('newlyAdded', newlyAdded);
-      let newQrcodes = this.convertAndDraw(newlyAdded);
-      let qrcodes = this.data.qrcodes.concat(newQrcodes);
-      this.setData({qrcodes});
     },
 
     draw: function (qr) {

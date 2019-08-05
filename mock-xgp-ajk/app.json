@@ -18,6 +18,7 @@
     "pages/prod/proforg/proforg_main",
     "pages/prod/medprof/medprof_main",
     "pages/prod/customer/order-detail",
+    "pages/prod/medprof/gen-qrcode",
     "pages/tmp/pay-webview",
     "pages/prod/wepayez-pay",
     "pages/prod/orgagent/orgagent_main",

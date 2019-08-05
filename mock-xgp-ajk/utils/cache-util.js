@@ -22,6 +22,14 @@ const getCachedProductList = function (uid) {
 const saveCachedProductList = function(uid, products) {
   wx.setStorageSync(productListKey(uid), products);
   console.log(`product list cached, #: ${products.length}`);
+};
+
+const retrieveStorage = function(key, remove) {
+  let res = wx.getStorageSync(key);
+  if (remove) {
+    wx.removeStorageSync(key);
+  }
+  return res;
 }
 // const productDictKey = appKeyPrefix + ".productDict";
 // const getCachedProductDict = function () {
@@ -35,5 +43,6 @@ module.exports = {
   getImgKey,
   getCachedImgPath,
   getCachedProductList,
-  saveCachedProductList
+  saveCachedProductList,
+  retrieveStorage
 };

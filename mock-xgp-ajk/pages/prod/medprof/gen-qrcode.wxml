@@ -1,0 +1,4 @@
+<!--pages/prod/medprof/gen-qrcode.wxml-->
+<waiting-toast id="waitingToast" />
+
+<medprof-qrcode-gen id="medprofQrcodeGen" bind:goback="onGoBack" />

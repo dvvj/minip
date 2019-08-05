@@ -1,5 +1,5 @@
 // comp/_qrcode/medprof-qrcode-gen.js
-import Dialog from '../../vant-lib/dialog/dialog';
+// import Dialog from '../../vant-lib/dialog/dialog';
 const util = require('../../utils/util.js');
 const registerUtil = require('../../utils/register-util.js');
 const toastUtil = require('../../utils/toast-util.js');
@@ -44,22 +44,22 @@ Component({
         selectedPricePlan
       });
     },
-    showDlg: function() {
-      let that = this;
-      this.setData({ newlyAdded: [] });
-      Dialog.alert({
-        title: '生成新二维码',
-        showConfirmButton: true,
-        showCancelButton: false,
-        confirmButtonText: '关闭',
-        context: this
-      }).then(() => {
-        console.log('triggering close event: ');
-        that.triggerEvent("close");
-        // on close
-      }).catch(reason => console.log('cancelled: ', reason));
+    // showDlg: function() {
+    //   let that = this;
+    //   this.setData({ newlyAdded: [] });
+    //   Dialog.alert({
+    //     title: '生成新二维码',
+    //     showConfirmButton: true,
+    //     showCancelButton: false,
+    //     confirmButtonText: '关闭',
+    //     context: this
+    //   }).then(() => {
+    //     console.log('triggering close event: ');
+    //     that.triggerEvent("close");
+    //     // on close
+    //   }).catch(reason => console.log('cancelled: ', reason));
 
-    },
+    // },
     getNewlyAdded: function() {
       return this.data.newlyAdded;
     },
@@ -112,5 +112,9 @@ Component({
         selected: e.detail
       });
     },
+
+    onGoBack: function(e) {
+      this.triggerEvent("goback");
+    }
   }
 })

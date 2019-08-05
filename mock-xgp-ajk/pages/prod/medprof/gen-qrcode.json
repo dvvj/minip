@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "waiting-toast": "../../../comp/waiting-toast",
+    "medprof-qrcode-gen": "../../../comp/_qrcode/medprof-qrcode-gen"
+  }
+}

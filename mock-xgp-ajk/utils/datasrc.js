@@ -13,6 +13,7 @@ const sessionTestUrl = util.webappBase + '/sessionTest';
 const reffedCustomersUrl = util.medprofBaseUrl + '/reffedCustomerInfos'
 const qrcodeListUrl = util.medprofBaseUrl + '/getMedProfCfgs'
 const medprofProfitStatsUrl = util.medprofBaseUrl + '/profitStats4Wx';
+const medprofProfitStatsPerCustomerUrl = util.medprofBaseUrl + '/profitStats4WxPerCustomer';
 const proforgAgentprofitStatsUrl = util.proforgagentBaseUrl + '/profitStats4Wx';
 
 const newCustomerPreReqDataUrl = util.medprofBaseUrl + '/newCustomerPreReqData';
@@ -298,6 +299,26 @@ const datasrc = {
         header: util.postJsonReqHeader(tokens),
         success: function (reqRes) {
           console.log('updateProfitStats res: ', reqRes)
+          cb(reqRes.data);
+        },
+        fail: function (e2) {
+          console.info("e2: ", e2)
+        }
+      })
+
+    },
+    getProfitStatsChartDataPerCustomer: (customerId, startYearMonth, endYearMonth, cb) => {
+      let that = this;
+      let tokens = util.getStoredTokens();
+      console.log(`[medprof::getProfitStatsChartDataPerCustomer] start ${startYearMonth} end ${endYearMonth}, tokens:`, tokens);
+
+      wx.request({
+        url: medprofProfitStatsPerCustomerUrl,
+        data: { customerId, startYearMonth, endYearMonth },
+        method: "POST",
+        header: util.postJsonReqHeader(tokens),
+        success: function (reqRes) {
+          console.log('medprofProfitStatsPerCustomer res: ', reqRes)
           cb(reqRes.data);
         },
         fail: function (e2) {

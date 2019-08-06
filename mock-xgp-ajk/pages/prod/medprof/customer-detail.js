@@ -1,5 +1,6 @@
 // pages/prod/medprof/customer-detail.js
 const util = require('../../../utils/util.js');
+const cacheUtil = require('../../../utils/cache-util.js');
 const echartData = require('../../../utils/echart-data.js');
 
 import * as echarts from '../../../ec-canvas/echarts';
@@ -12,7 +13,12 @@ function initChart(canvas, width, height) {
   });
   canvas.setChart(chart);
 
-  var option = echartData.medprofEmptyOption;
+  //var option = echartData.medprofEmptyOption;
+  let chartData = cacheUtil.retrieveStorage(util.profitStatsByCustomerChartDataKey, true);
+  //wx.getStorageSync(util.profitStatsByCustomerChartDataKey);
+  console.log('ffuuuuuuuuudkf', chartData);
+  let option = echartData.medprofOptionFrom(chartData);
+  console.log('option: ', option);
 
   chart.setOption(option);
   return chart;
@@ -70,13 +76,11 @@ Page({
     this.setData({ currCustomer });
     this.setYearMonthDefault();
 
-    let chartData = wx.getStorageSync(util.profitStatsByCustomerChartDataKey);
-
-    setTimeout(function() {
-      chart.setOption(
-        echartData.medprofOptionFrom(chartData)
-      );
-    }, 100);
+    // setTimeout(function() {
+    //   chart.setOption(
+    //     echartData.medprofOptionFrom(chartData)
+    //   );
+    // }, 100);
   },
 
   /**

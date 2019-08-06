@@ -1,5 +1,7 @@
 // comp/reffed-customer-infos.js
 const util = require('../utils/util.js');
+const toastUtil = require('../utils/toast-util.js');
+const datasrc = require('../utils/' + util.datasrc).datasrc;
 
 Component({
   /**
@@ -29,58 +31,44 @@ Component({
       this.triggerEvent('gotoAddNewCustomer');
     },
 
-    onClick: function (e) {
+    setYearMonthDefault: function () {
+      let { _startYM, _endYM } = util.getYearMonthDefault();
+      this.yearMonthRange(_startYM, _endYM);
+    },
+
+    yearMonthRange: function (startYM, endYM) {
+      let yearMonthStart = `${startYM.year}-${startYM.month}`;
+      let yearMonthEnd = `${endYM.year}-${endYM.month}`;
+
+      this.setData({
+        yearMonthStart,
+        yearMonthEnd
+      });
+    },
+
+    onCustomerDetail: function (e) {
       let idx = e.currentTarget.dataset.index;
       let currCustomer = this.data.customerInfos[idx];
       console.log('currCustomer', currCustomer);
       wx.setStorageSync(util.currCustomerKey, currCustomer)
       let that = this;
+      this.setYearMonthDefault();
 
-      let chartData = {
-        "yearMonths": [
-          "2019-01",
-          "2019-02",
-          "2019-03",
-          "2019-04"
-        ],
-        // "sales": [
-        //   0,
-        //   0,
-        //   0,
-        //   0
-        // ],
-        // "rewards": [
-        //   0,
-        //   0,
-        //   0,
-        //   0
-        // ]
-        "sales": [
-          9049.939999999999,
-          9049.939999999999,
-          9349.919999999998,
-          0
-        ],
-        "rewards": [
-          2714.982,
-          2714.982,
-          2804.9759999999997,
-          0
-        ]
-      };
-      wx.setStorageSync(util.profitStatsByCustomerChartDataKey, chartData)
+      toastUtil.waiting(this, true, '加载数据中...');
+      datasrc.medprof.getProfitStatsChartDataPerCustomer(
+        currCustomer.customerId,
+        this.data.yearMonthStart, this.data.yearMonthEnd,
+        chartDataRaw => {
+          //util.createChart(chartData);
+          // chart.setOption(
+          //   echartData.medprofOptionFrom(chartData)
+          // );
+          console.log('getProfitStatsChartDataPerCustomer:', chartDataRaw);
 
-      // toastUtil.waiting(this, true, '加载数据中...');
-      // datasrc.medprof.getProfitStatsChartData(
-      //   this.data.yearMonthStart, this.data.yearMonthEnd,
-      //   chartData => {
-      //     //util.createChart(chartData);
-      //     // chart.setOption(
-      //     //   echartData.medprofOptionFrom(chartData)
-      //     // );
-      //     toastUtil.waiting(that, false);
-      //   }
-      // );
+          wx.setStorageSync(util.profitStatsByCustomerChartDataKey, chartDataRaw)
+          toastUtil.waiting(that, false);
+        }
+      );
 
     }
   }

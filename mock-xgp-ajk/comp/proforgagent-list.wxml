@@ -20,7 +20,7 @@
     <van-cell-group>
       <!-- <van-cell is-link url="../../customer/reffed-order-stats"> -->
       <van-cell is-link url="../../prod/proforg/agent-detail"
-        data-index="{{agentIndex}}" bind:click="onClick">
+        data-index="{{agentIndex}}" bind:click="onMedprofDetail">
         <view>
           <view class="van-cell-text">
             <text>{{item.mobile}}</text>

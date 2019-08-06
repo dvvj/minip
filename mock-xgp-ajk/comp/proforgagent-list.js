@@ -28,7 +28,7 @@ Component({
       this.triggerEvent('gotoAddNewProfOrgAgent');
     },
 
-    onClick: function (e) {
+    onMedprofDetail: function (e) {
       let idx = e.currentTarget.dataset.index;
       let currAgent = this.data.proforgagents[idx];
       console.log('proforgagents', currAgent);

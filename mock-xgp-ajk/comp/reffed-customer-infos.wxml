@@ -1,4 +1,6 @@
 <!--comp/reffed-customer-infos.wxml-->
+<waiting-toast id="waitingToast" />
+
 <scroll-view scroll-y class="main_height">
   <van-cell-group>
     <van-cell>
@@ -19,7 +21,7 @@
   <block wx:for="{{customerInfos}}" wx:key="profileId" wx:for-index="customerIndex">
     <van-cell-group>
       <van-cell is-link url="../../prod/medprof/customer-detail"
-        data-index="{{customerIndex}}" bind:click="onClick">
+        data-index="{{customerIndex}}" bind:click="onCustomerDetail">
         <view>
           <view class="van-cell-text">
             <text>详细资料</text>

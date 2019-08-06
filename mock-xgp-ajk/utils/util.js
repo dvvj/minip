@@ -72,6 +72,7 @@ const currCustomerKey = "currCustomer";
 const currProductKey = "currProduct";
 const currQrcodeDataKey = "currQrcodeData";
 const newlyAddedQrcodesKey = "newlyAddedQrcodes";
+const profitStatsByCustomerChartDataKey = "profitStatsByCustomerChartData";
 
 const getUserId = () => {
   return wx.getStorageSync(userIdKey);
@@ -225,6 +226,7 @@ module.exports = {
   currProductKey: currProductKey,
   currQrcodeDataKey: currQrcodeDataKey,
   newlyAddedQrcodesKey: newlyAddedQrcodesKey,
+  profitStatsByCustomerChartDataKey: profitStatsByCustomerChartDataKey,
   updateXAuth: updateXAuth,
   getMainPage: getMainPage,
   postJsonReqHeader: postJsonReqHeader,

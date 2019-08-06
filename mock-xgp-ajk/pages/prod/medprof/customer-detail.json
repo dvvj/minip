@@ -1,6 +1,8 @@
 {
   "usingComponents": {
     "van-cell": "../../../vant-lib/cell/index",
-    "van-cell-group": "../../../vant-lib/cell-group/index"
+    "van-cell-group": "../../../vant-lib/cell-group/index",
+    "set-year-month-range": "../../../comp/set-year-month-range",
+    "ec-canvas": "../../../ec-canvas/ec-canvas"
   }
 }

@@ -1,1 +1,18 @@
 /* pages/prod/medprof/customer-detail.wxss */
+@import "../../../app.wxss";
+
+.canvas_container_customer {
+  width: 720rpx;
+  height: 680rpx;
+
+  padding: 50rpx 0rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.canvas_height_customer {
+  height:640rpx
+}

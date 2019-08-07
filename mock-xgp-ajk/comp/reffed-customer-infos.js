@@ -1,5 +1,6 @@
 // comp/reffed-customer-infos.js
 const util = require('../utils/util.js');
+const cacheUtil = require('../utils/cache-util.js');
 const toastUtil = require('../utils/toast-util.js');
 const datasrc = require('../utils/' + util.datasrc).datasrc;
 
@@ -65,8 +66,11 @@ Component({
           // );
           console.log('getProfitStatsChartDataPerCustomer:', chartDataRaw);
 
-          wx.setStorageSync(util.profitStatsByCustomerChartDataKey, chartDataRaw)
+          cacheUtil.saveProfitStatsPerCustomer(chartDataRaw);
           toastUtil.waiting(that, false);
+          wx.navigateTo({
+            url: "../../prod/medprof/customer-detail",
+          })
         }
       );
 

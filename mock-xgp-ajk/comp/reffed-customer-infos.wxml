@@ -20,11 +20,11 @@
   </van-cell-group>
   <block wx:for="{{customerInfos}}" wx:key="profileId" wx:for-index="customerIndex">
     <van-cell-group>
-      <van-cell is-link url="../../prod/medprof/customer-detail"
+      <van-cell
         data-index="{{customerIndex}}" bind:click="onCustomerDetail">
         <view>
           <view class="van-cell-text">
-            <text>详细资料</text>
+            <van-button size="small" type="custom" custom-class="lb-button">详细资料 {{'>>'}}</van-button>
           </view>
         </view>
         <view slot="title">

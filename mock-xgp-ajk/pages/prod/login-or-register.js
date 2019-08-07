@@ -1,4 +1,7 @@
 // pages/prod/login-or-register.js
+const cacheUtil = require('../../utils/cache-util.js')
+
+
 Page({
 
   /**
@@ -12,6 +15,7 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
+    //cacheUtil.clearCache4Demo();
     let loginComp = this.selectComponent("#loginComp");
     loginComp.initData('p-prof', '123');
     

@@ -16,8 +16,8 @@ function initChart(canvas, width, height) {
   canvas.setChart(chart);
 
   //var option = echartData.medprofEmptyOption;
-  let chartData = cacheUtil.retrieveStorage(util.profitStatsByCustomerChartDataKey, true);
-  //wx.getStorageSync(util.profitStatsByCustomerChartDataKey);
+  let chartData = cacheUtil.getProfitStatsPerCustomer();
+
   let option = echartData.medprofOptionFrom(chartData);
   console.log('option: ', option);
 

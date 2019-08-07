@@ -1,11 +1,11 @@
 // pages/mock/proforg/proforg_main.js
 import Dialog from '../../../vant-lib/dialog/dialog';
+const util = require('../../../utils/util.js')
+const datasrc = require('../../../utils/' + util.datasrc).datasrc;
 const orderStatsTestData = require('../../../utils/org-order-stats-td.js')
 const toastUtil = require('../../../utils/toast-util.js');
 //const wxCharts = require('../../../utils/wxcharts-min.js');
 const echartData = require('../../../utils/echart-data.js');
-const util = require('../../../utils/util.js')
-const datasrc = require('../../../utils/' + util.datasrc).datasrc;
 
 const tabIndices = {
   proforgAgentList: 0,

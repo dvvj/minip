@@ -311,20 +311,31 @@ const datasrc = {
       let that = this;
       let tokens = util.getStoredTokens();
       console.log(`[medprof::getProfitStatsChartDataPerCustomer] start ${startYearMonth} end ${endYearMonth}, tokens:`, tokens);
-
-      wx.request({
-        url: medprofProfitStatsPerCustomerUrl,
-        data: { customerId, startYearMonth, endYearMonth },
-        method: "POST",
-        header: util.postJsonReqHeader(tokens),
-        success: function (reqRes) {
-          console.log('medprofProfitStatsPerCustomer res: ', reqRes)
-          cb(reqRes.data);
-        },
-        fail: function (e2) {
-          console.info("e2: ", e2)
-        }
-      })
+      util.promisify(wx.request)
+        ({
+          url: medprofProfitStatsPerCustomerUrl,
+          data: { customerId, startYearMonth, endYearMonth },
+          method: "POST",
+          header: util.postJsonReqHeader(tokens),
+        }).then(res => {
+          console.log('medprofProfitStatsPerCustomer res: ', res)
+          cb(res.data);
+        }).catch(function (reason) {
+          console.log('medprofProfitStatsPerCustomer failed, reason: ', reason)
+        })
+      // wx.request({
+      //   url: medprofProfitStatsPerCustomerUrl,
+      //   data: { customerId, startYearMonth, endYearMonth },
+      //   method: "POST",
+      //   header: util.postJsonReqHeader(tokens),
+      //   success: function (reqRes) {
+      //     console.log('medprofProfitStatsPerCustomer res: ', reqRes)
+      //     cb(reqRes.data);
+      //   },
+      //   fail: function (e2) {
+      //     console.info("e2: ", e2)
+      //   }
+      // })
 
     },
     getNewQrcodeData: (cb) => {

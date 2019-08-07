@@ -1,4 +1,6 @@
-const appKeyPrefix = "_w4l";
+const util = require('util.js');
+
+const appKeyPrefix = "_w4l" + util.version;
 const appImgKeyPrefix = appKeyPrefix + ".img";
 
 const getImgKey = function(prodId, isThumb) {
@@ -13,7 +15,8 @@ const getCachedImgPath = function (prodId, isThumb) {
 
 const productListKey = function(uid) {
   return `${appKeyPrefix}.${uid}.products`;
-}
+};
+
 const getCachedProductList = function (uid) {
   let cacheKey = productListKey(uid);
   console.log('product list cache key: ', cacheKey);
@@ -30,6 +33,18 @@ const retrieveStorage = function(key, remove) {
     wx.removeStorageSync(key);
   }
   return res;
+};
+
+const profitStatsKey = function(profitStatsKey) {
+  return `${appKeyPrefix}.${util.getUserId()}.${profitStatsKey}`;
+};
+const saveProfitStatsPerCustomer = function(data) {
+  let k = profitStatsKey(util.profitStatsByCustomerChartDataKey);
+  wx.setStorageSync(k, data);
+};
+const getProfitStatsPerCustomer = function() {
+  let k = profitStatsKey(util.profitStatsByCustomerChartDataKey);
+  return retrieveStorage(k, true); 
 }
 // const productDictKey = appKeyPrefix + ".productDict";
 // const getCachedProductDict = function () {
@@ -39,10 +54,22 @@ const retrieveStorage = function(key, remove) {
 //   return wx.getStorageSync(productDictKey);
 // };
 
+const clearCache4Demo = function() {
+  let keys = ['c-c', 'c-c1', 'c-c2', 'c-c3', 'c-cc', 'c-ccc', 'c-bbb'];
+  keys.forEach(function(k) {
+    let key = `_w4l.${k}.products`;
+    console.log('removing key: ', key);
+    wx.removeStorageSync(key);
+  })
+};
+
 module.exports = {
   getImgKey,
   getCachedImgPath,
   getCachedProductList,
   saveCachedProductList,
-  retrieveStorage
+  retrieveStorage,
+  saveProfitStatsPerCustomer,
+  getProfitStatsPerCustomer,
+  clearCache4Demo
 };

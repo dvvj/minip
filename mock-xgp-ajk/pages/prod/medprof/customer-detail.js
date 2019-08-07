@@ -2,6 +2,8 @@
 const util = require('../../../utils/util.js');
 const cacheUtil = require('../../../utils/cache-util.js');
 const echartData = require('../../../utils/echart-data.js');
+const toastUtil = require('../../../utils/toast-util.js');
+const datasrc = require('../../../utils/' + util.datasrc).datasrc;
 
 import * as echarts from '../../../ec-canvas/echarts';
 
@@ -16,7 +18,6 @@ function initChart(canvas, width, height) {
   //var option = echartData.medprofEmptyOption;
   let chartData = cacheUtil.retrieveStorage(util.profitStatsByCustomerChartDataKey, true);
   //wx.getStorageSync(util.profitStatsByCustomerChartDataKey);
-  console.log('ffuuuuuuuuudkf', chartData);
   let option = echartData.medprofOptionFrom(chartData);
   console.log('option: ', option);
 
@@ -30,6 +31,7 @@ Page({
    * Page initial data
    */
   data: {
+    currCustomer: {},
     ec: {
       onInit: initChart
     },
@@ -58,11 +60,30 @@ Page({
     this.hideEChart(true);
   },
   onConfirmYearMonthRange: function (e) {
+    let that = this;
     console.log('in onConfirmYearMonthRange', e);
     let setYearMonthRange = this.selectComponent("#setYearMonthRange");
     let range = setYearMonthRange.getSelection();
     console.log('range: ', range);
     this.yearMonthRange(range.start, range.end);
+
+    toastUtil.waiting(this, true, '加载数据中...');
+    datasrc.medprof.getProfitStatsChartDataPerCustomer(
+      this.data.currCustomer.customerId,
+      this.data.yearMonthStart, this.data.yearMonthEnd,
+      chartDataRaw => {
+        //util.createChart(chartData);
+        // chart.setOption(
+        //   echartData.medprofOptionFrom(chartData)
+        // );
+        console.log('getProfitStatsChartDataPerCustomer:', chartDataRaw);
+        let option = echartData.medprofOptionFrom(chartDataRaw);
+
+        chart.setOption(option);
+        toastUtil.waiting(that, false);
+      }
+    );
+
     // this.updateProfitStats();
     this.hideEChart(false);
   },

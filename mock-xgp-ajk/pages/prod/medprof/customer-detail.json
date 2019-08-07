@@ -3,6 +3,7 @@
     "van-cell": "../../../vant-lib/cell/index",
     "van-cell-group": "../../../vant-lib/cell-group/index",
     "set-year-month-range": "../../../comp/set-year-month-range",
+    "waiting-toast": "../../../comp/waiting-toast",
     "ec-canvas": "../../../ec-canvas/ec-canvas"
   }
 }

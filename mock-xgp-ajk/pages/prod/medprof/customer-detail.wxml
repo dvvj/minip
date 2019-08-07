@@ -1,13 +1,12 @@
 <!--pages/prod/medprof/customer-detail.wxml-->
+<waiting-toast id="waitingToast" />
+
 <van-cell>
   <view slot="title">
     <text class='group-title'>【{{currCustomer.customerName}}】收益统计</text>
   </view>
 </van-cell>
 
-<set-year-month-range id="setYearMonthRange"
-  bind:preShow="onPreSetYearMonthRange"
-  bind:confirm="onConfirmYearMonthRange" />
 <scroll-view scroll-y class="canvas_height_customer">
   <view class="canvas_container_customer" hidden="{{hideChart}}">
     <!-- <canvas class="main_canvas" canvas-id="columnCanvas"></canvas> -->
@@ -15,6 +14,10 @@
   </view>
 </scroll-view>
 
+<set-year-month-range id="setYearMonthRange"
+  bind:preShow="onPreSetYearMonthRange"
+  bind:confirm="onConfirmYearMonthRange" />
+  
 <van-cell>
   <view slot="title">
     <text class='group-title'>客户详情</text>

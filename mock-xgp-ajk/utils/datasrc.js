@@ -30,6 +30,7 @@ const newMedProfUrl = util.proforgagentBaseUrl + '/newMedProf';
 
 const profOrgAgentListUrl = util.proforgBaseUrl + '/proforgagentList';
 const profOrgProfitStatsUrl = util.proforgBaseUrl + '/profitStats4Wx';
+const profOrgProfitStatsPerProfOrgAgentUrl = util.proforgBaseUrl + '/profitStats4WxPerAgent';
 const newProfOrgAgentPreReqDataUrl = util.proforgBaseUrl + '/newProfOrgAgentPreReqData';
 const newProfOrgAgentUrl = util.proforgBaseUrl + '/newProfOrgAgent';
 
@@ -618,6 +619,24 @@ const datasrc = {
         }
       })
 
+    },
+
+    getProfitStatsChartDataPerProfOrgAgent: (agentId, startYearMonth, endYearMonth, cb) => {
+      let that = this;
+      let tokens = util.getStoredTokens();
+      console.log(`[proforg::getProfitStatsChartDataPerProfOrgAgent] start ${startYearMonth} end ${endYearMonth}, tokens:`, tokens);
+      util.promisify(wx.request)
+        ({
+          url: profOrgProfitStatsPerProfOrgAgentUrl,
+          data: { agentId, startYearMonth, endYearMonth },
+          method: "POST",
+          header: util.postJsonReqHeader(tokens),
+        }).then(res => {
+          console.log('getProfitStatsChartDataPerProfOrgAgent res: ', res)
+          cb(res.data);
+        }).catch(function (reason) {
+          console.log('getProfitStatsChartDataPerProfOrgAgent failed, reason: ', reason)
+        })
     },
 
     getNewProfOrgAgentData: function(cb) {

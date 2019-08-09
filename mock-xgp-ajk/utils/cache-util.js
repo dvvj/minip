@@ -53,6 +53,14 @@ const saveProfitStatsPerMedProf = function (data) {
 const getProfitStatsPerMedProf = function () {
   let k = profitStatsKey(util.profitStatsByMedProfChartDataKey);
   return retrieveStorage(k, true);
+};
+const saveProfitStatsPerProfOrgAgent = function (data) {
+  let k = profitStatsKey(util.profitStatsByProfOrgAgentChartDataKey);
+  wx.setStorageSync(k, data);
+};
+const getProfitStatsPerProfOrgAgent = function () {
+  let k = profitStatsKey(util.profitStatsByProfOrgAgentChartDataKey);
+  return retrieveStorage(k, true);
 }
 
 // const productDictKey = appKeyPrefix + ".productDict";
@@ -82,5 +90,7 @@ module.exports = {
   getProfitStatsPerCustomer,
   saveProfitStatsPerMedProf,
   getProfitStatsPerMedProf,
+  saveProfitStatsPerProfOrgAgent,
+  getProfitStatsPerProfOrgAgent,
   clearCache4Demo
 };

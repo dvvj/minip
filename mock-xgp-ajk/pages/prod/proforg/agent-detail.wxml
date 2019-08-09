@@ -1,7 +1,31 @@
 <!--pages/prod/proforg/agent-detail.wxml-->
-<van-cell-group title="业务员详情">
-  <van-cell title="姓名" value="{{currAgent.name}}" />
-  <van-cell title="ID" value="{{currAgent.agentId}}" />
-  <van-cell title="手机号" value="{{currAgent.mobile}}" />
-  <van-cell title="其他信息" value="{{currAgent.info}}" />
-</van-cell-group>
+<waiting-toast id="waitingToast" />
+
+<van-cell>
+  <view slot="title">
+    <text class='group-title'>【{{currAgent.name}}】收益统计</text>
+  </view>
+</van-cell>
+
+<scroll-view scroll-y class="canvas_height_agent">
+  <view class="canvas_container_agent" hidden="{{hideChart}}">
+    <!-- <canvas class="main_canvas" canvas-id="columnCanvas"></canvas> -->
+    <ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
+  </view>
+</scroll-view>
+
+<set-year-month-range id="setYearMonthRange"
+  bind:preShow="onPreSetYearMonthRange"
+  bind:confirm="onConfirmYearMonthRange" />
+  
+<van-cell>
+  <view slot="title">
+    <text class='group-title'>业务员详情</text>
+  </view>
+</van-cell>
+
+<van-cell title="姓名" value="{{currAgent.name}}" />
+<van-cell title="ID" value="{{currAgent.agentId}}" />
+<van-cell title="手机号" value="{{currAgent.mobile}}" />
+<van-cell title="其他信息" value="{{currAgent.info}}" />
+

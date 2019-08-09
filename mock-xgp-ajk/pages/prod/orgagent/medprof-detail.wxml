@@ -24,7 +24,6 @@
   </view>
 </van-cell>
 
-
 <van-cell title="姓名" value="{{currMedProf.name}}" />
 <van-cell title="ID" value="{{currMedProf.profId}}" />
 <van-cell title="手机号" value="{{currMedProf.mobile}}" />

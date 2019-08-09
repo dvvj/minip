@@ -35,8 +35,8 @@ const retrieveStorage = function(key, remove) {
   return res;
 };
 
-const profitStatsKey = function(profitStatsKey) {
-  return `${appKeyPrefix}.${util.getUserId()}.${profitStatsKey}`;
+const profitStatsKey = function(key) {
+  return `${appKeyPrefix}.${util.getUserId()}.${key}`;
 };
 const saveProfitStatsPerCustomer = function(data) {
   let k = profitStatsKey(util.profitStatsByCustomerChartDataKey);
@@ -45,7 +45,16 @@ const saveProfitStatsPerCustomer = function(data) {
 const getProfitStatsPerCustomer = function() {
   let k = profitStatsKey(util.profitStatsByCustomerChartDataKey);
   return retrieveStorage(k, true); 
+};
+const saveProfitStatsPerMedProf = function (data) {
+  let k = profitStatsKey(util.profitStatsByMedProfChartDataKey);
+  wx.setStorageSync(k, data);
+};
+const getProfitStatsPerMedProf = function () {
+  let k = profitStatsKey(util.profitStatsByMedProfChartDataKey);
+  return retrieveStorage(k, true);
 }
+
 // const productDictKey = appKeyPrefix + ".productDict";
 // const getCachedProductDict = function () {
 //   return wx.getStorageSync(productDictKey);
@@ -71,5 +80,7 @@ module.exports = {
   retrieveStorage,
   saveProfitStatsPerCustomer,
   getProfitStatsPerCustomer,
+  saveProfitStatsPerMedProf,
+  getProfitStatsPerMedProf,
   clearCache4Demo
 };

@@ -15,6 +15,7 @@ const qrcodeListUrl = util.medprofBaseUrl + '/getMedProfCfgs'
 const medprofProfitStatsUrl = util.medprofBaseUrl + '/profitStats4Wx';
 const medprofProfitStatsPerCustomerUrl = util.medprofBaseUrl + '/profitStats4WxPerCustomer';
 const proforgAgentprofitStatsUrl = util.proforgagentBaseUrl + '/profitStats4Wx';
+const proforgAgentProfitStatsPerMedProfUrl = util.proforgagentBaseUrl + '/profitStats4WxPerMedProf';
 
 const newCustomerPreReqDataUrl = util.medprofBaseUrl + '/newCustomerPreReqData';
 const newCustomerAndProfileUrl = util.medprofBaseUrl + '/newCustomerAndProfile';
@@ -323,20 +324,6 @@ const datasrc = {
         }).catch(function (reason) {
           console.log('medprofProfitStatsPerCustomer failed, reason: ', reason)
         })
-      // wx.request({
-      //   url: medprofProfitStatsPerCustomerUrl,
-      //   data: { customerId, startYearMonth, endYearMonth },
-      //   method: "POST",
-      //   header: util.postJsonReqHeader(tokens),
-      //   success: function (reqRes) {
-      //     console.log('medprofProfitStatsPerCustomer res: ', reqRes)
-      //     cb(reqRes.data);
-      //   },
-      //   fail: function (e2) {
-      //     console.info("e2: ", e2)
-      //   }
-      // })
-
     },
     getNewQrcodeData: (cb) => {
       let tokens = util.getStoredTokens();
@@ -523,7 +510,23 @@ const datasrc = {
       })
 
     },
-
+    getProfitStatsChartDataPerMedProf: (profId, startYearMonth, endYearMonth, cb) => {
+      let that = this;
+      let tokens = util.getStoredTokens();
+      console.log(`[proforgagent::getProfitStatsChartDataPerMedProf] start ${startYearMonth} end ${endYearMonth}, tokens:`, tokens);
+      util.promisify(wx.request)
+        ({
+          url: proforgAgentProfitStatsPerMedProfUrl,
+          data: { profId, startYearMonth, endYearMonth },
+          method: "POST",
+          header: util.postJsonReqHeader(tokens),
+        }).then(res => {
+          console.log('ProfitStatsChartDataPerMedProf res: ', res)
+          cb(res.data);
+        }).catch(function (reason) {
+          console.log('getProfitStatsChartDataPerMedProf failed, reason: ', reason)
+        })
+    },
     getNewMedProfData: (cb) => {
       let tokens = util.getStoredTokens();
       util.promisify(wx.request)

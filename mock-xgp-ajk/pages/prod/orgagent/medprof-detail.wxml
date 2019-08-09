@@ -1,8 +1,33 @@
 <!--pages/prod/orgagent/medprof-detail.wxml-->
-<van-cell-group title="营养师详情">
-  <van-cell title="姓名" value="{{currMedProf.name}}" />
-  <van-cell title="ID" value="{{currMedProf.profId}}" />
-  <van-cell title="手机号" value="{{currMedProf.mobile}}" />
-  <van-cell title="其他信息" value="{{currMedProf.info}}" />
-</van-cell-group>
+<waiting-toast id="waitingToast" />
+
+<van-cell>
+  <view slot="title">
+    <text class='group-title'>【{{currMedProf.name}}】收益统计</text>
+  </view>
+</van-cell>
+
+<scroll-view scroll-y class="canvas_height_medprof">
+  <view class="canvas_container_medprof" hidden="{{hideChart}}">
+    <!-- <canvas class="main_canvas" canvas-id="columnCanvas"></canvas> -->
+    <ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
+  </view>
+</scroll-view>
+
+<set-year-month-range id="setYearMonthRange"
+  bind:preShow="onPreSetYearMonthRange"
+  bind:confirm="onConfirmYearMonthRange" />
+  
+<van-cell>
+  <view slot="title">
+    <text class='group-title'>营养师详情</text>
+  </view>
+</van-cell>
+
+
+<van-cell title="姓名" value="{{currMedProf.name}}" />
+<van-cell title="ID" value="{{currMedProf.profId}}" />
+<van-cell title="手机号" value="{{currMedProf.mobile}}" />
+<van-cell title="其他信息" value="{{currMedProf.info}}" />
+
 

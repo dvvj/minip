@@ -100,7 +100,9 @@ Page({
     let currAgent = wx.getStorageSync(util.currAgentKey);
 
     console.log('in agent-detail', currAgent);
-    this.setData({ currAgent })
+    this.setData({ currAgent });
+
+    this.setYearMonthDefault();
   },
 
   /**

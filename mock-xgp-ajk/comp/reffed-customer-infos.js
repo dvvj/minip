@@ -33,7 +33,7 @@ Component({
     },
 
     setYearMonthDefault: function () {
-      let { _startYM, _endYM } = util.getYearMonthDefault();
+      let { _startYM, _endYM } = util.getYearMonthDefaultByProd();
       this.yearMonthRange(_startYM, _endYM);
     },
 

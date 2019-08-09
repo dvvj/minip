@@ -39,8 +39,13 @@ Page({
   },
 
   setYearMonthDefault: function () {
-    let { _startYM, _endYM } = util.getYearMonthDefault();
+    let { _startYM, _endYM } = util.getYearMonthDefaultByProd();
     this.yearMonthRange(_startYM, _endYM);
+
+    let setYearMonthRange = this.selectComponent("#setYearMonthRange");
+    console.log('_startYM - _endYM', _startYM, _endYM);
+    setYearMonthRange.setStart(`${_startYM.year}-${_startYM.month}`);
+    setYearMonthRange.setEnd(`${_endYM.year}-${_endYM.month}`);
   },
 
   yearMonthRange: function (startYM, endYM) {

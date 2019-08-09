@@ -17,9 +17,9 @@ const getStoredTokens = function() {
   return wx.getStorageSync(userTokenKey);
 };
 
-const getYearMonthDefault = function() {
+const getYearMonthOfLastN = function (numOfMonth) {
   let endDate = new Date();
-  var startMonth = endDate.getMonth() - 5; // 6 months in total
+  var startMonth = endDate.getMonth() - numOfMonth+1; // 6 months in total
   var startYear = endDate.getFullYear();
   if (startMonth <= 0) {
     startYear -= 1;
@@ -29,6 +29,14 @@ const getYearMonthDefault = function() {
   let _startYM = { year: startDate.getFullYear(), month: startDate.getMonth() + 1 };
   let _endYM = { year: endDate.getFullYear(), month: endDate.getMonth() + 1 };
   return { _startYM, _endYM };
+};
+
+const getYearMonthDefault = function() {
+  return getYearMonthOfLastN(6);
+};
+
+const getYearMonthDefaultByProd = function () {
+  return getYearMonthOfLastN(3);
 };
 
 const formatNumber = n => {
@@ -232,6 +240,7 @@ module.exports = {
   postJsonReqHeader: postJsonReqHeader,
   getJsonReqHeader: getJsonReqHeader,
   getYearMonthDefault: getYearMonthDefault,
+  getYearMonthDefaultByProd: getYearMonthDefaultByProd,
   setWePayezUrl: setWePayezUrl,
   getWePayezUrl: getWePayezUrl,
   requestWePayez, requestWePayez,

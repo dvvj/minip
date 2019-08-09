@@ -66,7 +66,8 @@ const optionFrom = function(optionData, legends) {
         stack: '总量',
         label: {
           normal: {
-            show: true
+            show: true,
+            position: 'right'
           }
         },
         //data: [120, 102, 141, 174, 190, 250, 220],
@@ -83,7 +84,7 @@ const optionFrom = function(optionData, legends) {
         label: {
           normal: {
             show: true,
-            position: 'inside'
+            position: 'right'
           }
         },
         //data: [300, 270, 340, 344, 300, 320, 310],

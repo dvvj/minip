@@ -1,12 +1,29 @@
 <!--comp/set-year-month-range.wxml-->
 <van-cell-group>
-  <van-cell>
+  <!-- <van-cell>
     <view slot="title">
       <van-button size="large" type="custom" custom-class="lb-button" bind:click='onSetYearMonth'>
         {{ _startYM.year }}年{{ _startYM.month }}月 到 {{ _endYM.year }}年{{ _endYM.month }}月
       </van-button>
     </view>
+  </van-cell> -->
+  <van-cell>
+    <view class="van-cell-text">
+      <van-button size="small"
+        type="info" plain
+        bind:click='onSetYearMonth'>
+        设置年月区间
+      </van-button>
+    </view>
+    <view slot="title">
+      <view class="van-cell-text">
+        <van-tag size="medium" color="#28a8f0">{{ _startYM.year }}年{{ _startYM.month }}月</van-tag>
+        <text>{{' 到 '}}</text>
+        <van-tag size="medium" color="#28a8f0">{{ _endYM.year }}年{{ _endYM.month }}月</van-tag>
+      </view>
+    </view>
   </van-cell>
+
 </van-cell-group>
 <van-dialog id='van-dialog' z-index='90000'
   use-slot>

@@ -25,7 +25,7 @@ const optionFrom = function(optionData, legends) {
     },
     grid: {
       left: 20,
-      right: 20,
+      right: 40,
       bottom: 15,
       top: 40,
       containLabel: true

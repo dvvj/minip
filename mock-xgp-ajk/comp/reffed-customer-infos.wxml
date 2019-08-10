@@ -22,10 +22,8 @@
     <van-cell-group>
       <van-cell
         data-index="{{customerIndex}}" bind:click="onCustomerDetail">
-        <view>
-          <view class="van-cell-text">
-            <van-button size="small" type="custom" custom-class="lb-button">详细资料 {{'>>'}}</van-button>
-          </view>
+        <view class="van-cell-text">
+          <text>详细资料 {{'>'}}</text>
         </view>
         <view slot="title">
           <view class="van-cell-text">

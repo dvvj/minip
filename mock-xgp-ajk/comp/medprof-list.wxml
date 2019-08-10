@@ -23,10 +23,8 @@
       <!-- <van-cell is-link url="../../customer/reffed-order-stats"> -->
       <van-cell
         data-index="{{medprofIndex}}" bind:click="onMedProfDetail">
-        <view>
-          <view class="van-cell-text">
-            <van-button size="small" type="custom" custom-class="lb-button">详细资料 {{'>>'}}</van-button>
-          </view>
+        <view class="van-cell-text">
+          <text>详细资料 {{'>'}}</text>
         </view>
         <view slot="title">
           <view class="van-cell-text">

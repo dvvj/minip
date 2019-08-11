@@ -47,11 +47,19 @@ Component({
       });
     },
 
+    saveCurrCustomer: function(customerIdx) {
+      let currCustomer = this.data.customerInfos[customerIdx];
+      console.log('currCustomer', currCustomer);
+      wx.setStorageSync(util.currCustomerKey, currCustomer);
+      return currCustomer;
+    },
+
     onCustomerDetail: function (e) {
       let idx = e.currentTarget.dataset.index;
-      let currCustomer = this.data.customerInfos[idx];
-      console.log('currCustomer', currCustomer);
-      wx.setStorageSync(util.currCustomerKey, currCustomer)
+      let currCustomer = this.saveCurrCustomer(idx);
+      // let currCustomer = this.data.customerInfos[idx];
+      // console.log('currCustomer', currCustomer);
+      // wx.setStorageSync(util.currCustomerKey, currCustomer)
       let that = this;
       this.setYearMonthDefault();
 
@@ -74,6 +82,30 @@ Component({
         }
       );
 
+    },
+
+    onUpdateCustomerProfile: function (e) {
+      let idx = e.currentTarget.dataset.index;
+      let currCustomer = this.saveCurrCustomer(idx);
+
+      let that = this;
+      toastUtil.waiting(this, true, '加载数据中...');
+      datasrc.medprof.getUpdateCustomerProfilePreReqData(
+        currCustomer.customerId,
+        customerProfile => {
+          //util.createChart(chartData);
+          // chart.setOption(
+          //   echartData.medprofOptionFrom(chartData)
+          // );
+          console.log('getCustomerProfile:', customerProfile);
+
+          cacheUtil.saveCurrCustomerProfile(customerProfile);
+          toastUtil.waiting(that, false);
+          wx.navigateTo({
+            url: "../../prod/medprof/update-customer-profile",
+          })
+        }
+      );
     }
   }
 })

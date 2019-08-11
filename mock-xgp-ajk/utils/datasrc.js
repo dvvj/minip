@@ -14,6 +14,7 @@ const reffedCustomersUrl = util.medprofBaseUrl + '/reffedCustomerInfos'
 const qrcodeListUrl = util.medprofBaseUrl + '/getMedProfCfgs'
 const medprofProfitStatsUrl = util.medprofBaseUrl + '/profitStats4Wx';
 const medprofProfitStatsPerCustomerUrl = util.medprofBaseUrl + '/profitStats4WxPerCustomer';
+const medprofUpdateCustomerProfilePreReqUrl = util.medprofBaseUrl + '/updateCustomerProfilePreReqData';
 const proforgAgentprofitStatsUrl = util.proforgagentBaseUrl + '/profitStats4Wx';
 const proforgAgentProfitStatsPerMedProfUrl = util.proforgagentBaseUrl + '/profitStats4WxPerMedProf';
 
@@ -251,6 +252,24 @@ const datasrc = {
   },
 
   medprof: {
+    getUpdateCustomerProfilePreReqData: (customerId, cb) => {
+      let that = this;
+      let tokens = util.getStoredTokens();
+      console.log('[medprof::getUpdateCustomerProfilePreReqData] customerId:', customerId);
+      util.promisify(wx.request)
+        ({
+          url: medprofUpdateCustomerProfilePreReqUrl,
+          data: { customerId },
+          method: "POST",
+          header: util.postJsonReqHeader(tokens),
+        }).then(res => {
+          console.log('getUpdateCustomerProfilePreReqData res: ', res)
+          cb(res.data);
+        }).catch(function (reason) {
+          console.log('getUpdateCustomerProfilePreReqData failed, reason: ', reason)
+        })
+
+    },
     getQRCodeList: (cb) => {
       let tokens = util.getStoredTokens();
       console.log('[getQRCodeList] got tokens: ', tokens);

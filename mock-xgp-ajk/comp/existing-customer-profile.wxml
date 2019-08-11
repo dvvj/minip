@@ -128,7 +128,7 @@
         item-height="40"
         bind:change="onPricePlanChange" />
 
-      <van-button type="custom" custom-class="lb-button" size="large" bind:click="onExistingCustomerProfile">添加用户档案</van-button>
+      <van-button type="custom" custom-class="lb-button" size="large" bind:click="onUpdateCustomerProfile">添加用户档案</van-button>
 
     </van-cell-group>
   </van-tab>

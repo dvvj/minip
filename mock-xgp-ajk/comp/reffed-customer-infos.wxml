@@ -20,15 +20,18 @@
   </van-cell-group>
   <block wx:for="{{customerInfos}}" wx:key="profileId" wx:for-index="customerIndex">
     <van-cell-group>
-      <van-cell
-        data-index="{{customerIndex}}" bind:click="onCustomerDetail">
+      <van-cell>
         <view class="van-cell-text">
-          <text>详细资料 {{'>'}}</text>
+          <van-button size="small" type="info" plain data-index="{{customerIndex}}"
+            bind:click='onCustomerDetail'>详细资料 {{'>>'}}</van-button>
+        </view>
+        <view class="van-cell-text">
+          <van-button size="small" type="info" plain data-index="{{customerIndex}}"
+            bind:click='onUpdateCustomerProfile'>更新档案 {{'>>'}}</van-button>
         </view>
         <view slot="title">
           <view class="van-cell-text">
             <text>{{item.customerName}}</text>
-            <text></text>
           </view>
           <view>
             <block wx:for="{{item.productShortNames}}" wx:key="*this">

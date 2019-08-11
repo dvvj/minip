@@ -1,0 +1,28 @@
+<!--pages/prod/medprof/update-customer-profile.wxml-->
+<van-cell
+  title="选择推荐保健品："
+/>
+
+<van-checkbox-group value="{{ selected }}" data-key="selected" custom-class="checkbox-group" bind:change="onSelectedProductChange">
+  <van-checkbox
+    wx:for="{{ products }}"
+    wx:key="id"
+    name="{{ item.shortName }}"
+    value="{{ item.checked }}"
+    custom-class="checkbox"
+  >{{ item.shortName }}</van-checkbox>
+</van-checkbox-group>
+
+<van-cell
+  title="优惠信息："
+  value-class="value-class"
+/>
+<van-picker
+  default-index="{{prevSelectedIndex}}"
+  columns="{{ pricePlanInfos }}"
+  visible-item-count="2"
+  item-height="40"
+  bind:change="onPricePlanChange" />
+
+<van-button type="custom" custom-class="lb-button" size="large" bind:click="onUpdateCustomerProfile">更新用户档案</van-button>
+

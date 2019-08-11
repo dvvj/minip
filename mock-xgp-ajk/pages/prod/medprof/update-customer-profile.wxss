@@ -1,0 +1,12 @@
+/* pages/prod/medprof/update-customer-profile.wxss */
+@import "../../../app.wxss";
+
+.checkbox {
+  margin: 20rpx 0 20rpx 40rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.value-class {
+  flex: none !important;
+}

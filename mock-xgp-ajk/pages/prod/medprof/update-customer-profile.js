@@ -1,0 +1,117 @@
+// pages/prod/medprof/update-customer-profile.js
+const util = require('../../../utils/util.js');
+const cacheUtil = require('../../../utils/cache-util.js');
+
+
+Page({
+
+  /**
+   * Page initial data
+   */
+  data: {
+
+  },
+
+  /**
+   * Lifecycle function--Called when page load
+   */
+  onLoad: function (options) {
+    let { pricePlans, products, profile, selectedPlanId } = cacheUtil.getCurrCustomerProfile();
+    let selected = products.filter(p => p.checked).map(p => p.shortName);
+    console.log('selected: ', selected);
+    let pricePlanInfos = pricePlans.map(pp => pp.desc);
+    var prevSelectedIndex = 0;
+    for (var idx = 0; idx < pricePlans.length; idx++) {
+      if (pricePlans[idx].id == selectedPlanId) {
+        prevSelectedIndex = idx;
+        break;
+      }
+    }
+    let selectedPricePlan = pricePlans[prevSelectedIndex];
+    console.log("initially selected plan: ", selectedPricePlan);
+    let customerId = profile.customerId;
+    this.setData({ customerId, pricePlans, products, selected, pricePlanInfos, prevSelectedIndex, selectedPricePlan });
+  },
+
+  onSelectedProductChange: function(e) {
+    console.log('event: ', e)
+    this.setData({
+      selected: e.detail
+    });
+  },
+  onPricePlanChange: function (e) {
+    const { picker, value, index } = e.detail;
+    let selectedPricePlan = this.data.pricePlans[index];
+    console.log("price plan changed: ", selectedPricePlan);
+    this.setData({ selectedPricePlan });
+  },
+
+  getData: function () {
+    let { customerId, products, pricePlans, selected, selectedPricePlan } = this.data;
+    console.log('products, selected', products, selected);
+    let selectedProducts = products.filter(p => p.enabled && selected.includes(p.shortName));
+    console.log('selectedProducts', selectedProducts);
+    let selectedProductIds = selectedProducts.map(p => p.id);
+
+    return {
+      customerId,
+      profileReq: {
+        productIds: selectedProductIds,
+        pricePlanId: selectedPricePlan.id
+      }
+    };
+  },
+
+  onUpdateCustomerProfile: function(e) {
+    let reqData = this.getData();
+    console.log('reqData: ', reqData);
+  },
+  /**
+   * Lifecycle function--Called when page is initially rendered
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * Lifecycle function--Called when page show
+   */
+  onShow: function () {
+
+  },
+
+  /**
+   * Lifecycle function--Called when page hide
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * Lifecycle function--Called when page unload
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * Page event handler function--Called when user drop down
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * Called when page reach bottom
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * Called when user click on the top right corner to share
+   */
+  onShareAppMessage: function () {
+
+  }
+})

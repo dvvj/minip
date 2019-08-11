@@ -249,5 +249,5 @@ module.exports = {
   getWePayezUrl: getWePayezUrl,
   requestWePayez, requestWePayez,
   datasrc: 'datasrc',
-  version: '0.7.AJK'
+  version: '0.7.1.AJK'
 }

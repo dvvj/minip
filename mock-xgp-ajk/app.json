@@ -25,7 +25,8 @@
     "pages/prod/proforg/agent-detail",
     "pages/prod/orgagent/medprof-detail",
     "pages/prod/medprof/customer-detail",
-    "pages/prod/customer/product-detail"
+    "pages/prod/customer/product-detail",
+    "pages/prod/medprof/update-customer-profile"
   ],
   "window": {
     "backgroundTextStyle": "light",

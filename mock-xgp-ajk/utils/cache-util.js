@@ -62,7 +62,19 @@ const saveProfitStatsPerProfOrgAgent = function (data) {
 const getProfitStatsPerProfOrgAgent = function () {
   let k = profitStatsKey(util.profitStatsByProfOrgAgentChartDataKey);
   return retrieveStorage(k, false);
-}
+};
+
+const customerProfileKey = function () {
+  return `${appKeyPrefix}.${util.getUserId()}.currCustomerProfile`;
+};
+const saveCurrCustomerProfile = function (customerProfile) {
+  let k = customerProfileKey();
+  wx.setStorageSync(k, customerProfile);
+};
+const getCurrCustomerProfile = function () {
+  let k = customerProfileKey();
+  return retrieveStorage(k, false);
+};
 
 // const productDictKey = appKeyPrefix + ".productDict";
 // const getCachedProductDict = function () {
@@ -93,5 +105,7 @@ module.exports = {
   getProfitStatsPerMedProf,
   saveProfitStatsPerProfOrgAgent,
   getProfitStatsPerProfOrgAgent,
+  saveCurrCustomerProfile,
+  getCurrCustomerProfile,
   clearCache4Demo
 };

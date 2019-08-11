@@ -9,19 +9,6 @@ import * as echarts from '../../../ec-canvas/echarts';
 
 var chart = null;
 
-const showStatsChart = function (showMoney, chartDataRaw) {
-  if (showMoney) {
-    let option = echartData.medprofOptionFrom(chartDataRaw);
-    console.log('option: ', option);
-    chart.setOption(option, true);
-  }
-  else {
-    let option = echartData.qtyOptionFrom(chartDataRaw);
-    console.log('option: ', option);
-    chart.setOption(option, true);
-  }
-};
-
 function initChart(canvas, width, height) {
   chart = echarts.init(canvas, null, {
     width: width,
@@ -32,7 +19,7 @@ function initChart(canvas, width, height) {
   //var option = echartData.medprofEmptyOption;
   let chartData = cacheUtil.getProfitStatsPerCustomer();
 
-  showStatsChart(false, chartData);
+  echartData.showStatsChart(chart, false, chartData);
   // let option = echartData.medprofOptionFrom(chartData);
   // console.log('option: ', option);
 
@@ -59,7 +46,7 @@ Page({
     let showMoneyChecked = event.detail;
     this.setData({ showMoneyChecked });
     //chart.clear();
-    showStatsChart(showMoneyChecked, this.data.chartDataRaw);
+    echartData.showStatsChart(chart, showMoneyChecked, this.data.chartDataRaw);
   },
 
   setYearMonthDefault: function () {
@@ -108,7 +95,8 @@ Page({
         console.log('getProfitStatsChartDataPerCustomer:', chartDataRaw);
         that.setData({ chartDataRaw });
         let showMoney = that.data.showMoneyChecked;
-        showStatsChart(showMoney, chartDataRaw);
+        echartData.showStatsChart(chart, showMoney, chartDataRaw);
+        // showStatsChart(showMoney, chartDataRaw);
         // let option = echartData.medprofOptionFrom(chartDataRaw);
 
         // chart.setOption(option);

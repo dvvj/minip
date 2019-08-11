@@ -3,7 +3,7 @@
 
 <van-cell>
   <view slot="title">
-    <text class='group-title'>【{{currCustomer.customerName}}】销售量统计</text>
+    <text class='group-title'>【{{currCustomer.customerName}}】销售数据统计</text>
   </view>
 </van-cell>
 

@@ -181,6 +181,20 @@ const qtyOptionFrom = function (optionData) {
   return optionQtyFrom(optionData, [_legends.salesQty]);
 };
 
+
+const showStatsChart = function (chart, showMoney, chartDataRaw) {
+  if (showMoney) {
+    let option = medprofOptionFrom(chartDataRaw);
+    console.log('option: ', option);
+    chart.setOption(option, true);
+  }
+  else {
+    let option = qtyOptionFrom(chartDataRaw);
+    console.log('option: ', option);
+    chart.setOption(option, true);
+  }
+};
+
 const proforgEmptyOption = proforgOptionFrom({
   yearMonths: [],
   sales: [],
@@ -198,5 +212,6 @@ module.exports = {
   medprofOptionFrom,
   proforgEmptyOption,
   medprofEmptyOption,
-  qtyOptionFrom
+  qtyOptionFrom,
+  showStatsChart
 }

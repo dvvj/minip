@@ -18,10 +18,11 @@ function initChart(canvas, width, height) {
   //var option = echartData.medprofEmptyOption;
   let chartData = cacheUtil.getProfitStatsPerMedProf();
 
-  let option = echartData.medprofOptionFrom(chartData);
-  console.log('option: ', option);
+  echartData.showStatsChart(chart, false, chartData);
+  // let option = echartData.medprofOptionFrom(chartData);
+  // console.log('option: ', option);
 
-  chart.setOption(option);
+  // chart.setOption(option);
   return chart;
 };
 
@@ -35,7 +36,14 @@ Page({
     ec: {
       onInit: initChart
     },
-    hideChart: false
+    hideChart: false,
+    showMoneyChecked: false
+  },
+  onShowMoneyChange(event) {
+    let showMoneyChecked = event.detail;
+    this.setData({ showMoneyChecked });
+    //chart.clear();
+    echartData.showStatsChart(chart, showMoneyChecked, this.data.chartDataRaw);
   },
 
   setYearMonthDefault: function () {
@@ -82,9 +90,13 @@ Page({
         //   echartData.medprofOptionFrom(chartData)
         // );
         console.log('getProfitStatsChartDataPerMedProf:', chartDataRaw);
-        let option = echartData.medprofOptionFrom(chartDataRaw);
+        that.setData({ chartDataRaw });
 
-        chart.setOption(option);
+        let showMoney = that.data.showMoneyChecked;
+        echartData.showStatsChart(chart, showMoney, chartDataRaw);
+        // let option = echartData.medprofOptionFrom(chartDataRaw);
+
+        // chart.setOption(option);
         toastUtil.waiting(that, false);
       }
     );
@@ -98,9 +110,10 @@ Page({
    */
   onLoad: function (options) {
     let currMedProf = wx.getStorageSync(util.currMedProfKey);
+    let chartDataRaw = cacheUtil.getProfitStatsPerMedProf();
 
-    console.log('in medprof-detail', currMedProf);
-    this.setData({ currMedProf })
+    console.log('in medprof-detail', currMedProf, chartDataRaw);
+    this.setData({ currMedProf, chartDataRaw })
     this.setYearMonthDefault();
   },
 

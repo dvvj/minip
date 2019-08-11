@@ -182,9 +182,9 @@ const qtyOptionFrom = function (optionData) {
 };
 
 
-const showStatsChart = function (chart, showMoney, chartDataRaw) {
+const _showStatsChart = function (chart, showMoney, chartDataRaw, isOrg) {
   if (showMoney) {
-    let option = medprofOptionFrom(chartDataRaw);
+    let option = isOrg ? proforgOptionFrom(chartDataRaw) : medprofOptionFrom(chartDataRaw);
     console.log('option: ', option);
     chart.setOption(option, true);
   }
@@ -193,6 +193,15 @@ const showStatsChart = function (chart, showMoney, chartDataRaw) {
     console.log('option: ', option);
     chart.setOption(option, true);
   }
+};
+
+
+const showStatsChart = function (chart, showMoney, chartDataRaw) {
+  _showStatsChart(chart, showMoney, chartDataRaw, false);
+};
+
+const showStatsChart4Org = function (chart, showMoney, chartDataRaw) {
+  _showStatsChart(chart, showMoney, chartDataRaw, true);
 };
 
 const proforgEmptyOption = proforgOptionFrom({
@@ -213,5 +222,6 @@ module.exports = {
   proforgEmptyOption,
   medprofEmptyOption,
   qtyOptionFrom,
-  showStatsChart
+  showStatsChart,
+  showStatsChart4Org
 }

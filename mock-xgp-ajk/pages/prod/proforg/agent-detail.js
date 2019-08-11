@@ -18,10 +18,11 @@ function initChart(canvas, width, height) {
   //var option = echartData.medprofEmptyOption;
   let chartData = cacheUtil.getProfitStatsPerProfOrgAgent();
 
-  let option = echartData.proforgOptionFrom(chartData);
-  console.log('option: ', option);
+  echartData.showStatsChart4Org(chart, false, chartData);
+  // let option = echartData.proforgOptionFrom(chartData);
+  // console.log('option: ', option);
 
-  chart.setOption(option);
+  // chart.setOption(option);
   return chart;
 };
 
@@ -35,7 +36,14 @@ Page({
     ec: {
       onInit: initChart
     },
-    hideChart: false
+    hideChart: false,
+    showMoneyChecked: false
+  },
+  onShowMoneyChange(event) {
+    let showMoneyChecked = event.detail;
+    this.setData({ showMoneyChecked });
+    //chart.clear();
+    echartData.showStatsChart4Org(chart, showMoneyChecked, this.data.chartDataRaw);
   },
 
   setYearMonthDefault: function () {
@@ -83,9 +91,11 @@ Page({
         //   echartData.medprofOptionFrom(chartData)
         // );
         console.log('getProfitStatsChartDataPerProfOrgAgent:', chartDataRaw);
-        let option = echartData.proforgOptionFrom(chartDataRaw);
-
-        chart.setOption(option);
+        that.setData({ chartDataRaw });
+        let showMoney = that.data.showMoneyChecked;
+        echartData.showStatsChart4Org(chart, showMoney, chartDataRaw);
+        // let option = echartData.proforgOptionFrom(chartDataRaw);
+        // chart.setOption(option);
         toastUtil.waiting(that, false);
       }
     );
@@ -98,9 +108,10 @@ Page({
    */
   onLoad: function (options) {
     let currAgent = wx.getStorageSync(util.currAgentKey);
+    let chartDataRaw = cacheUtil.getProfitStatsPerProfOrgAgent();
 
-    console.log('in agent-detail', currAgent);
-    this.setData({ currAgent });
+    console.log('in agent-detail', currAgent, chartDataRaw);
+    this.setData({ currAgent, chartDataRaw });
 
     this.setYearMonthDefault();
   },

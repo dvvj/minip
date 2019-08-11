@@ -3,9 +3,20 @@
 
 <van-cell>
   <view slot="title">
-    <text class='group-title'>【{{currCustomer.customerName}}】收益统计</text>
+    <text class='group-title'>【{{currCustomer.customerName}}】销售量统计</text>
   </view>
 </van-cell>
+
+<set-year-month-range id="setYearMonthRange"
+  bind:preShow="onPreSetYearMonthRange"
+  bind:confirm="onConfirmYearMonthRange" />
+
+<van-switch-cell
+  title="显示金额"
+  checked="{{ showMoneyChecked }}"
+  active-color="#28a8f0"
+  bind:change="onShowMoneyChange"
+/>
 
 <scroll-view scroll-y class="canvas_height_customer">
   <view class="canvas_container_customer" hidden="{{hideChart}}">
@@ -14,10 +25,6 @@
   </view>
 </scroll-view>
 
-<set-year-month-range id="setYearMonthRange"
-  bind:preShow="onPreSetYearMonthRange"
-  bind:confirm="onConfirmYearMonthRange" />
-  
 <van-cell>
   <view slot="title">
     <text class='group-title'>客户详情</text>

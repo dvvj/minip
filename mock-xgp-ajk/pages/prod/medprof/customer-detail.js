@@ -8,6 +8,20 @@ const datasrc = require('../../../utils/' + util.datasrc).datasrc;
 import * as echarts from '../../../ec-canvas/echarts';
 
 var chart = null;
+
+const showStatsChart = function (showMoney, chartDataRaw) {
+  if (showMoney) {
+    let option = echartData.medprofOptionFrom(chartDataRaw);
+    console.log('option: ', option);
+    chart.setOption(option, true);
+  }
+  else {
+    let option = echartData.qtyOptionFrom(chartDataRaw);
+    console.log('option: ', option);
+    chart.setOption(option, true);
+  }
+};
+
 function initChart(canvas, width, height) {
   chart = echarts.init(canvas, null, {
     width: width,
@@ -18,12 +32,14 @@ function initChart(canvas, width, height) {
   //var option = echartData.medprofEmptyOption;
   let chartData = cacheUtil.getProfitStatsPerCustomer();
 
-  let option = echartData.medprofOptionFrom(chartData);
-  console.log('option: ', option);
+  showStatsChart(false, chartData);
+  // let option = echartData.medprofOptionFrom(chartData);
+  // console.log('option: ', option);
 
-  chart.setOption(option);
+  // chart.setOption(option);
   return chart;
 };
+
 
 Page({
 
@@ -31,11 +47,19 @@ Page({
    * Page initial data
    */
   data: {
+    chartDataRaw: {},
     currCustomer: {},
     ec: {
       onInit: initChart
     },
-    hideChart: false
+    hideChart: false,
+    showMoneyChecked: false
+  },
+  onShowMoneyChange(event) {
+    let showMoneyChecked = event.detail;
+    this.setData({ showMoneyChecked });
+    //chart.clear();
+    showStatsChart(showMoneyChecked, this.data.chartDataRaw);
   },
 
   setYearMonthDefault: function () {
@@ -82,9 +106,12 @@ Page({
         //   echartData.medprofOptionFrom(chartData)
         // );
         console.log('getProfitStatsChartDataPerCustomer:', chartDataRaw);
-        let option = echartData.medprofOptionFrom(chartDataRaw);
+        that.setData({ chartDataRaw });
+        let showMoney = that.data.showMoneyChecked;
+        showStatsChart(showMoney, chartDataRaw);
+        // let option = echartData.medprofOptionFrom(chartDataRaw);
 
-        chart.setOption(option);
+        // chart.setOption(option);
         toastUtil.waiting(that, false);
       }
     );
@@ -97,9 +124,10 @@ Page({
    */
   onLoad: function (options) {
     let currCustomer = wx.getStorageSync(util.currCustomerKey);
+    let chartDataRaw = cacheUtil.getProfitStatsPerCustomer();
 
-    console.log('in customer-detail', currCustomer);
-    this.setData({ currCustomer });
+    console.log('in customer-detail', currCustomer, chartDataRaw);
+    this.setData({ currCustomer, chartDataRaw });
     this.setYearMonthDefault();
 
     // setTimeout(function() {

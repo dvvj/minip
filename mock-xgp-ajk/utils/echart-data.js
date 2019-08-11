@@ -1,8 +1,77 @@
 const util = require('util.js');
 const _legends = {
   sales: '销售额(￥)',
+  salesQty: '销售量',
   rewards: '佣金(￥)',
   profits: '利润(￥)'
+};
+
+const optionQtyFrom = function (optionData, legends) {
+  let { yearMonths, quantities } = optionData;
+  return {
+    color: ['#32c5e9'],
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+        type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+      },
+      confine: true
+    },
+    legend: {
+      data: legends
+    },
+    grid: {
+      left: 20,
+      right: 40,
+      bottom: 15,
+      top: 40,
+      containLabel: true
+    },
+    xAxis: [
+      {
+        type: 'value',
+        axisLine: {
+          lineStyle: {
+            color: '#999'
+          }
+        },
+        axisLabel: {
+          color: '#666'
+        }
+      }
+    ],
+    yAxis: [
+      {
+        type: 'category',
+        axisTick: { show: false },
+        data: yearMonths,
+        axisLine: {
+          lineStyle: {
+            color: '#999'
+          }
+        },
+        axisLabel: {
+          color: '#666'
+        }
+      }
+    ],
+    series: [
+      {
+        name: legends[0],
+        type: 'bar',
+        stack: '总量',
+        label: {
+          normal: {
+            show: true,
+            position: 'right'
+          }
+        },
+        data: quantities,
+        itemStyle: {
+        }
+      }
+    ]
+  };
 };
 
 const optionFrom = function(optionData, legends) {
@@ -106,7 +175,11 @@ const proforgOptionFrom = function(optionData) {
 
 const medprofOptionFrom = function (optionData) {
   return optionFrom(optionData, [_legends.sales, _legends.rewards]);
-}
+};
+
+const qtyOptionFrom = function (optionData) {
+  return optionQtyFrom(optionData, [_legends.salesQty]);
+};
 
 const proforgEmptyOption = proforgOptionFrom({
   yearMonths: [],
@@ -124,5 +197,6 @@ module.exports = {
   proforgOptionFrom,
   medprofOptionFrom,
   proforgEmptyOption,
-  medprofEmptyOption
+  medprofEmptyOption,
+  qtyOptionFrom
 }

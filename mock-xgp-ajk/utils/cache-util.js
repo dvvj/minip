@@ -44,7 +44,8 @@ const saveProfitStatsPerCustomer = function(data) {
 };
 const getProfitStatsPerCustomer = function() {
   let k = profitStatsKey(util.profitStatsByCustomerChartDataKey);
-  return retrieveStorage(k, true); 
+  //return retrieveStorage(k, true); 
+  return retrieveStorage(k, false); 
 };
 const saveProfitStatsPerMedProf = function (data) {
   let k = profitStatsKey(util.profitStatsByMedProfChartDataKey);
@@ -52,7 +53,7 @@ const saveProfitStatsPerMedProf = function (data) {
 };
 const getProfitStatsPerMedProf = function () {
   let k = profitStatsKey(util.profitStatsByMedProfChartDataKey);
-  return retrieveStorage(k, true);
+  return retrieveStorage(k, false); 
 };
 const saveProfitStatsPerProfOrgAgent = function (data) {
   let k = profitStatsKey(util.profitStatsByProfOrgAgentChartDataKey);
@@ -60,7 +61,7 @@ const saveProfitStatsPerProfOrgAgent = function (data) {
 };
 const getProfitStatsPerProfOrgAgent = function () {
   let k = profitStatsKey(util.profitStatsByProfOrgAgentChartDataKey);
-  return retrieveStorage(k, true);
+  return retrieveStorage(k, false);
 }
 
 // const productDictKey = appKeyPrefix + ".productDict";

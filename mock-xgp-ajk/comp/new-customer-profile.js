@@ -219,7 +219,7 @@ Component({
       datasrc.medprof.createNewCustomerAndProfile(
         newCustomerReq,
         respData => {
-          toastUtil.waiting(this, false);
+          toastUtil.waiting(that, false);
           console.log('respData', respData);
           let { success, msg } = respData;
           let message = success ? '添加成功' : `添加失败: ${msg}`

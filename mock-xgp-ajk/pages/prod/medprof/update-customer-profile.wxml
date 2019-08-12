@@ -1,4 +1,6 @@
 <!--pages/prod/medprof/update-customer-profile.wxml-->
+<waiting-toast id="waitingToast" />
+
 <van-cell
   title="选择推荐保健品："
 />

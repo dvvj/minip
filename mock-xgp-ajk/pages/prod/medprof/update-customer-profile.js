@@ -1,7 +1,8 @@
 // pages/prod/medprof/update-customer-profile.js
 const util = require('../../../utils/util.js');
 const cacheUtil = require('../../../utils/cache-util.js');
-
+const toastUtil = require('../../../utils/toast-util.js');
+const datasrc = require('../../../utils/' + util.datasrc).datasrc;
 
 Page({
 
@@ -63,8 +64,22 @@ Page({
   },
 
   onUpdateCustomerProfile: function(e) {
+    let that = this;
     let reqData = this.getData();
     console.log('reqData: ', reqData);
+
+    toastUtil.waiting(this, true, '加载数据中...');
+    datasrc.medprof.updateCustomerProfile(
+      reqData,
+      respData => {
+        console.log('updateCustomerProfile:', respData);
+        toastUtil.waiting(that, false);
+
+        let { success, msg } = respData;
+        let message = success ? '添加成功' : `添加失败: ${msg}`
+        success ? toastUtil.success(that, message) : toastUtil.fail(that, message);
+      }
+    );
   },
   /**
    * Lifecycle function--Called when page is initially rendered
@@ -77,7 +92,7 @@ Page({
    * Lifecycle function--Called when page show
    */
   onShow: function () {
-
+    console.log('in onShow...');
   },
 
   /**

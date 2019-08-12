@@ -15,6 +15,7 @@ const qrcodeListUrl = util.medprofBaseUrl + '/getMedProfCfgs'
 const medprofProfitStatsUrl = util.medprofBaseUrl + '/profitStats4Wx';
 const medprofProfitStatsPerCustomerUrl = util.medprofBaseUrl + '/profitStats4WxPerCustomer';
 const medprofUpdateCustomerProfilePreReqUrl = util.medprofBaseUrl + '/updateCustomerProfilePreReqData';
+const medprofUpdateCustomerProfileUrl = util.medprofBaseUrl + '/updateCustomerProfile';
 const proforgAgentprofitStatsUrl = util.proforgagentBaseUrl + '/profitStats4Wx';
 const proforgAgentProfitStatsPerMedProfUrl = util.proforgagentBaseUrl + '/profitStats4WxPerMedProf';
 
@@ -119,7 +120,7 @@ const datasrc = {
   customer: {
     getProductList: (cb) => {
       let uid = util.getUserId();
-      let cachedProductList = cacheUtil.getCachedProductList(uid);
+      let cachedProductList = null; //todo: rethink caching: cacheUtil.getCachedProductList(uid);
       let tokens = util.getStoredTokens();
       console.log('[getProductList] got tokens: ', tokens);
 
@@ -267,6 +268,26 @@ const datasrc = {
           cb(res.data);
         }).catch(function (reason) {
           console.log('getUpdateCustomerProfilePreReqData failed, reason: ', reason)
+        })
+
+    },
+    updateCustomerProfile: (req, cb) => {
+      let that = this;
+      let tokens = util.getStoredTokens();
+      console.log('[medprof::updateCustomerProfile] req:', req);
+      util.promisify(wx.request)
+        ({
+          url: medprofUpdateCustomerProfileUrl,
+          data: req,
+          method: "POST",
+          header: util.postJsonReqHeader(tokens),
+        }).then(res => {
+          console.log('updateCustomerProfile res: ', res)
+          let success = res.statusCode == 200;
+          let msg = res.data;
+          cb({ success, msg });
+        }).catch(function (reason) {
+          console.log('updateCustomerProfile failed, reason: ', reason)
         })
 
     },

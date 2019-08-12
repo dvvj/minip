@@ -35,7 +35,7 @@
           </view>
           <view>
             <block wx:for="{{item.productShortNames}}" wx:key="*this">
-              <van-tag round color="#28a8f0">{{item}}</van-tag>
+              <van-tag round size="large" color="#28a8f0">{{item}}</van-tag>
             </block>
           </view>
           <!-- <view>

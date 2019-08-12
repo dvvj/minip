@@ -76,6 +76,18 @@ const getCurrCustomerProfile = function () {
   return retrieveStorage(k, false);
 };
 
+const updatedCustomerProfileKey = function() {
+  return `${appKeyPrefix}.${util.getUserId()}.updatedCustomerProfile`;
+};
+const saveUpdatedCustomerProfile = function (customerProfile) {
+  let k = updatedCustomerProfileKey();
+  wx.setStorageSync(k, customerProfile);
+};
+const getUpdatedCustomerProfile = function () {
+  let k = updatedCustomerProfileKey();
+  return retrieveStorage(k, true);
+};
+
 // const productDictKey = appKeyPrefix + ".productDict";
 // const getCachedProductDict = function () {
 //   return wx.getStorageSync(productDictKey);
@@ -107,5 +119,7 @@ module.exports = {
   getProfitStatsPerProfOrgAgent,
   saveCurrCustomerProfile,
   getCurrCustomerProfile,
+  saveUpdatedCustomerProfile,
+  getUpdatedCustomerProfile,
   clearCache4Demo
 };

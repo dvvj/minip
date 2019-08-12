@@ -11,7 +11,6 @@ const tabIndices = {
   reffedCustomerInfos: 0,
   profitStats: 1,
   newCustomerProfile: 2,
-  //existingCustomerProfile: 3,
   addByQRCode: 3,
   setting: 4
 };
@@ -39,12 +38,7 @@ Page({
    */
   data: {
     activeTabIndex: 0,
-    // startEnd4ProfitStats: {
-    //   startYear: 2019,
-    //   startMonth: 2,
-    //   endYear: 2019,
-    //   endMonth: 7
-    // },
+
     customerInfos: [],
 
     ec: {
@@ -79,10 +73,12 @@ Page({
 
   updateReffedCustomer: function() {
     let that = this;
+    toastUtil.waiting(this, true, '加载数据中...');
     let customerInfos = datasrc.medprof.getReffedCustomerInfos(
       customerInfos => {
         let reffedCustomerInfos = that.selectComponent("#reffedCustomerInfos");
-        reffedCustomerInfos.initData(customerInfos)
+        reffedCustomerInfos.initData(customerInfos);
+        toastUtil.waiting(that, false);
       }
     );
   },
@@ -99,9 +95,7 @@ Page({
     else if (tabIndex == tabIndices.newCustomerProfile) {
       this.updateNewCustomerProfile();
     }
-    // else if (tabIndex == tabIndices.existingCustomerProfile) {
-    //   this.updateExistingCustomerProfile();
-    // }
+
     else if (tabIndex == tabIndices.addByQRCode) {
       this.updateAddByQRCode();
     }
@@ -268,6 +262,9 @@ Page({
     console.log('in onShow........');
     if (this.data.activeTabIndex == tabIndices.addByQRCode) {
       this.updateQrcodeListAfterAdding();
+    }
+    else if (this.data.activeTabIndex == tabIndices.reffedCustomerInfos) {
+      this.updateReffedCustomer();
     }
   },
 

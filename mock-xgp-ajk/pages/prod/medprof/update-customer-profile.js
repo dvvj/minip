@@ -92,7 +92,7 @@ Page({
    * Lifecycle function--Called when page show
    */
   onShow: function () {
-    console.log('in onShow...');
+
   },
 
   /**

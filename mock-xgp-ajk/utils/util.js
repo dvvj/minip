@@ -130,17 +130,40 @@ let roundPriceArr = function (arr) {
   return arr.map(i => roundPrice(i))
 };
 
+var _webappBase = 'https://webapp.ajkhealth.com';
+
+const setWebappBase = function (newWebappBase) {
+  _webappBase = newWebappBase;
+};
+const getWebappBase = function() {
+  return _webappBase;
+};
+
 //const webappBase = 'https://webapp.wonder4.life';
 //const webappBase = 'https://47.98.232.21:8443';
-const webappBase = 'https://webapp.ajkhealth.com';
-const loginUrl = webappBase + '/wxlogin';
-//const loginUrl = webappBase + '/wxloginUidOrMobile';
-const imgBaseUrl = webappBase + '/product';
-const customerBaseUrl = webappBase + '/customer';
-const medprofBaseUrl = webappBase + '/medprof';
-const proforgagentBaseUrl = webappBase + '/proforgagent';
-const proforgBaseUrl = webappBase + '/proforg';
-const registrationBaseUrl = webappBase + '/register';
+//const webappBase = 'https://webapp.ajkhealth.com';
+const getLoginUrl = function() {
+  return getWebappBase() + '/wxlogin'
+};
+const getImgBaseUrl = function() {
+  return getWebappBase() + '/product';
+};
+
+const getCustomerBaseUrl = function() {
+  return getWebappBase() + '/customer';
+};
+const getMedprofBaseUrl = function() {
+  return getWebappBase() + '/medprof'; 
+};
+const getProforgagentBaseUrl = function() {
+  return getWebappBase() + '/proforgagent';
+};
+const getProforgBaseUrl = function() {
+  return getWebappBase() + '/proforg'; 
+};
+const getRegistrationBaseUrl = function() {
+  return getWebappBase() + '/register';
+};
 
 const xAuthHeader = 'X-Auth-Token';
 
@@ -214,14 +237,25 @@ module.exports = {
   createChart: createChart,
   formatTime: formatTime,
   promisify: promisify,
-  webappBase: webappBase,
-  customerBaseUrl: customerBaseUrl,
-  medprofBaseUrl: medprofBaseUrl,
-  proforgagentBaseUrl: proforgagentBaseUrl,
-  proforgBaseUrl: proforgBaseUrl,
-  registrationBaseUrl: registrationBaseUrl,
-  loginUrl: loginUrl,
-  imgBaseUrl: imgBaseUrl,
+  //webappBase: webappBase,
+  getWebappBase,
+  setWebappBase,
+
+  getLoginUrl,
+  getImgBaseUrl,
+  getCustomerBaseUrl,
+  getMedprofBaseUrl,
+  getProforgagentBaseUrl,
+  getProforgBaseUrl,
+  getRegistrationBaseUrl,
+
+  //customerBaseUrl: customerBaseUrl,
+  //medprofBaseUrl: medprofBaseUrl,
+  //proforgagentBaseUrl: proforgagentBaseUrl,
+  //proforgBaseUrl: proforgBaseUrl,
+  //registrationBaseUrl: registrationBaseUrl,
+  //loginUrl: loginUrl,
+  //imgBaseUrl: imgBaseUrl,
   saveTokens: saveTokens,
   xAuthHeader: xAuthHeader,
   roundPrice: roundPrice,

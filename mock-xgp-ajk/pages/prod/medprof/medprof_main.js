@@ -4,8 +4,6 @@ const cacheUtil = require('../../../utils/cache-util.js');
 const toastUtil = require('../../../utils/toast-util.js');
 const echartData = require('../../../utils/echart-data.js');
 const datasrc = require('../../../utils/' + util.datasrc).datasrc;
-const reffedCustomersUrl = util.webappBase + '/medprof/reffedCustomerInfos'
-//const wxCharts = require('../../../utils/wxcharts-min.js');
 
 const tabIndices = {
   reffedCustomerInfos: 0,

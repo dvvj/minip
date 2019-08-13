@@ -2,7 +2,6 @@
 
 const util = require('../utils/util.js')
 const datasrc = require('../utils/' + util.datasrc).datasrc;
-const sessionTestUrl = util.webappBase + '/sessionTest';
 const toastUtil = require('../utils/toast-util.js');
 
 Component({

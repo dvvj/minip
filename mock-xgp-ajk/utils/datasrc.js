@@ -2,41 +2,95 @@ const util = require('util.js');
 const cacheUtil = require('cache-util.js');
 const imgUtil = require('img-util.js');
 
-const customerProductUrl = util.customerBaseUrl + '/customerProductView';
-const customerProductNoUpdateUrl = util.customerBaseUrl + '/customerProductViewNoUpdate';
-const orderListUrl = util.customerBaseUrl + '/ordersBtw';
-const customerSettingUrl = util.customerBaseUrl + '/setting';
-const customerUpdateSettingUrl = util.customerBaseUrl + '/updateSetting';
-const wxPayUrl = util.webappBase + '/wx/payReq';
-const sessionTestUrl = util.webappBase + '/sessionTest';
+const customerProductUrl = function() {
+  return util.getCustomerBaseUrl() + '/customerProductView';
+};
 
-const reffedCustomersUrl = util.medprofBaseUrl + '/reffedCustomerInfos'
-const qrcodeListUrl = util.medprofBaseUrl + '/getMedProfCfgs'
-const medprofProfitStatsUrl = util.medprofBaseUrl + '/profitStats4Wx';
-const medprofProfitStatsPerCustomerUrl = util.medprofBaseUrl + '/profitStats4WxPerCustomer';
-const medprofUpdateCustomerProfilePreReqUrl = util.medprofBaseUrl + '/updateCustomerProfilePreReqData';
-const medprofUpdateCustomerProfileUrl = util.medprofBaseUrl + '/updateCustomerProfile';
-const proforgAgentprofitStatsUrl = util.proforgagentBaseUrl + '/profitStats4Wx';
-const proforgAgentProfitStatsPerMedProfUrl = util.proforgagentBaseUrl + '/profitStats4WxPerMedProf';
+const customerProductNoUpdateUrl = function () {
+  return util.getCustomerBaseUrl() + '/customerProductViewNoUpdate';
+};
+const orderListUrl = function () {
+  return util.getCustomerBaseUrl() + '/ordersBtw';
+};
+const customerSettingUrl = function () {
+  return util.getCustomerBaseUrl() + '/setting';
+};
+const customerUpdateSettingUrl = function () {
+  return util.getCustomerBaseUrl() + '/updateSetting';
+};
+// const wxPayUrl = function () {
+//   return util.getWebappBase() + '/wx/payReq';
+// };
 
-const newCustomerPreReqDataUrl = util.medprofBaseUrl + '/newCustomerPreReqData';
-const newCustomerAndProfileUrl = util.medprofBaseUrl + '/newCustomerAndProfile';
+const reffedCustomersUrl = function () {
+  return util.getMedprofBaseUrl() + '/reffedCustomerInfos';
+};
+const qrcodeListUrl = function () {
+  return util.getMedprofBaseUrl() + '/getMedProfCfgs';
+};
+const medprofProfitStatsUrl = function () {
+  return util.getMedprofBaseUrl() + '/profitStats4Wx';
+};
+const medprofProfitStatsPerCustomerUrl = function () {
+  return util.getMedprofBaseUrl() + '/profitStats4WxPerCustomer';
+};
+const medprofUpdateCustomerProfilePreReqUrl = function () {
+  return util.getMedprofBaseUrl() + '/updateCustomerProfilePreReqData';
+};
+const medprofUpdateCustomerProfileUrl = function () {
+  return util.getMedprofBaseUrl() + '/updateCustomerProfile';
+};
+const proforgAgentprofitStatsUrl = function () {
+  return util.getProforgagentBaseUrl() + '/profitStats4Wx';
+};
+const proforgAgentProfitStatsPerMedProfUrl = function () {
+  return util.getProforgagentBaseUrl() + '/profitStats4WxPerMedProf';
+};
+
+const newCustomerPreReqDataUrl = function () {
+  return util.getMedprofBaseUrl() + '/newCustomerPreReqData';
+};
+const newCustomerAndProfileUrl = function () {
+  return util.getMedprofBaseUrl() + '/newCustomerAndProfile';
+};
 
 // same data as new customer
-const newQrcodePreReqDataUrl = newCustomerPreReqDataUrl;
-const saveNewQrcodeUrl = util.medprofBaseUrl + '/newQrcodeCfg';
+const newQrcodePreReqDataUrl = function () {
+  return newCustomerPreReqDataUrl();
+};
+const saveNewQrcodeUrl = function () {
+  return util.getMedprofBaseUrl() + '/newQrcodeCfg';
+};
 
-const medprofListUrl = util.proforgagentBaseUrl + '/medprofList';
-const newMedProfPreReqDataUrl = util.proforgagentBaseUrl + '/newMedProfPreReqData';
-const newMedProfUrl = util.proforgagentBaseUrl + '/newMedProf';
+const medprofListUrl = function () {
+  return util.getProforgagentBaseUrl() + '/medprofList';
+};
+const newMedProfPreReqDataUrl = function () {
+  return util.getProforgagentBaseUrl() + '/newMedProfPreReqData';
+};
+const newMedProfUrl = function () {
+  return util.getProforgagentBaseUrl() + '/newMedProf';
+};
 
-const profOrgAgentListUrl = util.proforgBaseUrl + '/proforgagentList';
-const profOrgProfitStatsUrl = util.proforgBaseUrl + '/profitStats4Wx';
-const profOrgProfitStatsPerProfOrgAgentUrl = util.proforgBaseUrl + '/profitStats4WxPerAgent';
-const newProfOrgAgentPreReqDataUrl = util.proforgBaseUrl + '/newProfOrgAgentPreReqData';
-const newProfOrgAgentUrl = util.proforgBaseUrl + '/newProfOrgAgent';
+const profOrgAgentListUrl = function () {
+  return util.getProforgBaseUrl() + '/proforgagentList';
+};
+const profOrgProfitStatsUrl = function () {
+  return util.getProforgBaseUrl() + '/profitStats4Wx';
+};
+const profOrgProfitStatsPerProfOrgAgentUrl = function () {
+  return util.getProforgBaseUrl() + '/profitStats4WxPerAgent';
+};
+const newProfOrgAgentPreReqDataUrl = function () {
+  return util.getProforgBaseUrl() + '/newProfOrgAgentPreReqData';
+};
+const newProfOrgAgentUrl = function () {
+  return util.getProforgBaseUrl() + '/newProfOrgAgent';
+};
 
-const registerCustomerUrl = util.registrationBaseUrl + '/customer';
+const registerCustomerUrl = function () {
+  return util.getRegistrationBaseUrl() + '/customer';
+};
 
 const _parseResponse = function(resp, error401) {
   let status = resp.statusCode;
@@ -58,7 +112,7 @@ const datasrc = {
       .then(({ code }) => {
         console.log(`code: ${code}`)
         wx.request({
-          url: util.loginUrl,
+          url: util.getLoginUrl(),
           method: 'POST',
           data: {
             wxCode: code,
@@ -100,7 +154,7 @@ const datasrc = {
       // let tokens = util.getStoredTokens();
       util.promisify(wx.request)
         ({
-          url: registerCustomerUrl,
+          url: registerCustomerUrl(),
           method: 'POST',
           data: registerCustomerReq,
           // header: util.postJsonReqHeader(tokens),
@@ -129,7 +183,7 @@ const datasrc = {
 
         util.promisify(wx.request)
           ({
-            url: customerProductNoUpdateUrl,
+            url: customerProductNoUpdateUrl(),
             method: 'GET',
             header: util.getJsonReqHeader(tokens),
           }).then(res => {
@@ -149,11 +203,11 @@ const datasrc = {
           });
       }
       else {
-        console.log('cache not hit, retrieve product list from ' + customerProductUrl);
+        console.log('cache not hit, retrieve product list from ' + customerProductUrl());
 
         util.promisify(wx.request)
           ({
-            url: customerProductUrl,
+            url: customerProductUrl(),
             method: 'GET',
             header: util.getJsonReqHeader(tokens),
           }).then(res => {
@@ -166,9 +220,9 @@ const datasrc = {
               console.log(`actualPrice: ${actualPrice}; price0: ${price0}`);
               var hasDiscount = actualPrice < price0;
               let prodId = item.product.id;
-              let imgThumbUrl = `${util.imgBaseUrl}/${prodId}/${item.productAssets[1].url}`;
+              let imgThumbUrl = `${util.getImgBaseUrl()}/${prodId}/${item.productAssets[1].url}`;
               imgUtil.downloadAndCache(prodId, true, imgThumbUrl, function (r) {console.log(`downloadAndCache ${imgThumbUrl}: `, r)})
-              let imgUrl = `${util.imgBaseUrl}/${prodId}/${item.productAssets[0].url}`;
+              let imgUrl = `${util.getImgBaseUrl()}/${prodId}/${item.productAssets[0].url}`;
               imgUtil.downloadAndCache(prodId, false, imgUrl, function (r) { console.log(`downloadAndCache ${imgUrl}: `, r)})
               var resDataItem = {
                 id: prodId,
@@ -200,7 +254,7 @@ const datasrc = {
       console.log('[updateOrderList] got tokens: ', tokens);
       console.log(`[updateOrderList] start ${startYearMonth} end ${endYearMonth}`);
       wx.request({
-        url: orderListUrl,
+        url: orderListUrl(),
         data: { startYearMonth, endYearMonth },
         method: "POST",
         header: util.postJsonReqHeader(tokens),
@@ -219,7 +273,7 @@ const datasrc = {
 
       console.log('[getSetting] got tokens: ', tokens);
       wx.request({
-        url: customerSettingUrl,
+        url: customerSettingUrl(),
         method: "GET",
         header: util.getJsonReqHeader(tokens),
         success: function (customerSettingReqRes) {
@@ -236,7 +290,7 @@ const datasrc = {
 
       console.log('[updateSetting] got tokens: ', tokens);
       wx.request({
-        url: customerUpdateSettingUrl,
+        url: customerUpdateSettingUrl(),
         method: "POST",
         data: customerSetting,
         header: util.postJsonReqHeader(tokens),
@@ -259,7 +313,7 @@ const datasrc = {
       console.log('[medprof::getUpdateCustomerProfilePreReqData] customerId:', customerId);
       util.promisify(wx.request)
         ({
-          url: medprofUpdateCustomerProfilePreReqUrl,
+          url: medprofUpdateCustomerProfilePreReqUrl(),
           data: { customerId },
           method: "POST",
           header: util.postJsonReqHeader(tokens),
@@ -277,7 +331,7 @@ const datasrc = {
       console.log('[medprof::updateCustomerProfile] req:', req);
       util.promisify(wx.request)
         ({
-          url: medprofUpdateCustomerProfileUrl,
+          url: medprofUpdateCustomerProfileUrl(),
           data: req,
           method: "POST",
           header: util.postJsonReqHeader(tokens),
@@ -296,7 +350,7 @@ const datasrc = {
       console.log('[getQRCodeList] got tokens: ', tokens);
 
       wx.request({
-        url: qrcodeListUrl,
+        url: qrcodeListUrl(),
         method: "GET",
         header: util.getJsonReqHeader(tokens),
         success: function (qrcodeListRes) {
@@ -315,14 +369,14 @@ const datasrc = {
       console.log('[getReffedCustomerInfos] got tokens: ', tokens)
 
       wx.request({
-        url: reffedCustomersUrl,
+        url: reffedCustomersUrl(),
         method: 'GET',
         header: {
           'Authorization': 'Bearer ' + tokens.accessToken,
           'X-Auth-Token': tokens.xauth
         },
         success: function (r1) {
-          console.log('reffedCustomersUrl:', r1);
+          console.log('getReffedCustomerInfos:', r1);
           util.updateXAuth(r1.header[util.xAuthHeader]);
           cb(r1.data);
         }
@@ -335,7 +389,7 @@ const datasrc = {
       console.log(`[medprof::getProfitStatsChartData] start ${startYearMonth} end ${endYearMonth}, tokens:`, tokens);
 
       wx.request({
-        url: medprofProfitStatsUrl,
+        url: medprofProfitStatsUrl(),
         data: { startYearMonth, endYearMonth },
         method: "POST",
         header: util.postJsonReqHeader(tokens),
@@ -355,7 +409,7 @@ const datasrc = {
       console.log(`[medprof::getProfitStatsChartDataPerCustomer] start ${startYearMonth} end ${endYearMonth}, tokens:`, tokens);
       util.promisify(wx.request)
         ({
-          url: medprofProfitStatsPerCustomerUrl,
+          url: medprofProfitStatsPerCustomerUrl(),
           data: { customerId, startYearMonth, endYearMonth },
           method: "POST",
           header: util.postJsonReqHeader(tokens),
@@ -370,7 +424,7 @@ const datasrc = {
       let tokens = util.getStoredTokens();
       util.promisify(wx.request)
         ({
-          url: newQrcodePreReqDataUrl,
+          url: newQrcodePreReqDataUrl(),
           method: 'GET',
           header: util.getJsonReqHeader(tokens),
         }).then(res => {
@@ -393,7 +447,7 @@ const datasrc = {
       let tokens = util.getStoredTokens();
       util.promisify(wx.request)
         ({
-          url: saveNewQrcodeUrl,
+          url: saveNewQrcodeUrl(),
           method: 'POST',
           data: req,
           header: util.postJsonReqHeader(tokens),
@@ -412,7 +466,7 @@ const datasrc = {
       let tokens = util.getStoredTokens();
       util.promisify(wx.request)
         ({
-          url: newCustomerPreReqDataUrl,
+          url: newCustomerPreReqDataUrl(),
           method: 'GET',
           header: util.getJsonReqHeader(tokens),
         }).then(res => {
@@ -447,7 +501,7 @@ const datasrc = {
       let tokens = util.getStoredTokens();
       util.promisify(wx.request)
         ({
-          url: newCustomerAndProfileUrl,
+          url: newCustomerAndProfileUrl(),
           method: 'POST',
           data: newCustomerReq,
           header: util.postJsonReqHeader(tokens),
@@ -516,7 +570,7 @@ const datasrc = {
       let tokens = util.getStoredTokens();
 
       wx.request({
-        url: medprofListUrl,
+        url: medprofListUrl(),
         method: "GET",
         header: util.postJsonReqHeader(tokens),
         success: function (medProfsRes) {
@@ -536,7 +590,7 @@ const datasrc = {
       console.log(`[orgagent::getProfitStatsChartData] start ${startYearMonth} end ${endYearMonth}, tokens:`, tokens);
 
       wx.request({
-        url: proforgAgentprofitStatsUrl,
+        url: proforgAgentprofitStatsUrl(),
         data: { startYearMonth, endYearMonth },
         method: "POST",
         header: util.postJsonReqHeader(tokens),
@@ -557,7 +611,7 @@ const datasrc = {
       console.log(`[proforgagent::getProfitStatsChartDataPerMedProf] start ${startYearMonth} end ${endYearMonth}, tokens:`, tokens);
       util.promisify(wx.request)
         ({
-          url: proforgAgentProfitStatsPerMedProfUrl,
+          url: proforgAgentProfitStatsPerMedProfUrl(),
           data: { profId, startYearMonth, endYearMonth },
           method: "POST",
           header: util.postJsonReqHeader(tokens),
@@ -572,7 +626,7 @@ const datasrc = {
       let tokens = util.getStoredTokens();
       util.promisify(wx.request)
         ({
-          url: newMedProfPreReqDataUrl,
+          url: newMedProfPreReqDataUrl(),
           method: 'GET',
           header: util.getJsonReqHeader(tokens),
         }).then(res => {
@@ -601,7 +655,7 @@ const datasrc = {
       console.log('newMedProReq', newMedProReq);
       util.promisify(wx.request)
         ({
-          url: newMedProfUrl,
+          url: newMedProfUrl(),
           method: 'POST',
           data: newMedProReq,
           header: util.postJsonReqHeader(tokens),
@@ -625,7 +679,7 @@ const datasrc = {
       let tokens = util.getStoredTokens();
 
       wx.request({
-        url: profOrgAgentListUrl,
+        url: profOrgAgentListUrl(),
         method: "GET",
         header: util.postJsonReqHeader(tokens),
         success: function (agentListRes) {
@@ -645,7 +699,7 @@ const datasrc = {
       console.log(`[proforg::getProfitStatsChartData] start ${startYearMonth} end ${endYearMonth}, tokens:`, tokens);
 
       wx.request({
-        url: profOrgProfitStatsUrl,
+        url: profOrgProfitStatsUrl(),
         data: { startYearMonth, endYearMonth },
         method: "POST",
         header: util.postJsonReqHeader(tokens),
@@ -667,7 +721,7 @@ const datasrc = {
       console.log(`[proforg::getProfitStatsChartDataPerProfOrgAgent] start ${startYearMonth} end ${endYearMonth}, tokens:`, tokens);
       util.promisify(wx.request)
         ({
-          url: profOrgProfitStatsPerProfOrgAgentUrl,
+          url: profOrgProfitStatsPerProfOrgAgentUrl(),
           data: { agentId, startYearMonth, endYearMonth },
           method: "POST",
           header: util.postJsonReqHeader(tokens),
@@ -683,7 +737,7 @@ const datasrc = {
       let tokens = util.getStoredTokens();
       util.promisify(wx.request)
         ({
-          url: newProfOrgAgentPreReqDataUrl,
+          url: newProfOrgAgentPreReqDataUrl(),
           method: 'GET',
           header: util.getJsonReqHeader(tokens),
         }).then(res => {
@@ -712,7 +766,7 @@ const datasrc = {
       console.log('newProfOrgAgent', newProfOrgAgent);
       util.promisify(wx.request)
         ({
-          url: newProfOrgAgentUrl,
+          url: newProfOrgAgentUrl(),
           method: 'POST',
           data: newProfOrgAgent,
           header: util.postJsonReqHeader(tokens),

@@ -25,7 +25,6 @@ function initChart(canvas, width, height) {
   canvas.setChart(chart);
 
   var option = echartData.proforgEmptyOption;
-
   chart.setOption(option);
   return chart;
 };
@@ -51,22 +50,35 @@ Page({
     ec: {
       onInit: initChart
     },
-    hideChart: false
+    hideChart: false,
+    showMoneyChecked: false
 
   },
-
+  onShowMoneyChange(event) {
+    let showMoneyChecked = event.detail;
+    this.setData({ showMoneyChecked });
+    //chart.clear();
+    echartData.showStatsChart4Org(chart, showMoneyChecked, this.data.chartDataRaw);
+  },
   setYearMonthDefault: function () {
+    let { _startYM, _endYM } = util.getYearMonthDefaultByProd();
+    this.yearMonthRange(_startYM, _endYM);
 
-    let { _startYM, _endYM } = util.getYearMonthDefault();
-    let yearMonthStart = `${_startYM.year}-${_startYM.month}`;
-    let yearMonthEnd = `${_endYM.year}-${_endYM.month}`;
-    console.log('yearMonthStart:', yearMonthStart);
-    this.setData({
-      profitStatsStart: _startYM,
-      profitStatsEnd: _endYM,
-      yearMonthStart,
-      yearMonthEnd
-    });
+    let setYearMonthRange = this.selectComponent("#setYearMonthRange");
+    console.log('_startYM - _endYM', _startYM, _endYM);
+    setYearMonthRange.setStart(`${_startYM.year}-${_startYM.month}`);
+    setYearMonthRange.setEnd(`${_endYM.year}-${_endYM.month}`);
+    // let { _startYM, _endYM } = util.getYearMonthDefault();
+    // let yearMonthStart = `${_startYM.year}-${_startYM.month}`;
+    // let yearMonthEnd = `${_endYM.year}-${_endYM.month}`;
+    // console.log('yearMonthStart:', yearMonthStart);
+
+    // this.setData({
+    //   profitStatsStart: _startYM,
+    //   profitStatsEnd: _endYM,
+    //   yearMonthStart,
+    //   yearMonthEnd
+    // });
   },
 
   onGotoAddProfOrgAgent: function () {
@@ -164,16 +176,20 @@ Page({
     toastUtil.waiting(this, true, '加载数据中...');
     datasrc.proforg.getProfitStatsChartData(
       yearMonthStart, yearMonthEnd,
-      chartData => {
-        console.log('chartData:', chartData);
-        let opt = echartData.proforgOptionFrom(chartData);
-        console.log('opt:', opt);
-        if (chart) {
-          chart.setOption(opt);
-        }
-        else {
-          console.log('todo: undefined chart')
-        }
+      chartDataRaw => {
+        console.log('getProfitStatsChartData:', chartDataRaw);
+        that.setData({ chartDataRaw });
+        let showMoney = that.data.showMoneyChecked;
+        echartData.showStatsChart4Org(chart, showMoney, chartDataRaw);
+        // console.log('chartData:', chartData);
+        // let opt = echartData.proforgOptionFrom(chartData);
+        // console.log('opt:', opt);
+        // if (chart) {
+        //   chart.setOption(opt);
+        // }
+        // else {
+        //   console.log('todo: undefined chart')
+        // }
         toastUtil.waiting(that, false);
       }
     );

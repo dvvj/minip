@@ -8,6 +8,7 @@
     "van-button": "../../../vant-lib/button/index",
     "van-field": "../../../vant-lib/field/index",
     "van-toast": "../../../vant-lib/toast/index",
+    "van-switch-cell": "../../../vant-lib/switch-cell/index",
     "set-year-month-range": "../../../comp/set-year-month-range",
     "new-medprof": "../../../comp/new-medprof",
     "waiting-toast": "../../../comp/waiting-toast",

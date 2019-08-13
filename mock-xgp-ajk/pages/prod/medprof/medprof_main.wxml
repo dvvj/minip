@@ -3,7 +3,7 @@
 
 <van-tabbar active="{{activeTabIndex}}" bind:change="onTabbarChange">
   <van-tabbar-item icon="friends">客户列表</van-tabbar-item>
-  <van-tabbar-item icon="gold-coin">收益统计</van-tabbar-item>
+  <van-tabbar-item icon="gold-coin">数据统计</van-tabbar-item>
   <van-tabbar-item icon="add-square">新客户</van-tabbar-item>
   <van-tabbar-item icon="add-square">二维码</van-tabbar-item>
   <!-- <van-tabbar-item icon="add">老客户</van-tabbar-item> -->
@@ -18,6 +18,14 @@
     <set-year-month-range id="setYearMonthRange"
       bind:preShow="onPreSetYearMonthRange"
       bind:confirm="onConfirmYearMonthRange" />
+
+    <van-switch-cell
+      title="显示金额"
+      checked="{{ showMoneyChecked }}"
+      active-color="#28a8f0"
+      bind:change="onShowMoneyChange"
+    />
+
     <scroll-view scroll-y class="main_height">
       <view class="canvas_container" hidden="{{hideChart}}">
         <!-- <canvas class="main_canvas" canvas-id="columnCanvas"></canvas> -->

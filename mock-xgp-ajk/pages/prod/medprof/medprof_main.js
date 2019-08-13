@@ -44,9 +44,16 @@ Page({
     ec: {
       onInit: initChart
     },
-    hideChart: false
+    hideChart: false,
+    showMoneyChecked: false
   },
 
+  onShowMoneyChange(event) {
+    let showMoneyChecked = event.detail;
+    this.setData({ showMoneyChecked });
+    //chart.clear();
+    echartData.showStatsChart(chart, showMoneyChecked, this.data.chartDataRaw);
+  },
 
   onClickIcon_InputUserId_Existing: function(e) {
     Toast('请输入用户唯一标识ID');
@@ -189,8 +196,13 @@ Page({
   },
 
   setYearMonthDefault: function () {
-    let { _startYM, _endYM } = util.getYearMonthDefault();
+    let { _startYM, _endYM } = util.getYearMonthDefaultByProd();
     this.yearMonthRange(_startYM, _endYM);
+
+    let setYearMonthRange = this.selectComponent("#setYearMonthRange");
+    console.log('_startYM - _endYM', _startYM, _endYM);
+    setYearMonthRange.setStart(`${_startYM.year}-${_startYM.month}`);
+    setYearMonthRange.setEnd(`${_endYM.year}-${_endYM.month}`);
   },
 
   updateProfitStats: function () {
@@ -199,31 +211,16 @@ Page({
     toastUtil.waiting(this, true, '加载数据中...');
     datasrc.medprof.getProfitStatsChartData(
       this.data.yearMonthStart, this.data.yearMonthEnd,
-      chartData => {
+      chartDataRaw => {
         //util.createChart(chartData);
-        chart.setOption(
-          echartData.medprofOptionFrom(chartData)
-        );
+        console.log('getProfitStatsChartData:', chartDataRaw);
+        that.setData({ chartDataRaw });
+        let showMoney = that.data.showMoneyChecked;
+        echartData.showStatsChart(chart, showMoney, chartDataRaw);
+        // chart.setOption(
+        //   echartData.medprofOptionFrom(chartData)
+        // );
         toastUtil.waiting(that, false);
-        // new wxCharts({
-        //   canvasId: 'columnCanvas',
-        //   type: 'column',
-        //   categories: chartData.yearMonths,
-        //   series: [{
-        //     name: '销售额',
-        //     data: util.roundPriceArr(chartData.sales)
-        //   }, {
-        //     name: '佣金',
-        //     data: util.roundPriceArr(chartData.rewards)
-        //   }],
-        //   yAxis: {
-        //     format: function (val) {
-        //       return '￥' + val;
-        //     }
-        //   },
-        //   width: 360,
-        //   height: 360
-        // });
       }
     );
   },

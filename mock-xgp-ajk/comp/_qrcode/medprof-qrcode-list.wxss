@@ -4,8 +4,3 @@
 .cell-content {
   text-align:center;
 }
-
-.qr-canvas {
-  width: 200px;
-  height: 200px;
-}

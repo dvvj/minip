@@ -88,6 +88,17 @@ const getUpdatedCustomerProfile = function () {
   return retrieveStorage(k, true);
 };
 
+const currQrcodeKey = function() {
+  return `${appKeyPrefix}.${util.getUserId()}.currQrcode`;
+};
+const saveSelectedQrcode = function(qrcode) {
+  let k = currQrcodeKey();
+  wx.setStorageSync(k, qrcode);
+};
+const getSelectedQrcode = function () {
+  let k = currQrcodeKey();
+  return retrieveStorage(k, true);
+};
 // const productDictKey = appKeyPrefix + ".productDict";
 // const getCachedProductDict = function () {
 //   return wx.getStorageSync(productDictKey);
@@ -121,5 +132,7 @@ module.exports = {
   getCurrCustomerProfile,
   saveUpdatedCustomerProfile,
   getUpdatedCustomerProfile,
+  saveSelectedQrcode,
+  getSelectedQrcode,
   clearCache4Demo
 };

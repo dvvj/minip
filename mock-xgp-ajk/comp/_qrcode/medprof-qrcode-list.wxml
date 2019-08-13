@@ -12,7 +12,9 @@
   <block wx:for="{{qrcodes}}" wx:key="id" wx:for-index="qrcodeIndex">
     <van-cell-group>
       <!-- <van-cell is-link url="../../customer/reffed-order-stats"> -->
-      <van-cell class="van-cell-text">
+      <van-cell class="van-cell-text"
+        data-index="{{qrcodeIndex}}"
+        bind:click="onSelectItem">
         <view class="cell-content">
           <text>{{item.qrcodeDesc}}</text>
           <!-- <text>{{item.qrcode}}</text> -->

@@ -128,10 +128,12 @@ Page({
   updateQrcodeListAfterAdding: function() {
     let qrcodeList = this.selectComponent("#medprofQrcodeList");
     let newlyAdded = cacheUtil.retrieveStorage(util.newlyAddedQrcodesKey, true);
-    console.log('updateQrcodeListAfterAdding:', newlyAdded)
-    //let newQrcodes = qrcodeList.convertAndDraw(newlyAdded);
-    let mergedQrcodes = qrcodeList.getEncodedQrcodes().concat(newlyAdded);
-    qrcodeList.initData(mergedQrcodes);
+    if (newlyAdded) {
+      console.log('updateQrcodeListAfterAdding:', newlyAdded)
+      //let newQrcodes = qrcodeList.convertAndDraw(newlyAdded);
+      let mergedQrcodes = qrcodeList.getEncodedQrcodes().concat(newlyAdded);
+      qrcodeList.initData(mergedQrcodes);
+    }
   },
 
   updateSetting: function () {

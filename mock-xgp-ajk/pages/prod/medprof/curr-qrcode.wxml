@@ -1,0 +1,18 @@
+<!--pages/prod/medprof/curr-qrcode.wxml-->
+<van-cell-group>
+  <van-cell>
+    <view slot="title">
+      <text style='font-size:40rpx;font-weight:bold;text-align:center;'>{{qrcode.qrcodeDesc}}</text>
+    </view>
+  </van-cell>
+</van-cell-group>
+
+<van-cell-group>
+  <van-cell class="van-cell-text">
+    <view class="qr-canvas" style="margin-left: {{marginLeft}}px">
+      <canvas class="qr-canvas" canvas-id="qrc-canvas"></canvas>
+    </view>
+  </van-cell>
+</van-cell-group>
+
+

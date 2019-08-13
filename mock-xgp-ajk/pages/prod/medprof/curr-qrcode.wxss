@@ -1,0 +1,2 @@
+/* pages/prod/medprof/curr-qrcode.wxss */
+@import "../../../app.wxss";

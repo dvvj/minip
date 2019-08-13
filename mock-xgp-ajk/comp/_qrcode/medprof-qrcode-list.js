@@ -3,6 +3,7 @@ const util = require('../../utils/util.js');
 import drawQrcode from '../../utils/weapp.qrcode.min.js'
 const toastUtil = require('../../utils/toast-util.js');
 const datasrc = require('../../utils/' + util.datasrc).datasrc;
+const cacheUtil = require('../../utils/cache-util.js');
 
 Component({
   /**
@@ -35,6 +36,17 @@ Component({
         return enc;
       });
       return qrcodesDecoded;
+    },
+
+    onSelectItem: function(e) {
+      let idx = e.currentTarget.dataset.index;
+      let qrcode = this.data.qrcodes[idx];
+      console.log('selected: ', idx, qrcode);
+      
+      cacheUtil.saveSelectedQrcode(qrcode);
+      wx.navigateTo({
+        url: '../../../pages/prod/medprof/curr-qrcode',
+      });
     },
 
     getEncodedQrcodes: function() {

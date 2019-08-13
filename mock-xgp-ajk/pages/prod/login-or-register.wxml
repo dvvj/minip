@@ -6,4 +6,27 @@
   <van-tab title="用户注册">
     <register-comp id="registerComp" />
   </van-tab>
+  <van-tab title="设置服务器">
+    <van-cell-group>
+      <van-field
+        value="{{ webappBase }}"
+        required
+        clearable
+        label="服务器地址"
+        icon="question-o"
+        placeholder="请输入服务器地址，格式：https://.."
+        bind:click-icon="onClickIcon"
+        bind:input="onInputWebappBaseUrl"
+      />
+    </van-cell-group>
+    <van-cell-group>
+      <van-cell>
+        <view slot="title">
+          <van-button type="primary" size="large" type="custom" custom-class="lb-button" bind:click="onSetWebappBaseUrl">
+            设 置
+          </van-button>
+        </view>
+      </van-cell>
+    </van-cell-group>
+  </van-tab>
 </van-tabs>

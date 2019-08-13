@@ -1,6 +1,6 @@
 // pages/prod/login-or-register.js
-const cacheUtil = require('../../utils/cache-util.js')
-
+const util = require('../../utils/util.js');
+const cacheUtil = require('../../utils/cache-util.js');
 
 Page({
 
@@ -8,7 +8,7 @@ Page({
    * Page initial data
    */
   data: {
-
+    webappBase: 'https://webapp.ajkhealth.com'
   },
 
   /**
@@ -21,6 +21,14 @@ Page({
     
   },
 
+  onInputWebappBaseUrl: function(e) {
+    let newUrl = e.detail;
+    this.setData({ webappBase: newUrl });
+  },
+  onSetWebappBaseUrl: function() {
+    console.log('setting webappBase to ', this.data.webappBase);
+    util.setWebappBase(this.data.webappBase);
+  },
   /**
    * Lifecycle function--Called when page is initially rendered
    */

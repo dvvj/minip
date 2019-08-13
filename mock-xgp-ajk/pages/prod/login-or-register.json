@@ -3,6 +3,10 @@
     "van-tab": "../../vant-lib/tab/index",
     "van-tabs": "../../vant-lib/tabs/index",
     "login-comp": "../../comp/login-comp",
-    "register-comp": "../../comp/register-comp"
+    "register-comp": "../../comp/register-comp",
+    "van-button": "../../vant-lib/button/index",
+    "van-field": "../../vant-lib/field/index",
+    "van-cell": "../../vant-lib/cell/index",
+    "van-cell-group": "../../vant-lib/cell-group/index"
   }
 }

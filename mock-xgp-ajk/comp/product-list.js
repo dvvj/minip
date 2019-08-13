@@ -1,6 +1,5 @@
 // comp/product-list.js
 const util = require('../utils/util.js');
-const wePayezUrl = util.getWebappBase() + '/wx/wepayezReq';
 const toastUtil = require('../utils/toast-util.js');
 
 Component({
@@ -100,7 +99,7 @@ Component({
 
       toastUtil.waiting(this, true, '支付准备中...');
       wx.request({
-        url: wePayezUrl,
+        url: util.wePayezUrl(),
         data: {
           // customerId: userid,
           productId: prodId,

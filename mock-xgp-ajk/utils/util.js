@@ -164,6 +164,9 @@ const getProforgBaseUrl = function() {
 const getRegistrationBaseUrl = function() {
   return getWebappBase() + '/register';
 };
+const wePayezUrl = function () {
+  return getWebappBase() + '/wx/wepayezReq';
+};
 
 const xAuthHeader = 'X-Auth-Token';
 
@@ -248,6 +251,7 @@ module.exports = {
   getProforgagentBaseUrl,
   getProforgBaseUrl,
   getRegistrationBaseUrl,
+  wePayezUrl,
 
   //customerBaseUrl: customerBaseUrl,
   //medprofBaseUrl: medprofBaseUrl,

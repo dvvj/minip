@@ -130,7 +130,8 @@ let roundPriceArr = function (arr) {
   return arr.map(i => roundPrice(i))
 };
 
-var _webappBase = 'https://webapp.ajkhealth.com';
+//var _webappBase = 'https://webapp.ajkhealth.com';
+var _webappBase = 'https://webapp.wonder4.life';
 
 const setWebappBase = function (newWebappBase) {
   _webappBase = newWebappBase;

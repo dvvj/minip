@@ -8,7 +8,7 @@ Page({
    * Page initial data
    */
   data: {
-    webappBase: 'https://webapp.ajkhealth.com'
+    webappBase: 'https://webapp.wonder4.life'
   },
 
   /**

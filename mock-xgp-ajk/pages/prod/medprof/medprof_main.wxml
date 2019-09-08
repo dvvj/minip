@@ -8,6 +8,7 @@
   <van-tabbar-item icon="add-square">二维码</van-tabbar-item>
   <!-- <van-tabbar-item icon="add">老客户</van-tabbar-item> -->
   <van-tabbar-item icon="setting" dot>设置</van-tabbar-item>
+  <van-tabbar-item wx:if="{{hasMultipleRoles}}" icon="setting" dot>切换用户</van-tabbar-item>
 </van-tabbar>
 
 <swiper current="{{activeTabIndex}}" class="main_height" duration="300" bindchange='onSwiperChange'>
@@ -42,5 +43,8 @@
   </swiper-item>
   <swiper-item>
     <setting-password id="settingPassword" />
+  </swiper-item>
+  <swiper-item wx:if="{{hasMultipleRoles}}">
+    todo
   </swiper-item>
 </swiper>

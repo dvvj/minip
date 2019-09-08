@@ -43,7 +43,8 @@ Page({
       onInit: initChart
     },
     hideChart: false,
-    showMoneyChecked: false
+    showMoneyChecked: false,
+    hasMultipleRoles: false
   },
 
   onShowMoneyChange(event) {

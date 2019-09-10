@@ -46,7 +46,12 @@ const proforgAgentprofitStatsUrl = function () {
 const proforgAgentProfitStatsPerMedProfUrl = function () {
   return util.getProforgagentBaseUrl() + '/profitStats4WxPerMedProf';
 };
-
+const proforgAgentReffedCustomersUrl = function () {
+  return util.getProforgagentBaseUrl() + '/reffedCustomerInfos';
+};
+const proforgagentProfitStatsPerCustomerUrl = function () {
+  return util.getProforgagentBaseUrl() + '/profitStats4WxPerCustomer';
+};
 const newCustomerPreReqDataUrl = function () {
   return util.getMedprofBaseUrl() + '/newCustomerPreReqData';
 };
@@ -106,6 +111,54 @@ const parseResponseGeneral = function (resp) {
   return _parseResponse(resp, '未授权，登录超时？');
 };
 
+const getReffedCustomerInfos = (cb) => {
+  let tokens = util.getStoredTokens();
+  console.log('[getReffedCustomerInfos] got tokens: ', tokens)
+
+  wx.request({
+    url: reffedCustomersUrl(),
+    method: 'GET',
+    header: {
+      'Authorization': 'Bearer ' + tokens.accessToken,
+      'X-Auth-Token': tokens.xauth
+    },
+    success: function (r1) {
+      console.log('getReffedCustomerInfos:', r1);
+      util.updateXAuth(r1.header[util.xAuthHeader]);
+      cb(r1.data);
+    }
+  })
+};
+
+const _getProfitStatsChartDataPerCustomer = (url, customerId, startYearMonth, endYearMonth, cb) => {
+  let tokens = util.getStoredTokens();
+  console.log(`[medprof::getProfitStatsChartDataPerCustomer] start ${startYearMonth} end ${endYearMonth}, tokens:`, tokens);
+  util.promisify(wx.request)
+    ({
+      url: url, //medprofProfitStatsPerCustomerUrl(),
+      data: { customerId, startYearMonth, endYearMonth },
+      method: "POST",
+      header: util.postJsonReqHeader(tokens),
+    }).then(res => {
+      console.log('medprofProfitStatsPerCustomer res: ', res)
+      cb(res.data);
+    }).catch(function (reason) {
+      console.log('medprofProfitStatsPerCustomer failed, reason: ', reason)
+    })
+};
+
+const medprofGetProfitStatsChartDataPerCustomer = (customerId, startYearMonth, endYearMonth, cb) => {
+  _getProfitStatsChartDataPerCustomer(
+    medprofProfitStatsPerCustomerUrl(),
+    customerId, startYearMonth, endYearMonth, cb
+  )
+};
+const proforgagentGetProfitStatsChartDataPerCustomer = (customerId, startYearMonth, endYearMonth, cb) => {
+  _getProfitStatsChartDataPerCustomer(
+    proforgagentProfitStatsPerCustomerUrl(),
+    customerId, startYearMonth, endYearMonth, cb
+  )
+};
 const datasrc = {
   login: function(userid, password, cb) {
     util.promisify(wx.login)()
@@ -363,26 +416,7 @@ const datasrc = {
         }
       })
     },
-    getReffedCustomerInfos: (cb) => {
-      let that = this;
-      let tokens = util.getStoredTokens();
-      console.log('[getReffedCustomerInfos] got tokens: ', tokens)
-
-      wx.request({
-        url: reffedCustomersUrl(),
-        method: 'GET',
-        header: {
-          'Authorization': 'Bearer ' + tokens.accessToken,
-          'X-Auth-Token': tokens.xauth
-        },
-        success: function (r1) {
-          console.log('getReffedCustomerInfos:', r1);
-          util.updateXAuth(r1.header[util.xAuthHeader]);
-          cb(r1.data);
-        }
-      })
-
-    },
+    getReffedCustomerInfos: getReffedCustomerInfos,
     getProfitStatsChartData: (startYearMonth, endYearMonth, cb) => {
       let that = this;
       let tokens = util.getStoredTokens();
@@ -403,23 +437,7 @@ const datasrc = {
       })
 
     },
-    getProfitStatsChartDataPerCustomer: (customerId, startYearMonth, endYearMonth, cb) => {
-      let that = this;
-      let tokens = util.getStoredTokens();
-      console.log(`[medprof::getProfitStatsChartDataPerCustomer] start ${startYearMonth} end ${endYearMonth}, tokens:`, tokens);
-      util.promisify(wx.request)
-        ({
-          url: medprofProfitStatsPerCustomerUrl(),
-          data: { customerId, startYearMonth, endYearMonth },
-          method: "POST",
-          header: util.postJsonReqHeader(tokens),
-        }).then(res => {
-          console.log('medprofProfitStatsPerCustomer res: ', res)
-          cb(res.data);
-        }).catch(function (reason) {
-          console.log('medprofProfitStatsPerCustomer failed, reason: ', reason)
-        })
-    },
+    getProfitStatsChartDataPerCustomer: medprofGetProfitStatsChartDataPerCustomer,
     getNewQrcodeData: (cb) => {
       let tokens = util.getStoredTokens();
       util.promisify(wx.request)
@@ -583,7 +601,8 @@ const datasrc = {
         }
       })
     },
-
+    getReffedCustomerInfos: getReffedCustomerInfos,
+    getProfitStatsChartDataPerCustomer: proforgagentGetProfitStatsChartDataPerCustomer,
     getProfitStatsChartData: (startYearMonth, endYearMonth, cb) => {
       let that = this;
       let tokens = util.getStoredTokens();

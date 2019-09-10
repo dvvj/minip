@@ -64,7 +64,17 @@ Component({
       this.setYearMonthDefault();
 
       toastUtil.waiting(this, true, '加载数据中...');
-      datasrc.medprof.getProfitStatsChartDataPerCustomer(
+      let { userType } = util.getStoredTokens();
+      var datasrcFunc = null;
+      if (userType == 'MedProf') {
+        datasrcFunc = datasrc.medprof.getProfitStatsChartDataPerCustomer;
+      } else if (userType == 'ProfOrgAgent') {
+        datasrcFunc = datasrc.proforgagent.getProfitStatsChartDataPerCustomer;
+      }
+      else {
+        console.log('invalid user type: ', userType);
+      }
+      datasrcFunc(
         currCustomer.customerId,
         this.data.yearMonthStart, this.data.yearMonthEnd,
         chartDataRaw => {

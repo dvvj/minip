@@ -3,6 +3,7 @@
 
 <van-tabbar active="{{activeTabIndex}}" bind:change="onTabbarChange">
   <van-tabbar-item icon="friends">营养师列表</van-tabbar-item>
+  <van-tabbar-item icon="friends-o">客户列表</van-tabbar-item>
   <van-tabbar-item icon="gold-coin">收益统计</van-tabbar-item>
   <van-tabbar-item icon="add-square">添加营养师</van-tabbar-item>
   <van-tabbar-item icon="setting" dot>设置</van-tabbar-item>
@@ -11,6 +12,9 @@
 <swiper current="{{activeTabIndex}}" class="main_height" duration="300" bindchange='onSwiperChange'>
   <swiper-item>
     <medprof-list id="medprofList" bind:gotoAddNewMedProf='onGotoAddNewMedProf' />
+  </swiper-item>
+  <swiper-item>
+    <reffed-customer-infos id="reffedCustomerInfos" bind:gotoAddNewCustomer="onGotoAddNewCustomer" />
   </swiper-item>
   <swiper-item>
     <set-year-month-range id="setYearMonthRange"

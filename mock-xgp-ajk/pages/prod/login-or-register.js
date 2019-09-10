@@ -17,7 +17,8 @@ Page({
   onLoad: function (options) {
     //cacheUtil.clearCache4Demo();
     let loginComp = this.selectComponent("#loginComp");
-    loginComp.initData('p-prof', '123');
+    //loginComp.initData('p-prof', '123');
+    loginComp.initData('a-o1a1', '123');
     
   },
 

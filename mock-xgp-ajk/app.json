@@ -1,8 +1,8 @@
 {
   "pages": [
     "pages/prod/login-or-register",
-    "pages/tmp/qr-gen-scan-test",
     "pages/tmp/qr-test",
+    "pages/tmp/qr-gen-scan-test",
     "pages/prod/login",
     "pages/tmp/cache-img-test",
     "pages/tmp/test-getnumber",

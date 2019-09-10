@@ -6,9 +6,10 @@ const datasrc = require('../../../utils/' + util.datasrc).datasrc;
 
 const tabIndices = {
   medprofInfos: 0,
-  profitStats: 1,
-  newMedProf: 2,
-  setting: 3
+  reffedCustomerInfos: 1,
+  profitStats: 2,
+  newMedProf: 3,
+  setting: 4
 };
 
 import * as echarts from '../../../ec-canvas/echarts';
@@ -40,6 +41,11 @@ Page({
     hideChart: false,
     showMoneyChecked: false
   },
+
+  onGotoAddNewCustomer: function () {
+    console.log('todo: show msg to use qr code');
+  },
+
   onShowMoneyChange(event) {
     let showMoneyChecked = event.detail;
     this.setData({ showMoneyChecked });
@@ -64,6 +70,10 @@ Page({
 
     if (tabIndex == tabIndices.medprofInfos) {
       this.updateMedProfs();
+    }
+    else if (tabIndex == tabIndices.reffedCustomerInfos) {
+      // todo: cache data
+      this.updateReffedCustomer();
     }
     else if (tabIndex == tabIndices.profitStats) {
       // todo: cache data
@@ -99,7 +109,17 @@ Page({
       }
     );
   },
-
+  updateReffedCustomer: function () {
+    let that = this;
+    toastUtil.waiting(this, true, '加载数据中...');
+    let customerInfos = datasrc.proforgagent.getReffedCustomerInfos(
+      customerInfos => {
+        let reffedCustomerInfos = that.selectComponent("#reffedCustomerInfos");
+        reffedCustomerInfos.initData(customerInfos);
+        toastUtil.waiting(that, false);
+      }
+    );
+  },
   yearMonthRange: function (startYM, endYM) {
     let yearMonthStart = `${startYM.year}-${startYM.month}`;
     let yearMonthEnd = `${endYM.year}-${endYM.month}`;

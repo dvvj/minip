@@ -22,11 +22,14 @@ const customerUpdateSettingUrl = function () {
 //   return util.getWebappBase() + '/wx/payReq';
 // };
 
-const reffedCustomersUrl = function () {
+const medprofReffedCustomersUrl = function () {
   return util.getMedprofBaseUrl() + '/reffedCustomerInfos';
 };
-const qrcodeListUrl = function () {
-  return util.getMedprofBaseUrl() + '/getMedProfCfgs';
+const medprofSaveNewQrcodeUrl = function () {
+  return util.getMedprofBaseUrl() + '/newQrcodeCfg';
+};
+const medprofQrcodeListUrl = function () {
+  return util.getMedprofBaseUrl() + '/getQrCodeCfgs';
 };
 const medprofProfitStatsUrl = function () {
   return util.getMedprofBaseUrl() + '/profitStats4Wx';
@@ -40,8 +43,15 @@ const medprofUpdateCustomerProfilePreReqUrl = function () {
 const medprofUpdateCustomerProfileUrl = function () {
   return util.getMedprofBaseUrl() + '/updateCustomerProfile';
 };
+
 const proforgAgentprofitStatsUrl = function () {
   return util.getProforgagentBaseUrl() + '/profitStats4Wx';
+};
+const proforgAgentQrcodeListUrl = function () {
+  return util.getProforgagentBaseUrl() + '/getQrCodeCfgs';
+};
+const proforgAgentSaveNewQrcodeUrl = function () {
+  return util.getProforgagentBaseUrl() + '/newQrcodeCfg';
 };
 const proforgAgentProfitStatsPerMedProfUrl = function () {
   return util.getProforgagentBaseUrl() + '/profitStats4WxPerMedProf';
@@ -62,9 +72,6 @@ const newCustomerAndProfileUrl = function () {
 // same data as new customer
 const newQrcodePreReqDataUrl = function () {
   return newCustomerPreReqDataUrl();
-};
-const saveNewQrcodeUrl = function () {
-  return util.getMedprofBaseUrl() + '/newQrcodeCfg';
 };
 
 const medprofListUrl = function () {
@@ -111,12 +118,12 @@ const parseResponseGeneral = function (resp) {
   return _parseResponse(resp, '未授权，登录超时？');
 };
 
-const getReffedCustomerInfos = (cb) => {
+const _getReffedCustomerInfos = (url, cb) => {
   let tokens = util.getStoredTokens();
   console.log('[getReffedCustomerInfos] got tokens: ', tokens)
 
   wx.request({
-    url: reffedCustomersUrl(),
+    url: url, //reffedCustomersUrl(),
     method: 'GET',
     header: {
       'Authorization': 'Bearer ' + tokens.accessToken,
@@ -130,6 +137,18 @@ const getReffedCustomerInfos = (cb) => {
   })
 };
 
+const medprofGetReffedCustomerInfos = (cb) => {
+  _getReffedCustomerInfos(
+    medprofReffedCustomersUrl(),
+    cb
+  );
+};
+const proforgagentGetReffedCustomerInfos = (cb) => {
+  _getReffedCustomerInfos(
+    proforgAgentReffedCustomersUrl(),
+    cb
+  );
+};
 const _getProfitStatsChartDataPerCustomer = (url, customerId, startYearMonth, endYearMonth, cb) => {
   let tokens = util.getStoredTokens();
   console.log(`[medprof::getProfitStatsChartDataPerCustomer] start ${startYearMonth} end ${endYearMonth}, tokens:`, tokens);
@@ -159,6 +178,73 @@ const proforgagentGetProfitStatsChartDataPerCustomer = (customerId, startYearMon
     customerId, startYearMonth, endYearMonth, cb
   )
 };
+
+const _getQRCodeList = (url, cb) => {
+  let tokens = util.getStoredTokens();
+  console.log('[getQRCodeList] got tokens: ', tokens);
+
+  wx.request({
+    url: url, //qrcodeListUrl(),
+    method: "GET",
+    header: util.getJsonReqHeader(tokens),
+    success: function (qrcodeListRes) {
+      console.log('qrcodeListRes: ', qrcodeListRes)
+      let qrcodes = qrcodeListRes.data;
+      cb(qrcodes);
+    },
+    fail: function (e2) {
+      console.info("e2: ", e2)
+    }
+  })
+};
+
+const medprofGetQRCodeList = (cb) => {
+  _getQRCodeList(
+    medprofQrcodeListUrl(),
+    cb
+  );
+};
+const proforgagentGetQRCodeList = (cb) => {
+  _getQRCodeList(
+    proforgAgentQrcodeListUrl(),
+    cb
+  );
+};
+
+const _saveNewQrcode = (url, req, cb) => {
+  let tokens = util.getStoredTokens();
+  util.promisify(wx.request)
+    ({
+      url: url, //saveNewQrcodeUrl(),
+      method: 'POST',
+      data: req,
+      header: util.postJsonReqHeader(tokens),
+    }).then(res => {
+      console.log('saveNewQrcode:', res);
+      util.updateXAuth(res.header[util.xAuthHeader]);
+
+      let success = res.statusCode == 200;
+      let dataOrMsg = res.data;
+      cb({ success, dataOrMsg });
+
+      //return res.data;
+    })
+};
+
+const medprofSaveNewQrcode = (req, cb) => {
+  _saveNewQrcode(
+    medprofSaveNewQrcodeUrl(),
+    req, cb
+  );
+};
+
+const proforgagentSaveNewQrcode = (req, cb) => {
+  _saveNewQrcode(
+    proforgAgentSaveNewQrcodeUrl(),
+    req, cb
+  );
+}
+
 const datasrc = {
   login: function(userid, password, cb) {
     util.promisify(wx.login)()
@@ -398,25 +484,9 @@ const datasrc = {
         })
 
     },
-    getQRCodeList: (cb) => {
-      let tokens = util.getStoredTokens();
-      console.log('[getQRCodeList] got tokens: ', tokens);
 
-      wx.request({
-        url: qrcodeListUrl(),
-        method: "GET",
-        header: util.getJsonReqHeader(tokens),
-        success: function (qrcodeListRes) {
-          console.log('qrcodeListRes: ', qrcodeListRes)
-          let qrcodes = qrcodeListRes.data;
-          cb(qrcodes);
-        },
-        fail: function (e2) {
-          console.info("e2: ", e2)
-        }
-      })
-    },
-    getReffedCustomerInfos: getReffedCustomerInfos,
+    getQRCodeList: medprofGetQRCodeList,
+    getReffedCustomerInfos: medprofGetReffedCustomerInfos,
     getProfitStatsChartData: (startYearMonth, endYearMonth, cb) => {
       let that = this;
       let tokens = util.getStoredTokens();
@@ -461,25 +531,7 @@ const datasrc = {
           //return res.data;
         })
     },
-    saveNewQrcode: (req, cb) => {
-      let tokens = util.getStoredTokens();
-      util.promisify(wx.request)
-        ({
-          url: saveNewQrcodeUrl(),
-          method: 'POST',
-          data: req,
-          header: util.postJsonReqHeader(tokens),
-        }).then(res => {
-          console.log('saveNewQrcode:', res);
-          util.updateXAuth(res.header[util.xAuthHeader]);
-
-          let success = res.statusCode == 200;
-          let dataOrMsg = res.data;
-          cb({ success, dataOrMsg });
-
-          //return res.data;
-        })
-    },
+    saveNewQrcode: medprofSaveNewQrcode,
     getNewCustomerData: (cb) => {
       let tokens = util.getStoredTokens();
       util.promisify(wx.request)
@@ -601,7 +653,9 @@ const datasrc = {
         }
       })
     },
-    getReffedCustomerInfos: getReffedCustomerInfos,
+    saveNewQrcode: proforgagentSaveNewQrcode,
+    getQRCodeList: proforgagentGetQRCodeList,
+    getReffedCustomerInfos: proforgagentGetReffedCustomerInfos,
     getProfitStatsChartDataPerCustomer: proforgagentGetProfitStatsChartDataPerCustomer,
     getProfitStatsChartData: (startYearMonth, endYearMonth, cb) => {
       let that = this;

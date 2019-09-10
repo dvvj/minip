@@ -71,18 +71,28 @@ Component({
       let selectedProductIds = selectedProducts.map(prod => prod.id);
       let prodsDesc = selectedProducts.map(prod => prod.shortName).join(',');
 
-      let profId = util.getUserId();
+      let uid = util.getUserId();
       let pricePlan = this.data.selectedPricePlan;
       let pricePlanId = pricePlan.id;
       let qrcodeDesc = `【${prodsDesc}】,${pricePlan.desc}`;
-      let newQrcode = registerUtil.genQRStrCustomer(selectedProductIds, profId, pricePlanId);
+      let newQrcode = registerUtil.genQRStrCustomer(selectedProductIds, uid, pricePlanId);
       let newQrCodeReq = {
-        profId,
+        uid,
         qrcode: newQrcode,
         qrcodeDesc
       };
       console.log('onNewQRCode:', newQrCodeReq);
-
+      
+      let { userType } = util.getStoredTokens();
+      var datasrcFunc = null;
+      if (userType == 'MedProf') {
+        datasrcFunc = datasrc.medprof.saveNewQrcode;
+      } else if (userType == 'ProfOrgAgent') {
+        datasrcFunc = datasrc.proforgagent.saveNewQrcode;
+      }
+      else {
+        console.log('invalid user type: ', userType);
+      }
       toastUtil.waiting(this, true, '保存二维码...');
       datasrc.medprof.saveNewQrcode(
         newQrCodeReq,

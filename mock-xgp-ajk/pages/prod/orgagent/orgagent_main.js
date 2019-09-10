@@ -3,13 +3,15 @@ const util = require('../../../utils/util.js');
 const toastUtil = require('../../../utils/toast-util.js');
 const echartData = require('../../../utils/echart-data.js');
 const datasrc = require('../../../utils/' + util.datasrc).datasrc;
+const cacheUtil = require('../../../utils/cache-util.js');
 
 const tabIndices = {
   medprofInfos: 0,
   reffedCustomerInfos: 1,
   profitStats: 2,
   newMedProf: 3,
-  setting: 4
+  addByQRCode: 4,
+  setting: 5
 };
 
 import * as echarts from '../../../ec-canvas/echarts';
@@ -82,9 +84,25 @@ Page({
     else if (tabIndex == tabIndices.newMedProf) {
       this.updateNewMedProf();
     }
+    else if (tabIndex == tabIndices.addByQRCode) {
+      this.updateAddByQRCode();
+    }
     else if (tabIndex == tabIndices.setting) {
       this.updateSetting();
     }
+  },
+  updateAddByQRCode: function () {
+    let that = this;
+    let qrcodeList = this.selectComponent("#medprofQrcodeList");
+    //console.log(newCustomerProfile);
+    toastUtil.waiting(this, true, '加载数据中...');
+    datasrc.proforgagent.getQRCodeList(
+      qrcodes => {
+        console.log(qrcodes);
+        qrcodeList.initData(qrcodes);
+        toastUtil.waiting(that, false);
+      }
+    )
   },
   updateSetting: function () {
     const settingPassword = this.selectComponent("#settingPassword");
@@ -212,9 +230,25 @@ Page({
    * Lifecycle function--Called when page show
    */
   onShow: function () {
-
+    console.log('in onShow........');
+    if (this.data.activeTabIndex == tabIndices.addByQRCode) {
+      this.updateQrcodeListAfterAdding();
+    }
+    else if (this.data.activeTabIndex == tabIndices.reffedCustomerInfos) {
+      this.updateReffedCustomer();
+    }
   },
 
+  updateQrcodeListAfterAdding: function () {
+    let qrcodeList = this.selectComponent("#medprofQrcodeList");
+    let newlyAdded = cacheUtil.retrieveStorage(util.newlyAddedQrcodesKey, true);
+    if (newlyAdded) {
+      console.log('updateQrcodeListAfterAdding:', newlyAdded)
+      //let newQrcodes = qrcodeList.convertAndDraw(newlyAdded);
+      let mergedQrcodes = qrcodeList.getEncodedQrcodes().concat(newlyAdded);
+      qrcodeList.initData(mergedQrcodes);
+    }
+  },
   /**
    * Lifecycle function--Called when page hide
    */

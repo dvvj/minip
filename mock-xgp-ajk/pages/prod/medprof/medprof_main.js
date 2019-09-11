@@ -4,6 +4,7 @@ const cacheUtil = require('../../../utils/cache-util.js');
 const toastUtil = require('../../../utils/toast-util.js');
 const echartData = require('../../../utils/echart-data.js');
 const datasrc = require('../../../utils/' + util.datasrc).datasrc;
+const registerUtil = require('../../../utils/register-util.js');
 
 const tabIndices = {
   reffedCustomerInfos: 0,
@@ -112,26 +113,26 @@ Page({
 
   updateAddByQRCode: function() {
     let that = this;
-    let qrcodeList = this.selectComponent("#medprofQrcodeList");
+    let qrcodeList = this.selectComponent("#qrcodeList");
     //console.log(newCustomerProfile);
     toastUtil.waiting(this, true, '加载数据中...');
     datasrc.medprof.getQRCodeList(
       qrcodes => {
         console.log(qrcodes);
-        qrcodeList.initData(qrcodes);
+        qrcodeList.initData(registerUtil.userTypes.Customer, qrcodes);
         toastUtil.waiting(that, false);
       }
     )
   },
 
   updateQrcodeListAfterAdding: function() {
-    let qrcodeList = this.selectComponent("#medprofQrcodeList");
+    let qrcodeList = this.selectComponent("#qrcodeList");
     let newlyAdded = cacheUtil.retrieveStorage(util.newlyAddedQrcodesKey, true);
     if (newlyAdded) {
       console.log('updateQrcodeListAfterAdding:', newlyAdded)
       //let newQrcodes = qrcodeList.convertAndDraw(newlyAdded);
       let mergedQrcodes = qrcodeList.getEncodedQrcodes().concat(newlyAdded);
-      qrcodeList.initData(mergedQrcodes);
+      qrcodeList.initData(registerUtil.userTypes.Customer, mergedQrcodes);
     }
   },
 

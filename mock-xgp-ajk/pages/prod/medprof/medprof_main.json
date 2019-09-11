@@ -13,7 +13,7 @@
     "existing-customer-profile": "../../../comp/existing-customer-profile",
     "set-year-month-range": "../../../comp/set-year-month-range",
     "reffed-customer-infos": "../../../comp/reffed-customer-infos",
-    "medprof-qrcode-list": "../../../comp/_qrcode/medprof-qrcode-list",
+    "qrcode-list": "../../../comp/_qrcode/qrcode-list",
     "setting-password": "../../../comp/setting-password",
     "waiting-toast": "../../../comp/waiting-toast",
     "ec-canvas": "../../../ec-canvas/ec-canvas"

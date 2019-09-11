@@ -9,11 +9,29 @@ const genQRStrCustomer = function(
   return `{"ut":"c","uid":"${uid}","pfr":{"pids":[${prodIdsStr}],"ppid":"${pricePlanId}"}}`
 };
 
+const genQRStrMedProf = function (
+  uid,
+  rewardPlanId
+) {
+  return `{"ut":"p","uid":"${uid}","pfr":{"rpid":"${rewardPlanId}"}}`
+};
+const genQRStrProfOrgAgent = function (
+  uid,
+  rewardPlanId
+) {
+  return `{"ut":"a","uid":"${uid}","pfr":{"rpid":"${rewardPlanId}"}}`
+};
+
 const userTypeMap = {
   'c': "Customer",
   'p': "MedProf",
   'a': "ProfOrgAgent",
   'o': 'ProfOrg'
+};
+
+const parseUserType = function (j) {
+  let t = JSON.parse(j);
+  return t.ut;
 };
 
 const parseJsonCustomer = function(j) {
@@ -42,6 +60,9 @@ const convertCustomer = function(wxCustomer) {
 
 module.exports = {
   genQRStrCustomer,
+  genQRStrMedProf,
+  genQRStrProfOrgAgent,
   parseJsonCustomer,
-  convertCustomer
+  convertCustomer,
+  parseUserType
 };

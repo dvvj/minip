@@ -80,6 +80,9 @@ const medprofListUrl = function () {
 const newMedProfPreReqDataUrl = function () {
   return util.getProforgagentBaseUrl() + '/newMedProfPreReqData';
 };
+const newMedProfQrcodePreReqDataUrl = function () {
+  return newMedProfPreReqDataUrl();
+};
 const newMedProfUrl = function () {
   return util.getProforgagentBaseUrl() + '/newMedProf';
 };
@@ -652,6 +655,29 @@ const datasrc = {
           console.info("e2: ", e2)
         }
       })
+    },
+    getMedProfNewQrcodeData: (cb) => {
+      let tokens = util.getStoredTokens();
+      util.promisify(wx.request)
+        ({
+          url: newMedProfQrcodePreReqDataUrl(),
+          method: 'GET',
+          header: util.getJsonReqHeader(tokens),
+        }).then(res => {
+          console.log('newQrcodePreReqData:', res);
+          util.updateXAuth(res.header[util.xAuthHeader]);
+
+          // let products = res.data.products;
+          // // check all products by default
+          // products.forEach(function (prod) { prod.checked = true; });
+          // console.log("products: ", products);
+          let rewardPlans = res.data.rewardPlans;
+          console.log("rewardPlans: ", rewardPlans);
+
+          cb({ rewardPlans });
+
+          //return res.data;
+        })
     },
     saveNewQrcode: proforgagentSaveNewQrcode,
     getQRCodeList: proforgagentGetQRCodeList,

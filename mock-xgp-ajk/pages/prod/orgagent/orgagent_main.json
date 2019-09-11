@@ -14,7 +14,7 @@
     "waiting-toast": "../../../comp/waiting-toast",
     "medprof-list": "../../../comp/medprof-list",
     "reffed-customer-infos": "../../../comp/reffed-customer-infos",
-    "medprof-qrcode-list": "../../../comp/_qrcode/medprof-qrcode-list",
+    "qrcode-list": "../../../comp/_qrcode/qrcode-list",
     "setting-password": "../../../comp/setting-password",
     "ec-canvas": "../../../ec-canvas/ec-canvas"
   }

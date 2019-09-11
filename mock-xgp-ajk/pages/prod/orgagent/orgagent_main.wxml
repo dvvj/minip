@@ -38,7 +38,7 @@
   </swiper-item>
   <swiper-item>
     <!-- <existing-customer-profile id="existingCustomerProfile" /> -->
-    <medprof-qrcode-list id="medprofQrcodeList" />
+    <qrcode-list id="qrcodeList" />
   </swiper-item>
   <swiper-item>
     <setting-password id="settingPassword" />

@@ -1,0 +1,6 @@
+/* comp/_qrcode/qrcode-list.wxss */
+@import "../../app.wxss";
+
+.cell-content {
+  text-align:center;
+}

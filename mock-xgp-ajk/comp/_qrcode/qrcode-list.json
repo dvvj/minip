@@ -1,0 +1,10 @@
+{
+  "component": true,
+  "usingComponents": {
+    "waiting-toast": "../waiting-toast",
+    "van-button": "../../vant-lib/button/index",
+    "van-cell": "../../vant-lib/cell/index",
+    "van-cell-group": "../../vant-lib/cell-group/index",
+    "van-tag": "../../vant-lib/tag/index"
+  }
+}

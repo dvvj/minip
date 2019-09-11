@@ -78,6 +78,7 @@ Component({
       let newQrcode = registerUtil.genQRStrCustomer(selectedProductIds, uid, pricePlanId);
       let newQrCodeReq = {
         uid,
+        userType: 'c',
         qrcode: newQrcode,
         qrcodeDesc
       };
@@ -94,7 +95,7 @@ Component({
         console.log('invalid user type: ', userType);
       }
       toastUtil.waiting(this, true, '保存二维码...');
-      datasrc.medprof.saveNewQrcode(
+      datasrcFunc(
         newQrCodeReq,
         respData => {
           console.log('saveNewQrcode', respData);

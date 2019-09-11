@@ -93,7 +93,7 @@ Page({
   },
   updateAddByQRCode: function () {
     let that = this;
-    let qrcodeList = this.selectComponent("#medprofQrcodeList");
+    let qrcodeList = this.selectComponent("#qrcodeList");
     //console.log(newCustomerProfile);
     toastUtil.waiting(this, true, '加载数据中...');
     datasrc.proforgagent.getQRCodeList(
@@ -240,7 +240,7 @@ Page({
   },
 
   updateQrcodeListAfterAdding: function () {
-    let qrcodeList = this.selectComponent("#medprofQrcodeList");
+    let qrcodeList = this.selectComponent("#qrcodeList");
     let newlyAdded = cacheUtil.retrieveStorage(util.newlyAddedQrcodesKey, true);
     if (newlyAdded) {
       console.log('updateQrcodeListAfterAdding:', newlyAdded)

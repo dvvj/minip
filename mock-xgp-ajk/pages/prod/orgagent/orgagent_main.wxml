@@ -5,8 +5,9 @@
   <van-tabbar-item icon="friends">营养师列表</van-tabbar-item>
   <van-tabbar-item icon="friends-o">客户列表</van-tabbar-item>
   <van-tabbar-item icon="gold-coin">收益统计</van-tabbar-item>
-  <van-tabbar-item icon="add">添加营养师</van-tabbar-item>
-  <van-tabbar-item icon="add-square">二维码</van-tabbar-item>
+  <!-- <van-tabbar-item icon="add">添加营养师</van-tabbar-item> -->
+  <van-tabbar-item icon="add">医师二维码</van-tabbar-item>
+  <van-tabbar-item icon="add-o">客户二维码</van-tabbar-item>
   <van-tabbar-item icon="setting" dot>设置</van-tabbar-item>
 </van-tabbar>
 
@@ -34,11 +35,12 @@
     </scroll-view>
   </swiper-item>
   <swiper-item>
-    <new-medprof id="newMedProf" />
+    <qrcode-list id="medprofQrcodeList" />
+    <!-- <new-medprof id="newMedProf" /> -->
   </swiper-item>
   <swiper-item>
     <!-- <existing-customer-profile id="existingCustomerProfile" /> -->
-    <qrcode-list id="qrcodeList" />
+    <qrcode-list id="customerQrcodeList" />
   </swiper-item>
   <swiper-item>
     <setting-password id="settingPassword" />

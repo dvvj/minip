@@ -6,6 +6,30 @@ const datasrc = require('../../utils/' + util.datasrc).datasrc;
 const cacheUtil = require('../../utils/cache-util.js');
 const registerUtil = require('../../utils/register-util.js');
 
+const populateUserTypeDataMap = () => {
+  var res = {};
+  res[registerUtil.userTypes.Customer] = {
+    txt: '客户',
+    color: '#22ccaa',
+    newQrcodePrepDataFunc: datasrc.medprof.getNewQrcodeData,
+    qrcodeGenPage: '../../../pages/prod/medprof/gen-qrcode'
+  };
+  res[registerUtil.userTypes.MedProf] = {
+    txt: '营养师',
+    color: '#2288ee',
+    newQrcodePrepDataFunc: datasrc.proforgagent.getMedProfNewQrcodeData,
+    qrcodeGenPage: '../../../pages/prod/orgagent/gen-qrcode'
+  };
+  res[registerUtil.userTypes.ProfOrgAgent] = {
+    txt: '业务员',
+    color: '#2222cc',
+    newQrcodePrepDataFunc: datasrc.proforgagent.getMedProfNewQrcodeData,
+    qrcodeGenPage: '../../../pages/prod/orgagent/gen-qrcode'
+  };
+  return res;
+};
+const userTypeDataMap = populateUserTypeDataMap();
+
 Component({
   /**
    * Component properties
@@ -19,21 +43,7 @@ Component({
    */
   data: {
     qrcodesEncoded: [],
-    qrcodes: [],
-    userTypeTextMap: {
-      'c': {
-        txt: '客户',
-        color: '#22ccaa'
-      },
-      'p': {
-        txt: '营养师',
-        color: '#2288ee'
-      },
-      'a': {
-        txt: '业务员',
-        color: '#2222cc'
-      }
-    }
+    qrcodes: []
   },
 
   /**
@@ -49,7 +59,7 @@ Component({
         that.draw(enc);
         console.log('dec: ', enc.qrcode);
         let userType = registerUtil.parseUserType(enc.qrcode);
-        enc.userTypeText = this.data.userTypeTextMap[userType];
+        enc.userTypeText = userTypeDataMap[userType];
         return enc;
       });
       return qrcodesDecoded;
@@ -70,26 +80,29 @@ Component({
       return this.data.qrcodesEncoded;
     },
 
-    initData: function (qrcodesEncoded) {
-
+    initData: function (userType, qrcodesEncoded) {
+      // console.log('initData: ', userTypeDataMap);
       let qrcodes = this.convertAndDraw(qrcodesEncoded);
       let sysInfo = wx.getSystemInfoSync();
       let marginLeft = (sysInfo.windowWidth - 200) / 2 - 10;
-      console.log('qrcodes: ', qrcodes);
-      this.setData({ qrcodesEncoded, qrcodes, marginLeft });
+      console.log('qrcodes: ', qrcodes, this.data.userTypeDataMap);
+      let userTypeText = userTypeDataMap[userType];
+      this.setData({ qrcodesEncoded, qrcodes, marginLeft, userType, userTypeText });
     },
     onAddNewQRCodeClicked: function (e) {
       let that = this;
       // let qrcodeGen = this.selectComponent('#qrcodeGen');
 
       toastUtil.waiting(this, true, '准备二维码数据中...');
-      datasrc.proforgagent.getMedProfNewQrcodeData(
+      let { newQrcodePrepDataFunc, qrcodeGenPage } = userTypeDataMap[this.data.userType];
+
+      newQrcodePrepDataFunc(
         qrcodeData => {
           //medprofQrcodeGen.initData(qrcodeData);
           wx.setStorageSync(util.currQrcodeDataKey, qrcodeData);
           toastUtil.waiting(that, false);
           wx.navigateTo({
-            url: '../../../pages/prod/orgagent/gen-qrcode',
+            url: qrcodeGenPage
           })
           //medprofQrcodeGen.showDlg();
         }

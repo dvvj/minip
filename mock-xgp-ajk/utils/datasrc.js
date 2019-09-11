@@ -47,8 +47,11 @@ const medprofUpdateCustomerProfileUrl = function () {
 const proforgAgentprofitStatsUrl = function () {
   return util.getProforgagentBaseUrl() + '/profitStats4Wx';
 };
-const proforgAgentQrcodeListUrl = function () {
-  return util.getProforgagentBaseUrl() + '/getQrCodeCfgs';
+const proforgAgentMedProfQrcodeListUrl = function () {
+  return util.getProforgagentBaseUrl() + '/getMedProfQrCodeCfgs';
+};
+const proforgAgentCustomerQrcodeListUrl = function () {
+  return util.getProforgagentBaseUrl() + '/getCustomerQrCodeCfgs';
 };
 const proforgAgentSaveNewQrcodeUrl = function () {
   return util.getProforgagentBaseUrl() + '/newQrcodeCfg';
@@ -207,9 +210,15 @@ const medprofGetQRCodeList = (cb) => {
     cb
   );
 };
-const proforgagentGetQRCodeList = (cb) => {
+const proforgagentGetMedProfQRCodeList = (cb) => {
   _getQRCodeList(
-    proforgAgentQrcodeListUrl(),
+    proforgAgentMedProfQrcodeListUrl(),
+    cb
+  );
+};
+const proforgagentGetCustomerQRCodeList = (cb) => {
+  _getQRCodeList(
+    proforgAgentCustomerQrcodeListUrl(),
     cb
   );
 };
@@ -680,7 +689,8 @@ const datasrc = {
         })
     },
     saveNewQrcode: proforgagentSaveNewQrcode,
-    getQRCodeList: proforgagentGetQRCodeList,
+    getCustomerQRCodeList: proforgagentGetCustomerQRCodeList,
+    getMedProfQRCodeList: proforgagentGetMedProfQRCodeList,
     getReffedCustomerInfos: proforgagentGetReffedCustomerInfos,
     getProfitStatsChartDataPerCustomer: proforgagentGetProfitStatsChartDataPerCustomer,
     getProfitStatsChartData: (startYearMonth, endYearMonth, cb) => {

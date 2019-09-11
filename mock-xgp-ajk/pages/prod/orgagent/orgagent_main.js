@@ -4,13 +4,15 @@ const toastUtil = require('../../../utils/toast-util.js');
 const echartData = require('../../../utils/echart-data.js');
 const datasrc = require('../../../utils/' + util.datasrc).datasrc;
 const cacheUtil = require('../../../utils/cache-util.js');
+const registerUtil = require('../../../utils/register-util.js');
 
 const tabIndices = {
   medprofInfos: 0,
   reffedCustomerInfos: 1,
   profitStats: 2,
-  newMedProf: 3,
-  addByQRCode: 4,
+  //newMedProf: 3,
+  addMedProfByQRCode: 3,
+  addCustomerByQRCode: 4,
   setting: 5
 };
 
@@ -81,28 +83,47 @@ Page({
       // todo: cache data
       this.updateProfitStats();
     }
-    else if (tabIndex == tabIndices.newMedProf) {
-      this.updateNewMedProf();
+    // else if (tabIndex == tabIndices.newMedProf) {
+    //   this.updateNewMedProf();
+    // }
+    else if (tabIndex == tabIndices.addMedProfByQRCode) {
+      this.updateAddMedProfByQRCode();
     }
-    else if (tabIndex == tabIndices.addByQRCode) {
-      this.updateAddByQRCode();
+    else if (tabIndex == tabIndices.addCustomerByQRCode) {
+      this.updateAddCustomerByQRCode();
     }
     else if (tabIndex == tabIndices.setting) {
       this.updateSetting();
     }
   },
-  updateAddByQRCode: function () {
+  updateAddByQRCode: function (userType, componentId, datasrcFunc) {
     let that = this;
-    let qrcodeList = this.selectComponent("#qrcodeList");
+    // let compid = userType === registerUtil.userTypes.userTypes.MedProf ?
+    //   "#medprofQrcodeList" : "#medprofQrcodeList";
+    let qrcodeList = this.selectComponent(componentId);
     //console.log(newCustomerProfile);
     toastUtil.waiting(this, true, '加载数据中...');
-    datasrc.proforgagent.getQRCodeList(
+    datasrcFunc(
       qrcodes => {
         console.log(qrcodes);
-        qrcodeList.initData(qrcodes);
+        qrcodeList.initData(userType, qrcodes);
         toastUtil.waiting(that, false);
       }
     )
+  },
+  updateAddMedProfByQRCode: function () {
+    this.updateAddByQRCode(
+      registerUtil.userTypes.MedProf,
+      "#medprofQrcodeList",
+      datasrc.proforgagent.getMedProfQRCodeList
+    );
+  },
+  updateAddCustomerByQRCode: function () {
+    this.updateAddByQRCode(
+      registerUtil.userTypes.Customer,
+      "#customerQrcodeList",
+      datasrc.proforgagent.getCustomerQRCodeList
+    );
   },
   updateSetting: function () {
     const settingPassword = this.selectComponent("#settingPassword");
@@ -231,23 +252,36 @@ Page({
    */
   onShow: function () {
     console.log('in onShow........');
-    if (this.data.activeTabIndex == tabIndices.addByQRCode) {
-      this.updateQrcodeListAfterAdding();
+    if (this.data.activeTabIndex == tabIndices.addMedProfByQRCode) {
+      this.updateMedProfQrcodeListAfterAdding();
+    }
+    if (this.data.activeTabIndex == tabIndices.addCustomerByQRCode) {
+      this.updateCustomerQrcodeListAfterAdding();
     }
     else if (this.data.activeTabIndex == tabIndices.reffedCustomerInfos) {
       this.updateReffedCustomer();
     }
   },
 
-  updateQrcodeListAfterAdding: function () {
-    let qrcodeList = this.selectComponent("#qrcodeList");
+  updateQrcodeListAfterAdding: function (userType, componentId) {
+    let qrcodeList = this.selectComponent(componentId);
     let newlyAdded = cacheUtil.retrieveStorage(util.newlyAddedQrcodesKey, true);
     if (newlyAdded) {
-      console.log('updateQrcodeListAfterAdding:', newlyAdded)
+      console.log('updateQrcodeListAfterAdding:', userType, newlyAdded)
       //let newQrcodes = qrcodeList.convertAndDraw(newlyAdded);
       let mergedQrcodes = qrcodeList.getEncodedQrcodes().concat(newlyAdded);
-      qrcodeList.initData(mergedQrcodes);
+      qrcodeList.initData(userType, mergedQrcodes);
     }
+  },
+  updateMedProfQrcodeListAfterAdding: function () {
+    this.updateQrcodeListAfterAdding(
+      registerUtil.userTypes.MedProf, "#medprofQrcodeList"
+    );
+  },
+  updateCustomerQrcodeListAfterAdding: function () {
+    this.updateQrcodeListAfterAdding(
+      registerUtil.userTypes.Customer, "#customerQrcodeList"
+    );
   },
   /**
    * Lifecycle function--Called when page hide

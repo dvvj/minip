@@ -22,12 +22,23 @@ const genQRStrProfOrgAgent = function (
   return `{"ut":"a","uid":"${uid}","pfr":{"rpid":"${rewardPlanId}"}}`
 };
 
-const userTypeMap = {
-  'c': "Customer",
-  'p': "MedProf",
-  'a': "ProfOrgAgent",
-  'o': 'ProfOrg'
+const userTypes = {
+  Customer: 'c',
+  MedProf: 'p',
+  ProfOrgAgent: 'a',
+  ProfOrg: 'o'
 };
+
+let createUserTypeMap = () => {
+  var res = {};
+  res[userTypes.Customer] = "Customer";
+  res[userTypes.MedProf] = "MedProf";
+  res[userTypes.ProfOrgAgent] = "ProfOrgAgent";
+  res[userTypes.ProfOrg] = "ProfOrg";
+  return res;
+}
+
+const userTypeMap = createUserTypeMap();
 
 const parseUserType = function (j) {
   let t = JSON.parse(j);
@@ -64,5 +75,6 @@ module.exports = {
   genQRStrProfOrgAgent,
   parseJsonCustomer,
   convertCustomer,
-  parseUserType
+  parseUserType,
+  userTypes
 };

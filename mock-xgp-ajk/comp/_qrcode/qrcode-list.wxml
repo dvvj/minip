@@ -30,7 +30,7 @@
     <view slot="title">
       <view>
         <van-button size="small" type="custom" custom-class="lb-button"
-          bind:click='onAddNewQRCodeClicked'>添加二维码</van-button>
+          bind:click='onAddNewQRCodeClicked'>添加{{userTypeText.txt}}二维码</van-button>
       </view>
     </view>
   </van-cell>

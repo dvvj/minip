@@ -53,7 +53,19 @@ Component({
       let rewardPlan = this.data.selectedRewardPlan;
       let rewardPlanId = rewardPlan.id;
       let qrcodeDesc = rewardPlan.info;
-      let newQrcode = registerUtil.genQRStrMedProf(uid, rewardPlanId);
+
+      let { userType } = util.getStoredTokens();
+      var datasrcFunc = null;
+      var qrcodeGenFunc = null;
+      if (userType == 'ProfOrgAgent') {
+        datasrcFunc = datasrc.proforgagent.saveNewQrcode;
+        qrcodeGenFunc = registerUtil.genQRStrMedProf;
+      }
+      else if (userType == 'ProfOrg') {
+        datasrcFunc = datasrc.proforg.saveNewQrcode;
+        qrcodeGenFunc = registerUtil.genQRStrProfOrgAgent;
+      }
+      let newQrcode = qrcodeGenFunc(uid, rewardPlanId);
       let newQrCodeReq = {
         uid,
         userType: this.data.userType,
@@ -62,16 +74,6 @@ Component({
       };
       console.log('onNewQRCode:', newQrCodeReq);
 
-      let { userType } = util.getStoredTokens();
-      var datasrcFunc = null;
-      if (userType == 'MedProf') {
-        datasrcFunc = datasrc.medprof.saveNewQrcode;
-      } else if (userType == 'ProfOrgAgent') {
-        datasrcFunc = datasrc.proforgagent.saveNewQrcode;
-      }
-      else {
-        console.log('invalid user type: ', userType);
-      }
       toastUtil.waiting(this, true, '保存二维码...');
       datasrcFunc(
         newQrCodeReq,

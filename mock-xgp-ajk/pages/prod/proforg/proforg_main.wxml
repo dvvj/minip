@@ -4,7 +4,8 @@
 <van-tabbar active="{{activeTabIndex}}" bind:change="onTabbarChange">
   <van-tabbar-item icon="friends">业务员列表</van-tabbar-item>
   <van-tabbar-item icon="gold-coin">收益统计</van-tabbar-item>
-  <van-tabbar-item icon="add-square">添加业务员</van-tabbar-item>
+  <van-tabbar-item icon="add">添加业务员</van-tabbar-item>
+  <van-tabbar-item icon="add-square">二维码添加</van-tabbar-item>
   <van-tabbar-item icon="setting" dot>设置</van-tabbar-item>
 </van-tabbar>
 
@@ -31,6 +32,9 @@
   </swiper-item>
   <swiper-item>
     <new-proforgagent id="newProfOrgAgent" />
+  </swiper-item>
+  <swiper-item>
+    <qrcode-list id="qrcodeList" />
   </swiper-item>
   <swiper-item>
     <setting-password id="settingPassword" />

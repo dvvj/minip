@@ -28,7 +28,8 @@
     "pages/prod/medprof/update-customer-profile",
     "pages/prod/medprof/curr-qrcode",
     "comp/_qrcode/qrcode-gen-medprof-agent",
-    "pages/prod/orgagent/gen-qrcode"
+    "pages/prod/orgagent/gen-qrcode",
+    "pages/prod/proforg/gen-qrcode"
   ],
   "window": {
     "backgroundTextStyle": "light",

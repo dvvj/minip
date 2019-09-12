@@ -96,6 +96,9 @@ const profOrgAgentListUrl = function () {
 const profOrgProfitStatsUrl = function () {
   return util.getProforgBaseUrl() + '/profitStats4Wx';
 };
+const profOrgGetAgentQrcodeListUrl = function () {
+  return util.getProforgBaseUrl() + '/getQrCodeCfgs';
+};
 const profOrgProfitStatsPerProfOrgAgentUrl = function () {
   return util.getProforgBaseUrl() + '/profitStats4WxPerAgent';
 };
@@ -104,6 +107,9 @@ const newProfOrgAgentPreReqDataUrl = function () {
 };
 const newProfOrgAgentUrl = function () {
   return util.getProforgBaseUrl() + '/newProfOrgAgent';
+};
+const profOrgSaveNewQrcodeUrl = function () {
+  return util.getProforgBaseUrl() + '/newQrcodeCfg';
 };
 
 const registerCustomerUrl = function () {
@@ -222,6 +228,12 @@ const proforgagentGetCustomerQRCodeList = (cb) => {
     cb
   );
 };
+const proforgGetQRCodeList = (cb) => {
+  _getQRCodeList(
+    profOrgGetAgentQrcodeListUrl(),
+    cb
+  );
+};
 
 const _saveNewQrcode = (url, req, cb) => {
   let tokens = util.getStoredTokens();
@@ -253,6 +265,13 @@ const medprofSaveNewQrcode = (req, cb) => {
 const proforgagentSaveNewQrcode = (req, cb) => {
   _saveNewQrcode(
     proforgAgentSaveNewQrcodeUrl(),
+    req, cb
+  );
+};
+
+const proforgSaveNewQrcode = (req, cb) => {
+  _saveNewQrcode(
+    profOrgSaveNewQrcodeUrl(),
     req, cb
   );
 }
@@ -783,6 +802,8 @@ const datasrc = {
   },
 
   proforg: {
+    getQRCodeList: proforgGetQRCodeList,
+    saveNewQrcode: proforgSaveNewQrcode,
     getProfOrgAgentList: (cb) => {
       let that = this;
       let tokens = util.getStoredTokens();

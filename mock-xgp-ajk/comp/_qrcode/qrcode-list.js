@@ -24,7 +24,7 @@ const populateUserTypeDataMap = () => {
     txt: '业务员',
     color: '#2222cc',
     newQrcodePrepDataFunc: datasrc.proforgagent.getMedProfNewQrcodeData,
-    qrcodeGenPage: '../../../pages/prod/orgagent/gen-qrcode'
+    qrcodeGenPage: '../../../pages/prod/proforg/gen-qrcode'
   };
   return res;
 };

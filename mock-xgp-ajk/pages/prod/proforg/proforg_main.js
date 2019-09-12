@@ -4,6 +4,8 @@ const util = require('../../../utils/util.js')
 const datasrc = require('../../../utils/' + util.datasrc).datasrc;
 const orderStatsTestData = require('../../../utils/org-order-stats-td.js')
 const toastUtil = require('../../../utils/toast-util.js');
+const registerUtil = require('../../../utils/register-util.js');
+const cacheUtil = require('../../../utils/cache-util.js');
 //const wxCharts = require('../../../utils/wxcharts-min.js');
 const echartData = require('../../../utils/echart-data.js');
 
@@ -11,7 +13,8 @@ const tabIndices = {
   proforgAgentList: 0,
   profitStats: 1,
   addProfOrgAgent: 2,
-  setting: 3
+  addByQrcode: 3,
+  setting: 4
 };
 
 import * as echarts from '../../../ec-canvas/echarts';
@@ -97,11 +100,37 @@ Page({
       console.log('updateAddProfOrgAgent');
       this.updateAddProfOrgAgent();
     }
+    else if (tabIndex == tabIndices.addByQrcode) {
+      console.log('updateAddProfOrgAgent');
+      this.updateAddByQrcode();
+    }
     else if (tabIndex == tabIndices.setting) {
       this.updateSetting();
     }
   },
-
+  updateAddByQrcode: function () {
+    let that = this;
+    let qrcodeList = this.selectComponent("#qrcodeList");
+    //console.log(newCustomerProfile);
+    toastUtil.waiting(this, true, '加载数据中...');
+    datasrc.proforg.getQRCodeList(
+      qrcodes => {
+        console.log(qrcodes);
+        qrcodeList.initData(registerUtil.userTypes.ProfOrgAgent, qrcodes);
+        toastUtil.waiting(that, false);
+      }
+    )
+  },
+  updateQrcodeListAfterAdding: function () {
+    let qrcodeList = this.selectComponent("#qrcodeList");
+    let newlyAdded = cacheUtil.retrieveStorage(util.newlyAddedQrcodesKey, true);
+    if (newlyAdded) {
+      console.log('updateQrcodeListAfterAdding:', newlyAdded)
+      //let newQrcodes = qrcodeList.convertAndDraw(newlyAdded);
+      let mergedQrcodes = qrcodeList.getEncodedQrcodes().concat(newlyAdded);
+      qrcodeList.initData(registerUtil.userTypes.ProfOrgAgent, mergedQrcodes);
+    }
+  },
   updateSetting: function() {
     const settingPassword = this.selectComponent("#settingPassword");
     let userId = util.getUserId(); // wx.getStorageSync(util.userIdKey);
@@ -236,7 +265,10 @@ Page({
    * Lifecycle function--Called when page show
    */
   onShow: function () {
-
+    console.log('in onShow........');
+    if (this.data.activeTabIndex == tabIndices.addByQrcode) {
+      this.updateQrcodeListAfterAdding();
+    }
   },
 
   /**

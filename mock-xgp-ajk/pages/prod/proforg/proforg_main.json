@@ -17,6 +17,7 @@
     "new-proforgagent": "../../../comp/new-proforgagent",
     "waiting-toast": "../../../comp/waiting-toast",
     "proforgagent-list": "../../../comp/proforgagent-list",
+    "qrcode-list": "../../../comp/_qrcode/qrcode-list",
     "ec-canvas": "../../../ec-canvas/ec-canvas"
   }
 }

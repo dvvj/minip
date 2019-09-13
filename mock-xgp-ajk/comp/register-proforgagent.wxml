@@ -1,0 +1,4 @@
+<!--comp/register-proforgagent.wxml-->
+<van-dialog id='van-dialog' use-slot>
+  <new-proforgagent-byqr id="newProfOrgAgentByQR" />
+</van-dialog>

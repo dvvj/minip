@@ -35,6 +35,9 @@ Component({
           else if (userType === registerUtil.userTypes.MedProf) {
             that.registerMedProf(json);
           }
+          else if (userType === registerUtil.userTypes.ProfOrgAgent) {
+            that.registerProfOrgAgent(json);
+          }
           // let parsed = registerUtil.parseJsonCustomer(res.result);
           // console.log('Parsed result: ', parsed);
           // let { userType, profId, profileReq } = parsed;
@@ -55,10 +58,32 @@ Component({
         }
       })
     },
+    registerProfOrgAgent: function (qrJson) {
+      let parsed = registerUtil.parseJsonProfOrgAgent(qrJson);
+      console.log('Parsed result: ', parsed);
+      this.prepareProfOrgAgent(parsed);
+    },
+    prepareProfOrgAgent: function (qrcodeData) {
+      let registerProfOrgAgent = this.selectComponent('#registerProfOrgAgent');
+      console.log('registerProfOrgAgent: ', registerProfOrgAgent);
 
+      let newProfOrgAgent = {
+        agentid: 'a-',
+        password: '123',
+        password2: '123',
+        name: '张某',
+        mobile: '13700033333',
+        info: '业务员信息'
+      };
+
+      let newMedProfData = { newProfOrgAgent, rewardPlanId: qrcodeData.rewardPlanId };
+
+      registerProfOrgAgent.initData(newMedProfData);
+      registerProfOrgAgent.showDlg();
+    },
     prepareMedProf: function (qrcodeData) {
       let registerMedProf = this.selectComponent('#registerMedProf');
-      console.log('registerMedProf: ', registerMedProf);
+      //console.log('registerMedProf: ', registerMedProf);
 
       let newMedProf = {
         profid: 'p-',

@@ -57,6 +57,15 @@ const parseJsonCustomer = function(j) {
   }
 };
 
+const parseJsonMedProf = function (j) {
+  let t = JSON.parse(j);
+  return {
+    userType: userTypeMap[t.ut],
+    agentId: t.uid,
+    rewardPlanId: t.pfr.rpid
+  }
+};
+
 const convertCustomer = function(wxCustomer) {
   return {
     uid: wxCustomer.userid,
@@ -74,6 +83,7 @@ module.exports = {
   genQRStrMedProf,
   genQRStrProfOrgAgent,
   parseJsonCustomer,
+  parseJsonMedProf,
   convertCustomer,
   parseUserType,
   userTypes

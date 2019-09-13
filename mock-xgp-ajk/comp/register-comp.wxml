@@ -12,3 +12,4 @@
   </van-cell>
 </van-cell-group>
 <register-customer id="registerCustomer" bind:confirm="onRegisterCustomerConfirm" />
+<register-medprof id="registerMedProf" bind:confirm="onRegisterMedProfConfirm" />

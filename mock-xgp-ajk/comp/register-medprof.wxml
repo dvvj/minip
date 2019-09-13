@@ -1,0 +1,4 @@
+<!--comp/register-medprof.wxml-->
+<van-dialog id='van-dialog' use-slot>
+  <new-medprof-byqr id="newMedProfByQR" />
+</van-dialog>

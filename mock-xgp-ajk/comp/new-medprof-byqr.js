@@ -156,5 +156,8 @@ Component({
         e
       );
     },
+    getUid: function() {
+      return this.data.newMedProf.profid;
+    }
   }
 })

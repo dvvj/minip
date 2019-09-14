@@ -4,7 +4,7 @@
     <login-comp id="loginComp" />
   </van-tab>
   <van-tab title="用户注册">
-    <register-comp id="registerComp" />
+    <register-comp id="registerComp" bind:postRegistration="onPostRegistration" />
   </van-tab>
   <van-tab title="设置服务器">
     <van-cell-group>

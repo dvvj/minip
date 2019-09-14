@@ -2,12 +2,19 @@
 const util = require('../../utils/util.js');
 const cacheUtil = require('../../utils/cache-util.js');
 
+const tabIndices = {
+  login: 0,
+  register: 1,
+  serverSetting: 2
+};
+
 Page({
 
   /**
    * Page initial data
    */
   data: {
+    activeTabIndex: tabIndices.login,
     webappBase: 'https://webapp.wonder4.life'
   },
 
@@ -20,6 +27,15 @@ Page({
     //loginComp.initData('p-prof', '123');
     loginComp.initData('o-o1', '123');
     
+  },
+
+  onPostRegistration: function(e) {
+    console.log('in onPostRegistration:', e);
+    let uid = e.detail;
+    let activeTabIndex = tabIndices.login;
+    this.setData({activeTabIndex});
+    let loginComp = this.selectComponent("#loginComp");
+    loginComp.initData(uid, '123');
   },
 
   onInputWebappBaseUrl: function(e) {

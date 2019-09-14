@@ -59,7 +59,7 @@
     bind:input="onInputMobile"
   />
 
-  <van-cell title="奖励套餐："/>
+  <van-cell title="奖励套餐：{{rewardPlanId}}"/>
 
   <van-button type="custom" custom-class="lb-button" size="large" bind:click="onAddProfOrgAgent">添加</van-button>
 </van-cell-group>

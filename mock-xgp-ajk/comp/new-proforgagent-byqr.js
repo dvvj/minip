@@ -39,6 +39,9 @@ Component({
         newProfOrgAgent, rewardPlanId
       });
     },
+    getUid: function () {
+      return this.data.newProfOrgAgent.agentid;
+    },
 
     updateNewProfOrgAgent: function (field, e) {
       var t = this.data.newProfOrgAgent;

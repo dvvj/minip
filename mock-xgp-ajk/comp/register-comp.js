@@ -126,12 +126,27 @@ Component({
       this.prepareRegisterCustomer(profId, newCustomer, profileReq);
     },
 
+    postRegistration: function(uid) {
+      console.log('in postRegistration, uid: ', uid);
+      this.triggerEvent("postRegistration", uid);
+    },
+
     onRegisterCustomerConfirm: function(e) {
-      console.log('in onRegisterCustomerConfirm', e);
+      let uid = e.detail;
+      console.log('in onRegisterCustomerConfirm, uid: ', uid, e);
+      this.postRegistration(uid);
     },
 
     onRegisterMedProfConfirm: function(e) {
-      console.log('in onRegisterMedProfConfirm', e);
+      let uid = e.detail;
+      console.log('in onRegisterMedProfConfirm, uid: ', uid, e);
+      this.postRegistration(uid);
+    },
+
+    onRegisterProfOrgAgentConfirm: function (e) {
+      let uid = e.detail;
+      console.log('in onRegisterProfOrgAgentConfirm, uid: ', uid, e);
+      this.postRegistration(uid);
     },
 
     prepareRegisterCustomer: function (profId, newCustomer, profileReq) {

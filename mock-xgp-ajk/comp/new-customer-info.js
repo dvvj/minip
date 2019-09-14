@@ -150,6 +150,8 @@ Component({
         e
       );
     },
-
+    getUid: function() {
+      return this.data.newCustomer.userid;
+    }
   }
 })

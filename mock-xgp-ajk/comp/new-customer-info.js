@@ -23,6 +23,7 @@ Component({
     field2Checker: {
       "userid": inputCheck.userid,
       "password": inputCheck.password,
+      "password2": inputCheck.password,
       "userName": inputCheck.userName,
       "idCardNo": inputCheck.idCardNo,
       "mobile": inputCheck.mobile,
@@ -120,7 +121,7 @@ Component({
       //this.updateNewCustomer("password", e)
     },
     onInputPassword2: function (e) {
-      this.updateNewCustomer("password2", e)
+      this.checkAndUpdateInput("password2", e)
     },
     onInputUserName: function (e) {
       this.checkAndUpdateInput(

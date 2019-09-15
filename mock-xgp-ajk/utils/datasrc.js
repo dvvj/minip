@@ -294,7 +294,8 @@ const requestFail = (err, methodName) => {
 };
 
 const serverRespError = (err, methodName) => {
-  const reason = `【${methodName}】服务器返回错误：${err}`;
+  //const reason = `【${methodName}】服务器返回错误：${err}`;
+  const reason = `登录超时（${err}）`;
   console.log(reason, err);
   resetToLoginPage(reason);
 };
@@ -515,7 +516,8 @@ const datasrc = {
     getUpdateCustomerProfilePreReqData: (customerId, cb) => {
       let that = this;
       let tokens = util.getStoredTokens();
-      console.log('[medprof::getUpdateCustomerProfilePreReqData] customerId:', customerId);
+      const methodName = "getUpdateCustomerProfilePreReqData";
+      console.log(`${methodName} customerId: `, customerId);
       util.promisify(wx.request)
         ({
           url: medprofUpdateCustomerProfilePreReqUrl(),
@@ -524,16 +526,20 @@ const datasrc = {
           header: util.postJsonReqHeader(tokens),
         }).then(res => {
           console.log('getUpdateCustomerProfilePreReqData res: ', res)
-          cb(res.data);
+          if (checkRespStatus(res, methodName)) {
+            cb(res.data);
+          }
         }).catch(function (reason) {
-          console.log('getUpdateCustomerProfilePreReqData failed, reason: ', reason)
+          //console.log('getUpdateCustomerProfilePreReqData failed, reason: ', reason);
+          requestFail(reason, methodName);
         })
 
     },
     updateCustomerProfile: (req, cb) => {
       let that = this;
       let tokens = util.getStoredTokens();
-      console.log('[medprof::updateCustomerProfile] req:', req);
+      const methodName = "medprof::updateCustomerProfile";
+      console.log(`${methodName}: `, req);
       util.promisify(wx.request)
         ({
           url: medprofUpdateCustomerProfileUrl(),
@@ -546,7 +552,8 @@ const datasrc = {
           let msg = res.data;
           cb({ success, msg });
         }).catch(function (reason) {
-          console.log('updateCustomerProfile failed, reason: ', reason)
+          //console.log('updateCustomerProfile failed, reason: ', reason)
+          requestFail(reason, methodName);
         })
 
     },
@@ -576,6 +583,7 @@ const datasrc = {
     getProfitStatsChartDataPerCustomer: medprofGetProfitStatsChartDataPerCustomer,
     getNewQrcodeData: (cb) => {
       let tokens = util.getStoredTokens();
+      const methodName = "getNewQrcodeData";
       util.promisify(wx.request)
         ({
           url: newQrcodePreReqDataUrl(),
@@ -595,6 +603,8 @@ const datasrc = {
           cb({ products, pricePlans });
 
           //return res.data;
+        }).catch(function (reason) {
+          requestFail(reason, methodName);
         })
     },
     saveNewQrcode: medprofSaveNewQrcode,

@@ -57,7 +57,7 @@ Component({
     fail: function (msg) {
       this.setData({ _waiting: false });
       Toast.fail({
-        duration: 2000,
+        duration: 5000,
         message: msg,
         position: 'top',
         context: this

@@ -1,6 +1,7 @@
 // pages/prod/login-or-register.js
 const util = require('../../utils/util.js');
 const cacheUtil = require('../../utils/cache-util.js');
+const toastUtil = require('../../utils/toast-util.js');
 
 const tabIndices = {
   login: 0,
@@ -25,7 +26,12 @@ Page({
     //cacheUtil.clearCache4Demo();
     let loginComp = this.selectComponent("#loginComp");
     //loginComp.initData('p-prof', '123');
-    loginComp.initData('o-o1', '123');
+    console.log('Options: ', options);
+    if (options.er) {
+      const msg = `${options.er} 请重新登录`;
+      toastUtil.fail(this, msg);
+    }
+    loginComp.initData('p-prof', '123');
     
   },
 

@@ -132,7 +132,8 @@ const parseResponseGeneral = function (resp) {
 
 const _getReffedCustomerInfos = (url, cb) => {
   let tokens = util.getStoredTokens();
-  console.log('[getReffedCustomerInfos] got tokens: ', tokens)
+  const methodName = "_getReffedCustomerInfos";
+  console.log(`${methodName} got tokens: `, tokens)
 
   wx.request({
     url: url, //reffedCustomersUrl(),
@@ -143,8 +144,11 @@ const _getReffedCustomerInfos = (url, cb) => {
     },
     success: function (r1) {
       console.log('getReffedCustomerInfos:', r1);
-      util.updateXAuth(r1.header[util.xAuthHeader]);
-      cb(r1.data);
+      if (checkRespStatus(r1, methodName)) {
+        util.updateXAuth(r1.header[util.xAuthHeader]);
+        cb(r1.data);
+      }
+
     }
   })
 };
@@ -193,7 +197,8 @@ const proforgagentGetProfitStatsChartDataPerCustomer = (customerId, startYearMon
 
 const _getQRCodeList = (url, cb) => {
   let tokens = util.getStoredTokens();
-  console.log('[getQRCodeList] got tokens: ', tokens);
+  const methodName = "_getQRCodeList";
+  console.log(`${methodName} got tokens: `, tokens);
 
   wx.request({
     url: url, //qrcodeListUrl(),
@@ -201,12 +206,12 @@ const _getQRCodeList = (url, cb) => {
     header: util.getJsonReqHeader(tokens),
     success: function (qrcodeListRes) {
       console.log('qrcodeListRes: ', qrcodeListRes)
-      let qrcodes = qrcodeListRes.data;
-      cb(qrcodes);
+      if (checkRespStatus(qrcodeListRes, methodName)) {
+        let qrcodes = qrcodeListRes.data;
+        cb(qrcodes);
+      }
     },
-    fail: function (e2) {
-      console.info("e2: ", e2)
-    }
+    fail: err => requestFail(err, methodName)
   })
 };
 
@@ -275,6 +280,33 @@ const proforgSaveNewQrcode = (req, cb) => {
     req, cb
   );
 }
+
+const resetToLoginPage = (errorReason) => {
+  wx.reLaunch({
+    url: `/pages/prod/login-or-register?er=${errorReason}`
+  });
+};
+
+const requestFail = (err, methodName) => {
+  const reason = `【${methodName}】调用失败`;
+  console.log(reason, err);
+  resetToLoginPage(reason);
+};
+
+const serverRespError = (err, methodName) => {
+  const reason = `【${methodName}】服务器返回错误：${err}`;
+  console.log(reason, err);
+  resetToLoginPage(reason);
+};
+
+const checkRespStatus = (resp, methodName) => {
+  const success = resp.statusCode === 200;
+  if (!success) {
+    const errMsg = `状态码 ${resp.statusCode}`;
+    serverRespError(errMsg, methodName);
+  }
+  return success;
+};
 
 const datasrc = {
   login: function(userid, password, cb) {
@@ -420,9 +452,9 @@ const datasrc = {
     },
     getOrderList: (startYearMonth, endYearMonth, cb) => {
       let tokens = util.getStoredTokens();
-
-      console.log('[updateOrderList] got tokens: ', tokens);
-      console.log(`[updateOrderList] start ${startYearMonth} end ${endYearMonth}`);
+      const methodName = "getOrderList";
+      console.log(`${methodName} got tokens: `, tokens);
+      console.log(`${methodName} start ${startYearMonth} end ${endYearMonth}`);
       wx.request({
         url: orderListUrl(),
         data: { startYearMonth, endYearMonth },
@@ -430,35 +462,37 @@ const datasrc = {
         header: util.postJsonReqHeader(tokens),
         success: function (orderListReqRes) {
           console.log('orderListReqRes: ', orderListReqRes)
-          let ordersRaw = orderListReqRes.data;
-          cb(ordersRaw);
+          if (checkRespStatus(orderListReqRes, methodName)) {
+            let ordersRaw = orderListReqRes.data;
+            cb(ordersRaw);
+          }
+
         },
-        fail: function (e2) {
-          console.info("e2: ", e2)
-        }
+        fail: err => requestFail(err, methodName)
       })
     },
     getSetting: (cb) => {
       let tokens = util.getStoredTokens();
-
-      console.log('[getSetting] got tokens: ', tokens);
+      const methodName = "getSetting"
+      console.log(`${methodName} got tokens: `, tokens);
       wx.request({
         url: customerSettingUrl(),
         method: "GET",
         header: util.getJsonReqHeader(tokens),
         success: function (customerSettingReqRes) {
           console.log('customerSettingReqRes: ', customerSettingReqRes)
+          if (checkRespStatus(customerSettingReqRes, methodName)) {
+            cb(customerSettingReqRes.data);
+          }
           cb(customerSettingReqRes.data);
         },
-        fail: function (e2) {
-          console.info("e2: ", e2)
-        }
+        fail: err => requestFail(err, methodName)
       })
     },
     updateSetting: (customerSetting, cb) => {
       let tokens = util.getStoredTokens();
-
-      console.log('[updateSetting] got tokens: ', tokens);
+      const methodName = "updateSetting";
+      console.log(`${methodName} got tokens: `, tokens);
       wx.request({
         url: customerUpdateSettingUrl(),
         method: "POST",
@@ -466,12 +500,13 @@ const datasrc = {
         header: util.postJsonReqHeader(tokens),
         success: function (resp) {
           console.log('customerUpdateSettingReqRes: ', resp)
-          let { success, msg, status } = parseResponseGeneral(resp); 
-          cb({ success, msg });
+          if (checkRespStatus(resp, methodName)) {
+            let { success, msg, status } = parseResponseGeneral(resp);
+            cb({ success, msg });
+          }
+
         },
-        fail: function (e2) {
-          console.info("e2: ", e2)
-        }
+        fail: err => requestFail(err, methodName)
       })
     }
   },
@@ -521,7 +556,8 @@ const datasrc = {
     getProfitStatsChartData: (startYearMonth, endYearMonth, cb) => {
       let that = this;
       let tokens = util.getStoredTokens();
-      console.log(`[medprof::getProfitStatsChartData] start ${startYearMonth} end ${endYearMonth}, tokens:`, tokens);
+      const methodName = "medprof::getProfitStatsChartData";
+      console.log(`${methodName} start ${startYearMonth} end ${endYearMonth}, tokens:`, tokens);
 
       wx.request({
         url: medprofProfitStatsUrl(),
@@ -530,13 +566,12 @@ const datasrc = {
         header: util.postJsonReqHeader(tokens),
         success: function (reqRes) {
           console.log('updateProfitStats res: ', reqRes)
-          cb(reqRes.data);
+          if (checkRespStatus(reqRes, methodName)) {
+            cb(reqRes.data);
+          }
         },
-        fail: function (e2) {
-          console.info("e2: ", e2)
-        }
+        fail: err => requestFail(err, methodName)
       })
-
     },
     getProfitStatsChartDataPerCustomer: medprofGetProfitStatsChartDataPerCustomer,
     getNewQrcodeData: (cb) => {
@@ -669,19 +704,20 @@ const datasrc = {
     getMedProfs: (cb) => {
       let that = this;
       let tokens = util.getStoredTokens();
+      const methodName = "proforgagent:getMedProfs";
 
       wx.request({
         url: medprofListUrl(),
         method: "GET",
         header: util.postJsonReqHeader(tokens),
         success: function (medProfsRes) {
-          console.log('medProfsRes: ', medProfsRes)
-          util.updateXAuth(medProfsRes.header[util.xAuthHeader]);
-          cb(medProfsRes.data);
+          console.log('medProfsRes: ', medProfsRes);
+          if (checkRespStatus(medProfsRes, methodName)) {
+            util.updateXAuth(medProfsRes.header[util.xAuthHeader]);
+            cb(medProfsRes.data);
+          }
         },
-        fail: function (e2) {
-          console.info("e2: ", e2)
-        }
+        fail: err => requestFail(err, "getMedProfs")
       })
     },
     getMedProfNewQrcodeData: (cb) => {
@@ -715,7 +751,8 @@ const datasrc = {
     getProfitStatsChartData: (startYearMonth, endYearMonth, cb) => {
       let that = this;
       let tokens = util.getStoredTokens();
-      console.log(`[orgagent::getProfitStatsChartData] start ${startYearMonth} end ${endYearMonth}, tokens:`, tokens);
+      const methodName = "orgagent::getProfitStatsChartData";
+      console.log(`${methodName} start ${startYearMonth} end ${endYearMonth}, tokens:`, tokens);
 
       wx.request({
         url: proforgAgentprofitStatsUrl(),
@@ -724,12 +761,12 @@ const datasrc = {
         header: util.postJsonReqHeader(tokens),
         success: function (reqRes) {
           console.log('orgagent::getProfitStatsChartData res: ', reqRes)
-          util.updateXAuth(reqRes.header[util.xAuthHeader]);
-          cb(reqRes.data);
+          if (checkRespStatus(reqRes, methodName)) {
+            util.updateXAuth(reqRes.header[util.xAuthHeader]);
+            cb(reqRes.data);
+          }
         },
-        fail: function (e2) {
-          console.info("e2: ", e2)
-        }
+        fail: err => requestFail(err, "getProfitStatsChartData")
       })
 
     },
@@ -807,6 +844,7 @@ const datasrc = {
     getProfOrgAgentList: (cb) => {
       let that = this;
       let tokens = util.getStoredTokens();
+      const methodName = "proforg:getProfOrgAgentList";
 
       wx.request({
         url: profOrgAgentListUrl(),
@@ -814,19 +852,20 @@ const datasrc = {
         header: util.postJsonReqHeader(tokens),
         success: function (agentListRes) {
           console.log('agentListRes: ', agentListRes)
-          util.updateXAuth(agentListRes.header[util.xAuthHeader]);
-          cb(agentListRes.data);
+          if (checkRespStatus(agentListRes, methodName)) {
+            util.updateXAuth(agentListRes.header[util.xAuthHeader]);
+            cb(agentListRes.data);
+          }
         },
-        fail: function (e2) {
-          console.info("e2: ", e2)
-        }
+        fail: err => requestFail(err, "getProfOrgAgentList")
       })
     },
 
     getProfitStatsChartData: (startYearMonth, endYearMonth, cb) => {
       let that = this;
       let tokens = util.getStoredTokens();
-      console.log(`[proforg::getProfitStatsChartData] start ${startYearMonth} end ${endYearMonth}, tokens:`, tokens);
+      const methodName = "proforg::getProfitStatsChartData"
+      console.log(`${methodName} start ${startYearMonth} end ${endYearMonth}, tokens:`, tokens);
 
       wx.request({
         url: profOrgProfitStatsUrl(),
@@ -835,12 +874,12 @@ const datasrc = {
         header: util.postJsonReqHeader(tokens),
         success: function (reqRes) {
           console.log('orgagent::getProfitStatsChartData res: ', reqRes)
-          util.updateXAuth(reqRes.header[util.xAuthHeader]);
-          cb(reqRes.data);
+          if (checkRespStatus(reqRes, methodName)) {
+            util.updateXAuth(reqRes.header[util.xAuthHeader]);
+            cb(reqRes.data);
+          }
         },
-        fail: function (e2) {
-          console.info("e2: ", e2)
-        }
+        fail: err => requestFail(err, "getProfitStatsChartData")
       })
 
     },

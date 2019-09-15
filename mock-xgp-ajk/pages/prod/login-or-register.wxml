@@ -1,4 +1,6 @@
 <!--pages/prod/login-or-register.wxml-->
+<waiting-toast id="waitingToast" />
+
 <van-tabs active="{{ activeTabIndex }}" bind:change="onChangeTab">
   <van-tab title="用户登录">
     <login-comp id="loginComp" />

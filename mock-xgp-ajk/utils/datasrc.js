@@ -167,6 +167,7 @@ const proforgagentGetReffedCustomerInfos = (cb) => {
 };
 const _getProfitStatsChartDataPerCustomer = (url, customerId, startYearMonth, endYearMonth, cb) => {
   let tokens = util.getStoredTokens();
+  const methodName = "_getProfitStatsChartDataPerCustomer";
   console.log(`[medprof::getProfitStatsChartDataPerCustomer] start ${startYearMonth} end ${endYearMonth}, tokens:`, tokens);
   util.promisify(wx.request)
     ({
@@ -178,7 +179,7 @@ const _getProfitStatsChartDataPerCustomer = (url, customerId, startYearMonth, en
       console.log('medprofProfitStatsPerCustomer res: ', res)
       cb(res.data);
     }).catch(function (reason) {
-      console.log('medprofProfitStatsPerCustomer failed, reason: ', reason)
+      requestFail(reason, methodName);
     })
 };
 
@@ -242,6 +243,7 @@ const proforgGetQRCodeList = (cb) => {
 
 const _saveNewQrcode = (url, req, cb) => {
   let tokens = util.getStoredTokens();
+  const methodName = "_saveNewQrcode";
   util.promisify(wx.request)
     ({
       url: url, //saveNewQrcodeUrl(),
@@ -257,6 +259,8 @@ const _saveNewQrcode = (url, req, cb) => {
       cb({ success, dataOrMsg });
 
       //return res.data;
+    }).catch(function (reason) {
+      requestFail(reason, methodName);
     })
 };
 
@@ -367,8 +371,7 @@ const datasrc = {
           let success = res.statusCode == 200;
           let msg = res.data;
           cb({ success, msg });
-        })
-        .catch(function (reason) {
+        }).catch(function (reason) {
           console.log('registerCustomer failed, reason: ', reason)
         })
     },
@@ -379,7 +382,8 @@ const datasrc = {
       let uid = util.getUserId();
       let cachedProductList = null; //todo: rethink caching: cacheUtil.getCachedProductList(uid);
       let tokens = util.getStoredTokens();
-      console.log('[getProductList] got tokens: ', tokens);
+      const methodName = "getProductList"
+      console.log(`${methodName} got tokens: `, tokens);
 
       if (cachedProductList) {
         console.log('using product list in cache, but session token needed');
@@ -403,6 +407,8 @@ const datasrc = {
               console.log(`image thumb cached: ${cachedThumbUrl}`);
             });
             cb(false, cachedProductList);
+          }).catch(function (reason) {
+            requestFail(reason, methodName);
           });
       }
       else {
@@ -446,7 +452,9 @@ const datasrc = {
 
             cb(false, products);
             //return res.data;
-          })
+          }).catch(function (reason) {
+            requestFail(reason, methodName);
+          });
       }
 
 
@@ -610,6 +618,7 @@ const datasrc = {
     saveNewQrcode: medprofSaveNewQrcode,
     getNewCustomerData: (cb) => {
       let tokens = util.getStoredTokens();
+      const methodName = "getNewCustomerData";
       util.promisify(wx.request)
         ({
           url: newCustomerPreReqDataUrl(),
@@ -638,12 +647,14 @@ const datasrc = {
             medicineTags: '板蓝根'
           };
           cb({ newCustomer, profile, products, pricePlans });
-
           //return res.data;
+        }).catch(function (reason) {
+          requestFail(reason, methodName);
         })
     },
     createNewCustomerAndProfile: (newCustomerReq, cb) => {
       // console.log('[to debug] createNewCustomerAndProfile:', newCustomerReq);
+      const methodName = "createNewCustomerAndProfile";
       let tokens = util.getStoredTokens();
       util.promisify(wx.request)
         ({
@@ -652,18 +663,19 @@ const datasrc = {
           data: newCustomerReq,
           header: util.postJsonReqHeader(tokens),
         }).then(res => {
-          console.log('createNewCustomerAndProfile:', res);
+          console.log(`${methodName}: `, res);
           util.updateXAuth(res.header[util.xAuthHeader]);
           let success = res.statusCode == 200;
           let msg = res.data;
           cb({success, msg});
-        })
-        .catch(function (reason) {
-          console.log('createNewCustomerAndProfile failed, reason: ', reason)
+        }).catch(function (reason) {
+          requestFail(reason, methodName);
+          //console.log('createNewCustomerAndProfile failed, reason: ', reason)
         })
     },
     getExistingCustomerData: function(cb) {
-      console.log('[todo] getExistingCustomerData')
+      const methodName = "getExistingCustomerData";
+      // console.log('[todo] getExistingCustomerData')
       setTimeout(function () {
         let existingCustomer = {
           disabled: false,
@@ -732,6 +744,7 @@ const datasrc = {
     },
     getMedProfNewQrcodeData: (cb) => {
       let tokens = util.getStoredTokens();
+      const methodName = "getMedProfNewQrcodeData";
       util.promisify(wx.request)
         ({
           url: newMedProfQrcodePreReqDataUrl(),
@@ -751,6 +764,9 @@ const datasrc = {
           cb({ rewardPlans });
 
           //return res.data;
+        }).catch(function (reason) {
+          requestFail(reason, methodName);
+          //console.log('createNewCustomerAndProfile failed, reason: ', reason)
         })
     },
     saveNewQrcode: proforgagentSaveNewQrcode,
@@ -783,7 +799,8 @@ const datasrc = {
     getProfitStatsChartDataPerMedProf: (profId, startYearMonth, endYearMonth, cb) => {
       let that = this;
       let tokens = util.getStoredTokens();
-      console.log(`[proforgagent::getProfitStatsChartDataPerMedProf] start ${startYearMonth} end ${endYearMonth}, tokens:`, tokens);
+      const methodName = "getProfitStatsChartDataPerMedProf";
+      console.log(`${methodName} start ${startYearMonth} end ${endYearMonth}, tokens:`, tokens);
       util.promisify(wx.request)
         ({
           url: proforgAgentProfitStatsPerMedProfUrl(),
@@ -794,11 +811,13 @@ const datasrc = {
           console.log('ProfitStatsChartDataPerMedProf res: ', res)
           cb(res.data);
         }).catch(function (reason) {
-          console.log('getProfitStatsChartDataPerMedProf failed, reason: ', reason)
+          requestFail(reason, methodName);
+          //console.log('createNewCustomerAndProfile failed, reason: ', reason)
         })
     },
     getNewMedProfData: (cb) => {
       let tokens = util.getStoredTokens();
+      const methodName = "getNewMedProfData";
       util.promisify(wx.request)
         ({
           url: newMedProfPreReqDataUrl(),
@@ -823,11 +842,15 @@ const datasrc = {
           cb({ newMedProf, rewardPlans });
 
           //return res.data;
+        }).catch(function (reason) {
+          requestFail(reason, methodName);
+          //console.log('createNewCustomerAndProfile failed, reason: ', reason)
         })
     },
     createNewMedProf: function(newMedProReq, cb) {
       let tokens = util.getStoredTokens();
-      console.log('newMedProReq', newMedProReq);
+      const methodName = "createNewMedProf";
+      console.log(`${methodName}`, newMedProReq);
       util.promisify(wx.request)
         ({
           url: newMedProfUrl(),
@@ -843,6 +866,8 @@ const datasrc = {
         })
         .catch(function (reason) {
           console.log('createNewMedProf failed, reason: ', reason)
+        }).catch(function (reason) {
+          requestFail(reason, methodName);
         })
 
     }
@@ -896,6 +921,7 @@ const datasrc = {
 
     getProfitStatsChartDataPerProfOrgAgent: (agentId, startYearMonth, endYearMonth, cb) => {
       let that = this;
+      const methodName = "getProfitStatsChartDataPerProfOrgAgent";
       let tokens = util.getStoredTokens();
       console.log(`[proforg::getProfitStatsChartDataPerProfOrgAgent] start ${startYearMonth} end ${endYearMonth}, tokens:`, tokens);
       util.promisify(wx.request)
@@ -908,12 +934,13 @@ const datasrc = {
           console.log('getProfitStatsChartDataPerProfOrgAgent res: ', res)
           cb(res.data);
         }).catch(function (reason) {
-          console.log('getProfitStatsChartDataPerProfOrgAgent failed, reason: ', reason)
+          requestFail(reason, methodName);
         })
     },
 
     getNewProfOrgAgentData: function(cb) {
       let tokens = util.getStoredTokens();
+      const methodName = "getNewProfOrgAgentData";
       util.promisify(wx.request)
         ({
           url: newProfOrgAgentPreReqDataUrl(),
@@ -938,11 +965,14 @@ const datasrc = {
           cb({ newProfOrgAgent, rewardPlans });
 
           //return res.data;
+        }).catch(function (reason) {
+          requestFail(reason, methodName);
         })
     },
     createNewProfOrgAgent: function (newProfOrgAgent, cb) {
       let tokens = util.getStoredTokens();
-      console.log('newProfOrgAgent', newProfOrgAgent);
+      const methodName = "createNewProfOrgAgent";
+      console.log(`${methodName}`, newProfOrgAgent);
       util.promisify(wx.request)
         ({
           url: newProfOrgAgentUrl(),
@@ -955,9 +985,8 @@ const datasrc = {
           let success = res.statusCode == 200;
           let msg = res.data;
           cb({ success, msg });
-        })
-        .catch(function (reason) {
-          console.log('createNewProfOrgAgent failed, reason: ', reason)
+        }).catch(function (reason) {
+          requestFail(reason, methodName);
         })
 
     }

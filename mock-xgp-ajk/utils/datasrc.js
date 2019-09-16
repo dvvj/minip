@@ -177,7 +177,10 @@ const _getProfitStatsChartDataPerCustomer = (url, customerId, startYearMonth, en
       header: util.postJsonReqHeader(tokens),
     }).then(res => {
       console.log('medprofProfitStatsPerCustomer res: ', res)
-      cb(res.data);
+      if (checkRespStatus(res, methodName)) {
+        cb(res.data);
+      }
+
     }).catch(function (reason) {
       requestFail(reason, methodName);
     })
@@ -252,13 +255,15 @@ const _saveNewQrcode = (url, req, cb) => {
       header: util.postJsonReqHeader(tokens),
     }).then(res => {
       console.log('saveNewQrcode:', res);
-      util.updateXAuth(res.header[util.xAuthHeader]);
 
-      let success = res.statusCode == 200;
-      let dataOrMsg = res.data;
-      cb({ success, dataOrMsg });
+      if (checkRespStatus(res, methodName)) {
+        util.updateXAuth(res.header[util.xAuthHeader]);
 
-      //return res.data;
+        let success = res.statusCode == 200;
+        let dataOrMsg = res.data;
+        cb({ success, dataOrMsg });
+      }
+
     }).catch(function (reason) {
       requestFail(reason, methodName);
     })
@@ -394,19 +399,23 @@ const datasrc = {
             method: 'GET',
             header: util.getJsonReqHeader(tokens),
           }).then(res => {
-            util.updateXAuth(res.header[util.xAuthHeader]);
 
-            cachedProductList.forEach(function (prod) {
-              let cachedUrl = cacheUtil.getCachedImgPath(prod.id, false);
-              if (cachedUrl)
-                prod.imgUrl = cachedUrl;
-              let cachedThumbUrl = cacheUtil.getCachedImgPath(prod.id, true);
-              if (cachedThumbUrl)
-                prod.imgThumbUrl = cachedThumbUrl;
-              console.log(`image cached: ${cachedUrl}`);
-              console.log(`image thumb cached: ${cachedThumbUrl}`);
-            });
-            cb(false, cachedProductList);
+            if (checkRespStatus(res, methodName)) {
+              util.updateXAuth(res.header[util.xAuthHeader]);
+
+              cachedProductList.forEach(function (prod) {
+                let cachedUrl = cacheUtil.getCachedImgPath(prod.id, false);
+                if (cachedUrl)
+                  prod.imgUrl = cachedUrl;
+                let cachedThumbUrl = cacheUtil.getCachedImgPath(prod.id, true);
+                if (cachedThumbUrl)
+                  prod.imgThumbUrl = cachedThumbUrl;
+                console.log(`image cached: ${cachedUrl}`);
+                console.log(`image thumb cached: ${cachedThumbUrl}`);
+              });
+              cb(false, cachedProductList);
+            }
+
           }).catch(function (reason) {
             requestFail(reason, methodName);
           });
@@ -421,36 +430,39 @@ const datasrc = {
             header: util.getJsonReqHeader(tokens),
           }).then(res => {
             console.log('Customer product list:', res);
-            util.updateXAuth(res.header[util.xAuthHeader]);
+            if (checkRespStatus(res, methodName)) {
+              util.updateXAuth(res.header[util.xAuthHeader]);
 
-            var products = res.data.map(item => {
-              let actualPrice = util.roundPrice(item.actualPrice);
-              let price0 = util.roundPrice(item.product.price0);
-              console.log(`actualPrice: ${actualPrice}; price0: ${price0}`);
-              var hasDiscount = actualPrice < price0;
-              let prodId = item.product.id;
-              let imgThumbUrl = `${util.getImgBaseUrl()}/${prodId}/${item.productAssets[1].url}`;
-              imgUtil.downloadAndCache(prodId, true, imgThumbUrl, function (r) {console.log(`downloadAndCache ${imgThumbUrl}: `, r)})
-              let imgUrl = `${util.getImgBaseUrl()}/${prodId}/${item.productAssets[0].url}`;
-              imgUtil.downloadAndCache(prodId, false, imgUrl, function (r) { console.log(`downloadAndCache ${imgUrl}: `, r)})
-              var resDataItem = {
-                id: prodId,
-                imgThumbUrl,
-                imgUrl,
-                name: item.product.name,
-                price0: price0,
-                actualPrice: actualPrice,
-                hasDiscount: hasDiscount,
-                referingProfName: item.referingProfName,
-                count: 1,
-                totalPrice: actualPrice
-              };
-              return resDataItem;
-            })
+              var products = res.data.map(item => {
+                let actualPrice = util.roundPrice(item.actualPrice);
+                let price0 = util.roundPrice(item.product.price0);
+                console.log(`actualPrice: ${actualPrice}; price0: ${price0}`);
+                var hasDiscount = actualPrice < price0;
+                let prodId = item.product.id;
+                let imgThumbUrl = `${util.getImgBaseUrl()}/${prodId}/${item.productAssets[1].url}`;
+                imgUtil.downloadAndCache(prodId, true, imgThumbUrl, function (r) { console.log(`downloadAndCache ${imgThumbUrl}: `, r) })
+                let imgUrl = `${util.getImgBaseUrl()}/${prodId}/${item.productAssets[0].url}`;
+                imgUtil.downloadAndCache(prodId, false, imgUrl, function (r) { console.log(`downloadAndCache ${imgUrl}: `, r) })
+                var resDataItem = {
+                  id: prodId,
+                  imgThumbUrl,
+                  imgUrl,
+                  name: item.product.name,
+                  price0: price0,
+                  actualPrice: actualPrice,
+                  hasDiscount: hasDiscount,
+                  referingProfName: item.referingProfName,
+                  count: 1,
+                  totalPrice: actualPrice
+                };
+                return resDataItem;
+              })
 
-            cacheUtil.saveCachedProductList(uid, products);
+              cacheUtil.saveCachedProductList(uid, products);
 
-            cb(false, products);
+              cb(false, products);
+            }
+
             //return res.data;
           }).catch(function (reason) {
             requestFail(reason, methodName);
@@ -555,10 +567,13 @@ const datasrc = {
           method: "POST",
           header: util.postJsonReqHeader(tokens),
         }).then(res => {
-          console.log('updateCustomerProfile res: ', res)
-          let success = res.statusCode == 200;
-          let msg = res.data;
-          cb({ success, msg });
+          console.log('updateCustomerProfile res: ', res);
+          if (checkRespStatus(res, methodName)) {
+            let success = res.statusCode == 200;
+            let msg = res.data;
+            cb({ success, msg });
+          }
+
         }).catch(function (reason) {
           //console.log('updateCustomerProfile failed, reason: ', reason)
           requestFail(reason, methodName);
@@ -599,18 +614,20 @@ const datasrc = {
           header: util.getJsonReqHeader(tokens),
         }).then(res => {
           console.log('newQrcodePreReqData:', res);
-          util.updateXAuth(res.header[util.xAuthHeader]);
 
-          let products = res.data.products;
-          // check all products by default
-          products.forEach(function(prod) {prod.checked = true;});
-          console.log("products: ", products);
-          let pricePlans = res.data.pricePlans;
-          console.log("pricePlans: ", pricePlans);
+          if (checkRespStatus(res, methodName)) {
+            util.updateXAuth(res.header[util.xAuthHeader]);
 
-          cb({ products, pricePlans });
+            let products = res.data.products;
+            // check all products by default
+            products.forEach(function (prod) { prod.checked = true; });
+            console.log("products: ", products);
+            let pricePlans = res.data.pricePlans;
+            console.log("pricePlans: ", pricePlans);
 
-          //return res.data;
+            cb({ products, pricePlans });
+          }
+
         }).catch(function (reason) {
           requestFail(reason, methodName);
         })
@@ -626,27 +643,29 @@ const datasrc = {
           header: util.getJsonReqHeader(tokens),
         }).then(res => {
           console.log('newCustomerPreReqData:', res);
-          util.updateXAuth(res.header[util.xAuthHeader]);
+          if (checkRespStatus(res, methodName)) {
+            util.updateXAuth(res.header[util.xAuthHeader]);
 
-          let products = res.data.products;
-          console.log("products: ", products);
-          let pricePlans = res.data.pricePlans;
-          console.log("pricePlans: ", pricePlans);
+            let products = res.data.products;
+            console.log("products: ", products);
+            let pricePlans = res.data.pricePlans;
+            console.log("pricePlans: ", pricePlans);
 
-          let newCustomer = {
-            userid: 'c-',
-            password: '123',
-            password2: '123',
-            userName: '张某',
-            idCardNo: '310112197003113333',
-            mobile: '13700033333',
-            postAddr: '某省某市某区某路xx号 邮编111111'
-          };
-          let profile = {
-            healthTags: '糖尿病',
-            medicineTags: '板蓝根'
-          };
-          cb({ newCustomer, profile, products, pricePlans });
+            let newCustomer = {
+              userid: 'c-',
+              password: '123',
+              password2: '123',
+              userName: '张某',
+              idCardNo: '310112197003113333',
+              mobile: '13700033333',
+              postAddr: '某省某市某区某路xx号 邮编111111'
+            };
+            let profile = {
+              healthTags: '糖尿病',
+              medicineTags: '板蓝根'
+            };
+            cb({ newCustomer, profile, products, pricePlans });
+          }
           //return res.data;
         }).catch(function (reason) {
           requestFail(reason, methodName);
@@ -664,10 +683,13 @@ const datasrc = {
           header: util.postJsonReqHeader(tokens),
         }).then(res => {
           console.log(`${methodName}: `, res);
-          util.updateXAuth(res.header[util.xAuthHeader]);
-          let success = res.statusCode == 200;
-          let msg = res.data;
-          cb({success, msg});
+          if (checkRespStatus(res, methodName)) {
+            util.updateXAuth(res.header[util.xAuthHeader]);
+            let success = res.statusCode == 200;
+            let msg = res.data;
+            cb({ success, msg });
+          }
+
         }).catch(function (reason) {
           requestFail(reason, methodName);
           //console.log('createNewCustomerAndProfile failed, reason: ', reason)
@@ -752,16 +774,14 @@ const datasrc = {
           header: util.getJsonReqHeader(tokens),
         }).then(res => {
           console.log('newQrcodePreReqData:', res);
-          util.updateXAuth(res.header[util.xAuthHeader]);
+          if (checkRespStatus(res, methodName)) {
+            util.updateXAuth(res.header[util.xAuthHeader]);
 
-          // let products = res.data.products;
-          // // check all products by default
-          // products.forEach(function (prod) { prod.checked = true; });
-          // console.log("products: ", products);
-          let rewardPlans = res.data.rewardPlans;
-          console.log("rewardPlans: ", rewardPlans);
+            let rewardPlans = res.data.rewardPlans;
+            console.log("rewardPlans: ", rewardPlans);
 
-          cb({ rewardPlans });
+            cb({ rewardPlans });
+          }
 
           //return res.data;
         }).catch(function (reason) {
@@ -809,7 +829,10 @@ const datasrc = {
           header: util.postJsonReqHeader(tokens),
         }).then(res => {
           console.log('ProfitStatsChartDataPerMedProf res: ', res)
-          cb(res.data);
+          if (checkRespStatus(res, methodName)) {
+            cb(res.data);
+          }
+
         }).catch(function (reason) {
           requestFail(reason, methodName);
           //console.log('createNewCustomerAndProfile failed, reason: ', reason)
@@ -825,21 +848,24 @@ const datasrc = {
           header: util.getJsonReqHeader(tokens),
         }).then(res => {
           console.log('newMedProfPreReqData:', res);
-          util.updateXAuth(res.header[util.xAuthHeader]);
+          if (checkRespStatus(res, methodName)) {
+            util.updateXAuth(res.header[util.xAuthHeader]);
 
-          let rewardPlans = res.data.rewardPlans;
-          console.log("reward plans: ", rewardPlans);
+            let rewardPlans = res.data.rewardPlans;
+            console.log("reward plans: ", rewardPlans);
 
-          let newMedProf = {
-            profid: 'p-',
-            password: '123',
-            password2: '123',
-            name: '张某',
-            mobile: '13700033333',
-            info: '脑,心血管'
-          };
+            let newMedProf = {
+              profid: 'p-',
+              password: '123',
+              password2: '123',
+              name: '张某',
+              mobile: '13700033333',
+              info: '脑,心血管'
+            };
 
-          cb({ newMedProf, rewardPlans });
+            cb({ newMedProf, rewardPlans });
+          }
+
 
           //return res.data;
         }).catch(function (reason) {
@@ -859,10 +885,13 @@ const datasrc = {
           header: util.postJsonReqHeader(tokens),
         }).then(res => {
           console.log('createNewMedProf:', res);
-          util.updateXAuth(res.header[util.xAuthHeader]);
-          let success = res.statusCode == 200;
-          let msg = res.data;
-          cb({ success, msg });
+          if (checkRespStatus(res, methodName)) {
+            util.updateXAuth(res.header[util.xAuthHeader]);
+            let success = res.statusCode == 200;
+            let msg = res.data;
+            cb({ success, msg });
+          }
+
         })
         .catch(function (reason) {
           console.log('createNewMedProf failed, reason: ', reason)
@@ -932,7 +961,10 @@ const datasrc = {
           header: util.postJsonReqHeader(tokens),
         }).then(res => {
           console.log('getProfitStatsChartDataPerProfOrgAgent res: ', res)
-          cb(res.data);
+          if (checkRespStatus(res, methodName)) {
+            cb(res.data);
+          }
+
         }).catch(function (reason) {
           requestFail(reason, methodName);
         })
@@ -948,23 +980,24 @@ const datasrc = {
           header: util.getJsonReqHeader(tokens),
         }).then(res => {
           console.log('getNewProfOrgAgentData:', res);
-          util.updateXAuth(res.header[util.xAuthHeader]);
+          if (checkRespStatus(res, methodName)) {
+            util.updateXAuth(res.header[util.xAuthHeader]);
 
-          let rewardPlans = res.data.rewardPlans;
-          console.log("reward plans: ", rewardPlans);
+            let rewardPlans = res.data.rewardPlans;
+            console.log("reward plans: ", rewardPlans);
 
-          let newProfOrgAgent = {
-            agentid: 'a-',
-            password: '123',
-            password2: '123',
-            name: '张某',
-            mobile: '13700033333',
-            info: '业务员信息'
-          };
+            let newProfOrgAgent = {
+              agentid: 'a-',
+              password: '123',
+              password2: '123',
+              name: '张某',
+              mobile: '13700033333',
+              info: '业务员信息'
+            };
 
-          cb({ newProfOrgAgent, rewardPlans });
+            cb({ newProfOrgAgent, rewardPlans });
+          }
 
-          //return res.data;
         }).catch(function (reason) {
           requestFail(reason, methodName);
         })
@@ -981,10 +1014,13 @@ const datasrc = {
           header: util.postJsonReqHeader(tokens),
         }).then(res => {
           console.log('createNewProfOrgAgent:', res);
-          util.updateXAuth(res.header[util.xAuthHeader]);
-          let success = res.statusCode == 200;
-          let msg = res.data;
-          cb({ success, msg });
+          if (checkRespStatus(res, methodName)) {
+            util.updateXAuth(res.header[util.xAuthHeader]);
+            let success = res.statusCode == 200;
+            let msg = res.data;
+            cb({ success, msg });
+          }
+
         }).catch(function (reason) {
           requestFail(reason, methodName);
         })

@@ -373,9 +373,9 @@ const datasrc = {
         }).then(res => {
           console.log('registerCustomer:', res);
           // util.updateXAuth(res.header[util.xAuthHeader]);
-          let success = res.statusCode == 200;
-          let msg = res.data;
-          cb({ success, msg });
+          // let success = res.statusCode == 200;
+          // let msg = res.data;
+          cb(res.data);
         }).catch(function (reason) {
           console.log('registerCustomer failed, reason: ', reason)
         })

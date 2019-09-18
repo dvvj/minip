@@ -31,7 +31,13 @@ Page({
       const msg = `${options.er} 请重新登录`;
       toastUtil.fail(this, msg);
     }
-    loginComp.initData('p-prof', '123');
+    else if (options.su) {
+      const suid = options.su;
+      loginComp.initData(suid, '123');
+    }
+    else {
+      loginComp.initData('p-prof', '123');
+    }
     
   },
 

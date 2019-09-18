@@ -1,4 +1,6 @@
 // comp/switch-user.js
+const util = require('../utils/util.js');
+const datasrc = require('../utils/' + util.datasrc).datasrc;
 
 const userTypeTextMap = {
   Customer: "客户",
@@ -35,7 +37,10 @@ Component({
 
     onSelectUser: function(e) {
       const index = e.currentTarget.dataset.index;
-      console.log('onSelectUser: ', index, e);
+      const uid = this.data.userInfos[index].uid;
+      console.log('onSelectUser: ', index, uid, e);
+
+      datasrc.switchUserToLoginPage(uid);
     }
   }
 })

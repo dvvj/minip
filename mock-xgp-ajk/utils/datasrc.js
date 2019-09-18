@@ -296,6 +296,12 @@ const resetToLoginPage = (errorReason) => {
   });
 };
 
+const switchUserToLoginPage = suid => {
+  wx.reLaunch({
+    url: `/pages/prod/login-or-register?su=${suid}`
+  });
+}
+
 const requestFail = (err, methodName) => {
   const reason = `【${methodName}】调用失败`;
   console.log(reason, err);
@@ -319,6 +325,7 @@ const checkRespStatus = (resp, methodName) => {
 };
 
 const datasrc = {
+  switchUserToLoginPage,
   login: function(userid, password, cb) {
     util.promisify(wx.login)()
       .then(({ code }) => {

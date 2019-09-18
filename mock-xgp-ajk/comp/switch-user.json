@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "van-cell": "../vant-lib/cell/index",
+    "van-popup": "../vant-lib/popup/index",
+    "van-cell-group": "../vant-lib/cell-group/index"
+  }
+}

@@ -1,0 +1,33 @@
+<!--pages/tmp/test-popup.wxml-->
+<waiting-toast id="waitingToast" />
+<van-tabbar active="{{activeTabIndex}}" bind:change="onTabbarChange">
+  <van-tabbar-item icon="shopping-cart">产品列表</van-tabbar-item>
+  <van-tabbar-item icon="balance-list">历史订单</van-tabbar-item>
+  <van-tabbar-item icon="setting" dot>switch user</van-tabbar-item>
+</van-tabbar>
+
+<swiper current="{{activeTabIndex}}" class="main_height" duration="300" bindchange='onSwiperChange'>
+  <swiper-item>
+    <product-list id="productList" />
+  </swiper-item>
+  <swiper-item>
+    <set-year-month-range id="setYearMonthRange" bind:confirm="onConfirmYearMonthRange" />
+    <order-list id="orderList" />
+    <!-- <include src="../shared/page-parts/order-list.wxml"/> -->
+  </swiper-item>
+  <swiper-item>
+  <!-- <van-popup
+    show="{{ showPopup }}"
+    position="bottom"
+    overlay="{{ true }}"
+    bind:close="onClose"
+  >
+    <van-cell-group title="user selection">
+      <van-cell title="user1" value="user1" bind:click="onSelectUser"/>
+      <van-cell title="user2" value="user2" />
+    </van-cell-group>
+
+  </van-popup> -->
+  <switch-user id="switchUser" />
+  </swiper-item>
+</swiper>

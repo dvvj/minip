@@ -1,0 +1,14 @@
+<!--comp/switch-user.wxml-->
+<van-popup
+  show="{{ true }}"
+  position="bottom"
+  overlay="{{ true }}"
+  bind:close="onClose"
+>
+  <van-cell-group title="选择目标用户账号">
+    <block wx:for="{{userInfos}}" wx:key="uid" wx:for-index="userIndex">
+      <van-cell title="{{item.uid}}" value="{{item.userTypeText}}" data-index="{{userIndex}}" bind:click="onSelectUser"/>
+    </block>
+  </van-cell-group>
+
+</van-popup>

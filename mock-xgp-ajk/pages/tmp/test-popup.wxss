@@ -1,0 +1,7 @@
+/* pages/tmp/test-popup.wxss */
+@import "../../app.wxss";
+
+.price-total {
+  color: red;
+  padding: 15rpx 15rpx;
+}

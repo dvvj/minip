@@ -3,10 +3,10 @@ const util = require('../utils/util.js');
 const datasrc = require('../utils/' + util.datasrc).datasrc;
 
 const userTypeTextMap = {
-  Customer: "客户",
-  MedProf: "营养师",
-  ProfOrgAgent: "业务员",
-  ProfOrg: "医药公司"
+  "c-": "客户",
+  "p-": "营养师",
+  "a-": "业务员",
+  "o-": "医药公司"
 };
 
 Component({
@@ -21,6 +21,7 @@ Component({
    * Component initial data
    */
   data: {
+    show: false,
     userInfos: []
   },
 
@@ -28,9 +29,16 @@ Component({
    * Component methods
    */
   methods: {
-    initData: function(userInfos) {
-      userInfos.forEach(ui => {
-        ui.userTypeText = userTypeTextMap[ui.userType];
+    initData: function (allUids) {
+      const currUid = util.getUserId();
+      let altUids = allUids.filter(uid => uid !== currUid);
+      console.log(currUid, altUids, allUids);
+      const userInfos = altUids.map(uid => {
+        let ui = { uid };
+        ui.userType = uid;
+        const pfx = uid.substring(0, 2);
+        ui.userTypeText = userTypeTextMap[pfx];
+        return ui;
       });
       this.setData({userInfos});
     },
@@ -41,6 +49,22 @@ Component({
       console.log('onSelectUser: ', index, uid, e);
 
       datasrc.switchUserToLoginPage(uid);
+    },
+
+    _show: function(toShow) {
+      this.setData({ show: toShow});
+    },
+
+    show: function() {
+      this._show(true);
+    },
+
+    hide: function() {
+      this._show(false);
+    },
+
+    onClose: function(e) {
+      this.hide();
     }
   }
 })

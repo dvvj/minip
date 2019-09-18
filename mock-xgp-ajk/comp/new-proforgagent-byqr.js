@@ -33,10 +33,11 @@ Component({
    * Component methods
    */
   methods: {
-    initData: function (newProfOrgAgentData) {
-      console.log('newProfOrgAgentData', newProfOrgAgentData);
+    initData: function (newProfOrgAgentData, orgId) {
+      console.log('newProfOrgAgentData/orgId', newProfOrgAgentData, orgId);
       let { newProfOrgAgent, rewardPlanId } = newProfOrgAgentData;
       this.setData({
+        orgId,
         newProfOrgAgent, rewardPlanId
       });
     },
@@ -133,15 +134,15 @@ Component({
       }
       else {
         let that = this;
-        let orgId = util.getUserId();
+        let orgId = this.data.orgId; //util.getUserId();
         console.log('onAddProfOrgAgent: orgId: ', orgId);
         let newProfOrgAgentReq = {
           profOrgAgent: this.fixProfOrgAgent(this.data.newProfOrgAgent, orgId),
           rewardPlanId: this.data.rewardPlanId
         };
-        let agentId = newProfOrgAgentReq.profOrgAgent.uid;
+        // let agentId = newProfOrgAgentReq.profOrgAgent.uid;
         toastUtil.waiting(this, true, '添加操作中...');
-        datasrc.proforg.createNewProfOrgAgent(
+        datasrc.registration.registerProfOrgAgent(
           newProfOrgAgentReq,
           respData => {
             console.log('respData', respData);

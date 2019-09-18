@@ -1,7 +1,7 @@
 <!--comp/switch-user.wxml-->
 <van-popup
-  show="{{ true }}"
-  position="bottom"
+  show="{{ show }}"
+  position="top"
   overlay="{{ true }}"
   bind:close="onClose"
 >

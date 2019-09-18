@@ -27,17 +27,19 @@ Component({
       "name": inputCheck.name,
       "mobile": inputCheck.mobile,
       "info": inputCheck.info,
-    }
+    },
+    agentId: null
   },
 
   /**
    * Component methods
    */
   methods: {
-    initData: function (newMedProfData) {
-      console.log('newMedProfData', newMedProfData);
+    initData: function (newMedProfData, agentId) {
+      console.log('newMedProfData/agentId: ', newMedProfData, agentId);
       let { newMedProf, rewardPlanId } = newMedProfData;
       this.setData({
+        agentId,
         newMedProf, rewardPlanId
       });
     },
@@ -59,15 +61,15 @@ Component({
       }
       else {
         let that = this;
-        let userid = util.getUserId();
-        console.log('onAddMedProf: agentid: ', userid);
+        let agentId = this.data.agentId;
+        console.log('onAddMedProf: agentid: ', agentId);
         let newMedProfReq = {
-          medprof: this.fixMedProf(this.data.newMedProf, userid),
+          medprof: this.fixMedProf(this.data.newMedProf, agentId),
           rewardPlanId: this.data.rewardPlanId
         };
         let profid = newMedProfReq.medprof.uid;
         toastUtil.waiting(this, true, '添加操作中...');
-        datasrc.proforgagent.createNewMedProf(
+        datasrc.registration.registerMedProf(
           newMedProfReq,
           respData => {
             console.log('respData', respData);

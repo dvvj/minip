@@ -65,7 +65,9 @@ Component({
     },
     prepareProfOrgAgent: function (qrcodeData) {
       let registerProfOrgAgent = this.selectComponent('#registerProfOrgAgent');
-      console.log('registerProfOrgAgent: ', registerProfOrgAgent);
+
+      const orgId = qrcodeData.orgId;
+      console.log('prepareProfOrgAgent: ', orgId);
 
       let newProfOrgAgent = {
         agentid: 'a-',
@@ -78,7 +80,7 @@ Component({
 
       let newMedProfData = { newProfOrgAgent, rewardPlanId: qrcodeData.rewardPlanId };
 
-      registerProfOrgAgent.initData(newMedProfData);
+      registerProfOrgAgent.initData(newMedProfData, orgId);
       registerProfOrgAgent.showDlg();
     },
     prepareMedProf: function (qrcodeData) {
@@ -96,7 +98,7 @@ Component({
 
       let newMedProfData = { newMedProf, rewardPlanId: qrcodeData.rewardPlanId };
 
-      registerMedProf.initData(newMedProfData);
+      registerMedProf.initData(newMedProfData, qrcodeData.agentId);
       registerMedProf.showDlg();
     },
     registerMedProf: function (qrJson) {

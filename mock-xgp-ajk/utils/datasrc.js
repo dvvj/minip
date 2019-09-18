@@ -116,6 +116,14 @@ const registerCustomerUrl = function () {
   return util.getRegistrationBaseUrl() + '/customer';
 };
 
+const registerMedProfUrl = function () {
+  return util.getRegistrationBaseUrl() + '/medprof';
+};
+
+const registerProfOrgAgentUrl = function () {
+  return util.getRegistrationBaseUrl() + '/proforgagent';
+};
+
 const _parseResponse = function(resp, error401) {
   let status = resp.statusCode;
   let success = 200 == status;
@@ -387,6 +395,34 @@ const datasrc = {
           console.log('registerCustomer failed, reason: ', reason)
         })
     },
+    registerMedProf: (registerMedProfReq, cb) => {
+      util.promisify(wx.request)
+        ({
+          url: registerMedProfUrl(),
+          method: 'POST',
+          data: registerMedProfReq,
+          // header: util.postJsonReqHeader(tokens),
+        }).then(res => {
+          console.log('registerMedProf:', res);
+          cb(res.data);
+        }).catch(function (reason) {
+          console.log('registerMedProf failed, reason: ', reason)
+        })
+    },
+    registerProfOrgAgent: (registerProfOrgAgentReq, cb) => {
+      util.promisify(wx.request)
+        ({
+          url: registerProfOrgAgentUrl(),
+          method: 'POST',
+          data: registerProfOrgAgentReq,
+          // header: util.postJsonReqHeader(tokens),
+        }).then(res => {
+          console.log('registerProfOrgAgent:', res);
+          cb(res.data);
+        }).catch(function (reason) {
+          console.log('registerProfOrgAgent failed, reason: ', reason)
+        })
+    }
 
   },
   customer: {

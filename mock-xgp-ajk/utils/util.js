@@ -17,6 +17,10 @@ const getStoredTokens = function() {
   return wx.getStorageSync(userTokenKey);
 };
 
+const getAltUids = function () {
+  return getStoredTokens().mobileUids;
+};
+
 const getYearMonthOfLastN = function (numOfMonth) {
   let endDate = new Date();
   var startMonth = endDate.getMonth() - numOfMonth+1; // 6 months in total
@@ -90,21 +94,23 @@ const getUserId = () => {
 
 let saveTokens = function (evt) {
 
-  let xAuthToken = evt.header[xAuthHeader];
-  let accessToken = evt.data.oauth2.access_token;
-  let userType = evt.data.userType;
+  const xAuthToken = evt.header[xAuthHeader];
+  const accessToken = evt.data.oauth2.access_token;
+  const userType = evt.data.userType;
+  const mobileUids = evt.data.mobileUids;
 
-  _saveTokens(xAuthToken, accessToken, userType);
+  _saveTokens(xAuthToken, accessToken, userType, mobileUids);
 }
 
-let _saveTokens = function (xAuthToken, accessToken, userType) {
+let _saveTokens = function (xAuthToken, accessToken, userType, mobileUids) {
+  const altUids = mobileUids ? mobileUids : [];
   if (typeof xAuthToken === 'undefined') {
     console.log('X-Auth-Token not updated, skip saving...')
   }
   else {
     wx.setStorage({
       key: userTokenKey,
-      data: { xauth: xAuthToken, accessToken, userType },
+      data: { xauth: xAuthToken, accessToken, userType, mobileUids: altUids },
       success: function (res) {
         console.log("tokens saved: ", res)
       },
@@ -118,7 +124,7 @@ let _saveTokens = function (xAuthToken, accessToken, userType) {
 
 let updateXAuth = function(xauth) {
   let tmp = getStoredTokens();
-  _saveTokens(xauth, tmp.accessToken, tmp.userType);
+  _saveTokens(xauth, tmp.accessToken, tmp.userType, tmp.mobileUids);
 }
 
 let roundPrice = function (price) {
@@ -268,6 +274,7 @@ module.exports = {
   getStoredTokens: getStoredTokens,
   userIdKey: userIdKey,
   getUserId: getUserId,
+  getAltUids: getAltUids,
   currOrderKey: currOrderKey,
   currAgentKey: currAgentKey,
   currMedProfKey: currMedProfKey,

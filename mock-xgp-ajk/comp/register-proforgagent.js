@@ -20,9 +20,9 @@ Component({
    * Component methods
    */
   methods: {
-    initData: function (newProfOrgAgentData) {
+    initData: function (newProfOrgAgentData, orgId) {
       let newProfOrgAgentByQR = this.selectComponent('#newProfOrgAgentByQR');
-      newProfOrgAgentByQR.initData(newProfOrgAgentData);
+      newProfOrgAgentByQR.initData(newProfOrgAgentData, orgId);
     },
 
     showDlg: function () {

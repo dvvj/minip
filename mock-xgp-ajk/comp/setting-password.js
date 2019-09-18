@@ -1,4 +1,6 @@
 // comp/setting-password.js
+const util = require('../utils/util.js');
+
 Component({
   /**
    * Component properties
@@ -11,6 +13,7 @@ Component({
    * Component initial data
    */
   data: {
+    altUids: [],
     userPassInfo: { }
   },
 
@@ -18,8 +21,23 @@ Component({
    * Component methods
    */
   methods: {
+    getSwitchUserComp: function() {
+      return this.selectComponent("#switchUser");
+    },
     initData: function (userPassInfo) {
-      this.setData({ userPassInfo });
+      const altUids = util.getAltUids();
+
+      this.setData({ userPassInfo, altUids });
+      const su = this.getSwitchUserComp();
+      if (altUids.length > 0) {
+        // const userInfos = altUids.map(uid => { return { uid, userType: 'Customer' } });
+        // console.log('altUids: ', altUids, userInfos);
+        su.initData(altUids);
+      }
+    },
+    onSwitchUser: function(e) {
+      const su = this.getSwitchUserComp();
+      su.show();
     }
   }
 })

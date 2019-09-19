@@ -482,7 +482,8 @@ const datasrc = {
                 console.log(`actualPrice: ${actualPrice}; price0: ${price0}`);
                 var hasDiscount = actualPrice < price0;
                 let prodId = item.product.id;
-                let imgThumbUrl = `${util.getImgBaseUrl()}/${prodId}/${item.productAssets[1].url}`;
+                const thumbAsset = item.productAssets.length > 1 ? item.productAssets[1] : item.productAssets[0];
+                let imgThumbUrl = `${util.getImgBaseUrl()}/${prodId}/${thumbAsset.url}`;
                 imgUtil.downloadAndCache(prodId, true, imgThumbUrl, function (r) { console.log(`downloadAndCache ${imgThumbUrl}: `, r) })
                 let imgUrl = `${util.getImgBaseUrl()}/${prodId}/${item.productAssets[0].url}`;
                 imgUtil.downloadAndCache(prodId, false, imgUrl, function (r) { console.log(`downloadAndCache ${imgUrl}: `, r) })

@@ -140,7 +140,6 @@ Component({
           profOrgAgent: this.fixProfOrgAgent(this.data.newProfOrgAgent, orgId),
           rewardPlanId: this.data.rewardPlanId
         };
-        // let agentId = newProfOrgAgentReq.profOrgAgent.uid;
         toastUtil.waiting(this, true, '添加操作中...');
         datasrc.registration.registerProfOrgAgent(
           newProfOrgAgentReq,
@@ -153,6 +152,7 @@ Component({
               toastUtil.success(that, `添加成功`);
             }
             else {
+              let agentId = this.data.newProfOrgAgent.agentid;
               toastUtil.fail(that, `添加业务员[${agentId}]失败: ${msg}`);
             }
           }

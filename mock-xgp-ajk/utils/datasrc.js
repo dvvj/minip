@@ -339,7 +339,7 @@ const checkRespStatus = (resp, methodName) => {
 const datasrc = {
   switchUserToLoginPage,
   getSmsLoginCode: function(mobileNum, cb) {
-    console.log(smsLoginCodeUrl());
+    console.log(smsLoginCodeUrl(), );
     util.promisify(wx.request)
       ({
         url: smsLoginCodeUrl(),

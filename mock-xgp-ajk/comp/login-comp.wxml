@@ -14,7 +14,10 @@
     bind:click-icon="onClickIcon"
     bind:input="onInputUserId"
   >
-    <van-button slot="button" size="small" type="custom" custom-class="lb-button" bind:click="onSmsCode">发送验证码</van-button>
+    <van-button disabled="{{nextSmsTimer != null}}"
+      slot="button" size="small" type="custom" custom-class="lb-button" bind:click="onSmsCode">
+      {{nextSmsTimer != null ? '重发 ( ' + nextSmsTimerCount + ' 秒后 )' : '发送验证码'}}
+    </van-button>
   </van-field>
 
   <van-field

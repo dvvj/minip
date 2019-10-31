@@ -4,7 +4,7 @@ const util = require('../utils/util.js')
 const datasrc = require('../utils/' + util.datasrc).datasrc;
 const toastUtil = require('../utils/toast-util.js');
 
-const countDownMax = 10;
+const countDownMax = 100;
 
 Component({
   /**
@@ -50,14 +50,6 @@ Component({
         nextSmsTimer: interval,
         nextSmsTimerCount: countDownMax
       })
-    },
-    getSmsBtnText: function() {
-      if (this.data.nextSmsTimer != null) {
-        return `${this.data.nextSmsTimerCount}秒后重发`;
-      }
-      else {
-        return "发送验证码";
-      }
     },
     clearTimer: function() {
       if (this.data.nextSmsTimer)

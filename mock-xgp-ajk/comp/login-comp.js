@@ -96,10 +96,19 @@ Component({
         console.log("手机号格式错误（当前仅支持大陆手机）");
       }
       else {
-        // datasrc.getSmsLoginCode(mobile, resp => {
-        //   console.log("get sms code:", resp);
-        // });
-        this.initTimer();
+        let that = this;
+        toastUtil.waiting(this, true, '获取短信中...');
+        datasrc.getSmsLoginCode(mobile, resp => {
+          toastUtil.waiting(that, false);
+          let { success, msg } = resp;
+          console.log("get sms code:", resp);
+          if (!success) {
+            toastUtil.fail(that, `获取短信失败: ${msg}`);
+          }
+          else {
+            this.initTimer();
+          }
+        });
         //console.log("todo: get sms code");
       }
     }

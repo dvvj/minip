@@ -2,6 +2,10 @@ const util = require('util.js');
 const cacheUtil = require('cache-util.js');
 const imgUtil = require('img-util.js');
 
+const smsLoginCodeUrl = function() {
+  return util.getWebappBase() + '/getLoginSms';
+};
+
 const customerProductUrl = function() {
   return util.getCustomerBaseUrl() + '/customerProductView';
 };
@@ -334,6 +338,20 @@ const checkRespStatus = (resp, methodName) => {
 
 const datasrc = {
   switchUserToLoginPage,
+  getSmsLoginCode: function(mobileNum, cb) {
+    console.log(smsLoginCodeUrl());
+    util.promisify(wx.request)
+      ({
+        url: smsLoginCodeUrl(),
+        method: 'POST',
+        data: mobileNum,
+      }).then(res => {
+        console.log('getSmsLoginCode:', res);
+        cb(res.data);
+      }).catch(function (reason) {
+        console.log('getSmsLoginCode failed, reason: ', reason)
+      })
+  },
   login: function(userid, password, cb) {
     util.promisify(wx.login)()
       .then(({ code }) => {

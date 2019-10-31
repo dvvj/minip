@@ -55,6 +55,20 @@ Component({
     onInputPassword: function (e) {
       this.setData({ password: e.detail })
     },
-
+    onSmsCode: function(e) {
+      let mobile = this.data.userid;
+      if (!mobile) {
+        console.log("手机号不能为空");
+      }
+      else if (mobile.length != 11) {
+        console.log("手机号格式错误（当前仅支持大陆手机）");
+      }
+      else {
+        datasrc.getSmsLoginCode(mobile, resp => {
+          console.log("get sms code:", resp);
+        })
+        //console.log("todo: get sms code");
+      }
+    }
   }
 })

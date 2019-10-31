@@ -33,10 +33,11 @@ Page({
     }
     else if (options.su) {
       const suid = options.su;
-      loginComp.initData(suid, '123');
+      loginComp.initData(suid, '');
     }
     else {
-      loginComp.initData('p-prof', '123');
+      // loginComp.initData('p-prof', '123');
+      loginComp.initData('19945610474', '');
     }
     
   },

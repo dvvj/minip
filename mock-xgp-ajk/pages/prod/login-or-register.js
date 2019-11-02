@@ -37,7 +37,7 @@ Page({
     }
     else {
       // loginComp.initData('p-prof', '123');
-      loginComp.initData('19945610474', '');
+      loginComp.initData('', '');
     }
     
   },

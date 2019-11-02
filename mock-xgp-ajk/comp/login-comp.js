@@ -52,13 +52,12 @@ Component({
       })
     },
     clearTimer: function() {
+      console.log('clear timer: ', this.data);
       if (this.data.nextSmsTimer)
         clearInterval(this.data.nextSmsTimer);
       this.setData({ nextSmsTimer: null })
     },
-    onUnload: function() {
-      this.clearTimer();
-    },
+
     onLogin: function (e) {
       let userid = this.data.userid;
       let password = this.data.password;
@@ -76,6 +75,9 @@ Component({
 
           if (!success) {
             toastUtil.fail(that, `登录失败: ${msg}`);
+          }
+          else {
+            this.clearTimer();
           }
           // this.setInProgress(false);
         }

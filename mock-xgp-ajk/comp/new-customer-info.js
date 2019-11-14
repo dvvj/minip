@@ -28,7 +28,9 @@ Component({
       "idCardNo": inputCheck.idCardNo,
       "mobile": inputCheck.mobile,
       "postAddr": inputCheck.postAddr,
-    }
+    },
+    isExistingCustomer: false,
+    existingCustomer: {}
   },
 
   /**
@@ -43,6 +45,49 @@ Component({
       // let pricePlanInfos = pricePlans.map(pp => pp.desc);
       // let selectedPricePlan = pricePlans[0];
       this.setData(d);
+    },
+
+    onSwitchExisting: function(e) {
+      //console.log('in switch:', e);
+      this.setData({ isExistingCustomer: e.detail} );
+    },
+
+    onInputExistingId: function(e) {
+      let { uidOrMobile, ...others } = this.data.existingCustomer;
+      let existingCustomer = { uidOrMobile: e.detail, ...others };
+      this.setData({ existingCustomer });
+    },
+
+    onGetExistingCustomer: function() {
+      let that = this;
+      let queryReq = { idOrMobile: this.data.existingCustomer.uidOrMobile };
+      console.log('[todo] onGetExistingCustomer', queryReq);
+
+      toastUtil.waiting(this, true, '查询用户中')
+      datasrc.registration.queryExistingCustomer(
+        queryReq,
+        respData => {
+          toastUtil.waiting(that, false);
+          console.log('respData', respData);
+
+          if (respData.msg) {
+            toastUtil.fail(that, respData.msg);
+            let { uidOrMobile, ...others } = this.data.existingCustomer;
+            let existingCustomer = { uidOrMobile };
+            this.setData({ existingCustomer });
+          }
+          else {
+            let existingCustomer = {
+              uidOrMobile: this.data.existingCustomer.uidOrMobile,
+              ...respData
+            };
+            this.setData({existingCustomer});
+          }
+          // let { success, msg } = respData;
+          // let message = success ? '添加成功' : `添加失败: ${msg}`
+          // success ? toastUtil.success(that, message) : toastUtil.fail(that, message);
+        }
+      )
     },
 
     onRegisterCustomer: function (e) {

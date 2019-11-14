@@ -119,7 +119,9 @@ const profOrgSaveNewQrcodeUrl = function () {
 const registerCustomerUrl = function () {
   return util.getRegistrationBaseUrl() + '/customer';
 };
-
+const queryExistingCustomerUrl = function () {
+  return util.getRegistrationBaseUrl() + '/queryCustomerByIdOrMobile';
+};
 const registerMedProfUrl = function () {
   return util.getRegistrationBaseUrl() + '/medprof';
 };
@@ -394,6 +396,25 @@ const datasrc = {
       })
   },
   registration: {
+    queryExistingCustomer: (queryReq, cb) => {
+      util.promisify(wx.request)
+        ({
+          url: queryExistingCustomerUrl(),
+          method: 'POST',
+          data: queryReq,
+          // header: util.postJsonReqHeader(tokens),
+        }).then(res => {
+          console.log('queryExistingCustomer:', res);
+          // util.updateXAuth(res.header[util.xAuthHeader]);
+          // let success = res.statusCode == 200;
+          // let msg = res.data;
+          if (checkRespStatus(res, "queryExistingCustomer")) {
+            cb(res.data);
+          }
+        }).catch(function (reason) {
+          console.log('queryExistingCustomer failed, reason: ', reason)
+        })
+    },
     registerCustomer: (registerCustomerReq, cb) => {
       // console.log('[to debug] registerCustomerReq:', registerCustomerReq);
       // let tokens = util.getStoredTokens();
@@ -567,7 +588,7 @@ const datasrc = {
           if (checkRespStatus(customerSettingReqRes, methodName)) {
             cb(customerSettingReqRes.data);
           }
-          cb(customerSettingReqRes.data);
+          //cb(customerSettingReqRes.data);
         },
         fail: err => requestFail(err, methodName)
       })

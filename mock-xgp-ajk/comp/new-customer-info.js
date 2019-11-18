@@ -53,14 +53,14 @@ Component({
     },
 
     onInputExistingId: function(e) {
-      let { uidOrMobile, ...others } = this.data.existingCustomer;
-      let existingCustomer = { uidOrMobile: e.detail, ...others };
+      let { cidOrMobile, ...others } = this.data.existingCustomer;
+      let existingCustomer = { cidOrMobile: e.detail, ...others };
       this.setData({ existingCustomer });
     },
 
     onGetExistingCustomer: function() {
       let that = this;
-      let queryReq = { idOrMobile: this.data.existingCustomer.uidOrMobile };
+      let queryReq = { idOrMobile: this.data.existingCustomer.cidOrMobile };
       console.log('[todo] onGetExistingCustomer', queryReq);
 
       toastUtil.waiting(this, true, '查询用户中')
@@ -72,13 +72,13 @@ Component({
 
           if (respData.msg) {
             toastUtil.fail(that, respData.msg);
-            let { uidOrMobile, ...others } = this.data.existingCustomer;
-            let existingCustomer = { uidOrMobile };
-            this.setData({ existingCustomer });
+            let existingCustomer = {
+              cidOrMobile: this.data.existingCustomer.cidOrMobile
+            };
           }
           else {
             let existingCustomer = {
-              uidOrMobile: this.data.existingCustomer.uidOrMobile,
+              cidOrMobile: this.data.existingCustomer.cidOrMobile,
               ...respData
             };
             this.setData({existingCustomer});
@@ -90,11 +90,41 @@ Component({
       )
     },
 
+    doRegisterExistingCustomer: function(e) {
+      let that = this;
+      console.log('doRegisterExistingCustomer: ');
+
+      let { profId, existingCustomer, profileReq } = this.data;
+      //let customer = registerUtil.convertCustomer(newCustomer);
+      let existingCustomerReq = {
+        profOrAgentId: profId,
+        cidOrMobile: existingCustomer.cidOrMobile,
+        profileReq
+      };
+
+      console.log('[todo] existingCustomerReq', existingCustomerReq);
+
+      toastUtil.waiting(this, true, '注册已有用户中')
+      datasrc.registration.registerExistingCustomer(
+        existingCustomerReq,
+        respData => {
+          toastUtil.waiting(this, false);
+          console.log('respData', respData);
+          let { success, msg } = respData;
+          let message = success ? '注册成功' : `注册失败: ${msg}`
+          success ? toastUtil.success(that, message) : toastUtil.fail(that, message);
+        }
+      )
+    },
+
     onRegisterCustomer: function (e) {
-      if (this.checkAllInput()) {
+      if (!this.data.isExistingCustomer && this.checkAllInput()) {
         // let result = this.getData();
         // console.log('[todo] onRegisterCustomer: ', result)
         this.doRegisterCustomer();
+      }
+      else {
+        this.doRegisterExistingCustomer();
       }
     },
 
@@ -197,7 +227,7 @@ Component({
       );
     },
     getUid: function() {
-      return this.data.newCustomer.userid;
+      return this.data.isExistingCustomer ? this.data.existingCustomer.cidOrMobile : this.data.newCustomer.userid;
     }
   }
 })

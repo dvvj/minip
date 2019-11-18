@@ -102,7 +102,7 @@
 <block wx:if="{{isExistingCustomer}}">
   <van-field
     disabled="{{ inProcess }}"
-    value="{{ existingCustomer.uidOrMobile }}"
+    value="{{ existingCustomer.cidOrMobile }}"
     required
     clearable
     label="用户ID"

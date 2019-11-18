@@ -122,6 +122,9 @@ const registerCustomerUrl = function () {
 const queryExistingCustomerUrl = function () {
   return util.getRegistrationBaseUrl() + '/queryCustomerByIdOrMobile';
 };
+const registerExistingCustomerUrl = function () {
+  return util.getRegistrationBaseUrl() + '/existingCustomer';
+};
 const registerMedProfUrl = function () {
   return util.getRegistrationBaseUrl() + '/medprof';
 };
@@ -413,6 +416,23 @@ const datasrc = {
           }
         }).catch(function (reason) {
           console.log('queryExistingCustomer failed, reason: ', reason)
+        })
+    },
+    registerExistingCustomer: (registerExistingCustomerReq, cb) => {
+      util.promisify(wx.request)
+        ({
+          url: registerExistingCustomerUrl(),
+          method: 'POST',
+          data: registerExistingCustomerReq,
+          // header: util.postJsonReqHeader(tokens),
+        }).then(res => {
+          console.log('registerExistingCustomer:', res);
+          // util.updateXAuth(res.header[util.xAuthHeader]);
+          // let success = res.statusCode == 200;
+          // let msg = res.data;
+          cb(res.data);
+        }).catch(function (reason) {
+          console.log('registerExistingCustomer failed, reason: ', reason)
         })
     },
     registerCustomer: (registerCustomerReq, cb) => {

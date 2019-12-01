@@ -174,7 +174,9 @@ const getRegistrationBaseUrl = function() {
 const wePayezUrl = function () {
   return getWebappBase() + '/wx/wepayezReq';
 };
-
+const wxpayReqUrl = function () {
+  return getWebappBase() + '/wx/wxpayReq';
+};
 const xAuthHeader = 'X-Auth-Token';
 
 const wepayezReqTempl = "https://gateway.wepayez.com/pay/jsIntl?token_id=";
@@ -259,6 +261,7 @@ module.exports = {
   getProforgBaseUrl,
   getRegistrationBaseUrl,
   wePayezUrl,
+  wxpayReqUrl,
 
   //customerBaseUrl: customerBaseUrl,
   //medprofBaseUrl: medprofBaseUrl,

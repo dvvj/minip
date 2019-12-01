@@ -99,7 +99,7 @@ Component({
 
       toastUtil.waiting(this, true, '支付准备中...');
       wx.request({
-        url: util.wePayezUrl(),
+        url: util.wxpayReqUrl(), //util.wePayezUrl(),
         data: {
           // customerId: userid,
           productId: prodId,
@@ -112,11 +112,7 @@ Component({
         success: function (r2) {
           console.log('[onBuy] WePayez pay_info: ', r2)
           let payInfo = r2.data;
-          //util.requestWePayez(r2.data, tokens);
-          // util.setWePayezUrl(r2.data);
-          // wx.navigateTo({
-          //   url: '../wepayez-pay',
-          // });
+
           toastUtil.waiting(that, false);
           that.doPay(payInfo);
         },

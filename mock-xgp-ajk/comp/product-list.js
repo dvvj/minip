@@ -110,8 +110,13 @@ Component({
         method: "POST",
         header: util.postJsonReqHeader(tokens),
         success: function (r2) {
-          console.log('[onBuy] WePayez pay_info: ', r2)
-          let payInfo = r2.data;
+          //console.log('[onBuy] WePayez pay_info: ', r2);
+          //let payInfo = r2.data;
+          console.log('[onBuy] WxPay info: ', r2);
+          let payInfo = {
+            ...r2.data,
+            package: r2.data.package_
+          };
 
           toastUtil.waiting(that, false);
           that.doPay(payInfo);

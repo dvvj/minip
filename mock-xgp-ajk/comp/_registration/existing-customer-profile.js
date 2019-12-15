@@ -1,5 +1,5 @@
 // comp/existing-customer-profile.js
-import Toast from '../vant-lib/toast/toast';
+import Toast from '../../vant-lib/toast/toast';
 Component({
   /**
    * Component properties

@@ -4,7 +4,7 @@
 <van-tabbar active="{{activeTabIndex}}" bind:change="onTabbarChange">
   <van-tabbar-item icon="friends">客户列表</van-tabbar-item>
   <van-tabbar-item icon="gold-coin">数据统计</van-tabbar-item>
-  <van-tabbar-item icon="add">新客户</van-tabbar-item>
+  <!-- <van-tabbar-item icon="add">新客户</van-tabbar-item> -->
   <van-tabbar-item icon="add-square">二维码</van-tabbar-item>
   <!-- <van-tabbar-item icon="add">老客户</van-tabbar-item> -->
   <van-tabbar-item icon="setting" dot>设置</van-tabbar-item>
@@ -34,9 +34,9 @@
       </view>
     </scroll-view>
   </swiper-item>
-  <swiper-item>
+  <!-- <swiper-item>
     <new-customer-profile id="newCustomerProfile" />
-  </swiper-item>
+  </swiper-item> -->
   <swiper-item>
     <!-- <existing-customer-profile id="existingCustomerProfile" /> -->
     <qrcode-list id="qrcodeList" />

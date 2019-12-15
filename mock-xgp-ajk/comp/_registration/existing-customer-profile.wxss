@@ -1,5 +1,5 @@
 /* comp/existing-customer-profile.wxss */
-@import "../app.wxss";
+@import "../../app.wxss";
 
 .checkbox {
   margin: 20rpx 0 20rpx 40rpx;

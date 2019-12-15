@@ -57,11 +57,11 @@ Component({
       let queryReq = { idOrMobile: this.data.existingCustomer.cidOrMobile };
       console.log('[todo] onGetExistingCustomer', queryReq);
 
-      toastUtil.waiting(this, true, '查询用户中')
+      toastUtil.waiting4dlg(this, true, '查询用户中')
       datasrc.registration.queryExistingCustomer(
         queryReq,
         respData => {
-          toastUtil.waiting(that, false);
+          toastUtil.waiting4dlg(that, false);
           console.log('respData', respData);
 
           if (respData.msg) {
@@ -98,15 +98,15 @@ Component({
 
       console.log('[todo] existingCustomerReq', existingCustomerReq);
 
-      toastUtil.waiting(this, true, '注册已有用户中')
+      toastUtil.waiting4dlg(this, true, '注册已有用户中')
       datasrc.registration.registerExistingCustomer(
         existingCustomerReq,
         respData => {
-          toastUtil.waiting(this, false);
+          toastUtil.waiting4dlg(this, false);
           console.log('respData', respData);
           let { success, msg } = respData;
           let message = success ? '注册成功' : `注册失败: ${msg}`
-          success ? toastUtil.success(that, message) : toastUtil.fail(that, message);
+          success ? toastUtil.success4dlg(that, message) : toastUtil.fail4dlg(that, message);
         }
       )
     },
@@ -133,15 +133,15 @@ Component({
 
       console.log('[todo] registerCustomerReq', registerCustomerReq);
 
-      toastUtil.waiting(this, true, '添加用户中')
+      toastUtil.waiting4dlg(this, true, '添加用户中')
       datasrc.registration.registerCustomer(
         registerCustomerReq,
         respData => {
-          toastUtil.waiting(this, false);
+          toastUtil.waiting4dlg(this, false);
           console.log('respData', respData);
           let { success, msg } = respData;
           let message = success ? '添加成功' : `添加失败: ${msg}`
-          success ? toastUtil.success(that, message) : toastUtil.fail(that, message);
+          success ? toastUtil.success4dlg(that, message) : toastUtil.fail4dlg(that, message);
         }
       )
     },
@@ -187,8 +187,21 @@ Component({
       );
     },
 
-    getUid: function () {
-      return this.data.isExistingCustomer ? this.data.existingCustomer.cidOrMobile : this.data.newCustomer.userid;
+    // getUid: function () {
+    //   return this.data.isExistingCustomer ? this.data.existingCustomer.cidOrMobile : this.data.newCustomer.userid;
+    // },
+    // getMobile: function () {
+    //   return this.data.isExistingCustomer ? this.data.existingCustomer.cidOrMobile : this.data.newCustomer.mobile;
+    // },
+
+    getUidOrMobile: function() {
+      if (this.data.isExistingCustomer) {
+        return this.data.existingCustomer.cidOrMobile;
+      }
+      else {
+        let newCustomer = this.data.newCustomer;
+        return newCustomer.userid ? newCustomer.userid : newCustomer.mobile;
+      }
     }
   }
 })

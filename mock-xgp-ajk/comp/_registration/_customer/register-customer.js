@@ -36,7 +36,7 @@ Component({
       }).then(() => {
         console.log('triggering confirm event: ');
         let newCustomerInfo = that.selectComponent('#newCustomerInfo');
-        that.triggerEvent("confirm", newCustomerInfo.getUid());
+        that.triggerEvent("confirm", newCustomerInfo.getUidOrMobile());
         // on close
       }).catch(reason => console.log('cancelled: ', reason));
     }

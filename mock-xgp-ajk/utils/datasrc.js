@@ -119,6 +119,9 @@ const profOrgSaveNewQrcodeUrl = function () {
 const registerCustomerUrl = function () {
   return util.getRegistrationBaseUrl() + '/customer';
 };
+const registerCustomerMobileOnlyUrl = function () {
+  return util.getRegistrationBaseUrl() + '/customerMobileOnly';
+};
 const queryExistingCustomerUrl = function () {
   return util.getRegistrationBaseUrl() + '/queryCustomerByIdOrMobile';
 };
@@ -440,7 +443,7 @@ const datasrc = {
       // let tokens = util.getStoredTokens();
       util.promisify(wx.request)
         ({
-          url: registerCustomerUrl(),
+          url: registerCustomerMobileOnlyUrl(), //registerCustomerUrl(),
           method: 'POST',
           data: registerCustomerReq,
           // header: util.postJsonReqHeader(tokens),

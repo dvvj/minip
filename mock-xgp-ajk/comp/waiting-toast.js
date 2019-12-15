@@ -1,6 +1,8 @@
 // comp/waiting-dialog.js
 import Toast from '../vant-lib/toast/toast';
 
+const Top = 'top';
+const Center = 'center';
 Component({
   /**
    * Component properties
@@ -20,8 +22,14 @@ Component({
    * Component methods
    */
   methods: {
-    show: function(msg) {
 
+    show4dlg: function (msg) {
+      this.show0(msg, Center)
+    },
+    show: function (msg) {
+      this.show0(msg, Top)
+    },
+    show0: function(msg, position) {
       let that = this;
       this.setData({ _waiting: true });
       setTimeout(
@@ -31,6 +39,7 @@ Component({
               duration: 0,       // 持续展示 toast
               forbidClick: true, // 禁用背景点击
               message: msg,
+              position,
               loadingType: 'spinner',
               context: that
             });
@@ -45,21 +54,35 @@ Component({
     },
 
     success: function(msg) {
+      this.success0(msg, Top);
+    },
+
+    success4dlg: function (msg) {
+      this.success0(msg, Center);
+    },
+
+    success0: function (msg, position) {
       this.setData({ _waiting: false });
       Toast.success({
         duration: 1000,
         message: msg,
-        position: 'top',
+        position,
         context: this
       });
     },
 
     fail: function (msg) {
+      this.fail0(msg, Top);
+    },
+    fail4dlg: function (msg) {
+      this.fail0(msg, Center);
+    },
+    fail0: function (msg, position) {
       this.setData({ _waiting: false });
       Toast.fail({
         duration: 5000,
         message: msg,
-        position: 'top',
+        position,
         context: this
       });
     }

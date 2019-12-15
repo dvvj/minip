@@ -1,5 +1,5 @@
 /* comp/new-customer-profile.wxss */
-@import "../app.wxss";
+@import "../../app.wxss";
 
 .value-class {
   flex: none !important;

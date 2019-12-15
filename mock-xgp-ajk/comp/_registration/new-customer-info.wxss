@@ -1,2 +1,2 @@
 /* comp/new-customer-info.wxss */
-@import "../app.wxss";
+@import "../../app.wxss";

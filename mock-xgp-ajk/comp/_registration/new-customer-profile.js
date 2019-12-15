@@ -1,9 +1,9 @@
 // comp/new-customer-profile.js
-const toastUtil = require('../utils/toast-util.js');
-const util = require('../utils/util.js');
-const registerUtil = require('../utils/register-util.js');
-const inputCheck = require('../utils/input-check.js');
-const datasrc = require('../utils/' + util.datasrc).datasrc;
+const toastUtil = require('../../utils/toast-util.js');
+const util = require('../../utils/util.js');
+const registerUtil = require('../../utils/register-util.js');
+const inputCheck = require('../../utils/input-check.js');
+const datasrc = require('../../utils/' + util.datasrc).datasrc;
 
 Component({
   /**

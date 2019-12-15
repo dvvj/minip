@@ -1,5 +1,5 @@
 // comp/register-customer.js
-import Dialog from '../vant-lib/dialog/dialog';
+import Dialog from '../../../vant-lib/dialog/dialog';
 
 Component({
   /**

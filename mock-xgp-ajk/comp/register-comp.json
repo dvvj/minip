@@ -5,7 +5,7 @@
     "van-cell-group": "../vant-lib/cell-group/index",
     "van-button": "../vant-lib/button/index",
     "van-field": "../vant-lib/field/index",
-    "register-customer": "register-customer",
+    "register-customer": "_registration/_customer/register-customer",
     "register-medprof": "register-medprof",
     "register-proforgagent": "register-proforgagent",
     "waiting-toast": "waiting-toast"

@@ -107,7 +107,7 @@ Component({
       this.prepareMedProf(parsed);
     },
 
-    registerCustomer: function(qrJson) {
+    registerCustomer_prefilled: function(qrJson) {
       let parsed = registerUtil.parseJsonCustomer(qrJson);
       console.log('Parsed result: ', parsed);
       let { userType, profileReq } = parsed;
@@ -124,6 +124,17 @@ Component({
         mobile: '13700033333',
         postAddr: '某省某市某区某路xx号 邮编111111'
       };
+
+      this.prepareRegisterCustomer(profId, newCustomer, profileReq);
+    },
+    
+    registerCustomer: function (qrJson) {
+      let parsed = registerUtil.parseJsonCustomer(qrJson);
+      console.log('Parsed result: ', parsed);
+      let { userType, profileReq } = parsed;
+      let profId = parsed.uid;
+
+      let newCustomer = {};
 
       this.prepareRegisterCustomer(profId, newCustomer, profileReq);
     },

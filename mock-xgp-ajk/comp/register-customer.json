@@ -1,7 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-    "van-dialog": "../vant-lib/dialog/index",
-    "new-customer-info": "./_registration/_customer/new-customer-info-slim"
-  }
-}

@@ -21,13 +21,7 @@ Component({
     errorMsgs: {},
     profileReq: {},
     field2Checker: {
-      "userid": inputCheck.userid,
-      "password": inputCheck.password,
-      "password2": inputCheck.password,
-      "userName": inputCheck.userName,
-      "idCardNo": inputCheck.idCardNo,
-      "mobile": inputCheck.mobile,
-      "postAddr": inputCheck.postAddr,
+      "mobile": inputCheck.mobile
     },
     isExistingCustomer: false,
     existingCustomer: {}
@@ -118,13 +112,13 @@ Component({
     },
 
     onRegisterCustomer: function (e) {
-      if (!this.data.isExistingCustomer && this.checkAllInput()) {
-        // let result = this.getData();
-        // console.log('[todo] onRegisterCustomer: ', result)
-        this.doRegisterCustomer();
-      }
-      else {
-        this.doRegisterExistingCustomer();
+      if (this.checkAllInput()) {
+        if (!this.data.isExistingCustomer) {
+          this.doRegisterCustomer();
+        }
+        else {
+          this.doRegisterExistingCustomer();
+        }
       }
     },
 
@@ -185,33 +179,6 @@ Component({
       this.updateErrorMsg(field, err);
     },
 
-    onInputUserId: function (e) {
-      this.checkAndUpdateInput("userid", e);
-    },
-    onInputPassword: function (e) {
-      this.checkAndUpdateInput(
-        "password",
-        e
-      );
-      //this.updateNewCustomer("password", e)
-    },
-    onInputPassword2: function (e) {
-      this.checkAndUpdateInput("password2", e)
-    },
-    onInputUserName: function (e) {
-      this.checkAndUpdateInput(
-        "userName",
-        e
-      );
-      //this.updateNewCustomer("userName", e)
-    },
-    onInputIdCardNo: function (e) {
-      //this.updateNewCustomer("idCardNo", e)
-      this.checkAndUpdateInput(
-        "idCardNo",
-        e
-      );
-    },
     onInputMobile: function (e) {
       //this.updateNewCustomer("mobile", e)
       this.checkAndUpdateInput(
@@ -219,13 +186,7 @@ Component({
         e
       );
     },
-    onInputPostAddr: function (e) {
-      //this.updateNewCustomer("postAddr", e)
-      this.checkAndUpdateInput(
-        "postAddr",
-        e
-      );
-    },
+
     getUid: function () {
       return this.data.isExistingCustomer ? this.data.existingCustomer.cidOrMobile : this.data.newCustomer.userid;
     }

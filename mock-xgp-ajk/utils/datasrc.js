@@ -378,11 +378,14 @@ const datasrc = {
             cb({ success, msg });
             if (success) {
               util.saveTokens(e);
-              let { uid, userType } = e.data;
+              let { uid, userType, isCustomerInfoComplete } = e.data;
               let mainPage = util.getMainPage(userType);
               console.log(`main page: ${e.data.userType}: ${mainPage}`);
               // userid: uid or phone #, uid: converted from phone # if it's the later case
               wx.setStorageSync(util.userIdKey, uid);
+              if (userType === 'Customer') {
+                util.saveCustomerInfo(isCustomerInfoComplete);
+              }
               wx.navigateTo({
                 url: mainPage //'../product/product-list',
               })

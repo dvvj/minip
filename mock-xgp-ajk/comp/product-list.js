@@ -89,6 +89,11 @@ Component({
     },
 
     onBuy: function(e) {
+      let isCustomerInfoComplete = util.getCustomerInfo();
+      if (!isCustomerInfoComplete) {
+        toastUtil.fail(this, '请完善姓名地址等信息');
+        return;
+      }
       let prodId = e.target.dataset.id;
       let prod = this.data.productDict[prodId];
       console.log('prod: ', prod);

@@ -61,7 +61,7 @@ Component({
     onLogin: function (e) {
       let userid = this.data.userid;
       let password = this.data.password;
-      console.log(`username: ${userid}, password: ${password}`);
+      //console.log(`username: ${userid}, password: ${password}`);
       let that = this;
 
       // this.setInProgress(true);

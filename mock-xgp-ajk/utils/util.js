@@ -75,8 +75,9 @@ const promisify = original => {
   }
 };
 
-const userTokenKey = "userTokens"
-const userIdKey = "userId"
+const userTokenKey = "userTokens";
+const userIdKey = "userId";
+const customerInfoKey = "customerInfo";
 const currOrderKey = "currOrder";
 const currAgentKey = "currAgent";
 const currMedProfKey = "currMedProf";
@@ -87,6 +88,13 @@ const newlyAddedQrcodesKey = "newlyAddedQrcodes";
 const profitStatsByCustomerChartDataKey = "profitStatsByCustomerChartData";
 const profitStatsByMedProfChartDataKey = "profitStatsByMedProfChartData";
 const profitStatsByProfOrgAgentChartDataKey = "profitStatsByProfOrgAgentChartData";
+
+const saveCustomerInfo = customerInfo => {
+  wx.setStorageSync(customerInfoKey, customerInfo);
+};
+const getCustomerInfo = () => {
+  return wx.getStorageSync(customerInfoKey);
+};
 
 const getUserId = () => {
   return wx.getStorageSync(userIdKey);
@@ -296,6 +304,8 @@ module.exports = {
   getYearMonthDefaultByProd: getYearMonthDefaultByProd,
   setWePayezUrl: setWePayezUrl,
   getWePayezUrl: getWePayezUrl,
+  saveCustomerInfo,
+  getCustomerInfo,
   requestWePayez, requestWePayez,
   datasrc: 'datasrc',
   version: '0.7.1.AJK'

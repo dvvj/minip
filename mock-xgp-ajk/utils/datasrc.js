@@ -9,6 +9,12 @@ const smsLoginCodeUrl = function() {
 const customerProductUrl = function() {
   return util.getCustomerBaseUrl() + '/customerProductView';
 };
+const completeCustomerInfoUrl = function () {
+  return util.getCustomerBaseUrl() + '/completeCustomerInfo';
+};
+const preCompleteCustomerInfoUrl = function () {
+  return util.getCustomerBaseUrl() + '/preCompleteCustomerInfo';
+};
 
 const customerProductNoUpdateUrl = function () {
   return util.getCustomerBaseUrl() + '/customerProductViewNoUpdate';
@@ -491,6 +497,44 @@ const datasrc = {
 
   },
   customer: {
+    preCompleteCustomerInfo: (cb) => {
+      const methodName = "preCompleteCustomerInfo";
+      let tokens = util.getStoredTokens();
+      util.promisify(wx.request)
+        ({
+          url: preCompleteCustomerInfoUrl(),
+          method: 'GET',
+          header: util.getJsonReqHeader(tokens),
+        }).then(res => {
+          console.log('preCompleteCustomerInfo resp:', res);
+          if (checkRespStatus(res, methodName)) {
+            util.updateXAuth(res.header[util.xAuthHeader]);
+            cb(res.data);
+          }
+        }).catch(function (reason) {
+          requestFail(reason, methodName);
+        });
+    },
+    completeInfo: (customerInfo, cb) => {
+      const methodName = "completeCustomerInfo";
+      let tokens = util.getStoredTokens();
+      util.promisify(wx.request)
+        ({
+          url: completeCustomerInfoUrl(),
+          method: 'POST',
+          data: customerInfo,
+          header: util.getJsonReqHeader(tokens),
+        }).then(res => {
+          console.log('completeCustomerInfo resp:', res);
+          if (checkRespStatus(res, methodName)) {
+            util.updateXAuth(res.header[util.xAuthHeader]);
+            cb(res.data);
+          }
+
+        }).catch(function (reason) {
+          requestFail(reason, methodName);
+        });
+    },
     getProductList: (cb) => {
       let uid = util.getUserId();
       let cachedProductList = null; //todo: rethink caching: cacheUtil.getCachedProductList(uid);
@@ -577,8 +621,6 @@ const datasrc = {
             requestFail(reason, methodName);
           });
       }
-
-
     },
     getOrderList: (startYearMonth, endYearMonth, cb) => {
       let tokens = util.getStoredTokens();

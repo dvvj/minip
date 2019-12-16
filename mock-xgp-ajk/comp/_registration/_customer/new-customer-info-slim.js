@@ -200,7 +200,11 @@ Component({
       }
       else {
         let newCustomer = this.data.newCustomer;
-        return newCustomer.userid ? newCustomer.userid : newCustomer.mobile;
+        let uidOrMobile = newCustomer.userid ? newCustomer.userid : newCustomer.mobile;
+        if (typeof(uidOrMobile) === 'undefined')
+          return "";
+        else
+          return uidOrMobile;
       }
     }
   }

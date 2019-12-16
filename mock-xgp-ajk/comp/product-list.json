@@ -7,6 +7,7 @@
     "van-button": "../../../vant-lib/button/index",
     "van-stepper": "../../../vant-lib/stepper/index",
     "van-card": "../../../vant-lib/card/index",
-    "waiting-toast": "waiting-toast"
+    "waiting-toast": "waiting-toast",
+    "complete-customer-info-dlg": "_dlg/complete-customer-info-dlg"
   }
 }

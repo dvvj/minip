@@ -1,5 +1,6 @@
 <!--comp/product-list.wxml-->
 <waiting-toast id="waitingToast" />
+<complete-customer-info-dlg id="completeCustomerInfoDlg" />
 <scroll-view scroll-y class="main_height">
 <van-cell-group>
   <block wx:for="{{products}}" wx:key="id">

@@ -1,0 +1,45 @@
+<!--comp/_dlg/complete-customer-info.wxml-->
+<waiting-toast id="waitingToast" />
+
+<block>
+  <van-field
+    disabled="{{ inProcess }}"
+    value="{{ currCustomer.userName }}"
+    required
+    clearable
+    label="姓名"
+    icon="question-o"
+    placeholder="请输入姓名，必须与身份证一致"
+    error-message="{{ errorMsgs.userName }}"
+    bind:click-icon="onClickIcon"
+    bind:input="onInputUserName"
+  />
+
+  <van-field
+    disabled="{{ inProcess }}"
+    value="{{ currCustomer.idCardNo }}"
+    required
+    clearable
+    label="身份证号"
+    icon="question-o"
+    placeholder="身份证上的姓名必须一致"
+    error-message="{{ errorMsgs.idCardNo }}"
+    bind:click-icon="onClickIcon"
+    bind:input="onInputIdCardNo"
+  />
+
+  <van-field
+    disabled="{{ inProcess }}"
+    value="{{ currCustomer.postAddr }}"
+    required
+    clearable
+    label="邮寄地址"
+    icon="question-o"
+    placeholder="有效的收货地址"
+    error-message="{{ errorMsgs.postAddr }}"
+    bind:click-icon="onClickIcon"
+    bind:input="onInputPostAddr"
+  />
+
+  <van-button size="large" type="custom" custom-class="lb-button" bind:click="onCompleteCustomerInfo">提交</van-button>
+</block>

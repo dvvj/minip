@@ -1,0 +1,4 @@
+<!--comp/_dlg/complete-customer-info-dlg.wxml-->
+<van-dialog id='van-dialog' use-slot>
+  <complete-customer-info id="completeCustomerInfo" />
+</van-dialog>

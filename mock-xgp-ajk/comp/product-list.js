@@ -1,6 +1,7 @@
 // comp/product-list.js
 const util = require('../utils/util.js');
 const toastUtil = require('../utils/toast-util.js');
+const datasrc = require('../utils/' + util.datasrc).datasrc;
 
 Component({
   /**
@@ -15,7 +16,8 @@ Component({
    */
   data: {
     products: [],
-    productDict: {}
+    productDict: {},
+    isCustomerInfoComplete: false
   },
 
   /**
@@ -25,12 +27,14 @@ Component({
     initData: function(products) {
       // console.log("products: ", products);
       let productDict = {}
-      console.log('products.length: ', products.length)
       for (var idx = 0; idx < products.length; idx++) {
         let item = products[idx]
         productDict[item.id] = item
       }
-      this.setData({ products, productDict });
+      let isCustomerInfoComplete = util.getCustomerInfo();
+      console.log(`products.length: ${products.length}, isCustomerInfoComplete: ${isCustomerInfoComplete}`);
+
+      this.setData({ products, productDict, isCustomerInfoComplete });
     },
 
     updateProd: function (prodId, delta) {
@@ -88,19 +92,44 @@ Component({
       })
     },
 
-    onBuy: function(e) {
-      let isCustomerInfoComplete = util.getCustomerInfo();
-      if (!isCustomerInfoComplete) {
-        toastUtil.fail(this, '请完善姓名地址等信息');
-        return;
-      }
-      let prodId = e.target.dataset.id;
+    completeCustomerInfoOrBuy: function(prodId) {
+      //toastUtil.fail(this, '请完善姓名地址等信息');
+      let that = this;
+
+      toastUtil.waiting(this, true, '获取资料中...');
+      datasrc.customer.preCompleteCustomerInfo(
+        respData => {
+          toastUtil.waiting(that, false);
+          console.log('respData', respData);
+
+          let currCustomer = respData;
+          let isComplete = that.checkCustomerInfoComplete(currCustomer);
+          util.saveCustomerInfo(isComplete);
+          that.setData({ isCustomerInfoComplete: isComplete });
+
+          if (!isComplete) {
+            let completeCustomerInfoDlg = that.selectComponent("#completeCustomerInfoDlg");
+            completeCustomerInfoDlg.initData(currCustomer);
+            completeCustomerInfoDlg.showDlg();
+          }
+          else {
+            that.buyProduct(prodId);
+          }
+        }
+      )
+    },
+
+    checkCustomerInfoComplete: function(customerInfo) {
+      return customerInfo.userName && customerInfo.idCardNo && customerInfo.postAddr ? true : false;
+    },
+
+    buyProduct: function(prodId) {
       let prod = this.data.productDict[prodId];
       console.log('prod: ', prod);
       let tokens = util.getStoredTokens();
       let that = this;
       let userid = util.getUserId(); //wx.getStorageSync(util.userIdKey)
-      let totalCost = Math.round(prod.totalPrice*100);
+      let totalCost = Math.round(prod.totalPrice * 100);
 
       toastUtil.waiting(this, true, '支付准备中...');
       wx.request({
@@ -130,6 +159,20 @@ Component({
           console.info("e2: ", e2)
         }
       })
+    },
+
+    onBuy: function(e) {
+      let prodId = e.target.dataset.id;
+      let isCustomerInfoComplete = this.data.isCustomerInfoComplete;
+      console.log('isCustomerInfoComplete', isCustomerInfoComplete);
+      if (!isCustomerInfoComplete) {
+        this.completeCustomerInfoOrBuy(prodId);
+        return;
+      }
+      else {
+        this.buyProduct(prodId);
+      }
+
     }
   }
 })

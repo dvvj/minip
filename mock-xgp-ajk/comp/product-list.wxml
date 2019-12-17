@@ -7,7 +7,7 @@
       <!-- tag="{{item.referingProfName}}" -->
     <van-card wx:if="{{item.hasDiscount}}"
       price="{{item.actualPrice}}"
-      origin-price="{{item.price0}}"
+      origin-price="{{item.price1}}"
       title="{{item.name}}"
       thumb="{{item.imgThumbUrl}}"
       currency="￥"

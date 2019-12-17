@@ -587,9 +587,10 @@ const datasrc = {
 
               var products = res.data.map(item => {
                 let actualPrice = util.roundPrice(item.actualPrice);
-                let price0 = util.roundPrice(item.product.price0);
-                console.log(`actualPrice: ${actualPrice}; price0: ${price0}`);
-                var hasDiscount = actualPrice < price0;
+                //let price0 = util.roundPrice(item.product.price0);
+                let price1 = util.roundPrice(item.product.price1);
+                console.log(`actualPrice: ${actualPrice}; price1: ${price1}`);
+                var hasDiscount = actualPrice < price1;
                 let prodId = item.product.id;
                 const thumbAsset = item.productAssets.length > 1 ? item.productAssets[1] : item.productAssets[0];
                 let imgThumbUrl = `${util.getImgBaseUrl()}/${prodId}/${thumbAsset.url}`;
@@ -601,7 +602,7 @@ const datasrc = {
                   imgThumbUrl,
                   imgUrl,
                   name: item.product.name,
-                  price0: price0,
+                  price1: price1,
                   actualPrice: actualPrice,
                   hasDiscount: hasDiscount,
                   referingProfName: item.referingProfName,

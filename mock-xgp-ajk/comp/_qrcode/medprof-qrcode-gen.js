@@ -74,7 +74,8 @@ Component({
       let uid = util.getUserId();
       let pricePlan = this.data.selectedPricePlan;
       let pricePlanId = pricePlan.id;
-      let qrcodeDesc = `【${prodsDesc}】,${pricePlan.desc}`;
+      //let qrcodeDesc = `【${prodsDesc}】,${pricePlan.desc}`;
+      let qrcodeDesc = `【${prodsDesc}】`;
       let newQrcode = registerUtil.genQRStrCustomer(selectedProductIds, uid, pricePlanId);
       let newQrCodeReq = {
         uid,

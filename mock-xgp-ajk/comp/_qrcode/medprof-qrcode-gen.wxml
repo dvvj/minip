@@ -23,7 +23,7 @@
     >{{ item.shortName }}</van-checkbox>
   </van-checkbox-group>
 
-  <van-cell
+  <!-- <van-cell
     title="优惠信息："
     value-class="value-class"
   />
@@ -31,7 +31,7 @@
     columns="{{ pricePlanInfos }}"
     visible-item-count="4"
     item-height="40"
-    bind:change="onPricePlanChange" />
+    bind:change="onPricePlanChange" /> -->
 
   <!-- <van-button type="primary" size="large" bind:click="onNewCustomerProfile">添加用户档案</van-button> -->
   <van-button type="custom" custom-class="lb-button"

@@ -9,9 +9,9 @@ const registerUtil = require('../../../utils/register-util.js');
 const tabIndices = {
   reffedCustomerInfos: 0,
   profitStats: 1,
-  newCustomerProfile: 2,
-  addByQRCode: 3,
-  setting: 4
+  //newCustomerProfile: 2,
+  addByQRCode: 2,
+  setting: 3
 };
 
 import * as echarts from '../../../ec-canvas/echarts';

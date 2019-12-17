@@ -12,7 +12,7 @@
   bind:confirm="onConfirmYearMonthRange" />
   
 <van-switch-cell
-  title="显示金额"
+  title="显示积分"
   checked="{{ showMoneyChecked }}"
   active-color="#28a8f0"
   bind:change="onShowMoneyChange"

@@ -237,7 +237,7 @@ const createChart = function (chartData) {
       name: '销售额',
       data: roundPriceArr(chartData.sales)
     }, {
-      name: '佣金',
+      name: '积分',
       data: roundPriceArr(chartData.rewards)
     }],
     yAxis: {

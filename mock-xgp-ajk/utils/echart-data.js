@@ -2,7 +2,7 @@ const util = require('util.js');
 const _legends = {
   sales: '销售额(￥)',
   salesQty: '销售量',
-  rewards: '佣金(￥)',
+  rewards: '积分(点)',
   profits: '利润(￥)'
 };
 

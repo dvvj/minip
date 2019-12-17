@@ -2,6 +2,12 @@
 <waiting-toast id="waitingToast" />
 
 <block>
+  <van-cell>
+    <view slot="title">
+      <van-tag type="danger">所选产品将以海外直邮方式配送，根据中国海关相关规定，购买者必须提供真实姓名和身份证号码以便清关，请完善您的用户资料。</van-tag>
+    </view>
+  </van-cell>
+
   <van-field
     disabled="{{ inProcess }}"
     value="{{ currCustomer.userName }}"

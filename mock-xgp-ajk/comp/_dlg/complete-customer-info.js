@@ -35,25 +35,24 @@ Component({
       this.setData({ currCustomer });
     },
 
-    onCompleteCustomerInfo: function () {
-      let that = this;
-      console.log('onCompleteCustomerInfo: ');
+    onCompleteCustomerInfo: function () {      
+      if (this.checkAllInput()) {
+        let that = this;
+        let customerInfoReq = this.data.currCustomer;
+        console.log('[todo] customerInfoReq', customerInfoReq);
 
-      let customerInfoReq = this.data.currCustomer;
-
-      console.log('[todo] customerInfoReq', customerInfoReq);
-
-      toastUtil.waiting4dlg(this, true, '资料提交中');
-      datasrc.customer.completeInfo(
-        customerInfoReq,
-        respData => {
-          toastUtil.waiting4dlg(that, false);
-          console.log('respData', respData);
-          let { success, msg } = respData;
-          let message = success ? '更新成功' : `更新失败: ${msg}`
-          success ? toastUtil.success4dlg(that, message) : toastUtil.fail4dlg(that, message);
-        }
-      )
+        toastUtil.waiting4dlg(this, true, '资料提交中');
+        datasrc.customer.completeInfo(
+          customerInfoReq,
+          respData => {
+            toastUtil.waiting4dlg(that, false);
+            console.log('respData', respData);
+            let { success, msg } = respData;
+            let message = success ? '更新成功' : `更新失败: ${msg}`
+            success ? toastUtil.success4dlg(that, message) : toastUtil.fail4dlg(that, message);
+          }
+        )
+      }
     },
 
     checkAllInput: function () {

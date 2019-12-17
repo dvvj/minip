@@ -71,7 +71,7 @@
     bind:input="onInputInfo"
   />
 
-  <van-cell title="奖励套餐：{{rewardPlanId}}"/>
+  <van-cell title="积分套餐：{{rewardPlanId}}"/>
 
   <van-button type="custom" custom-class="lb-button"
     size="large" bind:click="onAddMedProf">添加</van-button>

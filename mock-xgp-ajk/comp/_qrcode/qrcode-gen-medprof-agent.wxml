@@ -6,7 +6,7 @@
 <van-cell-group>
 
   <van-cell
-    title="奖励套餐："
+    title="积分套餐："
     value-class="value-class"
   />
   <van-picker

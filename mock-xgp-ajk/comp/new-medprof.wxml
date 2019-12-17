@@ -71,7 +71,7 @@
     bind:input="onInputInfo"
   />
 
-  <van-cell title="奖励套餐："/>
+  <van-cell title="积分套餐："/>
   <van-picker
     columns="{{ rewardPlanInfos }}"
     visible-item-count="2"

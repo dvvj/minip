@@ -3,7 +3,7 @@ const _legends = {
   sales: '销售额(￥)',
   salesQty: '销售量',
   rewards: '积分(点)',
-  profits: '利润(￥)'
+  profits: '积分(点)'
 };
 
 const optionQtyFrom = function (optionData, legends) {

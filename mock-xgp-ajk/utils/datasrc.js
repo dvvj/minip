@@ -142,6 +142,10 @@ const registerProfOrgAgentUrl = function () {
   return util.getRegistrationBaseUrl() + '/proforgagent';
 };
 
+const registerProfOrgAgentMobileNameOnlyUrl = function () {
+  return util.getRegistrationBaseUrl() + '/proforgagentMobileNameOnly';
+};
+
 const _parseResponse = function(resp, error401) {
   let status = resp.statusCode;
   let success = 200 == status;
@@ -484,6 +488,20 @@ const datasrc = {
       util.promisify(wx.request)
         ({
           url: registerProfOrgAgentUrl(),
+          method: 'POST',
+          data: registerProfOrgAgentReq,
+          // header: util.postJsonReqHeader(tokens),
+        }).then(res => {
+          console.log('registerProfOrgAgent:', res);
+          cb(res.data);
+        }).catch(function (reason) {
+          console.log('registerProfOrgAgent failed, reason: ', reason)
+        })
+    },
+    registerProfOrgAgentMobileNameOnly: (registerProfOrgAgentReq, cb) => {
+      util.promisify(wx.request)
+        ({
+          url: registerProfOrgAgentMobileNameOnlyUrl(),
           method: 'POST',
           data: registerProfOrgAgentReq,
           // header: util.postJsonReqHeader(tokens),

@@ -1,0 +1,32 @@
+<!--comp/_registration/_proforgagent/new-proforgagent-byqr-slim.wxml-->
+<waiting-toast id="waitingToast" />
+
+<van-cell-group>
+  <van-field
+    value="{{ newProfOrgAgent.name }}"
+    required
+    clearable
+    label="姓名"
+    icon="question-o"
+    placeholder="请输入姓名，必须与身份证一致"
+    error-message="{{ errorMsgs.name }}"
+    bind:click-icon="onClickIcon"
+    bind:input="onInputUserName"
+  />
+
+  <van-field
+    value="{{ newProfOrgAgent.mobile }}"
+    required
+    clearable
+    label="手机号"
+    icon="question-o"
+    placeholder="手机号"
+    error-message="{{ errorMsgs.mobile }}"
+    bind:click-icon="onClickIcon"
+    bind:input="onInputMobile"
+  />
+
+  <van-cell title="积分套餐：{{rewardPlanId}}"/>
+
+  <van-button type="custom" custom-class="lb-button" size="large" bind:click="onAddProfOrgAgent">添加</van-button>
+</van-cell-group>

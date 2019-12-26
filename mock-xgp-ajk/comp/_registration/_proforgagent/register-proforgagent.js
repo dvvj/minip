@@ -36,7 +36,7 @@ Component({
       }).then(() => {
         console.log('triggering confirm event: ');
         let newProfOrgAgentByQR = that.selectComponent('#newProfOrgAgentByQR');
-        that.triggerEvent("confirm", newProfOrgAgentByQR.getUid());
+        that.triggerEvent("confirm", newProfOrgAgentByQR.getUidOrMobile());
         // on close
       }).catch(reason => console.log('cancelled: ', reason));
     }

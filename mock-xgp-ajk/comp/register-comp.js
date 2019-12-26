@@ -70,12 +70,8 @@ Component({
       console.log('prepareProfOrgAgent: ', orgId);
 
       let newProfOrgAgent = {
-        agentid: 'a-',
-        password: '123',
-        password2: '123',
         name: '张某',
-        mobile: '13700033333',
-        info: '业务员信息'
+        mobile: '13700033333'
       };
 
       let newMedProfData = { newProfOrgAgent, rewardPlanId: qrcodeData.rewardPlanId };

@@ -1,4 +1,4 @@
-<!--comp/new-proforgagent-byqr.wxml-->
+<!--comp/_registration/_proforgagent/new-proforgagent-byqr.wxml-->
 <waiting-toast id="waitingToast" />
 
 <van-cell-group>

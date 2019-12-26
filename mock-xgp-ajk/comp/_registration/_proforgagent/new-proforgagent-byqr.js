@@ -1,8 +1,8 @@
-// comp/new-proforgagent-byqr.js
-const util = require('../utils/util.js');
-const inputCheck = require('../utils/input-check.js');
-const datasrc = require('../utils/' + util.datasrc).datasrc;
-const toastUtil = require('../utils/toast-util.js');
+// comp/_registration/_proforgagent/new-proforgagent-byqr.js
+const util = require('../../../utils/util.js');
+const inputCheck = require('../../../utils/input-check.js');
+const datasrc = require('../../../utils/' + util.datasrc).datasrc;
+const toastUtil = require('../../../utils/toast-util.js');
 
 Component({
   /**

@@ -24,7 +24,8 @@
     "pages/prod/medprof/curr-qrcode",
     "comp/_qrcode/qrcode-gen-medprof-agent",
     "pages/prod/orgagent/gen-qrcode",
-    "pages/prod/proforg/gen-qrcode"
+    "pages/prod/proforg/gen-qrcode",
+    "comp/_registration/_proforgagent/register-proforgagent"
   ],
   "window": {
     "backgroundTextStyle": "light",

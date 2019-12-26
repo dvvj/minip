@@ -1,5 +1,5 @@
-// comp/register-proforgagent.js
-import Dialog from '../vant-lib/dialog/dialog';
+// comp/_registration/_proforgagent/register-proforgagent.js
+import Dialog from '../../../vant-lib/dialog/dialog';
 
 Component({
   /**

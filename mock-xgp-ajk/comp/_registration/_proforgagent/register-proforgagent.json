@@ -1,7 +1,7 @@
 {
   "component": true,
   "usingComponents": {
-    "van-dialog": "../vant-lib/dialog/index",
+    "van-dialog": "../../../vant-lib/dialog/index",
     "new-proforgagent-byqr": "new-proforgagent-byqr"
   }
 }

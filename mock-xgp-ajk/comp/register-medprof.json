@@ -1,7 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-    "van-dialog": "../vant-lib/dialog/index",
-    "new-medprof-byqr": "_registration/_medprof/new-medprof-byqr"
-  }
-}

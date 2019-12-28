@@ -1,5 +1,5 @@
-// comp/register-medprof.js
-import Dialog from '../vant-lib/dialog/dialog';
+// comp/_registration/_medprof/register-medprof.js
+import Dialog from '../../../vant-lib/dialog/dialog';
 
 Component({
   /**
@@ -42,3 +42,4 @@ Component({
     }
   }
 })
+

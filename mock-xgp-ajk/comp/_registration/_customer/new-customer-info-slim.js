@@ -46,49 +46,14 @@ Component({
       this.setData({ isExistingCustomer: e.detail });
     },
 
-    onInputExistingId: function (e) {
-      let { cidOrMobile, ...others } = this.data.existingCustomer;
-      let existingCustomer = { cidOrMobile: e.detail, ...others };
-      this.setData({ existingCustomer });
-    },
-
-    onGetExistingCustomer: function () {
-      let that = this;
-      let queryReq = { idOrMobile: this.data.existingCustomer.cidOrMobile };
-      console.log('[todo] onGetExistingCustomer', queryReq);
-
-      toastUtil.waiting4dlg(this, true, '查询用户中')
-      datasrc.registration.queryExistingCustomer(
-        queryReq,
-        respData => {
-          toastUtil.waiting4dlg(that, false);
-          console.log('respData', respData);
-
-          if (respData.msg) {
-            toastUtil.fail(that, respData.msg);
-            let existingCustomer = {
-              cidOrMobile: this.data.existingCustomer.cidOrMobile
-            };
-          }
-          else {
-            let existingCustomer = {
-              cidOrMobile: this.data.existingCustomer.cidOrMobile,
-              ...respData
-            };
-            this.setData({ existingCustomer });
-          }
-          // let { success, msg } = respData;
-          // let message = success ? '添加成功' : `添加失败: ${msg}`
-          // success ? toastUtil.success(that, message) : toastUtil.fail(that, message);
-        }
-      )
-    },
-
     doRegisterExistingCustomer: function (e) {
       let that = this;
       console.log('doRegisterExistingCustomer: ');
 
-      let { profId, existingCustomer, profileReq } = this.data;
+      let existingCustomerInfo = this.selectComponent('#existingCustomerInfo');
+      let { profId, profileReq } = this.data;
+      let existingCustomer = existingCustomerInfo.getExistingCustomer();
+
       //let customer = registerUtil.convertCustomer(newCustomer);
       let existingCustomerReq = {
         profOrAgentId: profId,
@@ -148,13 +113,15 @@ Component({
 
     checkAllInput: function () {
       var hasError = false;
-      for (var field in this.data.field2Checker) {
-        let checker = this.data.field2Checker[field];
-        console.log(`${field} checker: `, checker);
-        let input = this.data.newCustomer[field];
-        let err = checker.check(input);
-        this.updateErrorMsg(field, err);
-        if (err != inputCheck.MsgNoError) hasError = true;
+      if (!this.data.isExistingCustomer) {
+        for (var field in this.data.field2Checker) {
+          let checker = this.data.field2Checker[field];
+          console.log(`${field} checker: `, checker);
+          let input = this.data.newCustomer[field];
+          let err = checker.check(input);
+          this.updateErrorMsg(field, err);
+          if (err != inputCheck.MsgNoError) hasError = true;
+        }
       }
       return !hasError;
     },

@@ -6,7 +6,6 @@
     "van-button": "../../../vant-lib/button/index",
     "van-field": "../../../vant-lib/field/index",
     "van-switch-cell": "../../../vant-lib/switch-cell/index",
-    "existing-customer-info": "existing-customer-info",
     "waiting-toast": "../../waiting-toast"
   }
 }

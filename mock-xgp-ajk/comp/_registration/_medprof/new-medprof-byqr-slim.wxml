@@ -1,9 +1,9 @@
-<!--comp/_registration/_proforgagent/new-proforgagent-byqr-slim.wxml-->
+<!--comp/_registration/_medprof/new-medprof-byqr-slim.wxml-->
 <waiting-toast id="waitingToast" />
 
 <van-cell-group>
   <van-field
-    value="{{ newProfOrgAgent.name }}"
+    value="{{ newMedProf.name }}"
     required
     clearable
     label="姓名"
@@ -15,7 +15,7 @@
   />
 
   <van-field
-    value="{{ newProfOrgAgent.mobile }}"
+    value="{{ newMedProf.mobile }}"
     required
     clearable
     label="手机号"
@@ -28,5 +28,7 @@
 
   <van-cell title="积分套餐：{{rewardPlanId}}"/>
 
-  <van-button type="custom" custom-class="lb-button" size="large" bind:click="onAddProfOrgAgent">添加</van-button>
+  <van-button type="custom" custom-class="lb-button"
+    size="large" bind:click="onAddMedProf">添加</van-button>
 </van-cell-group>
+

@@ -11,10 +11,10 @@
     <van-cell wx:if="{{proforgagents.length == 0}}">
       <view slot="title">
         <view><text>业务员列表为空</text></view>
-        <view>
+        <!-- <view>
           <van-button size="small" type="custom" custom-class="lb-button"
             bind:click='onAddNewProfOrgAgentClicked'>添加业务员</van-button>
-        </view>
+        </view> -->
       </view>
     </van-cell>
   </van-cell-group>

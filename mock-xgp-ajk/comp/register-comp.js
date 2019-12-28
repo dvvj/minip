@@ -70,8 +70,8 @@ Component({
       console.log('prepareProfOrgAgent: ', orgId);
 
       let newProfOrgAgent = {
-        name: '张某',
-        mobile: '13700033333'
+        // name: '张某',
+        // mobile: '13700033333'
       };
 
       let newMedProfData = { newProfOrgAgent, rewardPlanId: qrcodeData.rewardPlanId };
@@ -79,17 +79,18 @@ Component({
       registerProfOrgAgent.initData(newMedProfData, orgId);
       registerProfOrgAgent.showDlg();
     },
+
     prepareMedProf: function (qrcodeData) {
       let registerMedProf = this.selectComponent('#registerMedProf');
       //console.log('registerMedProf: ', registerMedProf);
 
       let newMedProf = {
-        profid: 'p-',
-        password: '123',
-        password2: '123',
-        name: '张某',
-        mobile: '13700044444',
-        info: '脑,心血管'
+        // // profid: 'p-',
+        // // password: '123',
+        // // password2: '123',
+        // name: '张某',
+        // mobile: '13700044444'
+        // // info: '脑,心血管'
       };
 
       let newMedProfData = { newMedProf, rewardPlanId: qrcodeData.rewardPlanId };

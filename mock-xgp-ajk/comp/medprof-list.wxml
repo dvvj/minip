@@ -11,10 +11,10 @@
     <van-cell wx:if="{{medprofs.length == 0}}">
       <view slot="title">
         <view><text>营养师列表为空</text></view>
-        <view>
+        <!-- <view>
           <van-button size="small" type="custom" custom-class="lb-button"
             bind:click='onAddNewMedProfClicked'>添加营养师</van-button>
-        </view>
+        </view> -->
       </view>
     </van-cell>
   </van-cell-group>
@@ -30,7 +30,7 @@
           <view class="van-cell-text">
             <text>{{item.name}}</text>
           </view>
-          <view class="van-cell-text">
+          <view wx:if="{{item.info}}" class="van-cell-text">
             <van-tag round color="#28a8f0">{{item.info}}</van-tag>
           </view>
         </view>

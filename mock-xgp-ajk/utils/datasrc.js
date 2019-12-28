@@ -137,6 +137,9 @@ const registerExistingCustomerUrl = function () {
 const registerMedProfUrl = function () {
   return util.getRegistrationBaseUrl() + '/medprof';
 };
+const registerMedProfMobileNameOnlyUrl = function () {
+  return util.getRegistrationBaseUrl() + '/medprofMobileNameOnly';
+};
 
 const registerProfOrgAgentUrl = function () {
   return util.getRegistrationBaseUrl() + '/proforgagent';
@@ -482,6 +485,20 @@ const datasrc = {
           cb(res.data);
         }).catch(function (reason) {
           console.log('registerMedProf failed, reason: ', reason)
+        })
+    },
+    registerMedProfMobileNameOnly: (registerMedProfReq, cb) => {
+      util.promisify(wx.request)
+        ({
+          url: registerMedProfMobileNameOnlyUrl(),
+          method: 'POST',
+          data: registerMedProfReq,
+          // header: util.postJsonReqHeader(tokens),
+        }).then(res => {
+          console.log('registerMedProfMobileNameOnly:', res);
+          cb(res.data);
+        }).catch(function (reason) {
+          console.log('registerMedProfMobileNameOnly failed, reason: ', reason)
         })
     },
     registerProfOrgAgent: (registerProfOrgAgentReq, cb) => {

@@ -1,4 +1,4 @@
-<!--comp/new-medprof-byqr.wxml-->
+<!--comp/_registration/_medprof/new-medprof-byqr.wxml-->
 <waiting-toast id="waitingToast" />
 
 <van-cell-group>
@@ -76,4 +76,3 @@
   <van-button type="custom" custom-class="lb-button"
     size="large" bind:click="onAddMedProf">添加</van-button>
 </van-cell-group>
-

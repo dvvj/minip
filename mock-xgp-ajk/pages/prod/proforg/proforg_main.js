@@ -138,8 +138,8 @@ Page({
       disabled: false,
       loadingText: '',
       userid: userId,
-      password: '123',
-      password2: '123',
+      password: '',
+      password2: '',
     })
   },
 

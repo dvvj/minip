@@ -72,7 +72,7 @@ const name = genRegexChecker(/^.{2,4}$/, '用户名为2-4个字符');
 
 const idCardNo = genRegexChecker(/(^\d{15}$)|(^\d{17}(\d|X)$)/, '身份证必须为15或18位');
 
-const mobile = genRegexChecker(/^\d{11}$/, 'todo：手机号必须是11位');
+const mobile = genRegexChecker(/^\d{11}$/, '手机号必须是11位');
 const postAddr = genRegexChecker(/^.{5,}$/, 'todo：邮寄地址太短？');
 const info = genRegexChecker(/^.{5,}$/, '最多可以输入255个字符');
 

@@ -23,8 +23,8 @@
   <van-field
     value="{{ password }}"
     type="password"
-    label="密码"
-    placeholder="请输入密码"
+    label="密码/验证码"
+    placeholder="请输入密码/验证码"
     required
     border="{{ true }}"
     bind:input="onInputPassword"

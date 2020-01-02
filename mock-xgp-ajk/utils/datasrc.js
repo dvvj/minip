@@ -5,6 +5,9 @@ const imgUtil = require('img-util.js');
 const getSettingsUrl = function() {
   return util.getSettingsBaseUrl() + '/get';
 };
+const updateSettingsUrl = function () {
+  return util.getSettingsBaseUrl() + '/update';
+};
 
 const smsLoginCodeUrl = function() {
   return util.getWebappBase() + '/getLoginSms';
@@ -381,8 +384,24 @@ const datasrc = {
         requestFail(reason, methodName);
       });
   },
-  updateSetting: function(userInfo, cb) {
-    
+  updateSetting: function(updatedSettings, cb) {
+    const methodName = "updateSetting";
+    let tokens = util.getStoredTokens();
+    util.promisify(wx.request)
+      ({
+        url: updateSettingsUrl(),
+        method: 'POST',
+        data: updatedSettings,
+        header: util.getJsonReqHeader(tokens),
+      }).then(res => {
+        console.log('updateSetting resp:', res);
+        if (checkRespStatus(res, methodName)) {
+          util.updateXAuth(res.header[util.xAuthHeader]);
+          cb(res.data);
+        }
+      }).catch(function (reason) {
+        requestFail(reason, methodName);
+      });
   },
   getSmsLoginCode: function(mobileNum, cb) {
     console.log(smsLoginCodeUrl(), );

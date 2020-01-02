@@ -93,10 +93,14 @@ Component({
 
     onUpdateSetting: function (e) {
       let that = this;
-      console.log('[onUpdateSetting]: ', this.data.userPassInfo);
       toastUtil.waiting(that, true, '更新中...');
+      let updatedSetting = {
+        mobile: this.data.userPassInfo.mobile,
+        password: this.data.userPassInfo.password
+      };
+      console.log('[onUpdateSetting]: ', updatedSetting);
       datasrc.updateSetting(
-        this.data.userPassInfo,
+        updatedSetting,
         resp => {
           let { success, msg } = resp;
           console.log(resp);

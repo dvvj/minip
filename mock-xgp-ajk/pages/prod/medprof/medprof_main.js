@@ -137,15 +137,22 @@ Page({
   },
 
   updateSetting: function () {
+    let that = this;
     const settingPassword = this.selectComponent("#settingPassword");
     let userId = util.getUserId(); //wx.getStorageSync(util.userIdKey);
-    settingPassword.initData({
-      disabled: false,
-      loadingText: '',
-      userid: userId,
-      password: '',
-      password2: '',
-    })
+    toastUtil.waiting(this, true, '加载数据中...');
+    datasrc.getSetting(
+      settings => {
+        console.log('getsetting: ', settings);
+        settingPassword.initData({
+          disabled: false,
+          loadingText: '',
+          userid: userId,
+          mobile: settings.mobile
+        })
+        toastUtil.waiting(that, false);
+      }
+    )
   },
 
   updateExistingCustomerProfile: function () {

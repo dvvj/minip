@@ -179,6 +179,9 @@ const getProforgBaseUrl = function() {
 const getRegistrationBaseUrl = function() {
   return getWebappBase() + '/register';
 };
+const getSettingsBaseUrl = function () {
+  return getWebappBase() + '/settings';
+};
 const wePayezUrl = function () {
   return getWebappBase() + '/wx/wepayezReq';
 };
@@ -268,6 +271,7 @@ module.exports = {
   getProforgagentBaseUrl,
   getProforgBaseUrl,
   getRegistrationBaseUrl,
+  getSettingsBaseUrl,
   wePayezUrl,
   wxpayReqUrl,
 

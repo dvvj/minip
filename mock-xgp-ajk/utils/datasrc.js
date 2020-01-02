@@ -2,6 +2,10 @@ const util = require('util.js');
 const cacheUtil = require('cache-util.js');
 const imgUtil = require('img-util.js');
 
+const getSettingsUrl = function() {
+  return util.getSettingsBaseUrl() + '/get';
+};
+
 const smsLoginCodeUrl = function() {
   return util.getWebappBase() + '/getLoginSms';
 };
@@ -359,6 +363,24 @@ const checkRespStatus = (resp, methodName) => {
 
 const datasrc = {
   switchUserToLoginPage,
+  getSetting: function (cb) {
+    const methodName = "getSetting";
+    let tokens = util.getStoredTokens();
+    util.promisify(wx.request)
+      ({
+        url: getSettingsUrl(),
+        method: 'GET',
+        header: util.getJsonReqHeader(tokens),
+      }).then(res => {
+        console.log('getSetting resp:', res);
+        if (checkRespStatus(res, methodName)) {
+          util.updateXAuth(res.header[util.xAuthHeader]);
+          cb(res.data);
+        }
+      }).catch(function (reason) {
+        requestFail(reason, methodName);
+      });
+  },
   updateSetting: function(userInfo, cb) {
     
   },

@@ -1,6 +1,8 @@
 // comp/setting-password.js
 const util = require('../utils/util.js');
 const inputCheck = require('../utils/input-check.js');
+const toastUtil = require('../utils/toast-util.js');
+const datasrc = require('../utils/' + util.datasrc).datasrc;
 
 Component({
   /**

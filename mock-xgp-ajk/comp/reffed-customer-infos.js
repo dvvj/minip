@@ -24,6 +24,10 @@ Component({
    */
   methods: {
     initData: function(customerInfos) {
+      let customerInfoFixed = customerInfos.map(item => {
+        if (!item.customerName)
+          item.customerName = "_为空_";
+      })
       this.setData({ customerInfos });
     },
 

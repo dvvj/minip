@@ -11,15 +11,17 @@ const genQRStrCustomer = function(
 
 const genQRStrMedProf = function (
   uid,
-  rewardPlanId
+  rewardPlanId,
+  rewardPlanInfo
 ) {
-  return `{"ut":"p","uid":"${uid}","pfr":{"rpid":"${rewardPlanId}"}}`
+  return `{"ut":"p","uid":"${uid}","pfr":{"rpid":"${rewardPlanId}","info":"${rewardPlanInfo}"}}`
 };
 const genQRStrProfOrgAgent = function (
   uid,
-  rewardPlanId
+  rewardPlanId,
+  rewardPlanInfo
 ) {
-  return `{"ut":"a","uid":"${uid}","pfr":{"rpid":"${rewardPlanId}"}}`
+  return `{"ut":"a","uid":"${uid}","pfr":{"rpid":"${rewardPlanId}","info":"${rewardPlanInfo}"}}`
 };
 
 const userTypes = {
@@ -62,7 +64,8 @@ const parseJsonMedProf = function (j) {
   return {
     userType: userTypeMap[t.ut],
     agentId: t.uid,
-    rewardPlanId: t.pfr.rpid
+    rewardPlanId: t.pfr.rpid,
+    rewardPlanInfo: t.pfr.info
   }
 };
 
@@ -71,7 +74,8 @@ const parseJsonProfOrgAgent = function (j) {
   return {
     userType: userTypeMap[t.ut],
     orgId: t.uid,
-    rewardPlanId: t.pfr.rpid
+    rewardPlanId: t.pfr.rpid,
+    rewardPlanInfo: t.pfr.info
   }
 };
 

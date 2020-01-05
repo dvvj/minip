@@ -1,5 +1,6 @@
 // pages/prod/medprof/curr-qrcode.js
 const util = require('../../../utils/util.js');
+const base64Util = require('../../../utils/base64-codec.js');
 import drawQrcode from '../../../utils/weapp.qrcode.min.js'
 const cacheUtil = require('../../../utils/cache-util.js');
 
@@ -13,8 +14,9 @@ Page({
   },
 
   convertAndDraw: function (qrcode) {
-    let decArr = wx.base64ToArrayBuffer(qrcode.qrcodeEnc);
-    qrcode.qrcode = util.base64DecAscii(decArr);
+    // let decArr = wx.base64ToArrayBuffer(qrcode.qrcodeEnc);
+    // qrcode.qrcode = util.base64DecAscii(decArr);
+    qrcode.qrcode = base64Util.baseDecode(enc.qrcodeEnc);
     this.draw(qrcode);
     console.log('decoded: ', qrcode.qrcode);
   },

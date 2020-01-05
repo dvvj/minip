@@ -32,10 +32,12 @@ Component({
   methods: {
     initData: function (newProfOrgAgentData, orgId) {
       console.log('newProfOrgAgentData/orgId', newProfOrgAgentData, orgId);
-      let { newProfOrgAgent, rewardPlanId } = newProfOrgAgentData;
+      let { newProfOrgAgent, rewardPlanId, rewardPlanInfo } = newProfOrgAgentData;
       this.setData({
         orgId,
-        newProfOrgAgent, rewardPlanId
+        newProfOrgAgent,
+        rewardPlanId,
+        rewardPlanInfo
       });
     },
     // getUid: function () {

@@ -1,5 +1,7 @@
 // comp/_qrcode/medprof-qrcode-list.js
 const util = require('../../utils/util.js');
+const base64Util = require('../../utils/base64-codec.js');
+
 import drawQrcode from '../../utils/weapp.qrcode.min.js'
 const toastUtil = require('../../utils/toast-util.js');
 const datasrc = require('../../utils/' + util.datasrc).datasrc;
@@ -28,8 +30,9 @@ Component({
     convertAndDraw: function (qrcodesEncoded) {
       let that = this;
       let qrcodesDecoded = qrcodesEncoded.map(enc => {
-        let decArr = wx.base64ToArrayBuffer(enc.qrcodeEnc);
-        enc.qrcode = util.base64DecAscii(decArr);
+        // let decArr = wx.base64ToArrayBuffer(enc.qrcodeEnc);
+        // enc.qrcode = util.base64DecAscii(decArr);
+        enc.qrcode = base64Util.baseDecode(enc.qrcodeEnc);
         //console.log('enc: ', enc);
         that.draw(enc);
         console.log('dec: ', enc.qrcode);

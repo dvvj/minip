@@ -9,9 +9,9 @@ const formatTime = date => {
   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 };
 
-const base64DecAscii = function (buf) {
-  return String.fromCharCode.apply(null, new Uint8Array(buf));
-};
+// const base64DecAscii = function (buf) {
+//   return String.fromCharCode.apply(null, new Uint8Array(buf));
+// };
 
 const getStoredTokens = function() {
   return wx.getStorageSync(userTokenKey);
@@ -256,7 +256,7 @@ const createChart = function (chartData) {
 };
 
 module.exports = {
-  base64DecAscii: base64DecAscii,
+  // base64DecAscii: base64DecAscii,
   createChart: createChart,
   formatTime: formatTime,
   promisify: promisify,

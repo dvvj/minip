@@ -1,5 +1,6 @@
 // comp/register-comp.js
 const registerUtil = require('../utils/register-util.js');
+const base64Util = require('../utils/base64-codec.js');
 
 Component({
   /**
@@ -26,6 +27,8 @@ Component({
       wx.scanCode({
         success(res) {
           console.log('Scan result: ', res);
+          // let dec1 = base64Util.baseDecode(res.rawData);
+          // console.log('dec1: ', dec1, base64Util.baseDecode(base64Util.baseEncode("中文测试")));
           let json = res.result;
           let userType = registerUtil.parseUserType(json);
 
@@ -74,7 +77,7 @@ Component({
         // mobile: '13700033333'
       };
 
-      let newMedProfData = { newProfOrgAgent, rewardPlanId: qrcodeData.rewardPlanId };
+      let newMedProfData = { newProfOrgAgent, ...qrcodeData };
 
       registerProfOrgAgent.initData(newMedProfData, orgId);
       registerProfOrgAgent.showDlg();
@@ -93,11 +96,12 @@ Component({
         // // info: '脑,心血管'
       };
 
-      let newMedProfData = { newMedProf, rewardPlanId: qrcodeData.rewardPlanId };
+      let newMedProfData = { newMedProf, ...qrcodeData };
 
       registerMedProf.initData(newMedProfData, qrcodeData.agentId);
       registerMedProf.showDlg();
     },
+
     registerMedProf: function (qrJson) {
       let parsed = registerUtil.parseJsonMedProf(qrJson);
       console.log('Parsed result: ', parsed);

@@ -33,10 +33,12 @@ Component({
   methods: {
     initData: function (newMedProfData, agentId) {
       console.log('newMedProfData/agentId: ', newMedProfData, agentId);
-      let { newMedProf, rewardPlanId } = newMedProfData;
+      let { newMedProf, rewardPlanId, rewardPlanInfo } = newMedProfData;
       this.setData({
         agentId,
-        newMedProf, rewardPlanId
+        newMedProf,
+        rewardPlanId,
+        rewardPlanInfo
       });
     },
 

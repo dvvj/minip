@@ -52,6 +52,7 @@ Component({
       let uid = util.getUserId();
       let rewardPlan = this.data.selectedRewardPlan;
       let rewardPlanId = rewardPlan.id;
+      let rewardPlanInfo = rewardPlan.info;
       let qrcodeDesc = rewardPlan.info;
 
       let { userType } = util.getStoredTokens();
@@ -65,7 +66,7 @@ Component({
         datasrcFunc = datasrc.proforg.saveNewQrcode;
         qrcodeGenFunc = registerUtil.genQRStrProfOrgAgent;
       }
-      let newQrcode = qrcodeGenFunc(uid, rewardPlanId);
+      let newQrcode = qrcodeGenFunc(uid, rewardPlanId, rewardPlanInfo);
       let newQrCodeReq = {
         uid,
         userType: this.data.userType,

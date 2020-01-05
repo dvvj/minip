@@ -48,7 +48,7 @@ Page({
     let activeTabIndex = tabIndices.login;
     this.setData({activeTabIndex});
     let loginComp = this.selectComponent("#loginComp");
-    loginComp.initData(uid, '123');
+    loginComp.initData(uid, '');
   },
 
   onInputWebappBaseUrl: function(e) {

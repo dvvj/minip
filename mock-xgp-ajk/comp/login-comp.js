@@ -18,8 +18,8 @@ Component({
    * Component initial data
    */
   data: {
-    userid: 'p-prof',// 'c-o1a1p1c1', // , 'o-org'
-    password: '123',
+    userid: '',// 'c-o1a1p1c1', // , 'o-org'
+    password: '',
     nextSmsTimer: null,
     nextSmsTimerCount: countDownMax
   },

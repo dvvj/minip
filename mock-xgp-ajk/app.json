@@ -5,7 +5,6 @@
     "pages/tmp/test-getnumber",
     "pages/tmp/qr-gen-scan-test",
     "pages/tmp/qr-test",
-    "pages/prod/login",
     "pages/tmp/cache-img-test",
     "pages/tmp/waiting-toast-test",
     "pages/prod/customer/customer_main",

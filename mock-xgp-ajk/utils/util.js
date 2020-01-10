@@ -211,6 +211,21 @@ const userType2MainPage = {
   ProfOrg: prodPagesBase + '/proforg/proforg_main',
 };
 
+
+const uid2TypeMap = {
+  'a': 'ProfOrgAgent',
+  'c': 'Customer',
+  'o': 'ProfOrg',
+  'p': 'MedProf'
+};
+
+const getUserType = () => {
+  const uid = getUserId();
+  const dashIdx = uid.indexOf('-');
+  const pfx = uid.substring(0, dashIdx);
+  return uid2TypeMap[pfx];
+};
+
 const getMainPage = function(userType) {
   return userType2MainPage[userType];
 };
@@ -289,6 +304,7 @@ module.exports = {
   getStoredTokens: getStoredTokens,
   userIdKey: userIdKey,
   getUserId: getUserId,
+  getUserType,
   getAltUids: getAltUids,
   currOrderKey: currOrderKey,
   currAgentKey: currAgentKey,

@@ -9,10 +9,13 @@ const registerUtil = require('../../utils/register-util.js');
 
 const populateUserTypeDataMap = () => {
   var res = {};
+
+  const userType = util.getUserType();
   res[registerUtil.userTypes.Customer] = {
     txt: '客户',
     color: '#22ccaa',
-    newQrcodePrepDataFunc: datasrc.medprof.getNewQrcodeData,
+    newQrcodePrepDataFunc: 
+      userType === 'MedProf' ? datasrc.medprof.getNewQrcodeData : datasrc.proforgagent.getNewQrcodeData,
     qrcodeGenPage: '../../../pages/prod/medprof/gen-qrcode'
   };
   res[registerUtil.userTypes.MedProf] = {
@@ -107,7 +110,8 @@ Component({
             url: qrcodeGenPage
           })
           //medprofQrcodeGen.showDlg();
-        }
+        },
+        util.getUserType()
       );
     },
 

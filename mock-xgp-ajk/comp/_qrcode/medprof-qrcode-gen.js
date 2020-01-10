@@ -35,13 +35,14 @@ Component({
       let { products, pricePlans } = newQrcodeData;
       let selected = products.filter(p => p.checked).map(p => p.shortName);
       let pricePlanInfos = pricePlans.map(pp => pp.desc);
-      let selectedPricePlan = pricePlans[0];
+      console.log('note: selectedPricePlan will not be set since price plans are removed');
+      //let selectedPricePlan = pricePlans[0];
       this.setData({
         products,
         selected,
         pricePlans,
-        pricePlanInfos,
-        selectedPricePlan
+        pricePlanInfos
+        //selectedPricePlan
       });
     },
     // showDlg: function() {

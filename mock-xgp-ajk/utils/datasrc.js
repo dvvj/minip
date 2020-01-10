@@ -90,8 +90,13 @@ const newCustomerAndProfileUrl = function () {
 };
 
 // same data as new customer
-const newQrcodePreReqDataUrl = function () {
-  return newCustomerPreReqDataUrl();
+const newQrcodePreReqDataUrl = function (userType) {
+  if (userType === 'MedProf')
+    return util.getMedprofBaseUrl() + '/newCustomerPreReqData';
+  else if (userType === 'ProfOrgAgent')
+    return util.getProforgagentBaseUrl() + '/newCustomerPreReqData';
+  else
+    throw Error(`unknown user type: ${userType}`);
 };
 
 const medprofListUrl = function () {
@@ -362,6 +367,35 @@ const checkRespStatus = (resp, methodName) => {
     serverRespError(errMsg, methodName);
   }
   return success;
+};
+
+const getNewQrcodeData = (cb, userType) => {
+  let tokens = util.getStoredTokens();
+  const methodName = "getNewQrcodeData";
+  util.promisify(wx.request)
+    ({
+      url: newQrcodePreReqDataUrl(userType),
+      method: 'GET',
+      header: util.getJsonReqHeader(tokens),
+    }).then(res => {
+      console.log('newQrcodePreReqData:', res);
+
+      if (checkRespStatus(res, methodName)) {
+        util.updateXAuth(res.header[util.xAuthHeader]);
+
+        let products = res.data.products;
+        // check all products by default
+        products.forEach(function (prod) { prod.checked = true; });
+        console.log("products: ", products);
+        let pricePlans = res.data.pricePlans;
+        console.log("pricePlans: ", pricePlans);
+
+        cb({ products, pricePlans });
+      }
+
+    }).catch(function (reason) {
+      requestFail(reason, methodName);
+    })
 };
 
 const datasrc = {
@@ -835,34 +869,7 @@ const datasrc = {
       })
     },
     getProfitStatsChartDataPerCustomer: medprofGetProfitStatsChartDataPerCustomer,
-    getNewQrcodeData: (cb) => {
-      let tokens = util.getStoredTokens();
-      const methodName = "getNewQrcodeData";
-      util.promisify(wx.request)
-        ({
-          url: newQrcodePreReqDataUrl(),
-          method: 'GET',
-          header: util.getJsonReqHeader(tokens),
-        }).then(res => {
-          console.log('newQrcodePreReqData:', res);
-
-          if (checkRespStatus(res, methodName)) {
-            util.updateXAuth(res.header[util.xAuthHeader]);
-
-            let products = res.data.products;
-            // check all products by default
-            products.forEach(function (prod) { prod.checked = true; });
-            console.log("products: ", products);
-            let pricePlans = res.data.pricePlans;
-            console.log("pricePlans: ", pricePlans);
-
-            cb({ products, pricePlans });
-          }
-
-        }).catch(function (reason) {
-          requestFail(reason, methodName);
-        })
-    },
+    getNewQrcodeData,
     saveNewQrcode: medprofSaveNewQrcode,
     getNewCustomerData: (cb) => {
       let tokens = util.getStoredTokens();
@@ -976,6 +983,7 @@ const datasrc = {
   },
 
   proforgagent: {
+    getNewQrcodeData,
     getMedProfs: (cb) => {
       let that = this;
       let tokens = util.getStoredTokens();
@@ -995,7 +1003,7 @@ const datasrc = {
         fail: err => requestFail(err, "getMedProfs")
       })
     },
-    getMedProfNewQrcodeData: (cb) => {
+    getMedProfNewQrcodeData: (cb, userType) => {
       let tokens = util.getStoredTokens();
       const methodName = "getMedProfNewQrcodeData";
       util.promisify(wx.request)

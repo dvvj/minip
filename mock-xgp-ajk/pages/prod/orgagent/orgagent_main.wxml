@@ -4,7 +4,7 @@
 <van-tabbar active="{{activeTabIndex}}" bind:change="onTabbarChange">
   <van-tabbar-item icon="friends">营养师列表</van-tabbar-item>
   <van-tabbar-item icon="friends-o">客户列表</van-tabbar-item>
-  <van-tabbar-item icon="gold-coin">收益统计</van-tabbar-item>
+  <van-tabbar-item icon="gold-coin">积分统计</van-tabbar-item>
   <!-- <van-tabbar-item icon="add">添加营养师</van-tabbar-item> -->
   <van-tabbar-item icon="add">医师二维码</van-tabbar-item>
   <van-tabbar-item icon="add-o">客户二维码</van-tabbar-item>

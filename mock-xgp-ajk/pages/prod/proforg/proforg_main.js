@@ -12,9 +12,9 @@ const echartData = require('../../../utils/echart-data.js');
 const tabIndices = {
   proforgAgentList: 0,
   profitStats: 1,
-  addProfOrgAgent: 2,
-  addByQrcode: 3,
-  setting: 4
+  // addProfOrgAgent: 2,
+  addByQrcode: 2,
+  setting: 3
 };
 
 import * as echarts from '../../../ec-canvas/echarts';
@@ -96,10 +96,10 @@ Page({
       console.log('updateProfitStats');
       this.updateProfitStats();
     }
-    else if (tabIndex == tabIndices.addProfOrgAgent) {
-      console.log('updateAddProfOrgAgent');
-      this.updateAddProfOrgAgent();
-    }
+    // else if (tabIndex == tabIndices.addProfOrgAgent) {
+    //   console.log('updateAddProfOrgAgent');
+    //   this.updateAddProfOrgAgent();
+    // }
     else if (tabIndex == tabIndices.addByQrcode) {
       console.log('updateAddProfOrgAgent');
       this.updateAddByQrcode();

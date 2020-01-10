@@ -87,7 +87,7 @@ Component({
       let qrcodes = this.convertAndDraw(qrcodesEncoded);
       let sysInfo = wx.getSystemInfoSync();
       let marginLeft = (sysInfo.windowWidth - 200) / 2 - 10;
-      console.log('qrcodes: ', qrcodes, this.data.userTypeDataMap);
+      console.log('qrcodes: ', qrcodes, userTypeDataMap);
       let userTypeText = userTypeDataMap[userType];
       this.setData({ qrcodesEncoded, qrcodes, marginLeft, userType, userTypeText });
     },

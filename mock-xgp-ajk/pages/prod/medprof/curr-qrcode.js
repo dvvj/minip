@@ -16,7 +16,8 @@ Page({
   convertAndDraw: function (qrcode) {
     // let decArr = wx.base64ToArrayBuffer(qrcode.qrcodeEnc);
     // qrcode.qrcode = util.base64DecAscii(decArr);
-    qrcode.qrcode = base64Util.baseDecode(enc.qrcodeEnc);
+    console.log('qrcode: ', qrcode)
+    qrcode.qrcode = base64Util.baseDecode(qrcode.qrcodeEnc);
     this.draw(qrcode);
     console.log('decoded: ', qrcode.qrcode);
   },

@@ -108,6 +108,9 @@ const newMedProfPreReqDataUrl = function () {
 const newMedProfQrcodePreReqDataUrl = function () {
   return newMedProfPreReqDataUrl();
 };
+// const newAgentQrcodePreReqDataUrl = function () {
+//   return util.getProforgBaseUrl() + '/newProfOrgAgentPreReqData';
+// };
 const newMedProfUrl = function () {
   return util.getProforgagentBaseUrl() + '/newMedProf';
 };
@@ -1225,16 +1228,7 @@ const datasrc = {
             let rewardPlans = res.data.rewardPlans;
             console.log("reward plans: ", rewardPlans);
 
-            let newProfOrgAgent = {
-              agentid: 'a-',
-              password: '123',
-              password2: '123',
-              name: '张某',
-              mobile: '13700033333',
-              info: '业务员信息'
-            };
-
-            cb({ newProfOrgAgent, rewardPlans });
+            cb({ rewardPlans });
           }
 
         }).catch(function (reason) {

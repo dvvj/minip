@@ -27,7 +27,7 @@ const populateUserTypeDataMap = () => {
   res[registerUtil.userTypes.ProfOrgAgent] = {
     txt: '业务员',
     color: '#2222cc',
-    newQrcodePrepDataFunc: datasrc.proforgagent.getMedProfNewQrcodeData,
+    newQrcodePrepDataFunc: datasrc.proforg.getNewProfOrgAgentData,
     qrcodeGenPage: '../../../pages/prod/proforg/gen-qrcode'
   };
   return res;

@@ -3,6 +3,12 @@
 
 <van-cell>
   <view slot="title">
+    <text class='group-title'>【{{currMedProf.name}}】积分套餐</text>
+  </view>
+</van-cell>
+
+<van-cell>
+  <view slot="title">
     <text class='group-title'>【{{currMedProf.name}}】销售数据统计</text>
   </view>
 </van-cell>

@@ -109,13 +109,30 @@ Page({
   onLoad: function (options) {
     let currAgent = wx.getStorageSync(util.currAgentKey);
     let chartDataRaw = cacheUtil.getProfitStatsPerProfOrgAgent();
-
     console.log('in agent-detail', currAgent, chartDataRaw);
-    this.setData({ currAgent, chartDataRaw });
 
+    const that = this;
+    toastUtil.waiting(this, true, '加载数据中...');
+    datasrc.proforg.updateRewardPlansPreReq(
+      currAgent.agentId,
+      res => {
+        const {rewardPlans, selectedPlan} = res;
+        console.log("rewardPlans: ", rewardPlans);
+        toastUtil.waiting(that, false);
+        const dlgSetRewardPlans = that.selectComponent("#dlgSetRewardPlans");
+        dlgSetRewardPlans.initData({agentId:currAgent.agentId, rewardPlans, selectedPlan});
+      }
+    );
+
+    this.setData({ currAgent, chartDataRaw });
     this.setYearMonthDefault();
   },
 
+  onSetRewardPlan: function (e) {
+    console.log('onSetRewardPlan clicked:');
+    const dlgSetRewardPlans = this.selectComponent("#dlgSetRewardPlans");
+    dlgSetRewardPlans.showDlg();
+  },
   /**
    * Lifecycle function--Called when page is initially rendered
    */

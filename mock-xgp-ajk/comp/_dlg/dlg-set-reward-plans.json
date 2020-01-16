@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "van-dialog": "../../../vant-lib/dialog/index",
+    "set-reward-plans": "set-reward-plans"
+  }
+}

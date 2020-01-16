@@ -1,24 +1,20 @@
-<!--comp/_qrcode/qrcode-gen-medprof-agent.wxml-->
+<!--comp/_dlg/set-reward-plans.wxml-->
 <waiting-toast id="waitingToast" />
 
-<!-- <van-dialog id='van-dialog' use-slot> -->
 <van-cell-group>
-
   <van-cell
     title="积分套餐："
     value-class="value-class"
   />
   <van-picker
     columns="{{ rewardPlanInfos }}"
+    default-index="{{currentSelIndex}}"
     visible-item-count="4"
     item-height="40"
     bind:change="onRewardPlanChange" />
 
   <!-- <van-button type="primary" size="large" bind:click="onNewCustomerProfile">添加用户档案</van-button> -->
   <van-button type="custom" custom-class="lb-button"
-    size="large" bind:click="onNewQRCode">添加二维码</van-button>
+    size="large" bind:click="onSetRewardPlan">设置积分套餐</van-button>
 
-  <van-button plain type="custom" custom-class="lb-button"
-    size="large" bind:click="onGoBack">返回二维码列表</van-button>
 </van-cell-group>
-

@@ -1,0 +1,9 @@
+{
+  "component": true,
+  "usingComponents": {
+    "van-cell-group": "../../vant-lib/cell-group/index",
+    "van-button": "../../vant-lib/button/index",
+    "van-picker": "../../vant-lib/picker/index",
+    "waiting-toast": "../waiting-toast"
+  }
+}

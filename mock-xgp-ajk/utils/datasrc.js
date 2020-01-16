@@ -121,6 +121,12 @@ const profOrgAgentListUrl = function () {
 const profOrgProfitStatsUrl = function () {
   return util.getProforgBaseUrl() + '/profitStats4Wx';
 };
+const profOrgUpdateRewardPlansPreReqUrl = function () {
+  return util.getProforgBaseUrl() + '/updateRewardPlansPreReq';
+};
+const profOrgUpdateRewardPlansReqUrl = function () {
+  return util.getProforgBaseUrl() + '/updateRewardPlansReq';
+};
 const profOrgGetAgentQrcodeListUrl = function () {
   return util.getProforgBaseUrl() + '/getQrCodeCfgs';
 };
@@ -1145,6 +1151,49 @@ const datasrc = {
   },
 
   proforg: {
+    updateRewardPlansReq: (agentId, rewardPlanId, cb) => {
+      const that = this;
+      let tokens = util.getStoredTokens();
+      const methodName = "proforg:updateRewardPlansReq";
+      console.log('agentId, rewardPlanId: ', agentId, rewardPlanId);
+
+      wx.request({
+        url: profOrgUpdateRewardPlansReqUrl(),
+        method: "POST",
+        data: { agentId, rewardPlanId },
+        header: util.postJsonReqHeader(tokens),
+        success: resp => {
+          console.log(`${methodName}: `, resp)
+          if (checkRespStatus(resp, methodName)) {
+            util.updateXAuth(resp.header[util.xAuthHeader]);
+            cb();
+          }
+        },
+        fail: err => requestFail(err, "getProfOrgAgentList")
+      })
+    },
+    updateRewardPlansPreReq: (agentId, cb) => {
+      const that = this;
+      let tokens = util.getStoredTokens();
+      const methodName = "proforg:updateRewardPlansPreReq";
+
+      console.log('agentId: ', agentId);
+
+      wx.request({
+        url: profOrgUpdateRewardPlansPreReqUrl(),
+        method: "POST",
+        data: { agentId },
+        header: util.postJsonReqHeader(tokens),
+        success: resp => {
+          console.log(`${methodName}: `, resp)
+          if (checkRespStatus(resp, methodName)) {
+            util.updateXAuth(resp.header[util.xAuthHeader]);
+            cb(resp.data);
+          }
+        },
+        fail: err => requestFail(err, "getProfOrgAgentList")
+      })
+    },
     getQRCodeList: proforgGetQRCodeList,
     saveNewQrcode: proforgSaveNewQrcode,
     getProfOrgAgentList: (cb) => {

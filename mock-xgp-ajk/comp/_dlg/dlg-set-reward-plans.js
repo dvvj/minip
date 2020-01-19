@@ -24,6 +24,10 @@ Component({
       const setRewardPlans = this.selectComponent('#setRewardPlans');
       setRewardPlans.initData(rewardPlanData);
     },
+    getSelectedRewardPlan: function() {
+      const setRewardPlans = this.selectComponent('#setRewardPlans');
+      return setRewardPlans.getSelectedRewardPlan();
+    },
     showDlg: function() {
       let that = this;
       Dialog.alert({
@@ -34,8 +38,7 @@ Component({
         context: this
       }).then(() => {
         console.log('triggering confirm event: ');
-        // const setRewardPlans = that.selectComponent('#setRewardPlans');
-        // on close
+        that.triggerEvent("confirm", that.getSelectedRewardPlan());
       }).catch(reason => console.log('cancelled: ', reason));
     }
   }

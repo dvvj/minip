@@ -33,6 +33,7 @@ Page({
    */
   data: {
     currAgent: {},
+    selectedRewardPlan: {},
     ec: {
       onInit: initChart
     },
@@ -117,21 +118,33 @@ Page({
       currAgent.agentId,
       res => {
         const {rewardPlans, selectedPlan} = res;
-        console.log("rewardPlans: ", rewardPlans);
         toastUtil.waiting(that, false);
         const dlgSetRewardPlans = that.selectComponent("#dlgSetRewardPlans");
+        const selectedRewardPlan = rewardPlans.filter(rp => rp.id === selectedPlan)[0];
+        console.log("rewardPlans: ", rewardPlans, selectedRewardPlan);
         dlgSetRewardPlans.initData({agentId:currAgent.agentId, rewardPlans, selectedPlan});
+        that.setData({currAgent, chartDataRaw, selectedRewardPlan});
       }
     );
 
-    this.setData({ currAgent, chartDataRaw });
     this.setYearMonthDefault();
   },
 
-  onSetRewardPlan: function (e) {
-    console.log('onSetRewardPlan clicked:');
+  _getSelectedRewardPlan: function() {
     const dlgSetRewardPlans = this.selectComponent("#dlgSetRewardPlans");
+    return dlgSetRewardPlans.getSelectedRewardPlan();
+  },
+
+  onSetRewardPlan: function (e) {
+    const dlgSetRewardPlans = this.selectComponent("#dlgSetRewardPlans");
+    console.log('onSetRewardPlan data:', dlgSetRewardPlans.getSelectedRewardPlan());
     dlgSetRewardPlans.showDlg();
+  },
+
+  onCloseDlgSetRewardPlans: function(evt) {
+    const selectedRewardPlan = evt.detail;
+    console.log('onCloseDlgSetRewardPlans:', selectedRewardPlan);
+    this.setData({selectedRewardPlan});
   },
   /**
    * Lifecycle function--Called when page is initially rendered

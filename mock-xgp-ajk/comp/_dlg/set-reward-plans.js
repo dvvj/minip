@@ -46,6 +46,10 @@ Component({
       });
     },
 
+    getSelectedRewardPlan: function() {
+      return this.data.selectedRewardPlan;
+    },
+
     onRewardPlanChange: function (e) {
       const { picker, value, index } = e.detail;
       let selectedRewardPlan = this.data.rewardPlans[index];

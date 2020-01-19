@@ -1,7 +1,7 @@
 <!--pages/prod/proforg/agent-detail.wxml-->
 <waiting-toast id="waitingToast" />
 
-<dlg-set-reward-plans id="dlgSetRewardPlans" />
+<dlg-set-reward-plans id="dlgSetRewardPlans" bind:confirm="onCloseDlgSetRewardPlans" />
 
 <van-cell>
   <view slot="title">
@@ -9,8 +9,19 @@
   </view>
 </van-cell>
 
-<van-button type="custom" custom-class="lb-button"
-  size="large" bind:click="onSetRewardPlan">设置积分套餐</van-button>
+<van-cell>
+  <view class="van-cell-text">
+    <van-button type="custom" custom-class="lb-button"
+      size="small" bind:click="onSetRewardPlan">
+      设置积分套餐
+    </van-button>
+  </view>
+  <view slot="title">
+    <view class="van-cell-text">
+      <text>{{selectedRewardPlan.info}}</text>
+    </view>
+  </view>
+</van-cell>
 
 <van-cell>
   <view slot="title">

@@ -57,10 +57,10 @@ Page({
       this.data.yearMonthStart,
       this.data.yearMonthEnd,
       ordersRaw => {
-        let orders = this.trimOrderData(ordersRaw)
-        let orderList = this.selectComponent("#orderList");
+        let orders = that.trimOrderData(ordersRaw)
+        let orderList = that.selectComponent("#orderList");
         orderList.initData(orders);
-        toastUtil.waiting(this, false);
+        toastUtil.waiting(that, false);
       }
     );
 
@@ -126,9 +126,9 @@ Page({
         .substring(0, 16)
         .replace('T', ' ');
       let orderId = order.order.id;
-      let prodCount = order.order.qty;
+      let quantity = order.order.quantity;
       let status = order.order.payTime ? '已付款' : '未付款';
-      return { orderId, status, actualCost, prodCount, creationTime, productShortName};
+      return { orderId, status, actualCost, quantity, creationTime, productShortName};
     })
   },
 

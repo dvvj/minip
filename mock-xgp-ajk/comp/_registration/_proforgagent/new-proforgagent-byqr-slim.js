@@ -97,11 +97,11 @@ Component({
     },
     fixProfOrgAgent: function (agent, orgId) {
       return {
-        uid: agent.agentid,
+        //uid: agent.agentid,
         name: agent.name,
-        info: agent.info,
-        passHash: agent.password,
-        phone: agent.mobile,
+        //info: agent.info,
+        //passHash: agent.password,
+        mobile: agent.mobile,
         orgId: orgId
       }
     },
@@ -126,8 +126,9 @@ Component({
       else {
         let that = this;
         let orgId = this.data.orgId; //util.getUserId();
+        const agentInfo = this.fixProfOrgAgent(this.data.newProfOrgAgent, orgId);
         let newProfOrgAgentReq = {
-          profOrgAgent: this.fixProfOrgAgent(this.data.newProfOrgAgent, orgId),
+          ...agentInfo,
           rewardPlanId: this.data.rewardPlanId
         };
         console.log('onAddProfOrgAgent: orgId: ', orgId, newProfOrgAgentReq);

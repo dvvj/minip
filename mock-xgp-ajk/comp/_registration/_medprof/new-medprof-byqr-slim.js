@@ -60,12 +60,16 @@ Component({
       else {
         let that = this;
         let agentId = this.data.agentId;
-        console.log('onAddMedProf: agentid: ', agentId);
+        const { name, mobile } = this.data.newMedProf;
         let newMedProfReq = {
-          medprof: this.fixMedProf(this.data.newMedProf, agentId),
+          //medprof: this.fixMedProf(this.data.newMedProf, agentId),
+          agentId,
+          name,
+          mobile,
           rewardPlanId: this.data.rewardPlanId
         };
-        let profid = newMedProfReq.medprof.uid;
+        console.log('onAddMedProf: ', newMedProfReq);
+        //let profid = newMedProfReq.medprof.uid;
         toastUtil.waiting4dlg(this, true, '添加操作中...');
         datasrc.registration.registerMedProfMobileNameOnly(
           newMedProfReq,
@@ -78,7 +82,7 @@ Component({
               toastUtil.success4dlg(that, `添加成功`);
             }
             else {
-              toastUtil.fail4dlg(that, `添加营养师[${profid}]失败: ${msg}`);
+              toastUtil.fail4dlg(that, `添加营养师[${name}]失败: ${msg}`);
             }
           }
         );

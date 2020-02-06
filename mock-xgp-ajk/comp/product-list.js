@@ -98,23 +98,26 @@ Component({
 
       toastUtil.waiting(this, true, '获取资料中...');
       datasrc.customer.preCompleteCustomerInfo(
-        respData => {
+        resp => {
           toastUtil.waiting(that, false);
-          console.log('respData', respData);
+          console.log('resp', resp);
 
-          let currCustomer = respData;
-          let isComplete = that.checkCustomerInfoComplete(currCustomer);
-          util.saveCustomerInfo(isComplete);
-          that.setData({ isCustomerInfoComplete: isComplete });
+          if (resp.success) {
+            let currCustomer = resp.data;
+            let isComplete = that.checkCustomerInfoComplete(currCustomer);
+            util.saveCustomerInfo(isComplete);
+            that.setData({ isCustomerInfoComplete: isComplete });
+  
+            if (!isComplete) {
+              let completeCustomerInfoDlg = that.selectComponent("#completeCustomerInfoDlg");
+              completeCustomerInfoDlg.initData(currCustomer);
+              completeCustomerInfoDlg.showDlg();
+            }
+            else {
+              that.buyProduct(prodId);
+            }
+          }
 
-          if (!isComplete) {
-            let completeCustomerInfoDlg = that.selectComponent("#completeCustomerInfoDlg");
-            completeCustomerInfoDlg.initData(currCustomer);
-            completeCustomerInfoDlg.showDlg();
-          }
-          else {
-            that.buyProduct(prodId);
-          }
         }
       )
     },

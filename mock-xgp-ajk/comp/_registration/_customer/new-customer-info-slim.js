@@ -54,11 +54,13 @@ Component({
       let { profId, profileReq } = this.data;
       let existingCustomer = existingCustomerInfo.getExistingCustomer();
 
+      const mobile = existingCustomer.cidOrMobile;
+      const productIds = profileReq.productIds;
       //let customer = registerUtil.convertCustomer(newCustomer);
       let existingCustomerReq = {
         profOrAgentId: profId,
-        cidOrMobile: existingCustomer.cidOrMobile,
-        profileReq
+        mobile,
+        productIds
       };
 
       console.log('[todo] existingCustomerReq', existingCustomerReq);
@@ -93,8 +95,11 @@ Component({
 
       let { profId, newCustomer, profileReq } = this.data;
       let customer = registerUtil.convertCustomer(newCustomer);
-      let newCustomerReq = { customer, profileReq };
-      let registerCustomerReq = { profId, newCustomerReq };
+      //let newCustomerReq = { customer, profileReq };
+
+      const {mobile} = customer;
+      const {productIds} = profileReq;
+      let registerCustomerReq = { profAgentId: profId, mobile, productIds };
 
       console.log('[todo] registerCustomerReq', registerCustomerReq);
 

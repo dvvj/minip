@@ -142,14 +142,18 @@ Page({
     let userId = util.getUserId(); //wx.getStorageSync(util.userIdKey);
     toastUtil.waiting(this, true, '加载数据中...');
     datasrc.getSetting(
+      util.getMedProfSettingsUrl(),
       settings => {
         console.log('getsetting: ', settings);
-        settingPassword.initData({
-          disabled: false,
-          loadingText: '',
-          userid: userId,
-          mobile: settings.mobile
-        })
+        settingPassword.initData(
+          {
+            disabled: false,
+            loadingText: '',
+            userid: userId,
+            mobile: settings.mobile
+          },
+          util.updateMedProfSettingsUrl()
+        );
         toastUtil.waiting(that, false);
       }
     )

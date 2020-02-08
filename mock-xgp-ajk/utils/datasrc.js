@@ -2,9 +2,11 @@ const util = require('util.js');
 const cacheUtil = require('cache-util.js');
 const imgUtil = require('img-util.js');
 
-const getSettingsUrl = function() {
-  return util.getSettingsBaseUrl() + '/get';
-};
+// const getSettingsUrl = function() {
+//   return util.getSettingsBaseUrl() + '/get';
+// };
+
+
 const updateSettingsUrl = function () {
   return util.getSettingsBaseUrl() + '/update';
 };
@@ -409,12 +411,12 @@ const getNewQrcodeData = (cb, userType) => {
 
 const datasrc = {
   switchUserToLoginPage,
-  getSetting: function (cb) {
+  getSetting: function (url, cb) {
     const methodName = "getSetting";
     let tokens = util.getStoredTokens();
     util.promisify(wx.request)
       ({
-        url: getSettingsUrl(),
+        url,
         method: 'GET',
         header: util.getJsonReqHeader(tokens),
       }).then(res => {
@@ -427,12 +429,12 @@ const datasrc = {
         requestFail(reason, methodName);
       });
   },
-  updateSetting: function(updatedSettings, cb) {
+  updateSetting: function(url, updatedSettings, cb) {
     const methodName = "updateSetting";
     let tokens = util.getStoredTokens();
     util.promisify(wx.request)
       ({
-        url: updateSettingsUrl(),
+        url,
         method: 'POST',
         data: updatedSettings,
         header: util.getJsonReqHeader(tokens),

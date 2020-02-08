@@ -28,7 +28,8 @@ Component({
       password: '',
       password2: '',
       mobile: ''
-    }
+    },
+    updateUrl: null
   },
 
   /**
@@ -38,14 +39,15 @@ Component({
     getSwitchUserComp: function() {
       return this.selectComponent("#switchUser");
     },
-    initData: function (userPassInfo) {
+    initData: function (userPassInfo, updateUrl) {
       let altUids = util.getAltUids();
 
       console.log('initData: ', userPassInfo, altUids);
       altUids = altUids.filter(uid => userPassInfo.userid !== uid);
       console.log('initData after filtering: ', altUids);
-
-      this.setData({ userPassInfo, altUids });
+      if (!updateUrl)
+        error('[initData] updateUrl missing');
+      this.setData({ userPassInfo, altUids, updateUrl });
       const su = this.getSwitchUserComp();
       if (altUids.length > 0) {
         su.initData(altUids);
@@ -100,6 +102,7 @@ Component({
       };
       console.log('[onUpdateSetting]: ', updatedSetting);
       datasrc.updateSetting(
+        this.data.updateUrl,
         updatedSetting,
         resp => {
           let { success, msg } = resp;

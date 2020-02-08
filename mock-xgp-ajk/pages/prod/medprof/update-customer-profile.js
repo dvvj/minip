@@ -17,21 +17,21 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
-    let { pricePlans, products, profile, selectedPlanId } = cacheUtil.getCurrCustomerProfile();
+    let { products, profile } = cacheUtil.getCurrCustomerProfile();
     let selected = products.filter(p => p.checked).map(p => p.shortName);
     console.log('selected: ', selected);
-    let pricePlanInfos = pricePlans.map(pp => pp.desc);
-    var prevSelectedIndex = 0;
-    for (var idx = 0; idx < pricePlans.length; idx++) {
-      if (pricePlans[idx].id == selectedPlanId) {
-        prevSelectedIndex = idx;
-        break;
-      }
-    }
-    let selectedPricePlan = pricePlans[prevSelectedIndex];
-    console.log("initially selected plan: ", selectedPricePlan);
+//    let pricePlanInfos = pricePlans.map(pp => pp.desc);
+    //var prevSelectedIndex = 0;
+    // for (var idx = 0; idx < pricePlans.length; idx++) {
+    //   if (pricePlans[idx].id == selectedPlanId) {
+    //     prevSelectedIndex = idx;
+    //     break;
+    //   }
+    // }
+    // let selectedPricePlan = pricePlans[prevSelectedIndex];
+    // console.log("initially selected plan: ", selectedPricePlan);
     let customerId = profile.customerId;
-    this.setData({ customerId, pricePlans, products, selected, pricePlanInfos, prevSelectedIndex, selectedPricePlan });
+    this.setData({ customerId, products, selected });
   },
 
   onSelectedProductChange: function(e) {
@@ -40,15 +40,15 @@ Page({
       selected: e.detail
     });
   },
-  onPricePlanChange: function (e) {
-    const { picker, value, index } = e.detail;
-    let selectedPricePlan = this.data.pricePlans[index];
-    console.log("price plan changed: ", selectedPricePlan);
-    this.setData({ selectedPricePlan });
-  },
+  // onPricePlanChange: function (e) {
+  //   const { picker, value, index } = e.detail;
+  //   let selectedPricePlan = this.data.pricePlans[index];
+  //   console.log("price plan changed: ", selectedPricePlan);
+  //   this.setData({ selectedPricePlan });
+  // },
 
   getData: function () {
-    let { customerId, products, pricePlans, selected, selectedPricePlan } = this.data;
+    let { customerId, products, selected } = this.data;
     console.log('products, selected', products, selected);
     let selectedProducts = products.filter(p => p.enabled && selected.includes(p.shortName));
     console.log('selectedProducts', selectedProducts);
@@ -56,10 +56,7 @@ Page({
 
     return {
       customerId,
-      profileReq: {
-        productIds: selectedProductIds,
-        pricePlanId: selectedPricePlan.id
-      }
+      productIds: selectedProductIds
     };
   },
 

@@ -65,7 +65,7 @@ Page({
     let reqData = this.getData();
     console.log('reqData: ', reqData);
 
-    toastUtil.waiting(this, true, '加载数据中...');
+    toastUtil.waiting(this, true, '更新数据中...');
     datasrc.medprof.updateCustomerProfile(
       reqData,
       respData => {
@@ -73,7 +73,7 @@ Page({
         toastUtil.waiting(that, false);
 
         let { success, msg } = respData;
-        let message = success ? '添加成功' : `添加失败: ${msg}`
+        let message = success ? '更新成功' : `更新失败: ${msg}`
         success ? toastUtil.success(that, message) : toastUtil.fail(that, message);
       }
     );

@@ -845,9 +845,7 @@ const datasrc = {
         }).then(res => {
           console.log('updateCustomerProfile res: ', res);
           if (checkRespStatus(res, methodName)) {
-            let success = res.statusCode == 200;
-            let msg = res.data;
-            cb({ success, msg });
+            cb(res.data);
           }
 
         }).catch(function (reason) {

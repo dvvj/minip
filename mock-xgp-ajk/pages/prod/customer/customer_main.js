@@ -125,7 +125,7 @@ Page({
       let creationTime = order.order.creationTime
         .substring(0, 16)
         .replace('T', ' ');
-      let orderId = order.order.id;
+      let orderId = order.order.orderId;
       let quantity = order.order.quantity;
       let status = order.order.payTime ? '已付款' : '未付款';
       return { orderId, status, actualCost, quantity, creationTime, productShortName};

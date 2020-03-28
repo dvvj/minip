@@ -1,0 +1,18 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+<datepicker value="{{solar}}" bindchange="bindSolarChange">
+    <button type="default">公历</button>
+</datepicker>
+  <view class="usermotto">
+    <text class="user-motto">{{motto}}</text>
+  </view>
+  <van-cell title="选择单个日期" value="{{ date }}" bind:click="onShow" />
+  <van-calendar show="{{ show }}" bind:close="onClose" />
+</view>
